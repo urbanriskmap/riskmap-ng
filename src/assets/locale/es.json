@@ -1,0 +1,5 @@
+{
+  "welcome_msg": "{{ title }} mein aapka swagat hai",
+  "display_env": "Vartamaan paryavaran: {{ env }}",
+  "reports_msg": "Pichhle {{ h }} ghanton mein {{ r }} rapat aaye hain"
+}
