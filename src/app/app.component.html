@@ -1,4 +1,16 @@
-<div style="text-align:center">
+<div id="mapWrapper">
+</div>
+
+<div id="navBar">
+  <select id="langMenu" (change)="changeLanguage($event)">
+    <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
+  </select>
+  <p>
+    {{ 'welcome_msg' | translate:param1 }}
+  </p>
+</div>
+
+<!-- <div style="text-align:center">
   <h1>
     {{ 'welcome_msg' | translate:param1 }}
   </h1>
@@ -8,8 +20,4 @@
   <p>
     {{ 'reports_msg' | translate:param3 }}
   </p>
-</div>
-
-<select (change)="changeLanguage($event)">
-  <option *ngFor="let lang of languages" [value]="lang">{{lang}}</option>
-</select>
+</div> -->

@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/fonts/roboto/css/fonts.css";
+@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+// @import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+
+@dark-gray: #2f2f2f;
+@steel-gray: #424242;
+@medium-gray: #808080;
+@light-gray: #dcdcdc;
+@snow-white: #ffffff;
+@banjir-blue: #31aade;
+@bencana-red: #c1272d;
+
+//_Font styles Variables_
+.textlight-mixin(@var, @col) {
+  font-family: "Roboto-Light", "Roboto", Open Sans;
+  font-size: @var;
+  color: @col;
+}
+
+.textregular-mixin(@var, @col) {
+  font-family: "Roboto", "Roboto", Open Sans;
+  font-size: @var;
+  color: @col;
+}
+
+.textmedium-mixin(@var, @col) {
+  font-family: "Roboto-Medium", "Roboto", Open Sans;
+  font-size: @var;
+  color: @col;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
