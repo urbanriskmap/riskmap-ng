@@ -24,4 +24,6 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
   }));
+
+  // Check map parameters from env, zoom, center etc to be in valid range
 });

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import mapboxgl from 'mapbox-gl';
 
@@ -15,10 +16,12 @@ export class AppComponent implements OnInit {
   param2 = {env: env.envName};
   param3 = {r: 3, h: 6};
   languages = env.locales.supportedLanguages;
-
   // Use ngx-translate-messageformat-compiler for pluralization, etc
 
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private route: ActivatedRoute
+  ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang(env.locales.defaultLanguage);
     // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -31,6 +34,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Ref https://alligator.io/angular/query-parameters/
+    // for navigation with & accessing query params
+    this.route.queryParams.subscribe((params: Params) => {
+      console.log(params['city']);
+    });
+
     const self = this;
     mapboxgl.accessToken = env.map.accessToken;
     self.map = new mapboxgl.Map({
