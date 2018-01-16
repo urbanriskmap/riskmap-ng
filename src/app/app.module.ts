@@ -10,6 +10,7 @@ import { ReportInfoComponent } from './report-info/report-info.component';
 import { SensorInfoComponent } from './sensor-info/sensor-info.component';
 import { AreaInfoComponent } from './area-info/area-info.component';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
+import { SidePaneComponent } from './side-pane/side-pane.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
@@ -21,7 +22,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReportInfoComponent,
     SensorInfoComponent,
     AreaInfoComponent,
-    ScreenPopupComponent
+    ScreenPopupComponent,
+    SidePaneComponent
   ],
   imports: [
     BrowserModule,

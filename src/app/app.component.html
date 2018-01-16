@@ -3,12 +3,36 @@
 
 <div id="navBar">
   <select id="langMenu" (change)="changeLanguage($event)">
-    <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
+    <option
+      *ngFor="let lang of languages"
+      [value]="lang.code">
+        {{ lang.name }}
+    </option>
   </select>
+
   <p>
     {{ 'welcome_msg' | translate:param1 }}
   </p>
 </div>
+
+<div id="screenMask">
+</div>
+
+<app-screen-popup>
+</app-screen-popup>
+
+<app-report-info>
+</app-report-info>
+
+<app-area-info>
+</app-area-info>
+
+<app-sensor-info>
+</app-sensor-info>
+
+<app-side-pane>
+</app-side-pane>
+
 
 <!-- <div style="text-align:center">
   <h1>

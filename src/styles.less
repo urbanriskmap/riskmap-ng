@@ -3,6 +3,12 @@
 @import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
 // @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
 
 @dark-gray: #2f2f2f;
 @steel-gray: #424242;
@@ -31,9 +37,21 @@
   color: @col;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+//_Transform class_
+.translate-mixin(@x, @y) {
+  -ms-transform: translate(@x, @y);
+  -webkit-transform: translate(@x, @y);
+  transform: translate(@x, @y);
+}
+
+//_Map component mixins_
+.pane_mixin(@w1, @w2) {
+  @media screen {
+    @media (min-width: @w1) {
+      width: 100%;
+    }
+    @media (min-width: @w2) {
+      width: @w2;
+    }
+  }
 }

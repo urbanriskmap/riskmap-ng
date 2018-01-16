@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import mapboxgl from 'mapbox-gl';
@@ -11,11 +11,20 @@ import { environment as env } from '../environments/environment';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  map: mapboxgl.Map;
   param1 = {title: 'RiskMap', env: env.envName};
   param2 = {env: env.envName};
   param3 = {r: 3, h: 6};
   languages = env.locales.supportedLanguages;
+  selectedRegion: {
+    name: string,
+    code: string,
+    bounds: {
+      sw: number[],
+      ne: number[]
+    }
+  };
+
+  @Output() map: mapboxgl.Map;
   // Use ngx-translate-messageformat-compiler for pluralization, etc
 
   constructor(
@@ -37,7 +46,15 @@ export class AppComponent implements OnInit {
     // Ref https://alligator.io/angular/query-parameters/
     // for navigation with & accessing query params
     this.route.queryParams.subscribe((params: Params) => {
-      console.log(params['city']);
+      for (const region of env.instances.regions) {
+        if (params['region'] === region.name) {
+          this.selectedRegion = region;
+          console.log('code: ' + this.selectedRegion.code);
+          break;
+        } else {
+          console.log('show selection popup');
+        }
+      }
     });
 
     const self = this;
@@ -47,6 +64,7 @@ export class AppComponent implements OnInit {
       container: 'mapWrapper',
       center: env.map.center,
       zoom: env.map.initZoom,
+      minZoom: env.map.minZoom,
       style: env.map.baseMapStyle,
       hash: false,
       preserveDrawingBuffer: true

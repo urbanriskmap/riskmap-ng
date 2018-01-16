@@ -13,6 +13,7 @@
   top: 0px;
   left: 0px;
   background-color: @dark-gray;
+  z-index: 2;
 
   & #langMenu {
     position: absolute;
@@ -28,4 +29,42 @@
     .textlight-mixin(16px, @snow-white);
     margin: 10px 0 0 10px;
   }
+}
+
+#screenMask {
+  // display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: fade(@medium-gray, 50%);
+  z-index: 1;
+}
+
+app-screen-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 200px;
+  .translate-mixin(-50%, -50%);
+  .textlight-mixin(12px, @snow-white);
+  border: none;
+  border-radius: 6px;
+  background-color: @dark-gray;
+  z-index: 2;
+}
+
+app-report-info,
+app-area-info,
+app-sensor-info {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 200px;
+  .pane_mixin(320px, 420px);
+  .textlight-mixin(12px, @snow-white);
+  background-color: @dark-gray;
+  z-index: 2;
 }
