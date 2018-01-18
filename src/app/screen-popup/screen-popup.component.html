@@ -1,3 +1,18 @@
-<p>
-  screen-popup works!
-</p>
+<p mat-dialog-title>Select region</p>
+
+<!-- <mat-radio-group [(ngModel)]="selectedRegion">
+  <mat-radio-button
+    *ngFor="let region of data"
+    [value]="region.name">
+    {{ region.name | titlecase }}
+  </mat-radio-button>
+</mat-radio-group> -->
+
+<mat-dialog-actions>
+  <button mat-button
+    *ngFor="let region of data"
+    [mat-dialog-close]="region"
+    color="accent">
+    {{ region.name | titlecase }}
+  </button>
+</mat-dialog-actions>

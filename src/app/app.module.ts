@@ -6,6 +6,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CustomMaterialsModule } from './custom-materials.module';
 import { ReportInfoComponent } from './report-info/report-info.component';
 import { SensorInfoComponent } from './sensor-info/sensor-info.component';
 import { AreaInfoComponent } from './area-info/area-info.component';
@@ -29,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    CustomMaterialsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -37,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
+  entryComponents: [ScreenPopupComponent],
   providers: [TranslatePipe],
   bootstrap: [AppComponent]
 })

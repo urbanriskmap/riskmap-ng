@@ -1,14 +1,17 @@
 import { Component, Output, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import mapboxgl from 'mapbox-gl';
+import { MatDialog } from '@angular/material';
+import 'rxjs/add/operator/skip';
 
 import { environment as env } from '../environments/environment';
+import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   param1 = {title: 'RiskMap', env: env.envName};
@@ -29,7 +32,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private route: ActivatedRoute
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang(env.locales.defaultLanguage);
@@ -38,22 +43,25 @@ export class AppComponent implements OnInit {
   }
 
   changeLanguage(event) {
-    const lang = event.srcElement.value;
-    this.translate.use(lang);
+    this.translate.use(event.value);
   }
 
   ngOnInit() {
-    // Ref https://alligator.io/angular/query-parameters/
-    // for navigation with & accessing query params
-    this.route.queryParams.subscribe((params: Params) => {
+    // skip accessing queryParams on first init
+    // https://stackoverflow.com/questions/47430727/angular-queryparammap-is-empty-then-populated
+    this.route.queryParams.skip(1).subscribe((params: Params) => {
+      let hasRegionParam = false;
+
       for (const region of env.instances.regions) {
         if (params['region'] === region.name) {
           this.selectedRegion = region;
-          console.log('code: ' + this.selectedRegion.code);
+          hasRegionParam = true;
           break;
-        } else {
-          console.log('show selection popup');
         }
+      }
+
+      if (!hasRegionParam) {
+        this.openDialog();
       }
     });
 
@@ -72,6 +80,18 @@ export class AppComponent implements OnInit {
 
     self.map.on('style.load', () => {
       // Do stuff
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ScreenPopupComponent, {
+      width: '320px',
+      data: env.instances.regions
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.selectedRegion = result;
+      this.router.navigate([''], {queryParams: {region: result.name}});
     });
   }
 }

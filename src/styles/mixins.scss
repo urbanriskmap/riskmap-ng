@@ -1,0 +1,37 @@
+//_Font styles Variables_
+@mixin text-light($var, $col) {
+  font-family: "Roboto-Light", "Roboto", Open Sans;
+  font-size: $var;
+  color: $col;
+}
+
+@mixin text-regular($var, $col) {
+  font-family: "Roboto", "Roboto", Open Sans;
+  font-size: $var;
+  color: $col;
+}
+
+@mixin text-medium($var, $col) {
+  font-family: "Roboto-Medium", "Roboto", Open Sans;
+  font-size: $var;
+  color: $col;
+}
+
+//_Transform class_
+@mixin translate-mixin($x, $y) {
+  -ms-transform: translate($x, $y);
+  -webkit-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+
+//_Map component mixins_
+@mixin pane-width($w1, $w2) {
+  @media screen {
+    @media (min-width: $w1) {
+      width: 100%;
+    }
+    @media (min-width: $w2) {
+      width: $w2;
+    }
+  }
+}

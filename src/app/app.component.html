@@ -1,25 +1,25 @@
 <div id="mapWrapper">
 </div>
 
-<div id="navBar">
-  <select id="langMenu" (change)="changeLanguage($event)">
-    <option
-      *ngFor="let lang of languages"
-      [value]="lang.code">
-        {{ lang.name }}
-    </option>
-  </select>
+<mat-toolbar id="navBar">
+  <mat-toolbar-row>
+    <span (click)="openDialog()">
+      {{ 'welcome_msg' | translate:param1 }}
+    </span>
 
-  <p>
-    {{ 'welcome_msg' | translate:param1 }}
-  </p>
-</div>
-
-<div id="screenMask">
-</div>
-
-<app-screen-popup>
-</app-screen-popup>
+    <mat-form-field id="langMenu">
+      <mat-select
+        placeholder="Language"
+        (change)="changeLanguage($event)">
+        <mat-option
+          *ngFor="let lang of languages"
+          [value]="lang.code">
+            {{ lang.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <app-report-info>
 </app-report-info>
@@ -32,16 +32,3 @@
 
 <app-side-pane>
 </app-side-pane>
-
-
-<!-- <div style="text-align:center">
-  <h1>
-    {{ 'welcome_msg' | translate:param1 }}
-  </h1>
-  <h3>
-    {{ 'display_env' | translate:param2 }}
-  </h3>
-  <p>
-    {{ 'reports_msg' | translate:param3 }}
-  </p>
-</div> -->

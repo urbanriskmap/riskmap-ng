@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-screen-popup',
   templateUrl: './screen-popup.component.html',
-  styleUrls: ['./screen-popup.component.less']
+  styleUrls: ['./screen-popup.component.scss']
 })
-export class ScreenPopupComponent implements OnInit {
+export class ScreenPopupComponent {
+  selectedRegion: {
+    name: string,
+    code: string,
+    bounds: {
+      sw: number[],
+      ne: number[]
+    }
+  };
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    // private dialogRef: MatDialogRef<ScreenPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any) {
   }
 
 }
