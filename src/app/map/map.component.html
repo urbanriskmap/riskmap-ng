@@ -1,0 +1,34 @@
+<div id="mapWrapper">
+</div>
+
+<mat-toolbar id="navBar">
+  <mat-toolbar-row>
+    <span (click)="openDialog()">
+      {{ 'welcome_msg' | translate:param1 }}
+    </span>
+
+    <mat-form-field id="langMenu">
+      <mat-select
+        placeholder="Language"
+        (change)="changeLanguage($event)">
+        <mat-option
+          *ngFor="let lang of languages"
+          [value]="lang.code">
+            {{ lang.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<app-report-info>
+</app-report-info>
+
+<app-area-info>
+</app-area-info>
+
+<app-sensor-info>
+</app-sensor-info>
+
+<app-side-pane>
+</app-side-pane>

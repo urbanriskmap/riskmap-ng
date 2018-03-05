@@ -1,0 +1,45 @@
+@import "styles";
+
+#mapWrapper {
+  width: 100%;
+  height: 100%;
+  background-color: $light-gray;
+}
+
+#langMenu {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  margin-right: 10px;
+  width: 120px;
+  font-size: 12px;
+  height: 38px;
+}
+
+#navBar {
+  position: absolute;
+  top: 0px;
+  min-height: 42px;
+  z-index: 2;
+
+  & .mat-toolbar-row {
+    height: 42px;
+
+    & span {
+      font-size: 16px;
+    }
+  }
+}
+
+app-report-info,
+app-area-info,
+app-sensor-info {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 200px;
+  @include pane-width(320px, 420px);
+  @include text-light(12px, $snow-white);
+  background-color: $dark-gray;
+  z-index: 2;
+}

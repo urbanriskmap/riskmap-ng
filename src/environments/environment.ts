@@ -1,3 +1,8 @@
+// Default env for local development
+// Served with 'ng s'
+
+// For others, use 'ng s --e=dev-us'
+
 export const environment = {
   production: false,
   envName: 'dev-us',
