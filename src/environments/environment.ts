@@ -7,9 +7,12 @@ export const environment = {
   production: false,
   envName: 'dev-us',
 
-  dataServer: 'https://data-dev.riskmap.us/',
-  serverSettings: {
-    reportTimeperiod: 604800
+  servers: {
+    data: 'https://data-dev.riskmap.us/',
+    sensors: 'https://sensors-dev.riskmap.us/',
+    settings: {
+      reportTimeperiod: 604800
+    }
   },
 
   map: {
@@ -40,5 +43,11 @@ export const environment = {
         }
       }
     ]
-  }
+  },
+
+  supportedLayers: [
+    {name: 'reports',   present: true,    server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
+    {name: 'areas',     present: false,   server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
+    {name: 'sensors',   present: true,    server: 'sensors',  useRegionFlag: false, responseType: 'geojson'}
+  ]
 };

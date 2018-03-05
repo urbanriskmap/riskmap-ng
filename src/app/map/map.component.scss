@@ -34,12 +34,23 @@
 app-report-info,
 app-area-info,
 app-sensor-info {
+  display: none;
   position: fixed;
   bottom: 0;
   right: 0;
   height: 200px;
   @include pane-width(320px, 420px);
   @include text-light(12px, $snow-white);
+  background-color: $dark-gray;
+  z-index: 2;
+}
+
+app-side-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  @include pane-width(320px, 420px);
+  height: 100%;
   background-color: $dark-gray;
   z-index: 2;
 }

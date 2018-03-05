@@ -9,7 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "manifest.json"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -29,13 +29,15 @@
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
+        "dev": "environments/environment.ts",
         "dev-us": "environments/us/environment.ts",
         "prod-us": "environments/us/environment.prod.ts",
         "dev-in": "environments/in/environment.ts",
         "prod-in": "environments/in/environment.prod.ts",
         "dev-id": "environments/id/environment.ts",
         "prod-id": "environments/id/environment.prod.ts"
-      }
+      },
+      "serviceWorker": true
     }
   ],
   "e2e": {

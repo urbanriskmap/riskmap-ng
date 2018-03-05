@@ -5,11 +5,13 @@
   "license": "GPL-3.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --env=dev-us",
+    "start": "ng serve --environment=dev-us",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-prod-ngsw": "ng build --environment=prod-us && node_modules/.bin/ngsw-config dist ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/ngsw-worker.js",
+    "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist -p 8080"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "@angular/service-worker": "^5.2.7",
     "@ngx-translate/core": "^9.0.2",
     "@ngx-translate/http-loader": "^2.0.1",
     "chart.js": "^2.5.0",

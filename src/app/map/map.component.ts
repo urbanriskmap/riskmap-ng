@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import 'rxjs/add/operator/skip';
 
 import { environment as env } from '../../environments/environment';
+import { LayerService } from '../services/layer.service';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 
 @Component({
@@ -15,8 +16,6 @@ import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 })
 export class MapComponent implements OnInit {
   param1 = {title: 'RiskMap', env: env.envName};
-  param2 = {env: env.envName};
-  param3 = {r: 3, h: 6};
   languages = env.locales.supportedLanguages;
   selectedRegion: {
     name: string,
@@ -31,10 +30,11 @@ export class MapComponent implements OnInit {
   // Use ngx-translate-messageformat-compiler for pluralization, etc
 
   constructor(
-    private translate: TranslateService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translate: TranslateService,
+    public layerService: LayerService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang(env.locales.defaultLanguage);
@@ -42,7 +42,7 @@ export class MapComponent implements OnInit {
     this.translate.use(env.locales.defaultLanguage);
   }
 
-  changeLanguage(event) {
+  changeLanguage(event): void {
     this.translate.use(event.value);
   }
 
@@ -80,6 +80,9 @@ export class MapComponent implements OnInit {
 
     self.map.on('style.load', () => {
       // Do stuff here
+      if (self.selectedRegion) {
+        self.layerService.initializeLayers(self.selectedRegion);
+      }
     });
   }
 

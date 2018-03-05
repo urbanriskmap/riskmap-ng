@@ -9,7 +9,12 @@ import { AreaInfoComponent } from './area-info/area-info.component';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 import { SidePaneComponent } from './side-pane/side-pane.component';
 import { MapComponent } from './map.component';
+
 import { CustomMaterialsModule } from '../custom-materials.module';
+
+import { TimeService } from '../services/time.service';
+import { LayerService } from '../services/layer.service';
+import { HttpService } from '../services/http.service';
 
 @NgModule({
   imports: [
@@ -19,6 +24,9 @@ import { CustomMaterialsModule } from '../custom-materials.module';
     TranslateModule
   ],
   providers: [
+    TimeService,
+    LayerService,
+    HttpService,
     TranslatePipe
   ],
   entryComponents: [ScreenPopupComponent],
