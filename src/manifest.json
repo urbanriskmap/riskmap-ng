@@ -2,13 +2,33 @@
   "short_name":"RiskMap",
   "name":"RiskMap",
   "start_url":"/",
-  "theme_color":"#ffffff",
-  "background_color":"#ffffff",
+  "theme_color":"#31aade",
+  "background_color":"#f0f0f0",
   "display":"standalone",
   "orientation":"portrait",
   "icons":[
     {
       "src":"/assets/icons/apple-touch-icon.png",
+      "type":"image/png"
+    },
+    {
+      "src":"/assets/icons/apple-touch-icon-120x120.png",
+      "sizes":"120x120",
+      "type":"image/png"
+    },
+    {
+      "src":"/assets/icons/apple-touch-icon-120x120-precomposed.png",
+      "sizes":"120x120",
+      "type":"image/png"
+    },
+    {
+      "src":"/assets/icons/apple-touch-icon-180x180-precomposed.png",
+      "sizes":"120x120",
+      "type":"image/png"
+    },
+    {
+      "src":"/assets/icons/apple-touch-icon-180x180.png",
+      "sizes":"180x180",
       "type":"image/png"
     },
     {
