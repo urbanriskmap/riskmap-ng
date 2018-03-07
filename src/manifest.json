@@ -22,12 +22,12 @@
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/apple-touch-icon-180x180-precomposed.png",
-      "sizes":"120x120",
+      "src":"/assets/icons/apple-touch-icon-180x180.png",
+      "sizes":"180x180",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/apple-touch-icon-180x180.png",
+      "src":"/assets/icons/apple-touch-icon-180x180-precomposed.png",
       "sizes":"180x180",
       "type":"image/png"
     },

@@ -11,16 +11,25 @@ export class HttpService {
     private http: HttpClient
   ) { }
 
-  getData(
+  getGeometryData(
     layer: {
       name: string,
-      present: boolean,
       server: string,
       useRegionFlag: boolean,
       responseType: string
     },
     region: string
-  ): Promise<any> {
+  ): Promise<{
+    type: string,
+    features: {
+      type: string,
+      geometry: {
+        type: string,
+        coordinates: number[]
+      },
+      properties: any
+    }[]
+  }> {
     let endpoint = env.servers[layer.server] + layer.name;
     if (layer.useRegionFlag) {
       endpoint = endpoint + '?city=' + region;
@@ -33,7 +42,6 @@ export class HttpService {
       this.http
       .get(endpoint)
       .subscribe(response => {
-
         if (response['statusCode'] === 200) {
 
           if (layer.responseType === 'topojson') {
@@ -48,6 +56,44 @@ export class HttpService {
             resolve(response['body']);
           }
 
+        } else {
+          reject(response);
+        }
+      });
+    });
+  }
+
+  getJsonData(
+    server: string,
+    endpoint: string,
+    flags: {
+      key: string,
+      value: string
+    }[]|null
+  ): Promise<any> {
+    let queryUrl = env.servers[server] + endpoint;
+
+    if (flags && flags.length) {
+      let flagCount = 0;
+
+      for (const flag of flags) {
+        if (flag && flag.key) {
+          if (flagCount === 0) {
+            queryUrl = queryUrl + '?' + flag.key + '=' + flag.value;
+            flagCount += 1;
+          } else {
+            queryUrl = queryUrl + '&' + flag.key + '=' + flag.value;
+          }
+        }
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http
+      .get(queryUrl)
+      .subscribe(response => {
+        if (response['statusCode'] === 200) {
+          resolve(response['body']);
         } else {
           reject(response);
         }

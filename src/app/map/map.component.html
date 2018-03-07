@@ -7,6 +7,12 @@
       {{ 'welcome_msg' | translate:param1 }}
     </span>
 
+    <button mat-button
+      id="saveBtn"
+      (click)="addToHomeScreen()">
+      A2HS
+    </button>
+
     <mat-form-field id="langMenu">
       <mat-select
         placeholder="Language"

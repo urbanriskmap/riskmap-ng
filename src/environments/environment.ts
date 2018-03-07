@@ -44,10 +44,49 @@ export const environment = {
       }
     ]
   },
-
   supportedLayers: [
-    {name: 'reports',   present: true,    server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
-    {name: 'areas',     present: false,   server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
-    {name: 'sensors',   present: true,    server: 'sensors',  useRegionFlag: false, responseType: 'geojson'}
+    {
+      metadata: {
+        name: 'reports',  server: 'data',     useRegionFlag: true,  responseType: 'topojson'
+      },
+      settings: {
+        id: 'reports',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <any>null
+        },
+        paint: {
+          'circle-color': '#31aade',
+          'circle-radius': 8,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ffffff'
+        }
+      }
+    },
+    {
+      metadata: {
+        name: 'sensors',  server: 'sensors',  useRegionFlag: false, responseType: 'geojson'
+      },
+      settings: {
+        id: 'sensors',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <any>null
+        },
+        paint: {
+          'circle-color': '#ff0000',
+          'circle-radius': 5,
+          'circle-stroke-width': 1
+        },
+        filter: ['==', 'recent', true]
+        // filter: [
+        //   'all',
+        //   ['has', 'observations']
+        // ]
+      }
+    }
+    // {name: 'areas',   server: 'data',     useRegionFlag: true,  responseType: 'topojson'}
   ]
 };
