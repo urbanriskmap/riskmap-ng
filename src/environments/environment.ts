@@ -80,11 +80,7 @@ export const environment = {
           'circle-radius': 5,
           'circle-stroke-width': 1
         },
-        filter: ['==', 'recent', true]
-        // filter: [
-        //   'all',
-        //   ['has', 'observations']
-        // ]
+        filter: ['has', 'observations']
       }
     }
     // {name: 'areas',   server: 'data',     useRegionFlag: true,  responseType: 'topojson'}

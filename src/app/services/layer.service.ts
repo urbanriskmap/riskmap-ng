@@ -13,7 +13,14 @@ export class LayerService {
     private httpService: HttpService
   ) { }
 
-  updateSensorProperties(geojson, settings) {
+  updateSensorProperties(geojson, settings): Promise<{
+    type: string,
+    geometry: {
+      type: string,
+      coordinates: number[],
+    },
+    properties: any,
+  }[]> {
     const sensors = [];
 
     return new Promise((resolve, reject) => {
@@ -28,10 +35,6 @@ export class LayerService {
         .then(observationGroups => {
           if (observationGroups.length) {
             const latestObs = observationGroups[observationGroups.length - 1];
-            const lastUpdate = new Date(latestObs.created); // timestamp when latest data entry was created
-
-            // Set thresholdDate to 'x' hours ago (subtract milliseconds)
-            const thresholdDate = new Date(Date.parse((new Date()).toISOString()) - (24 * 60 * 60 * 1000));
 
             // Append sensor observations to sensor properties
             if (Array.isArray(latestObs.properties.observations)) {
@@ -49,13 +52,6 @@ export class LayerService {
               ) {
                 sensor.properties.observations = latestObs.properties.observations;
               }
-            }
-
-            // Append recent property only if updated after thresholdDate
-            if (lastUpdate > thresholdDate) {
-              sensor.properties.recent = true;
-            } else {
-              sensor.properties.recent = false;
             }
           }
 
@@ -94,10 +90,13 @@ export class LayerService {
               geojson.features = sensors;
               layer.settings.source.data = geojson;
 
-              console.log(layer.settings);
-
               // Add layer
-              this.map.addLayer(layer.settings);
+              // TODO: BAD solution,
+              // have to wait till properties are updated
+              // Using promise doesn't help...
+              window.setTimeout(() => {
+                this.map.addLayer(layer.settings);
+              }, 1000);
             });
           });
           break;
