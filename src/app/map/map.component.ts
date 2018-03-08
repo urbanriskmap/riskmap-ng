@@ -10,6 +10,9 @@ import { environment as env } from '../../environments/environment';
 import { LayerService } from '../services/layer.service';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 
+/**
+ * View model for Riskmap landing page
+ */
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -112,7 +115,7 @@ export class MapComponent implements OnInit {
   }
 
   // Ref https://developers.google.com/web/fundamentals/app-install-banners/
-  addToHomeScreen() {
+  addToHomeScreen(): void {
     if (this.deferredPrompt) {
       this.deferredPrompt.prompt();
 

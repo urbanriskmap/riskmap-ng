@@ -9,6 +9,11 @@ export class SensorService {
     private httpService: HttpService
   ) { }
 
+  /**
+   * Get stored data for sensor & transform its properties
+   * @param sensor Geojson feature
+   * @returns Promise that fulfills when properties are fetched and transformed
+   */
   fetchAndTransformData(
     sensor: {
       type: string,
@@ -95,6 +100,7 @@ export class SensorService {
     const fetchAndTransformProcesses = [];
 
     for (const sensor of geojson.features) {
+      // Ref https://daveceddia.com/waiting-for-promises-in-a-loop/
       fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor));
     }
 
