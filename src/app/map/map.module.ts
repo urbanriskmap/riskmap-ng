@@ -15,6 +15,7 @@ import { CustomMaterialsModule } from '../custom-materials.module';
 import { TimeService } from '../services/time.service';
 import { LayerService } from '../services/layer.service';
 import { HttpService } from '../services/http.service';
+import { SensorService } from '../services/sensor.service';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { HttpService } from '../services/http.service';
     TimeService,
     LayerService,
     HttpService,
-    TranslatePipe
+    TranslatePipe,
+    SensorService
   ],
   entryComponents: [ScreenPopupComponent],
   declarations: [

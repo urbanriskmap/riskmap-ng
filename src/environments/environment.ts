@@ -54,7 +54,7 @@ export const environment = {
         type: 'circle',
         source: {
           type: 'geojson',
-          data: <any>null
+          data: <object|null>null
         },
         paint: {
           'circle-color': '#31aade',
@@ -73,7 +73,7 @@ export const environment = {
         type: 'circle',
         source: {
           type: 'geojson',
-          data: <any>null
+          data: <object|null>null
         },
         paint: {
           'circle-color': [
@@ -91,6 +91,17 @@ export const environment = {
         filter: ['has', 'observations']
       }
     }
-    // {name: 'areas',   server: 'data',     useRegionFlag: true,  responseType: 'topojson'}
+    // settings: { // Ref mapbox Layer object
+    //   id: string,
+    //   type: string,
+    //   source?: string|{ // Optional parameter
+    //     type: string,
+    //     data?: object,
+    //     url?: string,
+    //     urls?: string[],
+    //     coordinates?: number[][],
+    //     canvas?: string
+    //   }
+    // }
   ]
 };

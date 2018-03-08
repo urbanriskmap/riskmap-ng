@@ -1,0 +1,109 @@
+import { Injectable } from '@angular/core';
+
+import { HttpService } from './http.service';
+
+@Injectable()
+export class SensorService {
+
+  constructor(
+    private httpService: HttpService
+  ) { }
+
+  fetchAndTransformData(
+    sensor: {
+      type: string,
+      geometry: {
+        type: string,
+        coordinates: number[]
+      },
+      properties: any
+    }
+  ): Promise<{
+    type: string,
+    geometry: {
+      type: string,
+      coordinates: number[]
+    },
+    properties: any
+  }> {
+    return new Promise((resolve, reject) => {
+      // Get sensor observations
+      this.httpService
+      .getJsonData(
+        'sensors',
+        'sensors/' + sensor.properties['id'],
+        null
+      )
+      .then(observationGroups => {
+        if (observationGroups.length) {
+          const latestObs = observationGroups[observationGroups.length - 1];
+
+          // Append sensor observations to sensor properties
+          if (Array.isArray(latestObs.properties.observations)) {
+            // Case: Without upstream / downstream values
+            if (latestObs.properties.observations.length) {
+              sensor.properties.observations = latestObs.properties.observations;
+            }
+          } else {
+
+            // Case: With upstream / downstream values
+            if (
+              latestObs.properties.observations.hasOwnProperty('upstream')
+              && Array.isArray(latestObs.properties.observations.upstream)
+              && latestObs.properties.observations.upstream.length
+            ) {
+              sensor.properties.observations = latestObs.properties.observations;
+            }
+          }
+        }
+
+        // move feature.properties.properties (JSON) to feature.properties
+        for (const prop in sensor.properties.properties) {
+          if (prop) {
+            sensor.properties[prop] = sensor.properties.properties[prop];
+          }
+        }
+        delete sensor.properties.properties;
+
+        // Store sensor in array of promises
+        resolve(sensor);
+      })
+      .catch(error => reject(error));
+    });
+  }
+
+  updateProperties(
+    geojson: {
+      type: string,
+      features: {
+        type: string,
+        geometry: {
+          type: string,
+          coordinates: number[]
+        },
+        properties: any
+      }[]
+    }
+  ): Promise<{
+    type: string,
+    geometry: {
+      type: string,
+      coordinates: number[],
+    },
+    properties: any,
+  }[]> {
+    const fetchAndTransformProcesses = [];
+
+    for (const sensor of geojson.features) {
+      fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor));
+    }
+
+    return new Promise ((resolve, reject) => {
+      Promise.all(fetchAndTransformProcesses)
+      .then(sensors => {
+        resolve(sensors);
+      })
+      .catch(error => reject(error));
+    });
+  }
+}
