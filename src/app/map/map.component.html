@@ -28,14 +28,18 @@
 </mat-toolbar>
 
 <app-report-info
-  *ngIf="interactionService.featureTypes.reports">
+  *ngIf="interactionService.featureTypes.reports"
+  [features]="interactionService.featureTypes.reports">
 </app-report-info>
 
-<app-area-info>
+<app-area-info
+  *ngIf="interactionService.featureTypes.areas"
+  [features]="interactionService.featureTypes.areas">
 </app-area-info>
 
 <app-sensor-info
-  *ngIf="interactionService.featureTypes.sensors">
+  *ngIf="interactionService.featureTypes.sensors"
+  [features]="interactionService.featureTypes.sensors">
 </app-sensor-info>
 
 <app-side-pane>

@@ -3,20 +3,24 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class InteractionService {
   featureTypes: {
-    reports?: object,
-    sensors?: object
+    areas?: object[],
+    reports?: object[],
+    sensors?: object[]
   };
 
   constructor() {
     this.featureTypes = {};
   }
 
-  handleLayerInteraction(name, feature) {
+  handleLayerInteraction(
+    name?: string,
+    features?: object[]
+  ): void {
     // TODO: Use switch case if layer names cannot
     // be the same as listed featureTypes
     if (name) {
       this.clearAllInfoPanes(name);
-      this.featureTypes[name] = feature;
+      this.featureTypes[name] = features;
     } else {
       this.clearAllInfoPanes();
     }

@@ -31,12 +31,8 @@
   }
 }
 
-app-area-info {
-  display: none;
-}
-
 app-report-info,
-// app-area-info,
+app-area-info,
 app-sensor-info {
   position: fixed;
   bottom: 0;

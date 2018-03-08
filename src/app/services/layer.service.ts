@@ -83,19 +83,18 @@ export class LayerService {
       const features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
 
       if (features.length === 1) {
-        const feature = features[0];
-        this.interactionService.handleLayerInteraction(name, feature);
-
-        // break loop if feature is found
+        this.interactionService.handleLayerInteraction(name, features);
         break;
+
       } else if (features.length > 1) {
-        // use clustering
-        console.log('More than one features here');
+        // use clustering to show all features
+        // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
 
-        // break loop if feature is found
+        this.interactionService.handleLayerInteraction(name, features);
         break;
+
       } else {
-        this.interactionService.handleLayerInteraction(null, null);
+        this.interactionService.handleLayerInteraction();
       }
     }
   }
