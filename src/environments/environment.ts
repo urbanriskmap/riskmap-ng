@@ -76,9 +76,17 @@ export const environment = {
           data: <any>null
         },
         paint: {
-          'circle-color': '#ff0000',
+          'circle-color': [
+            'match',
+            ['get', 'type'],
+            'GW', '#ff0000',
+            'ST', '#00ff00',
+            'ST-CA', '#0000ff',
+            '#ccc'
+          ],
           'circle-radius': 5,
-          'circle-stroke-width': 1
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ddd'
         },
         filter: ['has', 'observations']
       }
