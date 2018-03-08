@@ -31,10 +31,13 @@
   }
 }
 
-app-report-info,
-app-area-info,
-app-sensor-info {
+app-area-info {
   display: none;
+}
+
+app-report-info,
+// app-area-info,
+app-sensor-info {
   position: fixed;
   bottom: 0;
   right: 0;

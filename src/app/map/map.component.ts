@@ -8,6 +8,7 @@ import * as mapboxgl from 'mapbox-gl';
 
 import { environment as env } from '../../environments/environment';
 import { LayerService } from '../services/layer.service';
+import { InteractionService } from '../services/interaction.service';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 
 /**
@@ -39,7 +40,8 @@ export class MapComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private translate: TranslateService,
-    public layerService: LayerService
+    public layerService: LayerService,
+    public interactionService: InteractionService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang(env.locales.defaultLanguage);
@@ -94,10 +96,13 @@ export class MapComponent implements OnInit {
     });
 
     self.map.on('style.load', () => {
-      // Do stuff here
       if (self.selectedRegion) {
         self.layerService.initializeLayers(self.map, self.selectedRegion);
       }
+    });
+
+    self.map.on('click', event => {
+      self.layerService.handleMapInteraction(event);
     });
   }
 

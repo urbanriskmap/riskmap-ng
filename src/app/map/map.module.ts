@@ -16,6 +16,7 @@ import { TimeService } from '../services/time.service';
 import { LayerService } from '../services/layer.service';
 import { HttpService } from '../services/http.service';
 import { SensorService } from '../services/sensor.service';
+import { InteractionService } from '../services/interaction.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { SensorService } from '../services/sensor.service';
     LayerService,
     HttpService,
     TranslatePipe,
-    SensorService
+    SensorService,
+    InteractionService
   ],
   entryComponents: [ScreenPopupComponent],
   declarations: [
