@@ -80,40 +80,58 @@ export class LayerService {
     for (const layer of env.supportedLayers) {
       const name = layer.metadata.name;
       const uniqueKey = layer.metadata.uniqueKey;
-      // Store rendered features filtered by layer name
-      const features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
+      let hasSelectedFeature: boolean;
 
-      if (features.length === 1) {
-        this.toggleFeatureIcon(name, uniqueKey, features);
-        this.interactionService.handleLayerInteraction(name, features);
-        break;
+      // Check if a selection layer is active
+      if (this.map.getLayer('sel' + name)) {
+        hasSelectedFeature = (this.map.queryRenderedFeatures(event.point, {layers: ['sel' + name]})).length > 0;
+      }
 
-      } else if (features.length > 1) {
-        // use clustering to show all features
-        // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
+      if (!hasSelectedFeature) {
+        // Store rendered features filtered by layer name
+        const features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
 
-        this.interactionService.handleLayerInteraction(name, features);
-        break;
+        if (features.length === 1) {
+          // CASE: Clicked on a single feature
+          this.clearSelectionLayer(name);
+          this.addSelectionLayer(name, uniqueKey, features);
+          this.interactionService.handleLayerInteraction(name, features);
+          break;
 
+        } else if (features.length > 1) {
+          // CASE: Clicked with multiple features overlapping
+          // TODO: use clustering to show all features
+          // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
+
+          this.interactionService.handleLayerInteraction(name, features);
+          break;
+
+        } else {
+          // CASE: If clicked on empty map canvas
+          this.clearSelectionLayer(name);
+          this.interactionService.handleLayerInteraction();
+        }
       } else {
-        this.toggleFeatureIcon();
-        this.interactionService.handleLayerInteraction();
+        // CASE: If clicked on a previously selected feature
+        this.clearSelectionLayer(name);
+        break;
       }
     }
   }
 
-  toggleFeatureIcon(layerName?: string, uniqueKey?: string, features?: object) {
+  clearSelectionLayer(name: string): void {
+    if (this.map.getLayer('sel' + name)) {
+      this.map.removeLayer('sel' + name);
+      this.map.removeSource('sel' + name);
+    }
+  }
+
+  addSelectionLayer(layerName?: string, uniqueKey?: string, features?: object): void {
     let layerSettings;
 
-    // clear all selections
     for (const layer of env.supportedLayers) {
-      // TODO: Optimize, runs 4 times on empty click, twice on feature
-      if (this.map.getLayer('sel' + layer.metadata.name)) {
-        this.map.removeLayer('sel' + layer.metadata.name);
-        this.map.removeSource('sel' + layer.metadata.name);
-      }
-
       if (layerName === layer.metadata.name) {
+        // modify settings of original layer
         layer.settings.id = 'sel' + layerName;
         layer.settings.source.data = this.map.getSource(layer.metadata.name)._data;
         layer.settings['filter'] = ['==', uniqueKey, features[0].properties[uniqueKey]];
@@ -124,6 +142,7 @@ export class LayerService {
     }
 
     if (layerSettings) {
+      // add selected feature layer
       this.map.addLayer(layerSettings);
     }
   }
