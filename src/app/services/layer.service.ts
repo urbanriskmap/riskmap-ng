@@ -63,7 +63,7 @@ export class LayerService {
   }
 
   handleMapInteraction(
-    event: {
+    event?: {
       type: string,
       lngLat: {
         lng: number,
@@ -83,13 +83,22 @@ export class LayerService {
       let hasSelectedFeature: boolean;
 
       // Check if a selection layer is active
-      if (this.map.getLayer('sel' + name)) {
+      if (event && this.map.getLayer('sel' + name)) {
         hasSelectedFeature = (this.map.queryRenderedFeatures(event.point, {layers: ['sel' + name]})).length > 0;
       }
 
-      if (!hasSelectedFeature) {
+      if (hasSelectedFeature) {
+        // CASE: If clicked on a previously selected feature
+        this.clearSelectionLayer(name);
+        this.interactionService.handleLayerInteraction();
+        break;
+      } else {
         // Store rendered features filtered by layer name
-        const features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
+        let features = [];
+
+        if (event) {
+          features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
+        }
 
         if (features.length === 1) {
           // CASE: Clicked on a single feature
@@ -108,13 +117,10 @@ export class LayerService {
 
         } else {
           // CASE: If clicked on empty map canvas
+          // OR clicked on Menu button
           this.clearSelectionLayer(name);
           this.interactionService.handleLayerInteraction();
         }
-      } else {
-        // CASE: If clicked on a previously selected feature
-        this.clearSelectionLayer(name);
-        break;
       }
     }
   }

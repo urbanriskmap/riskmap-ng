@@ -31,6 +31,7 @@ export class MapComponent implements OnInit {
     }
   };
   deferredPrompt: any;
+  showSidePane = false;
 
   @Output() map: mapboxgl.Map;
   // Use ngx-translate-messageformat-compiler for pluralization, etc
@@ -102,6 +103,7 @@ export class MapComponent implements OnInit {
     });
 
     self.map.on('click', event => {
+      self.toggleSidePane({close: true});
       self.layerService.handleMapInteraction(event);
     });
   }
@@ -135,5 +137,25 @@ export class MapComponent implements OnInit {
         this.deferredPrompt = null;
       });
     }
+  }
+
+  toggleSidePane(forceAction?: {close: boolean}) {
+    if (this.showSidePane || (forceAction && forceAction.close)) {
+      // Close
+      this.showSidePane = false;
+    } else if (!this.showSidePane || (forceAction && !forceAction.close)) {
+      // Open
+      this.showSidePane = true;
+
+      // Call handleMapInteraction without params
+      // to clear any selected features and close any open panes
+      this.layerService.handleMapInteraction();
+    }
+  }
+
+  closeInfoPane() {
+    // Call handleMapInteraction without params
+    // to clear any selected features and close any open panes
+    this.layerService.handleMapInteraction();
   }
 }

@@ -24,23 +24,33 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <button mat-button
+      id="menuBtn"
+      (click)="toggleSidePane()">
+      Menu
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <app-report-info
   *ngIf="interactionService.featureTypes.reports"
-  [features]="interactionService.featureTypes.reports">
+  [features]="interactionService.featureTypes.reports"
+  (closePane)="closeInfoPane()">
 </app-report-info>
 
 <app-area-info
   *ngIf="interactionService.featureTypes.areas"
-  [features]="interactionService.featureTypes.areas">
+  [features]="interactionService.featureTypes.areas"
+  (closePane)="closeInfoPane()">
 </app-area-info>
 
 <app-sensor-info
   *ngIf="interactionService.featureTypes.sensors"
-  [features]="interactionService.featureTypes.sensors">
+  [features]="interactionService.featureTypes.sensors"
+  (closePane)="closeInfoPane()">
 </app-sensor-info>
 
-<app-side-pane>
+<app-side-pane
+  *ngIf="showSidePane">
 </app-side-pane>
