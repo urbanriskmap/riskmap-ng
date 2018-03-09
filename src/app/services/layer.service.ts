@@ -79,10 +79,12 @@ export class LayerService {
   ) {
     for (const layer of env.supportedLayers) {
       const name = layer.metadata.name;
+      const uniqueKey = layer.metadata.uniqueKey;
       // Store rendered features filtered by layer name
       const features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
 
       if (features.length === 1) {
+        this.toggleFeatureIcon(name, uniqueKey, features);
         this.interactionService.handleLayerInteraction(name, features);
         break;
 
@@ -94,8 +96,35 @@ export class LayerService {
         break;
 
       } else {
+        this.toggleFeatureIcon();
         this.interactionService.handleLayerInteraction();
       }
+    }
+  }
+
+  toggleFeatureIcon(layerName?: string, uniqueKey?: string, features?: object) {
+    let layerSettings;
+
+    // clear all selections
+    for (const layer of env.supportedLayers) {
+      // TODO: Optimize, runs 4 times on empty click, twice on feature
+      if (this.map.getLayer('sel' + layer.metadata.name)) {
+        this.map.removeLayer('sel' + layer.metadata.name);
+        this.map.removeSource('sel' + layer.metadata.name);
+      }
+
+      if (layerName === layer.metadata.name) {
+        layer.settings.id = 'sel' + layerName;
+        layer.settings.source.data = this.map.getSource(layer.metadata.name)._data;
+        layer.settings['filter'] = ['==', uniqueKey, features[0].properties[uniqueKey]];
+        layer.settings[layer.metadata.selected.type] = layer.metadata.selected.style;
+
+        layerSettings = layer.settings;
+      }
+    }
+
+    if (layerSettings) {
+      this.map.addLayer(layerSettings);
     }
   }
 }

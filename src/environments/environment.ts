@@ -47,7 +47,18 @@ export const environment = {
   supportedLayers: [
     {
       metadata: {
-        name: 'reports',  server: 'data',     useRegionFlag: true,  responseType: 'topojson'
+        name: 'reports',
+        server: 'data',
+        useRegionFlag: true,
+        responseType: 'topojson',
+        uniqueKey: 'pkey',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 8
+          }
+        }
       },
       settings: {
         id: 'reports',
@@ -66,7 +77,18 @@ export const environment = {
     },
     {
       metadata: {
-        name: 'sensors',  server: 'sensors',  useRegionFlag: false, responseType: 'geojson'
+        name: 'sensors',
+        server: 'sensors',
+        useRegionFlag: false,
+        responseType: 'geojson',
+        uniqueKey: 'uid',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 5
+          }
+        }
       },
       settings: {
         id: 'sensors',
@@ -91,17 +113,5 @@ export const environment = {
         filter: ['has', 'observations']
       }
     }
-    // settings: { // Ref mapbox Layer object
-    //   id: string,
-    //   type: string,
-    //   source?: string|{ // Optional parameter
-    //     type: string,
-    //     data?: object,
-    //     url?: string,
-    //     urls?: string[],
-    //     coordinates?: number[][],
-    //     canvas?: string
-    //   }
-    // }
   ]
 };
