@@ -1,6 +1,9 @@
+/// <reference types="geojson" />
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as topojson from 'topojson-client';
+import { FeatureCollection, Point, GeoJsonProperties } from 'geojson';
 
 import { environment as env } from '../../environments/environment';
 
@@ -19,17 +22,7 @@ export class HttpService {
       responseType: string
     },
     region: string
-  ): Promise<{
-    type: string,
-    features: {
-      type: string,
-      geometry: {
-        type: string,
-        coordinates: number[]
-      },
-      properties: any
-    }[]
-  }> {
+  ): Promise<FeatureCollection<Point, GeoJsonProperties>> {
     let endpoint = env.servers[layer.server] + layer.name;
     if (layer.useRegionFlag) {
       endpoint = endpoint + '?city=' + region;
@@ -70,7 +63,7 @@ export class HttpService {
       key: string,
       value: string
     }[]|null
-  ): Promise<any> {
+  ): Promise<GeoJsonProperties> {
     let queryUrl = env.servers[server] + endpoint;
 
     if (flags && flags.length) {

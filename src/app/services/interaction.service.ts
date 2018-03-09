@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class InteractionService {
+  /*
   featureTypes: {
-    areas?: object[],
-    reports?: object[],
-    sensors?: object[]
-  };
-
-  constructor() {
-    this.featureTypes = {};
+    first_layer_name?: object[],
+    second_layer_name?: object[],
+    ...
+    nth_layer_name?: object[]
   }
+  */
+  featureTypes = {};
+
+  constructor() { }
 
   handleLayerInteraction(
     name?: string,

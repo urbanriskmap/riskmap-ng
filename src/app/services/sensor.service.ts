@@ -1,4 +1,7 @@
+/// <reference types="geojson" />
+
 import { Injectable } from '@angular/core';
+import { FeatureCollection, Feature, Point, GeoJsonProperties } from 'geojson';
 
 import { HttpService } from './http.service';
 
@@ -15,22 +18,8 @@ export class SensorService {
    * @returns Promise that fulfills when properties are fetched and transformed
    */
   fetchAndTransformData(
-    sensor: {
-      type: string,
-      geometry: {
-        type: string,
-        coordinates: number[]
-      },
-      properties: any
-    }
-  ): Promise<{
-    type: string,
-    geometry: {
-      type: string,
-      coordinates: number[]
-    },
-    properties: any
-  }> {
+    sensor: Feature<Point, GeoJsonProperties>
+  ): Promise<Feature<Point, GeoJsonProperties>> {
     return new Promise((resolve, reject) => {
       // Get sensor observations
       this.httpService
@@ -78,25 +67,8 @@ export class SensorService {
   }
 
   updateProperties(
-    geojson: {
-      type: string,
-      features: {
-        type: string,
-        geometry: {
-          type: string,
-          coordinates: number[]
-        },
-        properties: any
-      }[]
-    }
-  ): Promise<{
-    type: string,
-    geometry: {
-      type: string,
-      coordinates: number[],
-    },
-    properties: any,
-  }[]> {
+    geojson: FeatureCollection<Point, GeoJsonProperties>
+  ): Promise<Feature<Point, GeoJsonProperties>[]> {
     const fetchAndTransformProcesses = [];
 
     for (const sensor of geojson.features) {

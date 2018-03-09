@@ -125,10 +125,10 @@ export class LayerService {
     }
   }
 
-  clearSelectionLayer(name: string): void {
-    if (this.map.getLayer('sel' + name)) {
-      this.map.removeLayer('sel' + name);
-      this.map.removeSource('sel' + name);
+  clearSelectionLayer(layerName: string): void {
+    if (this.map.getLayer('sel' + layerName)) {
+      this.map.removeLayer('sel' + layerName);
+      this.map.removeSource('sel' + layerName);
     }
   }
 
