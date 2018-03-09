@@ -43,7 +43,7 @@ export class LayerService {
               layer.settings.source.data = geojson;
 
               // Add layer
-              this.map.addLayer(layer.settings);
+              this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
             })
             .catch(error => console.log(error));
           });
@@ -56,7 +56,7 @@ export class LayerService {
             // Overwrite data object
             layer.settings.source.data = geojson;
             // Add layer
-            this.map.addLayer(layer.settings);
+            this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
           });
       }
     }

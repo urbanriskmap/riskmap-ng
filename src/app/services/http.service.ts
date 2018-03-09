@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as topojson from 'topojson-client';
-import { FeatureCollection, Point, GeoJsonProperties } from 'geojson';
+import { FeatureCollection, GeometryObject, GeoJsonProperties } from 'geojson';
 
 import { environment as env } from '../../environments/environment';
 
@@ -19,10 +19,16 @@ export class HttpService {
       name: string,
       server: string,
       useRegionFlag: boolean,
-      responseType: string
+      responseType: string,
+      uniqueKey: string,
+      selected: {
+        type: string,
+        style: object
+      },
+      placeBelow?: string
     },
     region: string
-  ): Promise<FeatureCollection<Point, GeoJsonProperties>> {
+  ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     let endpoint = env.servers[layer.server] + layer.name;
     if (layer.useRegionFlag) {
       endpoint = endpoint + '?city=' + region;

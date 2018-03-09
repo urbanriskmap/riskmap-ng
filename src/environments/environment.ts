@@ -5,11 +5,11 @@
 
 export const environment = {
   production: false,
-  envName: 'dev-us',
+  envName: 'dev-id',
 
   servers: {
-    data: 'https://data-dev.riskmap.us/',
-    sensors: 'https://sensors-dev.riskmap.us/',
+    data: 'https://data-dev.petabencana.id/',
+    sensors: 'https://sensors-dev.petabencana.id/',
     settings: {
       reportTimeperiod: 604800
     }
@@ -17,26 +17,50 @@ export const environment = {
 
   map: {
     accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
-    center: [-80.199261, 26.138301],
+    center: [106.8271, -6.1754],
     initZoom: 10,
-    minZoom: 10,
+    minZoom: 8,
     baseMapStyle: 'mapbox://styles/mapbox/light-v9'
   },
 
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'es', name: 'Spanish'}
+      {code: 'id', name: 'Bahasa'}
     ],
     defaultLanguage: 'en'
   },
 
   instances: {
-    instanceType: 'County', // city / county / etc
+    instanceType: 'City', // city / county / etc
     regions: [
       {
-        name: 'broward',
-        code: 'brw',
+        name: 'jakarta',
+        code: 'jbd',
+        bounds: {
+          sw: [106.480, -6.733],
+          ne: [107.175, -5.880]
+        }
+      },
+      {
+        name: 'surabaya',
+        code: 'sby',
+        bounds: {
+          sw: [25.35, -81.73],
+          ne: [26.95, -78.45]
+        }
+      },
+      {
+        name: 'bandung',
+        code: 'bdg',
+        bounds: {
+          sw: [25.35, -81.73],
+          ne: [26.95, -78.45]
+        }
+      },
+      {
+        name: 'semarang',
+        code: 'srg',
         bounds: {
           sw: [25.35, -81.73],
           ne: [26.95, -78.45]
@@ -45,6 +69,53 @@ export const environment = {
     ]
   },
   supportedLayers: [
+    {
+      metadata: {
+        name: 'floods',
+        server: 'data',
+        useRegionFlag: true,
+        responseType: 'topojson',
+        uniqueKey: 'area_id',
+        selected: {
+          type: 'paint',
+          style: {
+            'fill-color': [
+              'match',
+              ['get', 'state'],
+              1, '#a0a9f7',
+              2, '#ffff00',
+              3, '#ff8300',
+              4, '#cc2a41',
+              '#fff'
+            ],
+            'fill-opacity': 0.75,
+            'fill-outline-color': '#000'
+          }
+        },
+        placeBelow: 'place-village'
+      },
+      settings: {
+        id: 'floods',
+        type: 'fill',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'fill-color': [
+            'match',
+            ['get', 'state'],
+            1, '#a0a9f7',
+            2, '#ffff00',
+            3, '#ff8300',
+            4, '#cc2a41',
+            '#ffffff'
+          ],
+          'fill-opacity': 0.6
+        },
+        filter: ['>', ['number', ['get', 'state']], 0]
+      }
+    },
     {
       metadata: {
         name: 'reports',
@@ -73,44 +144,6 @@ export const environment = {
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
         }
-      }
-    },
-    {
-      metadata: {
-        name: 'sensors',
-        server: 'sensors',
-        useRegionFlag: false,
-        responseType: 'geojson',
-        uniqueKey: 'uid',
-        selected: {
-          type: 'paint',
-          style: {
-            'circle-color': '#000000',
-            'circle-radius': 5
-          }
-        }
-      },
-      settings: {
-        id: 'sensors',
-        type: 'circle',
-        source: {
-          type: 'geojson',
-          data: <object|null>null
-        },
-        paint: {
-          'circle-color': [
-            'match',
-            ['get', 'type'],
-            'GW', '#ff0000',
-            'ST', '#00ff00',
-            'ST-CA', '#0000ff',
-            '#ccc'
-          ],
-          'circle-radius': 5,
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#ddd'
-        },
-        filter: ['has', 'observations']
       }
     }
   ]

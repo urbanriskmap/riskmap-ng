@@ -1,10 +1,18 @@
+// Default env for local development
+// Served with 'ng s'
+
+// For others, use 'ng s --e=dev-us'
+
 export const environment = {
   production: false,
   envName: 'dev-us',
 
-  dataServer: 'https://data-dev.riskmap.us/',
-  serverSettings: {
-    reportTimeperiod: 604800
+  servers: {
+    data: 'https://data-dev.riskmap.us/',
+    sensors: 'https://sensors-dev.riskmap.us/',
+    settings: {
+      reportTimeperiod: 604800
+    }
   },
 
   map: {
@@ -35,5 +43,75 @@ export const environment = {
         }
       }
     ]
-  }
+  },
+  supportedLayers: [
+    {
+      metadata: {
+        name: 'reports',
+        server: 'data',
+        useRegionFlag: true,
+        responseType: 'topojson',
+        uniqueKey: 'pkey',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 8
+          }
+        }
+      },
+      settings: {
+        id: 'reports',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'circle-color': '#31aade',
+          'circle-radius': 8,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ffffff'
+        }
+      }
+    },
+    {
+      metadata: {
+        name: 'sensors',
+        server: 'sensors',
+        useRegionFlag: false,
+        responseType: 'geojson',
+        uniqueKey: 'uid',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 5
+          }
+        }
+      },
+      settings: {
+        id: 'sensors',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'circle-color': [
+            'match',
+            ['get', 'type'],
+            'GW', '#ff0000',
+            'ST', '#00ff00',
+            'ST-CA', '#0000ff',
+            '#ccc'
+          ],
+          'circle-radius': 5,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ddd'
+        },
+        filter: ['has', 'observations']
+      }
+    }
+  ]
 };
