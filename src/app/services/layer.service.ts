@@ -96,7 +96,7 @@ export class LayerService {
         // Store rendered features filtered by layer name
         let features = [];
 
-        if (event) {
+        if (event && this.map.getLayer(name)) {
           features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
         }
 
@@ -133,17 +133,19 @@ export class LayerService {
   }
 
   addSelectionLayer(layerName?: string, uniqueKey?: string, features?: object): void {
-    let layerSettings;
+    const layerSettings: { [name: string]: any} = {};
 
     for (const layer of env.supportedLayers) {
       if (layerName === layer.metadata.name) {
         // modify settings of original layer
-        layer.settings.id = 'sel' + layerName;
-        layer.settings.source.data = this.map.getSource(layer.metadata.name)._data;
-        layer.settings['filter'] = ['==', uniqueKey, features[0].properties[uniqueKey]];
-        layer.settings[layer.metadata.selected.type] = layer.metadata.selected.style;
-
-        layerSettings = layer.settings;
+        layerSettings.id = 'sel' + layerName;
+        layerSettings.type = layer.settings.type;
+        layerSettings.source = {
+          type: layer.settings.source.type,
+          data: this.map.getSource(layer.metadata.name)._data
+        };
+        layerSettings.filter = ['==', uniqueKey, features[0].properties[uniqueKey]];
+        layerSettings[layer.metadata.selected.type] = layer.metadata.selected.style;
       }
     }
 

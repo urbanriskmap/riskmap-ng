@@ -46,24 +46,24 @@ export const environment = {
         name: 'surabaya',
         code: 'sby',
         bounds: {
-          sw: [25.35, -81.73],
-          ne: [26.95, -78.45]
+          sw: [112.397, -7.550],
+          ne: [113.032, -7.014]
         }
       },
       {
         name: 'bandung',
         code: 'bdg',
         bounds: {
-          sw: [25.35, -81.73],
-          ne: [26.95, -78.45]
+          sw: [107.369, -7.165],
+          ne: [107.931, -6.668]
         }
       },
       {
         name: 'semarang',
         code: 'srg',
         bounds: {
-          sw: [25.35, -81.73],
-          ne: [26.95, -78.45]
+          sw: [110.057, -7.335],
+          ne: [110.715, -6.727]
         }
       }
     ]
@@ -91,7 +91,8 @@ export const environment = {
             'fill-opacity': 0.75,
             'fill-outline-color': '#000'
           }
-        }
+        },
+        placeBelow: 'place-village'
       },
       settings: {
         id: 'floods',
@@ -112,7 +113,7 @@ export const environment = {
           ],
           'fill-opacity': 0.6
         },
-        filter: ['!=', ['get', 'state'], 'null']
+        filter: ['>', ['number', ['get', 'state']], 0]
       }
     },
     {
