@@ -1,22 +1,33 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-sensor-info',
   templateUrl: './sensor-info.component.html',
   styleUrls: ['./sensor-info.component.scss']
 })
-export class SensorInfoComponent implements OnInit, OnChanges {
-  @Input() features: object[];
+export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() features: {
+    [name: string]: any
+  }[];
+
+  feature: {
+    [name: string]: any
+  };
 
   constructor() { }
 
-  ngOnInit() {
-    // do
-  }
+  ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('features')) {
-      console.log(this.features);
+      this.feature = this.features[0].properties;
+
+      console.log(this.feature);
     }
+  }
+
+  ngOnDestroy() {
+    this.features = null;
+    this.feature = null;
   }
 }

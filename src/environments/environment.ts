@@ -5,11 +5,11 @@
 
 export const environment = {
   production: false,
-  envName: 'dev-id',
+  envName: 'dev-us',
 
   servers: {
-    data: 'https://data-dev.petabencana.id/',
-    sensors: 'https://sensors-dev.petabencana.id/',
+    data: 'https://data-dev.riskmap.us/',
+    sensors: 'https://sensors-dev.riskmap.us/',
     settings: {
       reportTimeperiod: 604800
     }
@@ -17,105 +17,34 @@ export const environment = {
 
   map: {
     accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
-    center: [106.8271, -6.1754],
+    center: [-80.199261, 26.138301],
     initZoom: 10,
-    minZoom: 8,
+    minZoom: 10,
     baseMapStyle: 'mapbox://styles/mapbox/light-v9'
   },
 
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'id', name: 'Bahasa'}
+      {code: 'es', name: 'Spanish'}
     ],
     defaultLanguage: 'en'
   },
 
   instances: {
-    instanceType: 'City', // city / county / etc
+    instanceType: 'County', // city / county / etc
     regions: [
       {
-        name: 'jakarta',
-        code: 'jbd',
+        name: 'broward',
+        code: 'brw',
         bounds: {
-          sw: [106.480, -6.733],
-          ne: [107.175, -5.880]
-        }
-      },
-      {
-        name: 'surabaya',
-        code: 'sby',
-        bounds: {
-          sw: [112.397, -7.550],
-          ne: [113.032, -7.014]
-        }
-      },
-      {
-        name: 'bandung',
-        code: 'bdg',
-        bounds: {
-          sw: [107.369, -7.165],
-          ne: [107.931, -6.668]
-        }
-      },
-      {
-        name: 'semarang',
-        code: 'srg',
-        bounds: {
-          sw: [110.057, -7.335],
-          ne: [110.715, -6.727]
+          sw: [-81.73, 25.35],
+          ne: [-78.45, 26.95]
         }
       }
     ]
   },
   supportedLayers: [
-    {
-      metadata: {
-        name: 'floods',
-        server: 'data',
-        useRegionFlag: true,
-        responseType: 'topojson',
-        uniqueKey: 'area_id',
-        selected: {
-          type: 'paint',
-          style: {
-            'fill-color': [
-              'match',
-              ['get', 'state'],
-              1, '#a0a9f7',
-              2, '#ffff00',
-              3, '#ff8300',
-              4, '#cc2a41',
-              '#fff'
-            ],
-            'fill-opacity': 0.75,
-            'fill-outline-color': '#000'
-          }
-        },
-        placeBelow: 'place-village'
-      },
-      settings: {
-        id: 'floods',
-        type: 'fill',
-        source: {
-          type: 'geojson',
-          data: <object|null>null
-        },
-        paint: {
-          'fill-color': [
-            'match',
-            ['get', 'state'],
-            1, '#a0a9f7',
-            2, '#ffff00',
-            3, '#ff8300',
-            4, '#cc2a41',
-            '#ffffff'
-          ],
-          'fill-opacity': 0.6
-        },
-        filter: ['>', ['number', ['get', 'state']], 0]
-      }
-    },
     {
       metadata: {
         name: 'reports',
@@ -144,6 +73,46 @@ export const environment = {
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
         }
+      }
+    },
+    {
+      metadata: {
+        name: 'sensors',
+        server: 'sensors',
+        useRegionFlag: false,
+        responseType: 'geojson',
+        uniqueKey: 'uid',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 5
+          }
+        }
+      },
+      settings: {
+        id: 'sensors',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'circle-color': [
+            'match',
+            ['get', 'class'],
+            '63160', '#00ff00',
+            '00065', '#0000ff',
+            '62610', '#ff0000',
+            '00060', '#ffcc00',
+            '00045', '#00ccff',
+            '#ccc'
+          ],
+          'circle-radius': 5,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ddd'
+        },
+        filter: ['has', 'observations']
       }
     }
   ]

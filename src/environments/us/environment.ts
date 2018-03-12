@@ -38,8 +38,8 @@ export const environment = {
         name: 'broward',
         code: 'brw',
         bounds: {
-          sw: [25.35, -81.73],
-          ne: [26.95, -78.45]
+          sw: [-81.73, 25.35],
+          ne: [-78.45, 26.95]
         }
       }
     ]
