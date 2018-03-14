@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --env=dev-us --output-path=dist/dev-us && ng build --env=dev-id --output-path=dist/dev-id",
+    "build": "ng build --env=dev-us --output-path='dist/dev-us' && ng build --env=dev-id --output-path='dist/dev-id'",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

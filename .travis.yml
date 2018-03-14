@@ -8,9 +8,6 @@ branches:
   only:
     - dev
 
-before_install:
-  - npm i angular-cli
-
 install:
   - npm i
 
