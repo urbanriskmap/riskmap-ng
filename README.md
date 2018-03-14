@@ -12,7 +12,7 @@ Install [Chrome lighthouse extension](https://chrome.google.com/webstore/detail/
 Run `npm run serve-prod-ngsw` to locally serve an app over node http-server.
 Navigate to `http://localhost:8080?region=broward`, press lighthouse icon, then 'Generate report'.
 
-Run `npm run build-prod-ngsw` to generate files for deployment.
+Run `npm run build` to generate files for deployment.
 
 ## Further help
 
