@@ -78,10 +78,10 @@ export class HttpService {
   getJsonData(
     server: string,
     endpoint: string,
-    flags: {
+    flags?: {
       key: string,
       value: string
-    }[]|null
+    }[]
   ): Promise<GeoJsonProperties> {
     let queryUrl = env.servers[server] + endpoint;
 

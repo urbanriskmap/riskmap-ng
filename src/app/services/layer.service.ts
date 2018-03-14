@@ -77,8 +77,6 @@ export class LayerService {
       target: object
     }
   ) {
-    this.clearSelectionLayers();
-
     if (event) {
       if (this.clearSelectionLayers(event.point)) {
         // CASE: Clicked over a previously selected feature
@@ -120,7 +118,9 @@ export class LayerService {
     } else {
       // CASE: Clicked on Menu button,
       // non-map interaction event
-      this.clearSelectionLayers();
+      if (this.map) {
+        this.clearSelectionLayers();
+      }
       this.interactionService.handleLayerInteraction();
     }
   }

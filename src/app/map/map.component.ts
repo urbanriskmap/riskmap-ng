@@ -1,8 +1,9 @@
 import { Component, Output, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, Params, ParamMap, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material';
 import 'rxjs/add/operator/skip';
+import 'rxjs/add/operator/switchMap';
 
 import * as mapboxgl from 'mapbox-gl';
 
@@ -27,6 +28,7 @@ export class MapComponent implements OnInit, OnDestroy {
     code: string,
     name: string
   }[];
+  selectedLanguage: string;
   selectedRegion: {
     name: string,
     code: string,
@@ -35,6 +37,8 @@ export class MapComponent implements OnInit, OnDestroy {
       ne: number[]
     }
   };
+  selectedReportId: null|number;
+  paneToOpen: string;
   deferredPrompt: any;
   showSidePane = false;
 
@@ -64,25 +68,7 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  initialiseInvites() {
-    // Store region from queryParams
-    this.route.queryParams.subscribe((params: Params) => {
-      let hasRegionParam = false;
-
-      for (const region of this.env.instances.regions) {
-        if (params['region'] === region.name) {
-          this.selectedRegion = region;
-          hasRegionParam = true;
-          break;
-        }
-      }
-
-      if (!hasRegionParam) {
-        this.openDialog();
-      }
-    });
-
-    // Initialize map
+  initializeMap() {
     mapboxgl.accessToken = this.env.map.accessToken;
     this.map = new mapboxgl.Map({
       attributionControl: false,
@@ -94,13 +80,67 @@ export class MapComponent implements OnInit, OnDestroy {
       hash: false,
       preserveDrawingBuffer: true
     });
+  }
 
+  hasRegionParam() {
+    const instance = this.route.snapshot.paramMap.get('region');
+
+    for (const region of this.env.instances.regions) {
+      if (instance === region.name) {
+        this.selectedRegion = region;
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  validateLangParam(langParam) {
+    for (const lang of this.languages) {
+      if (langParam === lang.code) {
+        return lang.code;
+      }
+    }
+
+    return this.env.locales.defaultLanguage;
+  }
+
+  changeLanguage(event): void {
+    this.selectedLanguage = event.value;
+    this.translate.use(event.value);
+  }
+
+  storeQueryParams() {
+    this.route.queryParams.subscribe((params: Params) => {
+      if (Number.isInteger(parseInt(params['id'], 10))) {
+        this.selectedReportId = params['id'];
+      }
+
+      const paneParam = params['pane'];
+      for (const pane of ['report', 'map', 'about']) {
+        if (paneParam === pane) {
+          this.paneToOpen = params['pane'];
+        }
+      }
+
+      this.changeLanguage({
+        value: this.validateLangParam(params['lang'])
+      });
+    });
+  }
+
+  bindMapEventHandlers() {
     this.map.on('style.load', () => {
       if (this.selectedRegion) {
         // Fly to selected region
         this.setBounds();
         // Then load layers
         this.layerService.initializeLayers(this.map, this.selectedRegion);
+
+        if (this.selectedReportId) {
+          // Do something
+          console.log('Selected report id: ' + this.selectedReportId);
+        }
       }
     });
 
@@ -111,8 +151,16 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  changeLanguage(event): void {
-    this.translate.use(event.value);
+  initialiseInvites() {
+    this.initializeMap();
+
+    this.storeQueryParams();
+
+    if (!this.hasRegionParam()) {
+      this.openDialog();
+    } else {
+      this.bindMapEventHandlers();
+    }
   }
 
   ngOnInit() {
@@ -143,7 +191,7 @@ export class MapComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.closeInfoPane(); // Close any panes if open
-        this.router.navigate([''], {queryParams: {region: result.name}});
+        this.router.navigate([result.name]);
       }
     });
   }
