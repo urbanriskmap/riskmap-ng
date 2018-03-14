@@ -16,10 +16,10 @@ script:
 
 deploy:
   - provider: s3
-    access_key_id: "AWS_ACCESS_KEY_ID"
-    secret_access_key: "AWS_SECRET_ACCESS_KEY"
-    bucket: "AWS_S3_BUCKET_RISKMAP_US"
-    region: "AWS_S3_BUCKET_REGION_RISKMAP_US"
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $AWS_S3_BUCKET_RISKMAP_US
+    region: $AWS_S3_BUCKET_REGION_RISKMAP_US
     skip_cleanup: true
     upload-dir: dist/dev-us
     on:
