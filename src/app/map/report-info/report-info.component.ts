@@ -37,8 +37,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('features')) {
-      this.features[0].properties.report_data = JSON.parse(this.features[0].properties.report_data);
-      this.features[0].properties.tags = JSON.parse(this.features[0].properties.tags);
+      // this.features[0].properties.report_data = JSON.parse(this.features[0].properties.report_data);
+      // this.features[0].properties.tags = JSON.parse(this.features[0].properties.tags);
 
       this.feature = this.features[0].properties;
     }

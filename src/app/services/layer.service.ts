@@ -27,7 +27,7 @@ export class LayerService {
         ne: number[]
       }
     }
-  ) {
+  ): void {
     this.map = map;
 
     for (const layer of env.supportedLayers) {
@@ -153,7 +153,7 @@ export class LayerService {
     }
   }
 
-  addSelectionLayer(layerName?: string, uniqueKey?: string, features?: object): void {
+  addSelectionLayer(layerName?: string, uniqueKey?: string, features?: any): void {
     const layerSettings: { [name: string]: any} = {};
 
     for (const layer of env.supportedLayers) {

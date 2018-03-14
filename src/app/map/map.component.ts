@@ -2,7 +2,6 @@ import { Component, Output, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material';
-import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/switchMap';
 
 import * as mapboxgl from 'mapbox-gl';
@@ -82,7 +81,7 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  hasRegionParam() {
+  hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
 
     for (const region of this.env.instances.regions) {
@@ -95,7 +94,7 @@ export class MapComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  validateLangParam(langParam) {
+  getLanguageCode(langParam): string {
     for (const lang of this.languages) {
       if (langParam === lang.code) {
         return lang.code;
@@ -110,7 +109,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.translate.use(event.value);
   }
 
-  storeQueryParams() {
+  storeQueryParams(): void {
     this.route.queryParams.subscribe((params: Params) => {
       if (Number.isInteger(parseInt(params['id'], 10))) {
         this.selectedReportId = params['id'];
@@ -124,23 +123,37 @@ export class MapComponent implements OnInit, OnDestroy {
       }
 
       this.changeLanguage({
-        value: this.validateLangParam(params['lang'])
+        value: this.getLanguageCode(params['lang'])
       });
     });
   }
 
-  bindMapEventHandlers() {
+  // FIXME: triggered before reports layer is rendered
+  // resulting in selection layer generated behind reports layers.
+  // Push filter to reports layer in layerService.addSelectionLayer method?
+  zoomToQueriedReport(event) {
+    if (event.sourceId === 'reports') {
+      for (const report of event.source.data.features) {
+        if (report.properties.pkey === this.selectedReportId) {
+          this.layerService.addSelectionLayer('reports', 'pkey', [report]);
+          this.interactionService.handleLayerInteraction('reports', [report]);
+          this.map.flyTo({
+            zoom: 11,
+            center: report.geometry.coordinates
+          });
+          break;
+        }
+      }
+    }
+  }
+
+  bindMapEventHandlers(): void {
     this.map.on('style.load', () => {
       if (this.selectedRegion) {
         // Fly to selected region
         this.setBounds();
         // Then load layers
         this.layerService.initializeLayers(this.map, this.selectedRegion);
-
-        if (this.selectedReportId) {
-          // Do something
-          console.log('Selected report id: ' + this.selectedReportId);
-        }
       }
     });
 
@@ -149,9 +162,19 @@ export class MapComponent implements OnInit, OnDestroy {
       this.toggleSidePane({close: true});
       this.layerService.handleMapInteraction(event);
     });
+
+    let eventCall = 0;
+    this.map.on('dataloading', event => {
+      if (event.sourceId === 'reports'
+      && eventCall === 0
+      && this.selectedReportId) {
+        this.zoomToQueriedReport(event);
+        eventCall += 1;
+      }
+    });
   }
 
-  initialiseInvites() {
+  initialiseInvites(): void {
     this.initializeMap();
 
     this.storeQueryParams();
@@ -228,7 +251,7 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeInfoPane() {
+  closeInfoPane(): void {
     // Call handleMapInteraction without params
     // to clear any selected features and close any open panes
     this.layerService.handleMapInteraction();
