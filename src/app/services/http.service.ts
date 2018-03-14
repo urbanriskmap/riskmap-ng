@@ -18,19 +18,32 @@ export class HttpService {
     layer: {
       name: string,
       server: string,
-      useRegionFlag: boolean,
+      path?: string,
+      flags: {
+        [name: string]: any
+      },
       responseType: string,
       uniqueKey: string,
       selected: {
         type: string,
-        style: object
+        style: {
+          [name: string]: any
+        }
       },
       placeBelow?: string
     },
     region: string
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
-    let endpoint = env.servers[layer.server] + layer.name;
-    if (layer.useRegionFlag) {
+    // Set to data server
+    let endpoint = env.servers[layer.server];
+    // Add additional path routes
+    if (layer.path) {
+      endpoint = endpoint + layer.path;
+    }
+    // Add resource name
+    endpoint = endpoint + layer.name;
+    // Add query parameters
+    if (layer.flags['region']) {
       endpoint = endpoint + '?city=' + region;
       if (layer.name === 'reports') {
         endpoint = endpoint + '&timeperiod=' + env.servers.settings.reportTimeperiod;

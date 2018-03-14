@@ -77,58 +77,79 @@ export class LayerService {
       target: object
     }
   ) {
-    for (const layer of env.supportedLayers) {
-      const name = layer.metadata.name;
-      const uniqueKey = layer.metadata.uniqueKey;
-      let hasSelectedFeature: boolean;
+    this.clearSelectionLayers();
 
-      // Check if a selection layer is active
-      if (event && this.map.getLayer('sel' + name)) {
-        hasSelectedFeature = (this.map.queryRenderedFeatures(event.point, {layers: ['sel' + name]})).length > 0;
-      }
-
-      if (hasSelectedFeature) {
-        // CASE: If clicked on a previously selected feature
-        this.clearSelectionLayer(name);
+    if (event) {
+      if (this.clearSelectionLayers(event.point)) {
+        // CASE: Clicked over a previously selected feature
+        // Deselect feature & exit function
         this.interactionService.handleLayerInteraction();
-        break;
+
       } else {
-        // Store rendered features filtered by layer name
-        let features = [];
+        // Iterate over all layers
+        for (const layer of env.supportedLayers) {
+          const name = layer.metadata.name;
+          const uniqueKey = layer.metadata.uniqueKey;
+          let features = [];
+          if (this.map.getLayer(name)) {
+            features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
+          }
 
-        if (event && this.map.getLayer(name)) {
-          features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
-        }
+          if (features.length === 1) {
+            // CASE: Clicked on a single feature
+            this.addSelectionLayer(name, uniqueKey, features);
+            this.interactionService.handleLayerInteraction(name, features);
+            break;
 
-        if (features.length === 1) {
-          // CASE: Clicked on a single feature
-          this.clearSelectionLayer(name);
-          this.addSelectionLayer(name, uniqueKey, features);
-          this.interactionService.handleLayerInteraction(name, features);
-          break;
+          } else if (features.length > 1) {
+            // CASE: Clicked with multiple features overlapping
+            // TODO: use clustering to show all features
+            // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
+            this.interactionService.handleLayerInteraction(name, features);
 
-        } else if (features.length > 1) {
-          // CASE: Clicked with multiple features overlapping
-          // TODO: use clustering to show all features
-          // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
+            // FIXME: Fails when features from 2 different layers are overlapping
+            // only first layer encountered is selected (report behind flood polygon case?)
+            break;
 
-          this.interactionService.handleLayerInteraction(name, features);
-          break;
-
-        } else {
-          // CASE: If clicked on empty map canvas
-          // OR clicked on Menu button
-          this.clearSelectionLayer(name);
-          this.interactionService.handleLayerInteraction();
+          } else {
+            // CASE: No feature found in layer being iterated over
+            this.interactionService.handleLayerInteraction();
+          }
         }
       }
+    } else {
+      // CASE: Clicked on Menu button,
+      // non-map interaction event
+      this.clearSelectionLayers();
+      this.interactionService.handleLayerInteraction();
     }
   }
 
-  clearSelectionLayer(layerName: string): void {
-    if (this.map && this.map.getLayer('sel' + layerName)) {
-      this.map.removeLayer('sel' + layerName);
-      this.map.removeSource('sel' + layerName);
+  clearSelectionLayers(
+    point?: {
+      x: number,
+      y: number
+    }
+  ): boolean {
+    let hasSelectedFeature = false;
+
+    for (const layer of env.supportedLayers) {
+      const selLayerName = 'sel' + layer.metadata.name;
+
+      if (this.map.getLayer(selLayerName)) {
+        // Check if a selection layer is active
+        if (point) {
+          hasSelectedFeature = (this.map.queryRenderedFeatures(point, {layers: [selLayerName]})).length > 0;
+        }
+
+        // Remove selected feature layers
+        this.map.removeLayer(selLayerName);
+        this.map.removeSource(selLayerName);
+      }
+
+      if (hasSelectedFeature) {
+        return true;
+      }
     }
   }
 

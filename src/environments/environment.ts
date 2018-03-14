@@ -49,7 +49,7 @@ export const environment = {
       metadata: {
         name: 'reports',
         server: 'data',
-        useRegionFlag: true,
+        flags: {region: true},
         responseType: 'topojson',
         uniqueKey: 'pkey',
         selected: {
@@ -79,7 +79,7 @@ export const environment = {
       metadata: {
         name: 'sensors',
         server: 'sensors',
-        useRegionFlag: false,
+        flags: {region: false},
         responseType: 'geojson',
         uniqueKey: 'uid',
         selected: {

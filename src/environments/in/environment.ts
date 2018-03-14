@@ -46,8 +46,8 @@ export const environment = {
   },
 
   supportedLayers: [
-    {name: 'reports',   present: true,    server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
-    {name: 'areas',     present: false,   server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
-    {name: 'sensors',   present: true,    server: 'sensors',  useRegionFlag: false, responseType: 'geojson'}
+    {name: 'reports',   present: true,    server: 'data',     flags: {region: true},  responseType: 'topojson'},
+    {name: 'areas',     present: false,   server: 'data',     flags: {region: true},  responseType: 'topojson'},
+    {name: 'sensors',   present: true,    server: 'sensors',  flags: {region: false}, responseType: 'geojson'}
   ]
 };

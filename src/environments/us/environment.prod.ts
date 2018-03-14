@@ -1,12 +1,17 @@
+// Default env for local development
+// Served with 'ng s'
+
+// For others, use 'ng s --e=dev-us'
+
 export const environment = {
   production: true,
   envName: 'prod-us',
 
   servers: {
-    data: 'https://data-dev.riskmap.us/',
-    sensors: 'https://sensors-dev.riskmap.us/',
+    data: 'https://data.riskmap.us/',
+    sensors: 'https://sensors.riskmap.us/',
     settings: {
-      reportTimeperiod: 604800
+      reportTimeperiod: 43200
     }
   },
 
@@ -33,16 +38,82 @@ export const environment = {
         name: 'broward',
         code: 'brw',
         bounds: {
-          sw: [25.35, -81.73],
-          ne: [26.95, -78.45]
+          sw: [-81.73, 25.35],
+          ne: [-78.45, 26.95]
         }
       }
     ]
   },
-
   supportedLayers: [
-    {name: 'reports',   present: true,    server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
-    {name: 'areas',     present: false,   server: 'data',     useRegionFlag: true,  responseType: 'topojson'},
-    {name: 'sensors',   present: true,    server: 'sensors',  useRegionFlag: false, responseType: 'geojson'}
+    {
+      metadata: {
+        name: 'reports',
+        server: 'data',
+        flags: {region: true},
+        responseType: 'topojson',
+        uniqueKey: 'pkey',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 8
+          }
+        }
+      },
+      settings: {
+        id: 'reports',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'circle-color': '#31aade',
+          'circle-radius': 8,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ffffff'
+        }
+      }
+    },
+    {
+      metadata: {
+        name: 'sensors',
+        server: 'sensors',
+        flags: {region: false},
+        responseType: 'geojson',
+        uniqueKey: 'uid',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 5
+          }
+        }
+      },
+      settings: {
+        id: 'sensors',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'circle-color': [
+            'match',
+            ['get', 'class'],
+            '63160', '#00ff00',
+            '00065', '#0000ff',
+            '62610', '#ff0000',
+            '00060', '#ffcc00',
+            '00045', '#00ccff',
+            '#ccc'
+          ],
+          'circle-radius': 5,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ddd'
+        },
+        filter: ['has', 'observations']
+      }
+    }
   ]
 };

@@ -17,6 +17,7 @@ import { LayerService } from '../services/layer.service';
 import { HttpService } from '../services/http.service';
 import { SensorService } from '../services/sensor.service';
 import { InteractionService } from '../services/interaction.service';
+import { InfraInfoComponent } from './infra-info/infra-info.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { InteractionService } from '../services/interaction.service';
     AreaInfoComponent,
     ScreenPopupComponent,
     SidePaneComponent,
-    MapComponent
+    MapComponent,
+    InfraInfoComponent
   ]
 })
 export class MapModule { }

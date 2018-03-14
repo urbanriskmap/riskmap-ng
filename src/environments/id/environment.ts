@@ -73,7 +73,7 @@ export const environment = {
       metadata: {
         name: 'floods',
         server: 'data',
-        useRegionFlag: true,
+        flags: {region: true},
         responseType: 'topojson',
         uniqueKey: 'area_id',
         selected: {
@@ -120,7 +120,7 @@ export const environment = {
       metadata: {
         name: 'reports',
         server: 'data',
-        useRegionFlag: true,
+        flags: {region: true},
         responseType: 'topojson',
         uniqueKey: 'pkey',
         selected: {
@@ -140,6 +140,37 @@ export const environment = {
         },
         paint: {
           'circle-color': '#31aade',
+          'circle-radius': 8,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ffffff'
+        }
+      }
+    },
+    {
+      metadata: {
+        name: 'pumps',
+        server: 'data',
+        path: 'infrastructure/',
+        flags: {region: true},
+        responseType: 'topojson',
+        uniqueKey: 'name',
+        selected: {
+          type: 'paint',
+          style: {
+            'circle-color': '#000000',
+            'circle-radius': 8
+          }
+        }
+      },
+      settings: {
+        id: 'pumps',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'circle-color': '#ffcccc',
           'circle-radius': 8,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
