@@ -9,7 +9,7 @@ branches:
     - dev
 
 before_install:
-  - npm -i angular-cli
+  - npm i angular-cli
 
 install:
   - npm i
