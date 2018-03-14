@@ -21,6 +21,6 @@ deploy:
     bucket: $AWS_S3_BUCKET_RISKMAP_US
     region: $AWS_S3_BUCKET_REGION_RISKMAP_US
     skip_cleanup: true
-    upload-dir: dist/dev-us
+    local_dir: dist/dev-us
     on:
       branch: dev
