@@ -44,6 +44,7 @@ export const environment = {
       }
     ]
   },
+
   supportedLayers: [
     {
       metadata: {
@@ -72,7 +73,8 @@ export const environment = {
           'circle-radius': 8,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
-        }
+        },
+        filter: ['all', ['!has', 'foo']]
       }
     },
     {
@@ -100,17 +102,19 @@ export const environment = {
         paint: {
           'circle-color': [
             'match',
-            ['get', 'type'],
-            'GW', '#ff0000',
-            'ST', '#00ff00',
-            'ST-CA', '#0000ff',
+            ['get', 'class'],
+            '63160', '#00ff00',
+            '00065', '#0000ff',
+            '62610', '#ff0000',
+            '00060', '#ffcc00',
+            '00045', '#00ccff',
             '#ccc'
           ],
           'circle-radius': 5,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ddd'
         },
-        filter: ['has', 'observations']
+        filter: ['all', ['has', 'observations']]
       }
     }
   ]

@@ -5,11 +5,11 @@
 
 export const environment = {
   production: false,
-  envName: 'dev-us',
+  envName: 'dev-id',
 
   servers: {
-    data: 'https://data-dev.riskmap.us/',
-    sensors: 'https://sensors-dev.riskmap.us/',
+    data: 'https://data-dev.petabencana.id/',
+    sensors: 'https://sensors-dev.petabencana.id/',
     settings: {
       reportTimeperiod: 604800
     }
@@ -17,35 +17,106 @@ export const environment = {
 
   map: {
     accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
-    center: [-80.199261, 26.138301],
+    center: [106.8271, -6.1754],
     initZoom: 10,
-    minZoom: 10,
+    minZoom: 8,
     baseMapStyle: 'mapbox://styles/mapbox/light-v9'
   },
 
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'es', name: 'Spanish'}
+      {code: 'id', name: 'Bahasa'}
     ],
     defaultLanguage: 'en'
   },
 
   instances: {
-    instanceType: 'County', // city / county / etc
+    instanceType: 'City', // city / county / etc
     regions: [
       {
-        name: 'broward',
-        code: 'brw',
+        name: 'jakarta',
+        code: 'jbd',
         bounds: {
-          sw: [-81.73, 25.35],
-          ne: [-78.45, 26.95]
+          sw: [106.480, -6.733],
+          ne: [107.175, -5.880]
+        }
+      },
+      {
+        name: 'surabaya',
+        code: 'sby',
+        bounds: {
+          sw: [112.397, -7.550],
+          ne: [113.032, -7.014]
+        }
+      },
+      {
+        name: 'bandung',
+        code: 'bdg',
+        bounds: {
+          sw: [107.369, -7.165],
+          ne: [107.931, -6.668]
+        }
+      },
+      {
+        name: 'semarang',
+        code: 'srg',
+        bounds: {
+          sw: [110.057, -7.335],
+          ne: [110.715, -6.727]
         }
       }
     ]
   },
 
   supportedLayers: [
+    {
+      metadata: {
+        name: 'floods',
+        server: 'data',
+        flags: {region: true},
+        responseType: 'topojson',
+        uniqueKey: 'area_id',
+        selected: {
+          type: 'paint',
+          style: {
+            'fill-color': [
+              'match',
+              ['get', 'state'],
+              1, '#a0a9f7',
+              2, '#ffff00',
+              3, '#ff8300',
+              4, '#cc2a41',
+              '#fff'
+            ],
+            'fill-opacity': 0.75,
+            'fill-outline-color': '#000'
+          }
+        },
+        placeBelow: 'place-village'
+      },
+      settings: {
+        id: 'floods',
+        type: 'fill',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'fill-color': [
+            'match',
+            ['get', 'state'],
+            1, '#a0a9f7',
+            2, '#ffff00',
+            3, '#ff8300',
+            4, '#cc2a41',
+            '#ffffff'
+          ],
+          'fill-opacity': 0.6
+        },
+        filter: ['all', ['>', 'state', 0]]
+      }
+    },
     {
       metadata: {
         name: 'reports',
@@ -73,52 +144,40 @@ export const environment = {
           'circle-radius': 8,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
-        }
+        },
+        filter: ['all', ['!has', 'foo']]
       }
     },
     {
       metadata: {
-        name: 'sensors',
-        server: 'sensors',
-        flags: {region: false},
-        responseType: 'geojson',
-        uniqueKey: 'uid',
+        name: 'pumps',
+        server: 'data',
+        path: 'infrastructure/',
+        flags: {region: true},
+        responseType: 'topojson',
+        uniqueKey: 'name',
         selected: {
-          type: 'circle-color',
+          type: 'paint',
           style: {
             'circle-color': '#000000',
-            'circle-radius': 5
+            'circle-radius': 8
           }
         }
       },
       settings: {
-        id: 'sensors',
+        id: 'pumps',
         type: 'circle',
         source: {
           type: 'geojson',
           data: <object|null>null
         },
         paint: {
-          'circle-color': [
-            'match',
-            ['get', 'uid'],
-            'dummyKey', '#000000',
-            [
-              'match',
-              ['get', 'class'],
-              '63160', '#00ff00',
-              '00065', '#0000ff',
-              '62610', '#ff0000',
-              '00060', '#ffcc00',
-              '00045', '#00ccff',
-              '#ccc'
-            ], // Default: color by class property
-          ],
-          'circle-radius': 5,
+          'circle-color': '#ffcccc',
+          'circle-radius': 8,
           'circle-stroke-width': 1,
-          'circle-stroke-color': '#ddd'
+          'circle-stroke-color': '#ffffff'
         },
-        filter: ['has', 'observations']
+        filter: ['all', ['!has', 'foo']]
       }
     }
   ]

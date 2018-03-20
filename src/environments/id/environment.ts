@@ -68,6 +68,7 @@ export const environment = {
       }
     ]
   },
+
   supportedLayers: [
     {
       metadata: {
@@ -113,7 +114,7 @@ export const environment = {
           ],
           'fill-opacity': 0.6
         },
-        filter: ['>', ['number', ['get', 'state']], 0]
+        filter: ['all', ['>', 'state', 0]]
       }
     },
     {
@@ -143,7 +144,8 @@ export const environment = {
           'circle-radius': 8,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
-        }
+        },
+        filter: ['all', ['!has', 'foo']]
       }
     },
     {
@@ -174,7 +176,8 @@ export const environment = {
           'circle-radius': 8,
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
-        }
+        },
+        filter: ['all', ['!has', 'foo']]
       }
     }
   ]
