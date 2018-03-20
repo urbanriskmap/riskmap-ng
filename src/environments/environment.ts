@@ -44,6 +44,7 @@ export const environment = {
       }
     ]
   },
+
   supportedLayers: [
     {
       metadata: {
@@ -83,7 +84,7 @@ export const environment = {
         responseType: 'geojson',
         uniqueKey: 'uid',
         selected: {
-          type: 'paint',
+          type: 'circle-color',
           style: {
             'circle-color': '#000000',
             'circle-radius': 5
@@ -100,13 +101,18 @@ export const environment = {
         paint: {
           'circle-color': [
             'match',
-            ['get', 'class'],
-            '63160', '#00ff00',
-            '00065', '#0000ff',
-            '62610', '#ff0000',
-            '00060', '#ffcc00',
-            '00045', '#00ccff',
-            '#ccc'
+            ['get', 'uid'],
+            'dummyKey', '#000000',
+            [
+              'match',
+              ['get', 'class'],
+              '63160', '#00ff00',
+              '00065', '#0000ff',
+              '62610', '#ff0000',
+              '00060', '#ffcc00',
+              '00045', '#00ccff',
+              '#ccc'
+            ], // Default: color by class property
           ],
           'circle-radius': 5,
           'circle-stroke-width': 1,

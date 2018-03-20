@@ -1,3 +1,6 @@
+// REFER docs.petabencana.id (move to api.urbanriskmap.org ?)
+// Update interface definitions
+
 /*
 // TEMP
 export interface InterfaceName {

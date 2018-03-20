@@ -33,20 +33,23 @@ export class SensorService {
           const latestObs = observationGroups[observationGroups.length - 1];
 
           // Append sensor observations to sensor properties
-          if (Array.isArray(latestObs.properties.observations)) {
-            // Case: Without upstream / downstream values
-            if (latestObs.properties.observations.length) {
-              sensor.properties.observations = latestObs.properties.observations;
-            }
-          } else {
+          if (latestObs.properties.hasOwnProperty('observations')) {
 
-            // Case: With upstream / downstream values
-            if (
-              latestObs.properties.observations.hasOwnProperty('upstream')
-              && Array.isArray(latestObs.properties.observations.upstream)
-              && latestObs.properties.observations.upstream.length
-            ) {
-              sensor.properties.observations = latestObs.properties.observations;
+            if (Array.isArray(latestObs.properties.observations)) {
+              // Case: Without upstream / downstream values
+              if (latestObs.properties.observations.length) {
+                sensor.properties.observations = latestObs.properties.observations;
+              }
+            } else {
+
+              // Case: With upstream / downstream values
+              if (
+                latestObs.properties.observations.hasOwnProperty('upstream')
+                && Array.isArray(latestObs.properties.observations.upstream)
+                && latestObs.properties.observations.upstream.length
+              ) {
+                sensor.properties.observations = latestObs.properties.observations;
+              }
             }
           }
         }

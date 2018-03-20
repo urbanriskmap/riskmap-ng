@@ -22,7 +22,10 @@ import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 export class MapComponent implements OnInit, OnDestroy {
   env = environment;
   navigationSubscription;
-  title: 'RiskMap';
+  translateParams = {
+    title: 'RiskMap'
+  };
+
   languages: {
     code: string,
     name: string

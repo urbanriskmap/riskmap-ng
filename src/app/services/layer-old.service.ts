@@ -79,7 +79,7 @@ export class LayerService {
   ) {
     if (event) {
       if (this.clearSelectionLayers(event.point)) {
-        // CASE 1: Clicked over a previously selected feature
+        // CASE: Clicked over a previously selected feature
         // Deselect feature & exit function
         this.interactionService.handleLayerInteraction();
 
@@ -94,22 +94,23 @@ export class LayerService {
           }
 
           if (features.length === 1) {
-            // CASE 2: Clicked on a single feature
+            // CASE: Clicked on a single feature
             this.addSelectionLayer(name, uniqueKey, features);
-
             this.interactionService.handleLayerInteraction(name, features);
             break;
 
           } else if (features.length > 1) {
-            // CASE 3: Clicked with multiple features overlapping
+            // CASE: Clicked with multiple features overlapping
             // TODO: use clustering to show all features
             // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
-
             this.interactionService.handleLayerInteraction(name, features);
+
+            // FIXME: Fails when features from 2 different layers are overlapping
+            // only first layer encountered is selected (report behind flood polygon case?)
             break;
 
           } else {
-            // CASE 4: No feature found in layer being iterated over
+            // CASE: No feature found in layer being iterated over
             this.interactionService.handleLayerInteraction();
           }
         }
@@ -117,7 +118,9 @@ export class LayerService {
     } else {
       // CASE: Clicked on Menu button,
       // non-map interaction event
-
+      if (this.map) {
+        this.clearSelectionLayers();
+      }
       this.interactionService.handleLayerInteraction();
     }
   }
@@ -128,17 +131,48 @@ export class LayerService {
       y: number
     }
   ): boolean {
-    // do
-    return false;
+    let hasSelectedFeature = false;
+
+    for (const layer of env.supportedLayers) {
+      const selLayerName = 'sel' + layer.metadata.name;
+
+      if (this.map.getLayer(selLayerName)) {
+        // Check if a selection layer is active
+        if (point) {
+          hasSelectedFeature = (this.map.queryRenderedFeatures(point, {layers: [selLayerName]})).length > 0;
+        }
+
+        // Remove selected feature layers
+        this.map.removeLayer(selLayerName);
+        this.map.removeSource(selLayerName);
+      }
+
+      if (hasSelectedFeature) {
+        return true;
+      }
+    }
   }
 
   addSelectionLayer(layerName?: string, uniqueKey?: string, features?: any): void {
+    const layerSettings: { [name: string]: any} = {};
+
     for (const layer of env.supportedLayers) {
       if (layerName === layer.metadata.name) {
-        const selProperty = this.map.getPaintProperty(layerName, layer.metadata.selected.type);
-        selProperty.splice(2, 1, features[0].properties[uniqueKey]);
-        this.map.setPaintProperty(layerName, layer.metadata.selected.type, selProperty);
+        // modify settings of original layer
+        layerSettings.id = 'sel' + layerName;
+        layerSettings.type = layer.settings.type;
+        layerSettings.source = {
+          type: layer.settings.source.type,
+          data: this.map.getSource(layer.metadata.name)._data
+        };
+        layerSettings.filter = ['==', uniqueKey, features[0].properties[uniqueKey]];
+        layerSettings[layer.metadata.selected.type] = layer.metadata.selected.style;
       }
+    }
+
+    if (layerSettings) {
+      // add selected feature layer
+      this.map.addLayer(layerSettings);
     }
   }
 }
