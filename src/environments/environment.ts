@@ -114,7 +114,7 @@ export const environment = {
           ],
           'fill-opacity': 0.6
         },
-        filter: ['all', ['>', 'state', 0]]
+        filter: ['all', ['>', 'state', 0], ['!=', 'area_id', '']]
       }
     },
     {
@@ -145,7 +145,7 @@ export const environment = {
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
         },
-        filter: ['all', ['!has', 'foo']]
+        filter: ['all', ['!=', 'pkey', '']]
       }
     },
     {
@@ -177,7 +177,7 @@ export const environment = {
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
         },
-        filter: ['all', ['!has', 'foo']]
+        filter: ['all', ['!=', 'name', '']]
       }
     }
   ]

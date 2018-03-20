@@ -74,7 +74,7 @@ export const environment = {
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ffffff'
         },
-        filter: ['all', ['!has', 'foo']]
+        filter: ['all', ['!=', 'pkey', '']]
       }
     },
     {
@@ -114,7 +114,7 @@ export const environment = {
           'circle-stroke-width': 1,
           'circle-stroke-color': '#ddd'
         },
-        filter: ['all', ['has', 'observations']]
+        filter: ['all', ['has', 'observations'], ['!=', 'uid', '']]
       }
     }
   ]

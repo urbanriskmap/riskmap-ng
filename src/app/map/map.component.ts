@@ -138,7 +138,7 @@ export class MapComponent implements OnInit, OnDestroy {
     if (event.sourceId === 'reports') {
       for (const report of event.source.data.features) {
         if (report.properties.pkey === this.selectedReportId) {
-          this.layerService.addSelectionLayer('reports', 'pkey', [report]);
+          this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
           this.interactionService.handleLayerInteraction('reports', [report]);
           this.map.flyTo({
             zoom: 11,
