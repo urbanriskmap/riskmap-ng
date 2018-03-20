@@ -17,6 +17,29 @@ export class LayerService {
     public interactionService: InteractionService
   ) { }
 
+  addSelectionLayer(
+    settings: any,
+    selection: any,
+    placeBelow: string
+  ): void {
+    const layerSettings: { [name: string]: any} = {};
+
+    // modify settings of original layer
+    layerSettings.id = 'sel' + settings.id;
+    layerSettings.type = settings.type;
+    layerSettings.source = settings.source;
+    layerSettings[selection.type] = selection.style;
+
+    const featureFilter = settings.filter.slice(-1).pop();
+    featureFilter.splice(0, 1, '==');
+
+    settings.filter.splice(-1, 1, featureFilter);
+    layerSettings.filter = settings.filter;
+
+    // add selected feature layer
+    this.map.addLayer(layerSettings);
+  }
+
   initializeLayers(
     map: mapboxgl.Map,
     region: {
@@ -44,6 +67,8 @@ export class LayerService {
 
               // Add layer
               this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
+              // Add selection layer
+              this.addSelectionLayer(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
             })
             .catch(error => console.log(error));
           });
@@ -55,13 +80,78 @@ export class LayerService {
           .then(geojson => {
             // Overwrite data object
             layer.settings.source.data = geojson;
-            // Add layer
+            // Add base layer
             this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
-
-            this.addSelectionLayerInit(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+            // Add selection layer
+            this.addSelectionLayer(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
           });
       }
     }
+  }
+
+  modifyLayerFilter(layerName: string, uniqueKey: string|null, features: any, restore?: boolean): void {
+    // Get filter for queried layer
+    const filter = this.map.getFilter(layerName);
+
+    // Extract last item in filter array
+    const featureFilter = filter.slice(-1).pop();
+
+    // Replace 'value' item in ['operator', 'key', 'value'] array
+    const value = restore ? '' : features[0].properties[uniqueKey];
+    featureFilter.splice(-1, 1, value);
+    // Replace featureFilter in queried layer filter
+    filter.splice(-1, 1, featureFilter);
+
+    // Update filter for base layer
+    this.map.setFilter(layerName, filter);
+
+    // Invert 'operator' from '!=' to '==' for selectionFilter
+    const selectionFilter = featureFilter;
+    selectionFilter.splice(0, 1, '==');
+    // Replace selectionFilter in queried layer's selection counterpart
+    filter.splice(-1, 1, selectionFilter);
+
+    // Update filter for selection layer
+    this.map.setFilter('sel' + layerName, filter);
+  }
+
+  clearSelectionLayers(
+    point?: {
+      x: number,
+      y: number
+    }
+  ): boolean {
+    let hasSelectedFeature = false;
+
+    for (const layer of env.supportedLayers) {
+      const layerName = layer.metadata.name;
+
+      // Prevent method execution before layer have loaded
+      if (this.map.getLayer(layerName)) {
+
+        const filter = this.map.getFilter(layerName);
+        const featureFilter = filter.slice(-1).pop();
+
+        if (featureFilter[2] !== '') {
+          // Base layer filter has no unique identifier value
+          // Thus, layer has a selected feature
+
+          if (point) {
+            // Clicked again on a selected feature?
+            hasSelectedFeature = (this.map.queryRenderedFeatures(point, {layers: ['sel' + layerName]})).length > 0;
+          }
+
+          // Restore base layer and selection layer filters
+          this.modifyLayerFilter(layerName, null, null, true);
+        }
+
+        if (hasSelectedFeature) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   handleMapInteraction(
@@ -81,7 +171,7 @@ export class LayerService {
   ) {
     if (event) {
       if (this.clearSelectionLayers(event.point)) {
-        // CASE: Clicked over a previously selected feature
+        // CASE 1: Clicked over a previously selected feature
         // Deselect feature & exit function
         this.interactionService.handleLayerInteraction();
 
@@ -96,13 +186,13 @@ export class LayerService {
           }
 
           if (features.length === 1) {
-            // CASE: Clicked on a single feature
+            // CASE 2: Clicked on a single feature
             this.modifyLayerFilter(name, uniqueKey, features);
             this.interactionService.handleLayerInteraction(name, features);
             break;
 
           } else if (features.length > 1) {
-            // CASE: Clicked with multiple features overlapping
+            // CASE 3: Clicked with multiple features overlapping
             // TODO: use clustering to show all features
             // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
             this.interactionService.handleLayerInteraction(name, features);
@@ -112,7 +202,7 @@ export class LayerService {
             break;
 
           } else {
-            // CASE: No feature found in layer being iterated over
+            // CASE 4: No feature found in layer being iterated over
             this.interactionService.handleLayerInteraction();
           }
         }
@@ -125,90 +215,5 @@ export class LayerService {
       }
       this.interactionService.handleLayerInteraction();
     }
-  }
-
-  clearSelectionLayers(
-    point?: {
-      x: number,
-      y: number
-    }
-  ): boolean {
-    let hasSelectedFeature = false;
-
-    for (const layer of env.supportedLayers) {
-      const layerName = layer.metadata.name;
-
-      if (this.map.getLayer('sel' + layerName)) {
-        // Check if a selection layer is active
-        if (point) {
-          hasSelectedFeature = (this.map.queryRenderedFeatures(point, {layers: ['sel' + layerName]})).length > 0;
-        }
-
-        // Restore base layer and selection layer filters
-        this.modifyLayerFilter(layerName, null, null, true);
-      }
-
-      if (hasSelectedFeature) {
-        return true;
-      }
-    }
-  }
-
-  addSelectionLayerInit(
-    settings: any,
-    selection: any,
-    placeBelow: string
-  ): void {
-    const layerSettings: { [name: string]: any} = {};
-
-    // modify settings of original layer
-    layerSettings.id = 'sel' + settings.id;
-    layerSettings.type = settings.type;
-    layerSettings.source = settings.source;
-    layerSettings[selection.type] = selection.style;
-
-    const featureFilter = settings.filter.slice(-1).pop();
-    featureFilter.splice(0, 1, '==');
-
-    settings.filter.splice(-1, 1, featureFilter);
-    layerSettings.filter = settings.filter;
-
-    // add selected feature layer
-    this.map.addLayer(layerSettings);
-  }
-
-  modifyLayerFilter(layerName: string, uniqueKey: string|null, features: any, restore?: boolean): void {
-    // Get filter for queried layer
-    const filter = this.map.getFilter(layerName);
-
-    // Extract last item in filter array
-    const featureFilter = filter.slice(-1).pop();
-
-    let value = features[0].properties[uniqueKey];
-    if (restore) {
-      value = '';
-    }
-
-    // Replace 'value' item in ['operator', 'key', 'value'] array
-    featureFilter.splice(-1, 1, value);
-    // Replace featureFilter in queried layer filter
-    filter.splice(-1, 1, featureFilter);
-
-    // Update filter for base layer
-    this.map.setFilter(layerName, filter);
-
-    let operator = '==';
-    if (restore) {
-      operator = '!=';
-    }
-
-    // Invert 'operator'
-    const selectionFilter = featureFilter;
-    selectionFilter.splice(0, 1, operator);
-    // Replace selectionFilter in queried layer's selection counterpart
-    filter.splice(-1, 1, selectionFilter);
-
-    // Update filter for selection layer
-    this.map.setFilter('sel' + layerName, filter);
   }
 }

@@ -131,9 +131,8 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  // FIXME: triggered before reports layer is rendered
-  // resulting in selection layer generated behind reports layers.
-  // Push filter to reports layer in layerService.addSelectionLayer method?
+  // FIXME: may get triggered before reports layer is rendered
+  // Catch in tests
   zoomToQueriedReport(event) {
     if (event.sourceId === 'reports') {
       for (const report of event.source.data.features) {
@@ -169,10 +168,13 @@ export class MapComponent implements OnInit, OnDestroy {
     let eventCall = 0;
     this.map.on('dataloading', event => {
       if (event.sourceId === 'reports'
-      && eventCall === 0
       && this.selectedReportId) {
-        this.zoomToQueriedReport(event);
-        eventCall += 1;
+        // 3 dataloading calls are made per layer source
+        if (eventCall > 1) {
+          this.zoomToQueriedReport(event);
+        } else {
+          eventCall += 1;
+        }
       }
     });
   }
