@@ -21,11 +21,21 @@ html, body {
 
 // ***** VARIABLES *****
 
+// Monochrome
 $dark-gray: #2f2f2f;
 $steel-gray: #424242;
 $medium-gray: #808080;
 $light-gray: #dcdcdc;
 $snow-white: #ffffff;
 
+// Palette (for icons)
+$rich-amber: #f1b500; // use for utility related, like broken drain; rgb: 241 181 0
+$dark-gold: #c26f00; // *available; rgb: 194 111 0
+$green-haze: #00a55e; // Tree fallen; rgb: 0 165 94
+$bright-azure: #0892fb; // *available; rgb: 8 145 251
+$dark-azure: #00579b; // Flood Reports / UI highlights, rgb: 0 85 155
+$fire-red: #c23700; // *available; rgb: 194 55 0
+
+// Deprecated
 $banjir-blue: #31aade;
 $bencana-red: #c1272d;

@@ -154,6 +154,24 @@ export class MapComponent implements OnInit, OnDestroy {
       if (this.selectedRegion) {
         // Fly to selected region
         this.setBounds();
+
+        this.map.loadImage('/assets/icons/android-chrome-192x192.png', (error, img) => {
+          if (error) {
+            console.log(error);
+          }
+
+          this.map.addImage('flood_reports', img);
+        });
+
+        this.map.loadImage('/assets/icons/android-chrome-192x192.png', (error, img) => {
+          if (error) {
+            // FIXME explore if on error, layer with paint options can be loaded
+            console.log(error);
+          }
+
+          this.map.addImage('reports_selected', img);
+        });
+
         // Then load layers
         this.layerService.initializeLayers(this.map, this.selectedRegion);
       }

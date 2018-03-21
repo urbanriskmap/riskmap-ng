@@ -16,11 +16,11 @@ export const environment = {
   },
 
   map: {
-    accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
+    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNpdmVhbTFraDAwNHIyeWw1ZDB6Y2hhbTYifQ.tpgt1PB5lkJ-wITS02c96Q',
     center: [106.8271, -6.1754],
     initZoom: 10,
     minZoom: 8,
-    baseMapStyle: 'mapbox://styles/mapbox/light-v9'
+    baseMapStyle: 'mapbox://styles/urbanriskmap/ciwce3tim00532pocrokb7ojf'
   },
 
   locales: {
@@ -87,7 +87,7 @@ export const environment = {
               2, '#ffff00',
               3, '#ff8300',
               4, '#cc2a41',
-              '#fff'
+              '#000'
             ],
             'fill-opacity': 0.75,
             'fill-outline-color': '#000'
@@ -110,7 +110,7 @@ export const environment = {
             2, '#ffff00',
             3, '#ff8300',
             4, '#cc2a41',
-            '#ffffff'
+            '#000'
           ],
           'fill-opacity': 0.6
         },
@@ -127,7 +127,7 @@ export const environment = {
         selected: {
           type: 'paint',
           style: {
-            'circle-color': '#000000',
+            'circle-color': '#000',
             'circle-radius': 8
           }
         }
@@ -140,10 +140,10 @@ export const environment = {
           data: <object|null>null
         },
         paint: {
-          'circle-color': '#31aade',
+          'circle-color': '#00579b',
           'circle-radius': 8,
           'circle-stroke-width': 1,
-          'circle-stroke-color': '#ffffff'
+          'circle-stroke-color': '#fff'
         },
         filter: ['all', ['!=', 'pkey', '']]
       }
@@ -159,7 +159,7 @@ export const environment = {
         selected: {
           type: 'paint',
           style: {
-            'circle-color': '#000000',
+            'circle-color': '#000',
             'circle-radius': 8
           }
         }
@@ -172,10 +172,10 @@ export const environment = {
           data: <object|null>null
         },
         paint: {
-          'circle-color': '#ffcccc',
+          'circle-color': '#c26f00',
           'circle-radius': 8,
           'circle-stroke-width': 1,
-          'circle-stroke-color': '#ffffff'
+          'circle-stroke-color': '#fff'
         },
         filter: ['all', ['!=', 'name', '']]
       }
