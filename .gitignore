@@ -9,12 +9,12 @@
 /node_modules
 
 # deployment specific assets
-# /src/assets/icons
-# /src/assets/locales
-# /src/assets/logos
+/src/assets/icons
+/src/assets/locales
+/src/assets/logos
 
 # deployment specific assets
-# /src/resources
+/src/resources
 
 # docs
 /docs
