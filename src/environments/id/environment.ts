@@ -125,25 +125,25 @@ export const environment = {
         responseType: 'topojson',
         uniqueKey: 'pkey',
         selected: {
-          type: 'paint',
+          type: 'layout',
           style: {
-            'circle-color': '#000',
-            'circle-radius': 8
+            'icon-image': 'reports_selected',
+            'icon-size': 0.6,
+            'icon-allow-overlap': true
           }
         }
       },
       settings: {
         id: 'reports',
-        type: 'circle',
+        type: 'symbol',
         source: {
           type: 'geojson',
           data: <object|null>null
         },
-        paint: {
-          'circle-color': '#00579b',
-          'circle-radius': 8,
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#fff'
+        layout: {
+          'icon-image': 'flood_reports',
+          'icon-size': 0.2,
+          'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'pkey', '']]
       }

@@ -117,37 +117,6 @@ export const environment = {
         filter: ['all', ['>', 'state', 0], ['!=', 'area_id', '']]
       }
     },
-    // {
-    //   metadata: {
-    //     name: 'reports',
-    //     server: 'data',
-    //     flags: {region: true},
-    //     responseType: 'topojson',
-    //     uniqueKey: 'pkey',
-    //     selected: {
-    //       type: 'paint',
-    //       style: {
-    //         'circle-color': '#000',
-    //         'circle-radius': 8
-    //       }
-    //     }
-    //   },
-    //   settings: {
-    //     id: 'reports',
-    //     type: 'circle',
-    //     source: {
-    //       type: 'geojson',
-    //       data: <object|null>null
-    //     },
-    //     paint: {
-    //       'circle-color': '#00579b',
-    //       'circle-radius': 8,
-    //       'circle-stroke-width': 1,
-    //       'circle-stroke-color': '#fff'
-    //     },
-    //     filter: ['all', ['!=', 'pkey', '']]
-    //   }
-    // },
     {
       metadata: {
         name: 'reports',
@@ -159,7 +128,8 @@ export const environment = {
           type: 'layout',
           style: {
             'icon-image': 'reports_selected',
-            'icon-size': 0.6
+            'icon-size': 0.6,
+            'icon-allow-overlap': true
           }
         }
       },
@@ -172,7 +142,8 @@ export const environment = {
         },
         layout: {
           'icon-image': 'flood_reports',
-          'icon-size': 0.2
+          'icon-size': 0.2,
+          'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'pkey', '']]
       }

@@ -18,6 +18,9 @@ import { HttpService } from '../services/http.service';
 import { SensorService } from '../services/sensor.service';
 import { InteractionService } from '../services/interaction.service';
 import { InfraInfoComponent } from './infra-info/infra-info.component';
+import { ReportContentComponent } from './side-pane/report-content/report-content.component';
+import { MapContentComponent } from './side-pane/map-content/map-content.component';
+import { InfoContentComponent } from './side-pane/info-content/info-content.component';
 
 @NgModule({
   imports: [
@@ -42,7 +45,10 @@ import { InfraInfoComponent } from './infra-info/infra-info.component';
     ScreenPopupComponent,
     SidePaneComponent,
     MapComponent,
-    InfraInfoComponent
+    InfraInfoComponent,
+    ReportContentComponent,
+    MapContentComponent,
+    InfoContentComponent
   ]
 })
 export class MapModule { }

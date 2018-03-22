@@ -1,3 +1,21 @@
-<p>
-  side-pane works!
-</p>
+<div
+  id="tabRow">
+  <button mat-button
+    color="primary"
+    *ngFor="let tab of tabs"
+    (click)="changeTab(tab)">
+    {{ tab }}
+  </button>
+</div>
+
+<app-info-content
+  *ngIf="selectedTab === 'info'">
+</app-info-content>
+
+<app-map-content
+  *ngIf="selectedTab === 'map'">
+</app-map-content>
+
+<app-report-content
+  *ngIf="selectedTab === 'report'">
+</app-report-content>
