@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
 import { environment as env } from '../../environments/environment';
+import { layers } from '../../resources/layers';
 import { HttpService } from './http.service';
 import { SensorService } from './sensor.service';
 import { InteractionService } from './interaction.service';
@@ -53,7 +54,7 @@ export class LayerService {
   ): void {
     this.map = map;
 
-    for (const layer of env.supportedLayers) {
+    for (const layer of layers.supported) {
 
       switch (layer.metadata.name) {
         case 'sensors':
@@ -123,7 +124,7 @@ export class LayerService {
   ): boolean {
     let hasSelectedFeature = false;
 
-    for (const layer of env.supportedLayers) {
+    for (const layer of layers.supported) {
       const layerName = layer.metadata.name;
 
       // Prevent method execution before layer have loaded
@@ -177,7 +178,7 @@ export class LayerService {
 
       } else {
         // Iterate over all layers
-        for (const layer of env.supportedLayers) {
+        for (const layer of layers.supported) {
           const name = layer.metadata.name;
           const uniqueKey = layer.metadata.uniqueKey;
           let features = [];

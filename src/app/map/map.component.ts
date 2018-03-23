@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 import * as mapboxgl from 'mapbox-gl';
 
 import { environment } from '../../environments/environment';
+import { instances } from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
@@ -87,7 +88,7 @@ export class MapComponent implements OnInit, OnDestroy {
   hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
 
-    for (const region of this.env.instances.regions) {
+    for (const region of instances.regions) {
       if (instance === region.name) {
         this.selectedRegion = region;
         return true;
@@ -155,7 +156,7 @@ export class MapComponent implements OnInit, OnDestroy {
         // Fly to selected region
         this.setBounds();
 
-        this.map.loadImage('/assets/icons/android-chrome-192x192.png', (error, img) => {
+        this.map.loadImage('/assets/icons/android-chrome-512x512.png', (error, img) => {
           if (error) {
             console.log(error);
           }
@@ -163,7 +164,7 @@ export class MapComponent implements OnInit, OnDestroy {
           this.map.addImage('flood_reports', img);
         });
 
-        this.map.loadImage('/assets/icons/android-chrome-192x192.png', (error, img) => {
+        this.map.loadImage('/assets/icons/android-chrome-512x512.png', (error, img) => {
           if (error) {
             // FIXME explore if on error, layer with paint options can be loaded
             console.log(error);
@@ -229,7 +230,7 @@ export class MapComponent implements OnInit, OnDestroy {
   openDialog(): void {
     const dialogRef = this.dialog.open(ScreenPopupComponent, {
       width: '320px',
-      data: this.env.instances.regions
+      data: instances.regions
     });
 
     this.toggleSidePane({close: true});

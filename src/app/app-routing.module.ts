@@ -7,7 +7,7 @@ import { MapComponent } from './map/map.component';
 // https://medium.com/engineering-on-the-incline/reloading-current-route-on-click-angular-5-1a1bfc740ab2
 const routes: Routes = [
   { path: ':region', component: MapComponent, runGuardsAndResolvers: 'paramsChange' },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '/pick-region' }
 ];
 
 @NgModule({
