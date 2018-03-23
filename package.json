@@ -5,14 +5,15 @@
   "license": "GPL-3.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --env prod-us",
+    "start": "dep=id npm run fetch-assets && ng serve",
+    "build": "dep=id npm run fetch-assets && ng build --env prod-us",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-prod-ngsw": "ng build --environment=prod-us && node_modules/.bin/ngsw-config dist ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/ngsw-worker.js",
     "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist -p 8080",
-    "docs": "rm -rf ./docs && gulp --gulpfile ./tasks/generate-docs.js"
+    "fetch-assets": "gulp --gulpfile ./tasks/fetch-assets --dep $dep",
+    "docs": "rm -rf ./docs && gulp --gulpfile ./tasks/generate-docs"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "jquery": "^3.3.1",
     "less": "^2.7.3",
     "mapbox-gl": "^0.42.2",
+    "minimist": "^1.2.0",
     "node-sass": "^4.7.2",
     "rxjs": "^5.5.2",
     "sass-loader": "^6.0.7",
@@ -58,6 +60,7 @@
     "@types/node": "^6.0.102",
     "codelyzer": "^4.2.1",
     "gulp": "^3.9.1",
+    "gulp-changed-in-place": "^2.3.0",
     "gulp-typedoc": "^2.2.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",

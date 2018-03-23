@@ -14,7 +14,7 @@ import { MapModule } from './map/map.module';
 import { CustomMaterialsModule } from './custom-materials.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/locale/', '.json');
+  return new TranslateHttpLoader(http, './assets/locales/', '.json');
 }
 
 @NgModule({

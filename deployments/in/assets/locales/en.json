@@ -1,0 +1,5 @@
+{
+  "welcome_msg": "Welcome to {{ title }}",
+  "display_env": "Current environment: {{ env }}",
+  "reports_msg": "Received {{ r }} reports in past {{ h }} hours"
+}
