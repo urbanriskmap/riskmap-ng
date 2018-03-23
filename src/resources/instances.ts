@@ -1,4 +1,4 @@
-export const instances = {
+export default {
   instanceType: 'City', // city / county / etc
   regions: [
     {

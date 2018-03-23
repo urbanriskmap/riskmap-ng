@@ -7,7 +7,7 @@ import 'rxjs/add/operator/switchMap';
 import * as mapboxgl from 'mapbox-gl';
 
 import { environment } from '../../environments/environment';
-import { instances } from '../../resources/instances';
+import instances from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';

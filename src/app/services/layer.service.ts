@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
 import { environment as env } from '../../environments/environment';
-import { layers } from '../../resources/layers';
+import layers from '../../resources/layers';
 import { HttpService } from './http.service';
 import { SensorService } from './sensor.service';
 import { InteractionService } from './interaction.service';
