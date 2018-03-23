@@ -1,3 +1,11 @@
-<p>
-  report-content works!
-</p>
+<div
+  *ngFor="let item of content">
+  {{ item.name }} <br>
+  Embed video element here {{ item.videoLink }} <br>
+  <ul>
+    <li
+      *ngFor="let step of item.steps">
+      {{ step }}
+    </li>
+  </ul>
+</div>
