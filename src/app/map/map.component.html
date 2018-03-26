@@ -1,7 +1,36 @@
 <div id="mapWrapper">
 </div>
 
-<mat-toolbar id="navBar">
+<div id="navBar">
+  <a>
+    <span>
+      {{ 'welcome_msg' | translate: translateParams }}
+    </span>
+  </a>
+
+  <!-- Link lang menu to side-pane ?
+    open only when hamburger button pressed -->
+  <mat-form-field id="langMenu">
+    <mat-select
+      placeholder="Language"
+      (change)="changeLanguage($event)"
+      [(value)]="selectedLanguage">
+      <mat-option
+        *ngFor="let lang of languages"
+        [value]="lang.code">
+          {{ lang.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button
+    id="menuBtn"
+    (click)="toggleSidePane()">
+    E
+  </button>
+</div>
+
+<!-- <mat-toolbar id="navBar">
   <mat-toolbar-row>
     <span (click)="openDialog()">
       {{ 'welcome_msg' | translate:translateParams }}
@@ -32,7 +61,7 @@
       Menu
     </button>
   </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar> -->
 
 <app-report-info
   class="info_panes"

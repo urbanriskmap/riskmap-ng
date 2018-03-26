@@ -6,28 +6,50 @@
   background-color: $light-gray;
 }
 
-#langMenu {
-  position: absolute;
-  top: 4px;
-  right: 0;
-  margin-right: 10px;
-  width: 120px;
-  font-size: 12px;
-  height: 38px;
-}
+// #navBar {
+//   position: absolute;
+//   top: 0px;
+//   min-height: $toolbar-height;
+//   z-index: 2;
+//
+//   & .mat-toolbar-row {
+//     height: $toolbar-height;
+//
+//     & span {
+//       font-size: 16px;
+//     }
+//   }
+// }
 
 #navBar {
   position: absolute;
   top: 0px;
-  min-height: $toolbar-height;
+  width: 100%;
+  height: $toolbar-height;
+  @include text-light(12px, $dark-gray);
+  background-color: $frost-white;
   z-index: 2;
 
-  & .mat-toolbar-row {
-    height: $toolbar-height;
+  & a span {
+    margin-left: 10px;
+    font-size: 16px;
+    line-height: $toolbar-height;
+  }
 
-    & span {
-      font-size: 16px;
-    }
+  #langMenu {
+    position: absolute;
+    top: 4px;
+    right: 60px;
+    width: 80px;
+    font-size: 12px;
+    height: 38px;
+  }
+
+  #menuBtn {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    min-width: 40px;
   }
 }
 
