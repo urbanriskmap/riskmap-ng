@@ -1,21 +1,21 @@
 @import "assets/fonts/roboto/css/fonts.css";
 
 //_Font styles Variables_
-@mixin text-light($var, $col) {
-  font-family: "Roboto-Light", "Roboto", Open Sans;
-  font-size: $var;
+@mixin text-light($size, $col) {
+  font-family: "Roboto-Light", "Roboto", sans-serif;
+  font-size: $size;
   color: $col;
 }
 
-@mixin text-regular($var, $col) {
-  font-family: "Roboto", "Roboto", Open Sans;
-  font-size: $var;
+@mixin text-regular($size, $col) {
+  font-family: "Roboto", "Roboto", sans-serif;
+  font-size: $size;
   color: $col;
 }
 
-@mixin text-medium($var, $col) {
-  font-family: "Roboto-Medium", "Roboto", Open Sans;
-  font-size: $var;
+@mixin text-medium($size, $col) {
+  font-family: "Roboto-Medium", "Roboto", sans-serif;
+  font-size: $size;
   color: $col;
 }
 
@@ -35,5 +35,16 @@
     @media (min-width: $w2) {
       width: $w2;
     }
+  }
+}
+
+//_Button mixins_
+@mixin icon-button($size) {
+  font-family: "Roboto-Medium", "Roboto", sans-serif;
+  font-size: $size;
+  color: $dark-gray;
+  &:hover {
+    cursor: pointer;
+    color: $bright-azure;
   }
 }

@@ -6,21 +6,6 @@
   background-color: $light-gray;
 }
 
-// #navBar {
-//   position: absolute;
-//   top: 0px;
-//   min-height: $toolbar-height;
-//   z-index: 2;
-//
-//   & .mat-toolbar-row {
-//     height: $toolbar-height;
-//
-//     & span {
-//       font-size: 16px;
-//     }
-//   }
-// }
-
 #navBar {
   position: absolute;
   top: 0px;
@@ -31,7 +16,7 @@
   z-index: 2;
 
   & a span {
-    margin-left: 10px;
+    margin-left: $general-margin;
     font-size: 16px;
     line-height: $toolbar-height;
   }
@@ -47,20 +32,22 @@
 
   #menuBtn {
     position: absolute;
-    top: 4px;
-    right: 10px;
-    min-width: 40px;
+    top: 0px;
+    right: $general-margin;
+    @include icon-button(21px);
+    line-height: $toolbar-height;
   }
 }
 
 .info_panes {
   position: fixed;
-  bottom: 0;
-  right: 0;
-  height: 200px;
+  bottom: $general-margin;
+  right: $general-margin;
+  height: 184px;
   @include pane-width(320px, 420px);
   @include text-light(12px, $dark-gray);
   background-color: $frost-white;
+  box-shadow: $pane-shadow;
   z-index: 2;
 }
 

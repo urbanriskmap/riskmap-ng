@@ -46,6 +46,7 @@ export class MapComponent implements OnInit, OnDestroy {
   showSidePane = false;
 
   @Output() map: mapboxgl.Map;
+
   // Use ngx-translate-messageformat-compiler for pluralization, etc
 
   constructor(

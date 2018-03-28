@@ -13,17 +13,23 @@ export interface ReportInterface {
   disaster_type: string;
   image_url: string;
   pkey: string;
+  report_data: string | null; // contains json string
+  /*
   report_data: {
-    flood_depth?: number,
+    flood_depth?: number
     report_type: string
-  } | null;
+  }
+  */
   source: string;
   status: string;
+  tags: string; // contains json string
+  /*
   tags: {
     district_id: string,
     local_area_id: string,
     instance_region_code: string
   };
+  */
   text: string;
   title: string;
   url: string;

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 
 import { ReportInterface } from '../../interfaces';
 
@@ -12,11 +12,23 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     [name: string]: any
   }[];
 
-  feature: ReportInterface;
+  @Output() closePane = new EventEmitter<null>();
 
-  constructor() { }
+  feature: ReportInterface;
+  parsedReportData: {
+    [name: string]: any
+  };
+  parsedTags: {
+    [name: string]: any
+  };
+
+  constructor() {}
 
   ngOnInit() { }
+
+  closeInfoPane() {
+    this.closePane.emit();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('features')) {
@@ -24,6 +36,14 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       // this.features[0].properties.tags = JSON.parse(this.features[0].properties.tags);
 
       this.feature = this.features[0].properties;
+
+      if (this.feature.report_data) {
+        this.parsedReportData = JSON.parse(this.feature.report_data);
+      }
+
+      if (this.feature.tags) {
+        this.parsedTags = JSON.parse(this.feature.tags);
+      }
     }
   }
 

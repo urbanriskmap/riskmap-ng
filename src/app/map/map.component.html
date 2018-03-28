@@ -8,9 +8,9 @@
     </span>
   </a>
 
-  <!-- Link lang menu to side-pane ?
-    open only when hamburger button pressed -->
-  <mat-form-field id="langMenu">
+  <mat-form-field
+    *ngIf="showSidePane"
+    id="langMenu">
     <mat-select
       placeholder="Language"
       (change)="changeLanguage($event)"
@@ -23,45 +23,25 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-button
+  <div
     id="menuBtn"
     (click)="toggleSidePane()">
-    <i class="icon-menu"></i>
-  </button>
+    <i
+      *ngIf="!showSidePane"
+      class="icon-menu">
+    </i>
+    <i
+      *ngIf="showSidePane"
+      class="icon-close">
+    </i>
+  </div>
 </div>
 
-<!-- <mat-toolbar id="navBar">
-  <mat-toolbar-row>
-    <span (click)="openDialog()">
-      {{ 'welcome_msg' | translate:translateParams }}
-    </span>
-
-    <button mat-button
-      id="saveBtn"
-      (click)="addToHomeScreen()">
-      A2HS
-    </button>
-
-    <mat-form-field id="langMenu">
-      <mat-select
-        placeholder="Language"
-        (change)="changeLanguage($event)"
-        [(value)]="selectedLanguage">
-        <mat-option
-          *ngFor="let lang of languages"
-          [value]="lang.code">
-            {{ lang.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <button mat-button
-      id="menuBtn"
-      (click)="toggleSidePane()">
-      Menu
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar> -->
+<!-- <button mat-button
+  id="saveBtn"
+  (click)="addToHomeScreen()">
+  A2HS
+</button> -->
 
 <app-report-info
   class="info_panes"

@@ -7,7 +7,7 @@
 
 @include mat-core();
 
-$riskmap-primary:     mat-palette($mat-light-blue, 500);
+$riskmap-primary:     mat-palette($mat-light-blue, 600);
 $riskmap-accent:      mat-palette($mat-light-blue);
 $riskmap-warn:        mat-palette($mat-deep-orange);
 $riskmap-theme:       mat-light-theme($riskmap-primary, $riskmap-accent, $riskmap-warn);
@@ -23,13 +23,15 @@ html, body {
 
 // ***** VARIABLES *****
 $toolbar-height: 42px;
+$general-margin: 10px;
+$pane-shadow: 2px 6px 20px 0px rgba(0, 0, 0, 0.4);
 
 // Monochrome
 $dark-gray: #2f2f2f;
 $steel-gray: #424242;
 $medium-gray: #808080;
 $light-gray: #dcdcdc;
-$snow-white: #ffffff;
+$snow-white: #fffafa;
 
 $frost-white: transparentize($snow-white, 0.15);
 

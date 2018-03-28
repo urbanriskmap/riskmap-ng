@@ -1,3 +1,57 @@
-<h3 *ngIf="feature.report_data && feature.report_data.flood_depth">Depth: {{ feature.report_data.flood_depth }}</h3>
-<h3 *ngIf="feature.title !== 'null'">{{ feature.title }}</h3>
-<p>{{ feature.text }}</p>
+<div
+  id="imgWrapper">
+  <div
+    *ngIf="feature.image_url === 'null'">
+    <i class="icon-flood-img"></i>
+  </div>
+  <img
+    *ngIf="feature.image_url !== 'null'"
+    [src]="feature.image_url">
+</div>
+
+<div
+  id="detailsWrapper">
+
+  <div
+    id="closeWrapper">
+    <div
+      id="closeBtn"
+      (click)="closeInfoPane()">
+      <i class="icon-close"></i>
+    </div>
+  </div>
+
+  <div
+    id="static">
+    <p
+      *ngIf="parsedReportData && parsedReportData.flood_depth"
+      class="mat-subheading-1">
+      Depth: {{ parsedReportData.flood_depth }} cm
+    </p>
+    <p
+      *ngIf="feature.title !== 'null'"
+      class="mat-subheading-1">
+      {{ feature.title }}
+    </p>
+    <p
+      class="mat-caption">
+      {{ feature.created_at }}
+    </p>
+    <p
+      class="mat-caption">
+      {{ feature.source | titlecase }}
+    </p>
+    <p
+      class="mat-body-1">
+      {{ feature.text }}
+    </p>
+  </div>
+
+  <div
+    id="interactive">
+    <i class="icon-upvote"></i>
+    <i class="icon-downvote"></i>
+    <i class="icon-flag"></i>
+    <i class="icon-share-android"></i>
+  </div>
+</div>
