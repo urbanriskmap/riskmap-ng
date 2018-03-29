@@ -1,31 +1,68 @@
-@import "~@angular/material/theming";
-@import "~mapbox-gl/dist/mapbox-gl.css";
+@import '~@angular/material/theming';
+@import '~mapbox-gl/dist/mapbox-gl.css';
 
-@import "~assets/fonts/fontello/css/fontello.css";
+@import '~assets/fonts/fontello/css/fontello.css';
 
-@import "mixins";
+@import 'mixins';
+@import 'custom-palettes';
 
+// STYLE GUIDE CUES (ref. google css style guide)
+/*
+Use lowercase or camelCase for #id selectors
+Use dash-case for .class selectors
+Use 'single quotes'
+Do not suffix unit after 0 value (margin: 0; NOT margin: 0px;)
+Do not prefix 0 before decimal value (.5 NOT 0.5)
+
+Ordering (deviates from google):-
+size & positioning
+  - position
+  - left / right / top / bottom
+  - width / height
+  - margin / padding
+  - float
+
+style params for selected element
+  - background-color
+  - border / border-radius
+  - box-shadow
+  - etc.
+
+style params for child elements
+  - color / font-size / font-family / line-height
+  - text-align / word-wrap
+  - etc.
+
+layers
+  - z-index
+
+@media variations
+*/
+
+// ***** ANGULAR MATERIAL CUSTOM THEME *****
 @include mat-core();
 
-$riskmap-primary:     mat-palette($mat-light-blue, 600);
-$riskmap-accent:      mat-palette($mat-light-blue);
+$riskmap-primary:     mat-palette($mat-azure, 900);
+$riskmap-accent:      mat-palette($mat-azure, 500);
 $riskmap-warn:        mat-palette($mat-deep-orange);
 $riskmap-theme:       mat-light-theme($riskmap-primary, $riskmap-accent, $riskmap-warn);
 
 @include angular-material-theme($riskmap-theme);
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
 }
 
-// ***** VARIABLES *****
+// ***** GLOBAL UNIT VALUES *****
 $toolbar-height: 42px;
 $general-margin: 10px;
 $pane-shadow: 2px 6px 20px 0px rgba(0, 0, 0, 0.4);
 
+// ***** GLOBAL COLOR VARIABLES *****
 // Monochrome
 $dark-gray: #2f2f2f;
 $steel-gray: #424242;
@@ -39,8 +76,8 @@ $frost-white: transparentize($snow-white, 0.15);
 $rich-amber: #f1b500; // use for utility related, like broken drain; rgb: 241 181 0
 $dark-gold: #c26f00; // *available; rgb: 194 111 0
 $green-haze: #00a55e; // Tree fallen; rgb: 0 165 94
-$bright-azure: #0892fb; // *available; rgb: 8 145 251
-$dark-azure: #00579b; // Flood Reports / UI highlights, rgb: 0 85 155
+$bright-azure: mat-color($riskmap-accent); // UI accents; rgb: 8 145 251
+$dark-azure: mat-color($riskmap-primary); // Flood Reports / UI accents, rgb: 0 85 155
 $fire-red: #c23700; // *available; rgb: 194 55 0
 
 // Deprecated

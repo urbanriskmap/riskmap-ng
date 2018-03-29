@@ -37,35 +37,36 @@
   </div>
 </div>
 
-<!-- <button mat-button
+<!-- COMBAK Test A2HS when deployed on https
+<button mat-button
   id="saveBtn"
   (click)="addToHomeScreen()">
   A2HS
 </button> -->
 
 <app-report-info
-  class="info_panes"
+  class="info-panes"
   *ngIf="interactionService.featureTypes.reports"
   [features]="interactionService.featureTypes.reports"
   (closePane)="closeInfoPane()">
 </app-report-info>
 
 <app-area-info
-  class="info_panes"
+  class="info-panes"
   *ngIf="interactionService.featureTypes.floods"
   [features]="interactionService.featureTypes.floods"
   (closePane)="closeInfoPane()">
 </app-area-info>
 
 <app-sensor-info
-  class="info_panes"
+  class="info-panes"
   *ngIf="interactionService.featureTypes.sensors"
   [features]="interactionService.featureTypes.sensors"
   (closePane)="closeInfoPane()">
 </app-sensor-info>
 
 <app-infra-info
-  class="info_panes"
+  class="info-panes"
   *ngIf="interactionService.featureTypes.pumps"
   [features]="interactionService.featureTypes.pumps"
   (closePane)="closeInfoPane()">

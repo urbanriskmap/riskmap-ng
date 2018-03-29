@@ -1,4 +1,4 @@
-@import "styles";
+@import 'styles';
 
 #mapWrapper {
   width: 100%;
@@ -39,16 +39,24 @@
   }
 }
 
-.info_panes {
+.info-panes {
   position: fixed;
-  bottom: $general-margin;
-  right: $general-margin;
+  bottom: 0;
+  right: 0;
+  width: 100%;
   height: 184px;
-  @include pane-width(320px, 420px);
-  @include text-light(12px, $dark-gray);
   background-color: $frost-white;
   box-shadow: $pane-shadow;
+  @include text-light(12px, $dark-gray);
   z-index: 2;
+
+  @media (min-width: 420px) {
+    width: 240px;
+    height: 400px;
+    bottom: $general-margin;
+    right: $general-margin;
+    border: 5px solid $frost-white;
+  }
 }
 
 app-side-pane {
@@ -56,8 +64,8 @@ app-side-pane {
   top: $toolbar-height;
   right: 0;
   @include pane-width(320px, 420px);
-  @include text-light(12px, $dark-gray);
-  background-color: $frost-white;
   height: 100%;
+  background-color: $frost-white;
+  @include text-light(12px, $dark-gray);
   z-index: 2;
 }

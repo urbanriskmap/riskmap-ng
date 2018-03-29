@@ -167,7 +167,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
         this.map.loadImage('/assets/icons/android-chrome-512x512.png', (error, img) => {
           if (error) {
-            // FIXME explore if on error, layer with paint options can be loaded
+            // IDEA explore if on error, layer with paint options can be loaded
             console.log(error);
           }
 
