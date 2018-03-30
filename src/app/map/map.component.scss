@@ -53,6 +53,7 @@
   @media (min-width: 420px) {
     width: 240px;
     height: auto;
+    min-height: 160px;
     bottom: $general-margin;
     right: $general-margin;
     border: 5px solid $frost-white;

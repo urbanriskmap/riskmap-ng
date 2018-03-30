@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 
+import { ChartService } from '../../services/chart.service';
+
 @Component({
   selector: 'app-sensor-info',
   templateUrl: './sensor-info.component.html',
@@ -13,8 +15,11 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   feature: {
     [name: string]: any
   };
+  hasUpstreamDownstream: boolean | null;
 
-  constructor() { }
+  constructor(
+    private chartService: ChartService
+  ) { }
 
   ngOnInit() { }
 
@@ -22,7 +27,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
 
-      console.log(this.feature);
+      this.hasUpstreamDownstream = this.chartService.parseData(this.feature.id);
     }
   }
 

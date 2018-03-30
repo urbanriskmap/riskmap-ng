@@ -1,10 +1,10 @@
 export const environment = {
   production: false,
-  envName: 'dev-id',
+  envName: 'dev-us',
 
   servers: {
-    data: 'https://data-dev.petabencana.id/',
-    sensors: 'https://sensors-dev.petabencana.id/',
+    data: 'https://data-dev.riskmap.us/',
+    sensors: 'https://sensors-dev.riskmap.us/',
     settings: {
       reportTimeperiod: 604800
     }
@@ -12,18 +12,18 @@ export const environment = {
 
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNpdmVhbTFraDAwNHIyeWw1ZDB6Y2hhbTYifQ.tpgt1PB5lkJ-wITS02c96Q',
-    center: [106.8271, -6.1754],
+    center: [-80.199261, 26.138301],
     initZoom: 10,
-    minZoom: 8,
+    minZoom: 10,
     baseMapStyle: 'mapbox://styles/urbanriskmap/ciwce3tim00532pocrokb7ojf'
   },
 
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'id', name: 'Bahasa'}
+      {code: 'es', name: 'Spanish'}
     ],
     defaultLanguage: 'en',
-    timezone: 'Asia/Jakarta'
+    timezone: 'America/New_York'
   }
 };

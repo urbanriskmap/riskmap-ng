@@ -21,6 +21,7 @@ import { InfraInfoComponent } from './infra-info/infra-info.component';
 import { ReportContentComponent } from './side-pane/report-content/report-content.component';
 import { MapContentComponent } from './side-pane/map-content/map-content.component';
 import { InfoContentComponent } from './side-pane/info-content/info-content.component';
+import { ChartService } from '../services/chart.service';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { InfoContentComponent } from './side-pane/info-content/info-content.comp
     HttpService,
     TranslatePipe,
     SensorService,
-    InteractionService
+    InteractionService,
+    ChartService
   ],
   entryComponents: [ScreenPopupComponent],
   declarations: [
