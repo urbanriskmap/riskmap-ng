@@ -5,7 +5,6 @@
   "license": "GPL-3.0",
   "scripts": {
     "start": "dep=id npm run fetch-assets && ng serve",
-
     "build": "npm run build-dev && npm run build-prod",
     "build-dev": "npm run build-dev-id && npm run build-dev-us",
     "build-prod": "npm run build-prod-id && npm run build-prod-us",
@@ -15,7 +14,6 @@
     "build-prod-id": "dep=id npm run fetch-assets && ng build --env=prod-id --output-path='dist/prod-id'",
     "build-prod-us": "dep=us npm run fetch-assets && ng build --env=prod-us --output-path='dist/prod-us'",
     "build-prod-in": "dep=in npm run fetch-assets && ng build --env=prod-in --output-path='dist/prod-in'",
-
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -54,6 +52,8 @@
     "less": "^2.7.3",
     "mapbox-gl": "^0.42.2",
     "minimist": "^1.2.0",
+    "moment": "^2.21.0",
+    "moment-timezone": "^0.5.14",
     "node-sass": "^4.7.2",
     "rxjs": "^5.5.2",
     "sass-loader": "^6.0.7",

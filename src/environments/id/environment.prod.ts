@@ -23,6 +23,7 @@ export const environment = {
       {code: 'en', name: 'English'},
       {code: 'id', name: 'Bahasa'}
     ],
-    defaultLanguage: 'id'
+    defaultLanguage: 'id',
+    timezone: 'Asia/Jakarta'
   }
 };

@@ -1,17 +1,18 @@
 <!-- REVIEW utility of close button -->
 <!-- slide down action? no button at all? -->
-<div
+<!-- <div
   id="closeBtn"
   (click)="closeInfoPane()">
   <i class="icon-close"></i>
-</div>
+</div> -->
 
 <div
   id="imgWrapper">
-  <div
+  <!-- REVIEW utility of image placeholder -->
+  <!-- <div
     *ngIf="feature.image_url === 'null'">
     <i class="icon-flood-img"></i>
-  </div>
+  </div> -->
   <img
     *ngIf="feature.image_url !== 'null'"
     [src]="feature.image_url">
@@ -40,7 +41,7 @@
     <p
       class="mat-caption"
       style="text-align: right;">
-      {{ feature.created_at }}
+      {{ timestamp }}
     </p>
     <p
       class="mat-body-1">

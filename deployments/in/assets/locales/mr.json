@@ -1,5 +1,5 @@
 {
-  "welcome_msg": "{{ title }} க்கு வரவேற்பு",
+  "welcome_msg": "{{ title }} आपले स्वागत आहे",
   "display_env": "Current environment: {{ env }}",
   "reports_msg": "Received {{ r }} reports in past {{ h }} hours"
 }

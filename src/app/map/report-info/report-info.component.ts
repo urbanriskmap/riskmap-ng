@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 
 import { ReportInterface } from '../../interfaces';
+import { TimeService } from '../../services/time.service';
 
 @Component({
   selector: 'app-report-info',
@@ -21,10 +22,15 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   parsedTags: {
     [name: string]: any
   };
+  timestamp: string;
 
-  constructor() {}
+  constructor(
+    public timeService: TimeService
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.timestamp = this.timeService.getLocalTimestamp(this.feature.created_at);
+  }
 
   closeInfoPane() {
     this.closePane.emit();
