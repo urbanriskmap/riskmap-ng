@@ -27,7 +27,13 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
 
-      this.hasUpstreamDownstream = this.chartService.parseData(this.feature.id);
+      this.chartService.parseData(this.feature.id)
+      .then(hasUpstreamDownstream => {
+        this.hasUpstreamDownstream = hasUpstreamDownstream;
+
+        this.chartService.drawSensorChart(document.getElementById('sensorChartWrapper'));
+      })
+      .catch(error => console.log(error));
     }
   }
 

@@ -28,8 +28,12 @@ export class TimeService {
 
   // TODO create method to change moment.locale on language change, if required
 
-  getLocalTimestamp(zulu: string) {
-    return moment(zulu).format('LT ll'); // Local hours:minutes date month, year
+  getLocalTime(zulu: string, format?: string) {
+    if (format) {
+      return moment(zulu);
+    } else {
+      return moment(zulu).format(format);
+    }
   }
 
 }
