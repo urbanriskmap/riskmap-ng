@@ -1,4 +1,18 @@
 export default {
+  icons: [
+    {
+      name: 'floodIcon',
+      path: 'assets/icons/id_floodIcon.svg',
+    },
+    {
+      name: 'floodIconSelected',
+      path: 'assets/icons/id_floodIcon-selected.svg',
+    },
+    {
+      name: 'pumpIcon',
+      path: 'assets/icons/id_pumpRTS.svg',
+    },
+  ],
   supported: [
     {
       metadata: {
@@ -57,8 +71,8 @@ export default {
         selected: {
           type: 'layout',
           style: {
-            'icon-image': 'reports_selected',
-            'icon-size': 0.075,
+            'icon-image': 'floodIconSelected',
+            'icon-size': 0.5,
             'icon-allow-overlap': true
           }
         }
@@ -71,8 +85,8 @@ export default {
           data: <object|null>null
         },
         layout: {
-          'icon-image': 'flood_reports',
-          'icon-size': 0.05,
+          'icon-image': 'floodIcon',
+          'icon-size': 0.5,
           'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'pkey', '']]
@@ -87,25 +101,23 @@ export default {
         responseType: 'topojson',
         uniqueKey: 'name',
         selected: {
-          type: 'paint',
+          type: 'layout',
           style: {
-            'circle-color': '#000',
-            'circle-radius': 8
+            'icon-image': 'pumpIcon'
           }
         }
       },
       settings: {
         id: 'pumps',
-        type: 'circle',
+        type: 'symbol',
         source: {
           type: 'geojson',
           data: <object|null>null
         },
-        paint: {
-          'circle-color': '#c26f00',
-          'circle-radius': 8,
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#fff'
+        layout: {
+          'icon-image': 'pumpIcon',
+          'icon-size': 0.5,
+          'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'name', '']]
       }
