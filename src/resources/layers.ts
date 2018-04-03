@@ -16,7 +16,7 @@ export default {
       },
       settings: {
         id: 'reports',
-        type: 'circle',
+        type: 'symbol',
         source: {
           type: 'geojson',
           data: <object|null>null
@@ -37,19 +37,33 @@ export default {
         responseType: 'geojson',
         uniqueKey: 'uid',
         selected: {
-          type: 'layout',
+          type: 'paint',
           style: {
-            'icon-image': [
-              'match',
-              ['get', 'class'],
-              '63160', 'us_gauge',
-              '00065', 'us_elevation',
-              '62610', 'us_groundwater',
-              '00060', 'us_discharge',
-              '00045', 'us_pump',
-              'us_pump'
-            ]
+            'icon-opacity': 1
           }
+          // style: {
+          //   'icon-image': [
+          //     'match',
+          //     ['get', 'class'],
+          //     '63160', 'us_gauge',
+          //     '00065', 'us_elevation',
+          //     '62610', 'us_groundwater',
+          //     '00060', 'us_discharge',
+          //     '00045', 'us_pump',
+          //     'us_pump'
+          //   ],
+          //   'icon-offset': [
+          //     'match',
+          //     ['get', 'class'],
+          //     '63160', ['literal', [0, -30]],
+          //     '00065', ['literal', [0, 0]],
+          //     '62610', ['literal', [0, 0]],
+          //     '00060', ['literal', [0, 30]],
+          //     '00045', ['literal', [0, 30]],
+          //     ['literal', [0, 0]]
+          //   ],
+          //   'icon-allow-overlap': true
+          // }
         }
       },
       settings: {
@@ -58,6 +72,9 @@ export default {
         source: {
           type: 'geojson',
           data: <object|null>null
+        },
+        paint: {
+          'icon-opacity': 0.75
         },
         layout: {
           'icon-image': [
@@ -70,7 +87,17 @@ export default {
             '00045', 'us_pump',
             'us_pump'
           ],
-          'icon-size': 1,
+          // For multiple sensors at same location
+          'icon-offset': [
+            'match',
+            ['get', 'class'],
+            '63160', ['literal', [0, -30]],
+            '00065', ['literal', [0, 0]],
+            '62610', ['literal', [0, 0]],
+            '00060', ['literal', [0, 30]],
+            '00045', ['literal', [0, 30]],
+            ['literal', [0, 0]]
+          ],
           'icon-allow-overlap': true
         },
         filter: ['all', ['has', 'observations'], ['!=', 'uid', '']]

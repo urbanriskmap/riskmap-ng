@@ -87,7 +87,8 @@ export default {
         selected: {
           type: 'layout',
           style: {
-            'icon-image': 'us_pump'
+            'icon-image': 'us_pump',
+            // 'visibility': 'visible'
           }
         }
       },
@@ -101,7 +102,14 @@ export default {
         layout: {
           'icon-image': 'us_pump',
           'icon-size': 1,
-          'icon-allow-overlap': true
+          'icon-allow-overlap': true,
+          // IDEA: NOT YET SUPPORTED
+          // 'visibility': [
+          //   'step',
+          //   ['zoom'],
+          //   1, 'none',
+          //   16, 'visible'
+          // ]
         },
         filter: ['all', ['!=', 'name', '']]
       }

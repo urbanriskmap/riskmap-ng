@@ -10,20 +10,20 @@ export default {
         selected: {
           type: 'layout',
           style: {
-            'icon-image': 'us_floodIcon_sel'
+            'icon-image': 'us_floodIcon_sel',
+            'icon-allow-overlap': true
           }
         }
       },
       settings: {
         id: 'reports',
-        type: 'circle',
+        type: 'symbol',
         source: {
           type: 'geojson',
           data: <object|null>null
         },
         layout: {
           'icon-image': 'us_floodIcon',
-          'icon-size': 1,
           'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'pkey', '']]
@@ -36,6 +36,11 @@ export default {
         flags: {region: false},
         responseType: 'geojson',
         uniqueKey: 'uid',
+        // REVIEW: selection layer properties
+        // If layout property remains same, and only icon-opacity in paint changes
+        // without repeating all layout properties in selected: {}
+        // i.e. selected: {} only contains styles that either override or modify
+        // properties of base layer
         selected: {
           type: 'layout',
           style: {
@@ -48,7 +53,18 @@ export default {
               '00060', 'us_discharge',
               '00045', 'us_pump',
               'us_pump'
-            ]
+            ],
+            'icon-offset': [
+              'match',
+              ['get', 'class'],
+              '63160', ['literal', [0, -30]],
+              '00065', ['literal', [0, 0]],
+              '62610', ['literal', [0, 0]],
+              '00060', ['literal', [0, 30]],
+              '00045', ['literal', [0, 30]],
+              ['literal', [0, 0]]
+            ],
+            'icon-allow-overlap': true
           }
         }
       },
@@ -58,6 +74,9 @@ export default {
         source: {
           type: 'geojson',
           data: <object|null>null
+        },
+        paint: {
+          'icon-opacity': 0.75
         },
         layout: {
           'icon-image': [
@@ -70,7 +89,17 @@ export default {
             '00045', 'us_pump',
             'us_pump'
           ],
-          'icon-size': 1,
+          // For multiple sensors at same location
+          'icon-offset': [
+            'match',
+            ['get', 'class'],
+            '63160', ['literal', [0, -30]],
+            '00065', ['literal', [0, 0]],
+            '62610', ['literal', [0, 0]],
+            '00060', ['literal', [0, 30]],
+            '00045', ['literal', [0, 30]],
+            ['literal', [0, 0]]
+          ],
           'icon-allow-overlap': true
         },
         filter: ['all', ['has', 'observations'], ['!=', 'uid', '']]
