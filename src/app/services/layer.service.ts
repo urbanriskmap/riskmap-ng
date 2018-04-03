@@ -54,16 +54,6 @@ export class LayerService {
   ): void {
     this.map = map;
 
-    // for (const icon of layers.icons) {
-    //   this.map.loadImage(icon.path, (error, img) => {
-    //     if (error) {
-    //       console.log(error);
-    //     }
-    //
-    //     this.map.addImage(icon.name, img);
-    //   });
-    // }
-
     for (const layer of layers.supported) {
 
       switch (layer.metadata.name) {

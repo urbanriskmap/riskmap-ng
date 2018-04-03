@@ -1,18 +1,4 @@
 export default {
-  icons: [
-    {
-      name: 'floodIcon',
-      path: 'assets/icons/id_floodIcon.svg',
-    },
-    {
-      name: 'floodIconSelected',
-      path: 'assets/icons/id_floodIcon-selected.svg',
-    },
-    {
-      name: 'pumpIcon',
-      path: 'assets/icons/id_pumpRTS.svg',
-    },
-  ],
   supported: [
     {
       metadata: {
@@ -71,9 +57,7 @@ export default {
         selected: {
           type: 'layout',
           style: {
-            'icon-image': 'floodIconSelected',
-            'icon-size': 0.5,
-            'icon-allow-overlap': true
+            'icon-image': 'us_floodIcon_sel'
           }
         }
       },
@@ -85,8 +69,8 @@ export default {
           data: <object|null>null
         },
         layout: {
-          'icon-image': 'floodIcon',
-          'icon-size': 0.5,
+          'icon-image': 'us_floodIcon',
+          'icon-size': 1,
           'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'pkey', '']]
@@ -103,7 +87,7 @@ export default {
         selected: {
           type: 'layout',
           style: {
-            'icon-image': 'pumpIcon'
+            'icon-image': 'us_pump'
           }
         }
       },
@@ -115,8 +99,8 @@ export default {
           data: <object|null>null
         },
         layout: {
-          'icon-image': 'pumpIcon',
-          'icon-size': 0.5,
+          'icon-image': 'us_pump',
+          'icon-size': 1,
           'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'name', '']]
