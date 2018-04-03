@@ -2,7 +2,7 @@
 // Update interface definitions
 
 /*
-// TEMP
+// Interface template
 export interface InterfaceName {
   [name: string]: any;
 }
