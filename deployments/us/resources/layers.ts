@@ -49,9 +49,9 @@ export default {
               ['get', 'class'],
               '63160', 'us_gauge',
               '00065', 'us_elevation',
-              '62610', 'us_groundwater',
+              '62610', 'us_well',
               '00060', 'us_discharge',
-              '00045', 'us_pump',
+              '00045', 'us_precipitation',
               'us_pump'
             ],
             'icon-offset': [
@@ -61,7 +61,7 @@ export default {
               '00065', ['literal', [0, 0]],
               '62610', ['literal', [0, 0]],
               '00060', ['literal', [0, 30]],
-              '00045', ['literal', [0, 30]],
+              '00045', ['literal', [0, -30]],
               ['literal', [0, 0]]
             ],
             'icon-allow-overlap': true
@@ -84,9 +84,9 @@ export default {
             ['get', 'class'],
             '63160', 'us_gauge',
             '00065', 'us_elevation',
-            '62610', 'us_groundwater',
+            '62610', 'us_well',
             '00060', 'us_discharge',
-            '00045', 'us_pump',
+            '00045', 'us_precipitation',
             'us_pump'
           ],
           // For multiple sensors at same location
@@ -97,7 +97,7 @@ export default {
             '00065', ['literal', [0, 0]],
             '62610', ['literal', [0, 0]],
             '00060', ['literal', [0, 30]],
-            '00045', ['literal', [0, 30]],
+            '00045', ['literal', [0, -30]],
             ['literal', [0, 0]]
           ],
           'icon-allow-overlap': true
