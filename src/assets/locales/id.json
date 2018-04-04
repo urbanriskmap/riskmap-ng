@@ -1,5 +1,0 @@
-{
-  "welcome_msg": "Jee ayaan nu {{ title }}",
-  "display_env": "Current environment: {{ env }}",
-  "reports_msg": "Received {{ r }} reports in past {{ h }} hours"
-}
