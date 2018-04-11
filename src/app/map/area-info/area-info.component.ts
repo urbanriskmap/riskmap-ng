@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 
+import { AreaInterface } from '../../interfaces';
+
 @Component({
   selector: 'app-area-info',
   templateUrl: './area-info.component.html',
@@ -10,28 +12,19 @@ export class AreaInfoComponent implements OnInit, OnChanges, OnDestroy {
     [name: string]: any
   }[];
 
-  feature: {
-    area_id: string,
-    area_name: string,
-    city_name: string,
-    district_id: string,
-    geom_id: string,
-    last_updated: string,
-    parent_name: string,
-    state: number
-  };
+  feature: AreaInterface;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.features = null;
     this.feature = null;
   }

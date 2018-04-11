@@ -7,23 +7,30 @@ import layers from '../../resources/layers';
 import { HttpService } from './http.service';
 import { SensorService } from './sensor.service';
 import { InteractionService } from './interaction.service';
+import { Region, LayerMetadata, LayerSettings } from '../interfaces';
 
 @Injectable()
 export class LayerService {
   map: mapboxgl.Map;
+  layers: {
+    metadata: LayerMetadata,
+    settings: LayerSettings
+  }[];
 
   constructor(
     private httpService: HttpService,
     private sensorService: SensorService,
     public interactionService: InteractionService
-  ) { }
+  ) {
+    this.layers = layers;
+  }
 
   addSelectionLayer(
     settings: any,
     selection: any,
     placeBelow: string
   ): void {
-    const layerSettings: { [name: string]: any} = {};
+    const layerSettings: { [name: string]: any } = {};
 
     // modify settings of original layer
     layerSettings.id = 'sel' + settings.id;
@@ -43,14 +50,7 @@ export class LayerService {
 
   initializeLayers(
     map: mapboxgl.Map,
-    region: {
-      name: string,
-      code: string,
-      bounds: {
-        sw: number[],
-        ne: number[]
-      }
-    }
+    region: Region
   ): void {
     this.map = map;
 
@@ -169,7 +169,7 @@ export class LayerService {
       originalEvent: object,
       target: object
     }
-  ) {
+  ): void {
     if (event) {
       if (this.clearSelectionLayers(event.point)) {
         // CASE 1: Clicked over a previously selected feature

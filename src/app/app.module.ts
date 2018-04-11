@@ -5,16 +5,18 @@ import { TranslateModule, TranslateLoader, TranslatePipe } from '@ngx-translate/
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { environment } from '../environments/environment';
-
+// Components
 import { AppComponent } from './app.component';
 
+// Modules
 import { AppRoutingModule } from './app-routing.module';
 import { MapModule } from './map/map.module';
 import { CustomMaterialsModule } from './custom-materials.module';
 
+import { environment } from '../environments/environment';
+
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/locales/', '.json');
+  return new TranslateHttpLoader(http, '../assets/locales/', '.json');
 }
 
 @NgModule({

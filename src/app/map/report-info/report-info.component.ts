@@ -28,15 +28,15 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     public timeService: TimeService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.timestamp = this.timeService.getLocalTime(this.feature.created_at, 'LT ll');
   }
 
-  closeInfoPane() {
+  closeInfoPane(): void {
     this.closePane.emit();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
       // this.features[0].properties.report_data = JSON.parse(this.features[0].properties.report_data);
       // this.features[0].properties.tags = JSON.parse(this.features[0].properties.tags);
@@ -53,7 +53,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.features = null;
     this.feature = null;
   }

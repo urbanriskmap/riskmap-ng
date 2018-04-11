@@ -1,29 +1,30 @@
 export default {
   items: [
     {
-      name: 'Project overview',
       icons: [
         'project-logo' // Fontello name icon-project-logo
       ],
-      videoLink: 'http_link_to_youtube_video',
+      videoLink: 'link to video',
+      localeKey: 'overview',
       steps: [
-        'step 1',
-        'step 2',
-        'step n'
+        1,
+        2,
+        3
       ]
     },
     {
-      name: 'Social media apps',
       icons: [
         'facebook',
         'twitter',
         'local-apps'
       ],
       videoLink: 'http_link_to_youtube_video',
+      localeKey: 'social',
       steps: [
-        'step 1',
-        'step 2',
-        'step n'
+        1,
+        2,
+        3,
+        4
       ]
     }
   ]

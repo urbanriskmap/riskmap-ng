@@ -11,6 +11,7 @@ import instances from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
 import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
+import { EnvironmentInterface, Region } from '../interfaces';
 
 /**
  * View model for Riskmap landing page
@@ -21,26 +22,23 @@ import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, OnDestroy {
-  env = environment;
   navigationSubscription;
+
+  env: EnvironmentInterface = environment;
+  instances: {
+    instanceType: string,
+    regions: Region[]
+  };
+  selectedRegion: Region;
   translateParams = {
     title: 'RiskMap'
   };
-
   languages: {
     code: string,
     name: string
   }[];
   selectedLanguage: string;
-  selectedRegion: {
-    name: string,
-    code: string,
-    bounds: {
-      sw: number[],
-      ne: number[]
-    }
-  };
-  selectedReportId: null|number;
+  selectedReportId: null | number;
   paneToOpen: string;
   deferredPrompt: any;
   showSidePane = false;
@@ -53,10 +51,11 @@ export class MapComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private translate: TranslateService,
+    public translate: TranslateService,
     public layerService: LayerService,
     public interactionService: InteractionService
   ) {
+    this.instances = instances;
     this.languages = this.env.locales.supportedLanguages;
 
     // this language will be used as a fallback when a translation isn't found in the current language
@@ -72,7 +71,7 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  initializeMap() {
+  initializeMap(): void {
     mapboxgl.accessToken = this.env.map.accessToken;
     this.map = new mapboxgl.Map({
       attributionControl: false,
@@ -89,7 +88,7 @@ export class MapComponent implements OnInit, OnDestroy {
   hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
 
-    for (const region of instances.regions) {
+    for (const region of this.instances.regions) {
       if (instance === region.name) {
         this.selectedRegion = region;
         return true;
@@ -99,7 +98,7 @@ export class MapComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  getLanguageCode(langParam): string {
+  getLanguageCode(langParam: string): string {
     for (const lang of this.languages) {
       if (langParam === lang.code) {
         return lang.code;
@@ -135,7 +134,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   // FIXME: may get triggered before reports layer is rendered
   // Catch in tests
-  zoomToQueriedReport(event) {
+  zoomToQueriedReport(event): void {
     if (event.sourceId === 'reports') {
       for (const report of event.source.data.features) {
         if (report.properties.pkey === this.selectedReportId) {
@@ -194,7 +193,7 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Stash event so it can be triggered later
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
@@ -214,7 +213,7 @@ export class MapComponent implements OnInit, OnDestroy {
   openDialog(): void {
     const dialogRef = this.dialog.open(ScreenPopupComponent, {
       width: '320px',
-      data: instances.regions
+      data: this.instances.regions
     });
 
     this.toggleSidePane({close: true});
@@ -245,7 +244,7 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleSidePane(forceAction?: {close: boolean}) {
+  toggleSidePane(forceAction?: {close: boolean}): void {
     if (this.showSidePane || (forceAction && forceAction.close)) {
       // Close
       this.showSidePane = false;
@@ -265,7 +264,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.layerService.handleMapInteraction();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
   // Required when app has more than one route, eg. /dashboard
 
   //   // avoid memory leaks here by cleaning up after ourselves. If we

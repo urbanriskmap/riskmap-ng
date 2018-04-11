@@ -16,15 +16,15 @@ export class InfraInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.features = null;
     this.feature = null;
   }

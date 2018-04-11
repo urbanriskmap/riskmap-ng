@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-pane.component.scss']
 })
 export class SidePaneComponent implements OnInit {
-  tabs = ['info', 'map', 'report', 'settings'];
+  tabs = ['info', 'map', 'report'];
   selectedTab = 'info';
 
   constructor() { }

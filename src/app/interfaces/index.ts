@@ -8,6 +8,44 @@ export interface InterfaceName {
 }
 */
 
+export interface EnvironmentInterface {
+  production: boolean;
+  envName: string;
+  servers: {
+    data: string;
+    sensors: string;
+    settings: {
+      reportTimeperiod: number;
+    };
+  };
+  map: {
+    accessToken: string;
+    center: number[];
+    initZoom: number;
+    minZoom: number;
+    baseMapStyle: string;
+  };
+  locales: {
+    supportedLanguages: {
+      code: string;
+      name: string;
+    }[];
+    defaultLanguage: string;
+    timezone: string;
+  };
+}
+
+export interface AreaInterface {
+  area_id: string;
+  area_name: string;
+  city_name: string;
+  district_id: string;
+  geom_id: string;
+  last_updated: string;
+  parent_name: string;
+  state: number;
+}
+
 export interface ReportInterface {
   created_at: string;
   disaster_type: string;
@@ -33,4 +71,78 @@ export interface ReportInterface {
   text: string;
   title: string;
   url: string;
+}
+
+export interface SensorInterface {
+  id: number;
+  class: string;
+  created: string;
+  observations: string;
+  type: string;
+  uid: string;
+  units: string;
+}
+
+export interface Region {
+  name: string;
+  code: string;
+  bounds: {
+    sw: number[];
+    ne: number[];
+  };
+}
+
+export interface LayerMetadata {
+  name: string;
+  server: string;
+  path?: string;
+  flags: {
+    [name: string]: any
+  };
+  responseType: string;
+  uniqueKey: string;
+  selected: {
+    type: string;
+    style: {
+      [name: string]: any
+    };
+  };
+  placeBelow?: string;
+}
+
+export interface LayerSettings {
+  id: string;
+  type: string;
+  source: {
+    type: string;
+    data: object|null;
+  };
+  layout?: {
+    [name: string]: any;
+  };
+  paint?: {
+    [name: string]: any;
+  };
+  filter: any[];
+}
+
+export interface ReportContentInterface {
+  localeKey: string;
+  videoLink: string;
+  icons: string[];
+  steps: number[];
+}
+
+export interface InfoContentInterface {
+  header: {
+    path: string;
+    url: string;
+  };
+  partners: {
+    groupId: string;
+    partnerLogos: {
+      path: string;
+      url: string;
+    }[];
+  }[];
 }

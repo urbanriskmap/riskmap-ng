@@ -6,6 +6,7 @@ import * as topojson from 'topojson-client';
 import { FeatureCollection, GeometryObject, GeoJsonProperties } from 'geojson';
 
 import { environment as env } from '../../environments/environment';
+import { LayerMetadata } from '../interfaces';
 
 @Injectable()
 export class HttpService {
@@ -15,23 +16,7 @@ export class HttpService {
   ) { }
 
   getGeometryData(
-    layer: {
-      name: string,
-      server: string,
-      path?: string,
-      flags: {
-        [name: string]: any
-      },
-      responseType: string,
-      uniqueKey: string,
-      selected: {
-        type: string,
-        style: {
-          [name: string]: any
-        }
-      },
-      placeBelow?: string
-    },
+    layer: LayerMetadata,
     region: string
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     // Set to data server
