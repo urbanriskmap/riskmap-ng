@@ -1,0 +1,14 @@
+@import 'styles';
+
+#tabRow {
+  margin: 10px 10px 0px 10px;
+  border-bottom: solid 1px $dark-azure;
+  height: 40px;
+}
+
+.paneButtons {
+width: 25%;
+}
+.paneButtons:hover {
+  border-bottom: solid 5px $dark-azure;
+}
