@@ -4,8 +4,17 @@ export default {
       icons: [
         'project-logo' // Fontello name icon-project-logo
       ],
-      videoLink: 'link to video',
+      videoLink: 'https://www.youtube.com/embed/k1wXvJvq6F4',
       localeKey: 'overview',
+      steps: [
+      ]
+    },
+    {
+      icons: [
+        'facebook'
+      ],
+      videoLink: '',
+      localeKey: 'social',
       steps: [
         1,
         2,
@@ -14,17 +23,16 @@ export default {
     },
     {
       icons: [
-        'facebook',
-        'twitter',
-        'local-apps'
+        'twitter'
       ],
-      videoLink: 'http_link_to_youtube_video',
+      videoLink: '',
       localeKey: 'social',
       steps: [
         1,
         2,
         3,
-        4
+        4,
+        5
       ]
     }
   ]

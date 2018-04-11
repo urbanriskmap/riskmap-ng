@@ -1,7 +1,15 @@
 <div
   *ngFor="let item of content">
   {{ item.localeKey + "_name" | translate }} <br>
-  Embed video element here {{ item.videoLink }} <br>
+  <iframe
+    *ngIf="item.videoLink"
+    width="300"
+    height="225"
+    allowfullscreen="allowfullscreen"
+    frameborder="0"
+    [src="https://www.youtube.com/embed/k1wXvJvq6F4">
+  </iframe>
+  <br>
   <ul>
     <li
       *ngFor="let step of item.steps">
