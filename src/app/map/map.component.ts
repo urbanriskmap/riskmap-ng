@@ -51,7 +51,7 @@ export class MapComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private translate: TranslateService,
+    public translate: TranslateService,
     public layerService: LayerService,
     public interactionService: InteractionService
   ) {

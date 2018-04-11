@@ -125,3 +125,24 @@ export interface LayerSettings {
   };
   filter: any[];
 }
+
+export interface ReportContentInterface {
+  localeKey: string;
+  videoLink: string;
+  icons: string[];
+  steps: number[];
+}
+
+export interface InfoContentInterface {
+  header: {
+    path: string;
+    url: string;
+  };
+  partners: {
+    groupId: string;
+    partnerLogos: {
+      path: string;
+      url: string;
+    }[];
+  }[];
+}

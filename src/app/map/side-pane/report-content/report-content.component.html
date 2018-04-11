@@ -1,11 +1,11 @@
 <div
   *ngFor="let item of content">
-  {{ item.name }} <br>
+  {{ item.localeKey + "_name" | translate }} <br>
   Embed video element here {{ item.videoLink }} <br>
   <ul>
     <li
       *ngFor="let step of item.steps">
-      {{ step }}
+      {{ item.localeKey + "_step" + step | translate }}
     </li>
   </ul>
 </div>

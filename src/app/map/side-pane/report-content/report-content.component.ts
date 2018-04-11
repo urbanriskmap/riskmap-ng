@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
+import { ReportContentInterface } from '../../../interfaces';
 import reportContent from '../../../../resources/report-content';
 
 @Component({
@@ -8,14 +10,11 @@ import reportContent from '../../../../resources/report-content';
   styleUrls: ['./report-content.component.scss']
 })
 export class ReportContentComponent implements OnInit {
-  content: {
-    name: string,
-    icons: string[],
-    videoLink: string,
-    steps: string[]
-  }[];
+  content: ReportContentInterface[];
 
-  constructor() {
+  constructor(
+    public translate: TranslateService
+  ) {
     this.content = reportContent.items;
   }
 
