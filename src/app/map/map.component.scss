@@ -15,6 +15,13 @@
   background-color: $frost-white;
   z-index: 2;
 
+  .appLogo{
+  height: 80%;
+  padding: 2px;
+  width: auto;
+
+  }
+
   & a span {
     margin-left: $general-margin;
     font-size: 16px;
@@ -62,11 +69,13 @@
 
 app-side-pane {
   position: fixed;
-  top: $toolbar-height;
-  right: 0;
+  top: $toolbar-height + 5px;
+  right: 5px;
+  bottom: 5px;
   @include pane-width(320px, 420px);
-  height: 100%;
+  // height: 100%;
   background-color: $frost-white;
+  box-shadow: $pane-shadow;
   @include text-light(12px, $dark-gray);
   z-index: 2;
 }
