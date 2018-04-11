@@ -2,7 +2,6 @@
 
 #content-info{
   overflow-y: scroll;
-  border: solid 1px red;
   position: relative;
   height: 90%;
   @include text-regular(14px, $dark-gray);

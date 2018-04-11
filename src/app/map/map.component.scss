@@ -14,10 +14,11 @@
   @include text-light(12px, $dark-gray);
   background-color: $frost-white;
   z-index: 2;
+    box-shadow: $pane-shadow;
 
   .appLogo{
   height: 80%;
-  padding: 2px;
+  padding-top: 5px;
   width: auto;
 
   }
