@@ -1,17 +1,16 @@
 @import 'styles';
 
 #content-info{
-
-  overflow: hidden;
+  overflow-y: scroll;
   border: solid 1px red;
   position: relative;
-  height: 95%;
-  
+  height: 90%;
   @include text-regular(14px, $dark-gray);
-  margin: 2px;
-  padding-top: 20px;
+
+
   #headLogos {
     width: 90%;
+    padding-top: 10px;
     margin: auto;
     table-layout: fixed;
     & #urlLogo {
@@ -21,7 +20,8 @@
   }
 
   #projectText{
-    margin: 20px;
+
+    padding:  20px;
     #intro {
       @include text-light(20px, $dark-azure);
       text-align: center;
@@ -34,35 +34,37 @@
   }
 
 
-//// TODO: directly imported from AU - Fix this
+  //// TODO: directly imported from AU - Fix this
   #partners {
-       height: 30px;
-       margin: auto;
-       table-layout: fixed;
-       border-bottom: 1px solid $dark-azure;
-       border-top: 1px solid $dark-azure;
-       padding-bottom: 20px;
+    bottom: 5px;
+    margin: auto;
+    table-layout: fixed;
+    border-bottom: 1px solid $dark-azure;
+    border-top: 1px solid $dark-azure;
+    padding-bottom: 20px;
 
-       .label {
-         height: 18px;
-         p {
-           @include text-light(12px, $dark-gray);
-           margin: 10px 0 4px 0;
-           padding: 0;
-         }
-       }
-      .GovPartnerLogo {
-         width: 60%;
-       }
-      .tataLogo {
-         padding: 10px;
-         width: 50%;
-       }
-      .partnerLogo {
-         height: 35px;
-         width: auto;
-         padding: 5px;
-       }
-     }
+    .label {
+      height: 18px;
+      p {
+        @include text-light(12px, $dark-gray);
+        margin: 10px 0 4px 0;
+        padding: 0;
+      }
+    }
+    .GovPartnerLogo {
+      width: 60%;
+    }
+    .tataLogo {
+      padding: 10px;
+      width: 50%;
+    }
+    .partnerLogo {
+      height: 35px;
+      width: auto;
+      padding: 5px;
+    }
+  }
 
+}::-webkit-scrollbar {
+ display: none;
 }
