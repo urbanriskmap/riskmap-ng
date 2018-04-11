@@ -1,3 +1,66 @@
-<p>
-  info-content works!
-</p>
+<div id="content-info">
+
+  <table id="headLogos">
+  <tr>
+    <td align="center">
+      <a href="http://urbanrisklab.org/">
+        <img id="urlLogo" src="assets/logos/url_logo.svg">
+      </a>
+    </td>
+  </tr>
+</table>
+
+<div id="projectText">
+<p id="intro">{{ 'info_content.intro' | translate: translateParams }}</p>
+<p>{{ 'info_content.p1' | translate: translateParams }}</p>
+<p>{{ 'info_content.p2' | translate: translateParams }}</p>
+<p>{{ 'info_content.p3' | translate: translateParams }}</p>
+<p id="note">{{ 'info_content.p4' | translate: translateParams }}</p>
+</div>
+
+
+<table id="partners">
+        <tr class="label">
+          <td colspan="4" cellpadding="0" align="left">
+            <p>{{ 'info_content.partners.implementing' | translate: translateParams }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" align="center">
+            <a href="http://www.broward.org/Pages/Welcome.aspx">
+              <img class="GovPartnerLogo" src="assets/logos/broward_logo.svg">
+            </a>
+          </td>
+        </tr>
+
+        <!-- Data Partners-->
+        <tr class="label">
+          <td colspan="4" cellpadding="0" align="left">
+            <p>{{ 'info_content.partners.data' | translate: translateParams }}</p>
+          </td>
+        </tr>
+
+        <tr class="logos">
+            <td colspan="2" align="center">
+              <a href="https://www.mapbox.com">
+                <img class="partnerLogo" src="assets/logos/mapbox_logo.png">
+              </a>
+            </td>
+          <td colspan="2" align="center">
+            <a href="https://twitter.com">
+              <img class="partnerLogo" src="assets/logos/twitter-logo.png">
+            </a>
+          </td>
+        </tr>
+<!-- TODO: add ng-if=  -->
+        <tr class="label">
+          <td colspan="4" cellpadding="0" align="left">
+            <p>{{ 'info_content.partners.support' | translate: translateParams }}</p>
+          </td>
+        </tr>
+
+    </table>
+
+
+
+</div>
