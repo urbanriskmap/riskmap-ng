@@ -26,13 +26,33 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
 
-      this.chartService.parseData(this.feature.id)
-      .then(hasUpstreamDownstream => {
-        this.hasUpstreamDownstream = hasUpstreamDownstream;
+      switch (this.features[0].layer.id) {
+        case 'sensors':
+          this.chartService.parseData(this.feature.id)
+          .then(hasUpstreamDownstream => {
+            this.hasUpstreamDownstream = hasUpstreamDownstream;
 
-        this.chartService.drawSensorChart(document.getElementById('sensorChartWrapper'));
-      })
-      .catch(error => console.log(error));
+            this.chartService.drawSensorChart(document.getElementById('sensorChartWrapper'));
+          })
+          .catch(error => console.log(error));
+          break;
+
+        case 'floodgauges':
+          this.chartService.sensorData = {dataset_1: []};
+
+          for (const obs of JSON.parse(this.feature.observations)) {
+            this.chartService.sensorData.dataset_1.push({
+              y: obs.f2,
+              t: obs.f1
+            });
+          }
+
+          this.chartService.drawSensorChart(document.getElementById('sensorChartWrapper'));
+          break;
+
+        default:
+          // do something
+      }
     }
   }
 

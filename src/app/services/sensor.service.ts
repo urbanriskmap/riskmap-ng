@@ -18,15 +18,20 @@ export class SensorService {
    * @returns Promise that fulfills when properties are fetched and transformed
    */
   fetchAndTransformData(
-    sensor: Feature<GeometryObject, GeoJsonProperties>
+    sensor: Feature<GeometryObject, GeoJsonProperties>,
+    server: string,
+    path: string,
+    flags: {
+      [name: string]: any
+    }[]
   ): Promise<Feature<GeometryObject, GeoJsonProperties>> {
     return new Promise((resolve, reject) => {
       // Get sensor observations
       this.httpService
       .getJsonData(
-        'sensors',
-        'sensors/' + sensor.properties['id'],
-        null
+        server,
+        path + sensor.properties['id'],
+        flags
       )
       .then(observationGroups => {
         if (observationGroups.length) {
@@ -70,13 +75,18 @@ export class SensorService {
   }
 
   updateProperties(
-    geojson: FeatureCollection<GeometryObject, GeoJsonProperties>
+    geojson: FeatureCollection<GeometryObject, GeoJsonProperties>,
+    server: string,
+    path: string,
+    flags: {
+      [name: string]: any
+    }[]
   ): Promise<Feature<GeometryObject, GeoJsonProperties>[]> {
     const fetchAndTransformProcesses = [];
 
     for (const sensor of geojson.features) {
       // Ref https://daveceddia.com/waiting-for-promises-in-a-loop/
-      fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor));
+      fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor, server, path, flags));
     }
 
     return new Promise ((resolve, reject) => {

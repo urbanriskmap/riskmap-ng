@@ -4,7 +4,8 @@ export default {
       metadata: {
         name: 'reports',
         server: 'data',
-        flags: {region: true},
+        path: '',
+        flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',
         selected: {
@@ -33,7 +34,8 @@ export default {
       metadata: {
         name: 'sensors',
         server: 'sensors',
-        flags: {region: false},
+        path: 'sensors',
+        flags: [{region: false}],
         responseType: 'geojson',
         uniqueKey: 'uid',
         // REVIEW: selection layer properties

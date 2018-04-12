@@ -4,7 +4,8 @@ export default {
       metadata: {
         name: 'floods',
         server: 'data',
-        flags: {region: true},
+        path: '',
+        flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'area_id',
         selected: {
@@ -51,13 +52,21 @@ export default {
       metadata: {
         name: 'reports',
         server: 'data',
-        flags: {region: true},
+        path: '',
+        flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',
         selected: {
           type: 'layout',
           style: {
-            'icon-image': 'us_floodIcon_sel'
+            'icon-image': 'us_floodIcon_sel',
+            'icon-allow-overlap': true,
+            'icon-ignore-placement': false,
+            'icon-size': [
+              'interpolate', ['linear'], ['zoom'],
+              12, 0.75,
+              16, 1
+            ]
           }
         }
       },
@@ -70,8 +79,13 @@ export default {
         },
         layout: {
           'icon-image': 'us_floodIcon',
-          'icon-size': 1,
-          'icon-allow-overlap': true
+          'icon-allow-overlap': true,
+          'icon-ignore-placement': false,
+          'icon-size': [
+            'interpolate', ['linear'], ['zoom'],
+            12, 0.75,
+            16, 1
+          ]
         },
         filter: ['all', ['!=', 'pkey', '']]
       }
@@ -81,16 +95,22 @@ export default {
         name: 'pumps',
         server: 'data',
         path: 'infrastructure/',
-        flags: {region: true},
+        flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'name',
         selected: {
           type: 'layout',
           style: {
             'icon-image': 'us_pump',
-            // 'visibility': 'visible'
+            'icon-allow-overlap': false,
+            'icon-size': [
+              'interpolate', ['linear'], ['zoom'],
+              12, 0.75,
+              16, 1
+            ]
           }
-        }
+        },
+        placeBelow: 'place-village'
       },
       settings: {
         id: 'pumps',
@@ -101,8 +121,12 @@ export default {
         },
         layout: {
           'icon-image': 'us_pump',
-          'icon-size': 1,
-          'icon-allow-overlap': true,
+          'icon-allow-overlap': false,
+          'icon-size': [
+            'interpolate', ['linear'], ['zoom'],
+            12, 0.75,
+            16, 1
+          ]
           // IDEA: NOT YET SUPPORTED
           // 'visibility': [
           //   'step',
@@ -110,6 +134,54 @@ export default {
           //   1, 'none',
           //   16, 'visible'
           // ]
+        },
+        filter: ['all', ['!=', 'name', '']]
+      }
+    },
+    {
+      metadata: {
+        name: 'floodgauges',
+        server: 'sensors',
+        path: '',
+        flags: [{region: true}],
+        responseType: 'topojson',
+        uniqueKey: 'gaugeid',
+        selected: {
+          type: 'layout',
+          style: {
+            'icon-image': 'us_gauge',
+            'icon-allow-overlap': true,
+            'icon-size': [
+              'interpolate', ['linear'], ['zoom'],
+              12, 0.75,
+              16, 1
+            ]
+          }
+        },
+      },
+      settings: {
+        id: 'floodgauges',
+        type: 'symbol',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        layout: {
+          'icon-image': [
+            'match',
+            ['to-number', ['get', 'f3', ['object', ['at', 10, ['array', ['get', 'observations']]]]]],
+            1, 'id_gauge_1',
+            2, 'id_gauge_2',
+            3, 'id_gauge_3',
+            4, 'id_gauge_4',
+            'id_gauge_1'
+          ],
+          'icon-allow-overlap': true,
+          'icon-size': [
+            'interpolate', ['linear'], ['zoom'],
+            12, 0.75,
+            16, 1
+          ]
         },
         filter: ['all', ['!=', 'name', '']]
       }

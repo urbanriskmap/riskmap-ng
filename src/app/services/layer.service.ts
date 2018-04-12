@@ -61,7 +61,7 @@ export class LayerService {
           this.httpService
           .getGeometryData(layer.metadata, region.code)
           .then(geojson => {
-            this.sensorService.updateProperties(geojson)
+            this.sensorService.updateProperties(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
             .then(updatedSensors => {
               geojson.features = updatedSensors;
               layer.settings.source.data = geojson;

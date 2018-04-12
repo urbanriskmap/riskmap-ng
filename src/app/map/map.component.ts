@@ -45,8 +45,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   @Output() map: mapboxgl.Map;
 
-  // Use ngx-translate-messageformat-compiler for pluralization, etc
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
