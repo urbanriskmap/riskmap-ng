@@ -9,6 +9,30 @@
     "bangalore": "बंगलोर",
     "kolkata": "कोलकाता"
   },
+
+
+    "overview_title": "Project overview",
+
+    "facebook_title": "Report with Facebook",
+    "facebook_step1": "Search for Riskmap.in on Facebook messenger",
+    "facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
+    "facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.in for up-to-date flood information.",
+
+    "telegram_title": "Report with Telegram",
+    "telegram_step1": "Text /flood to @RiskMapBot.",
+    "telegram_step2": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+    "telegram_step3": "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information.",
+
+
+    "twitter_title": "Report with Twitter",
+    "twitter_step1": "Send a Direct Message to @riskmapindia",
+    "twitter_step2": "@riskmapindia will send you a one-time link to submit report",
+    "twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+    "twitter_step4": "On successful submission of the report, @riskmapindia will send you a reply with a link to your report",
+    "twitter_step5": "Check RiskMap.in for up-to-date flood information.",
+
+
+
   "add_report": "Report Flooding",
   "reports_stats": "Received {reportsplaceholder} reports in past {hoursplaceholder} hours",
   "prep_menu": {
@@ -59,45 +83,7 @@
     }
   },
   "map_helper": "Select city :",
-  "report_content": {
-    "flood": {
-      "title": "Project overview",
-      "steps": [
-      ]
-    },
-    "twitter": {
-      "title": "Report with Twitter",
-      "steps": [
-        "Tweet #flood to @riskmapindia.",
-        "Open the link and follow the instructions to input flood location, upload photo, and description.",
-        "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information."
-      ]
-    },
-    "telegram": {
-      "title": "Report with Telegram",
-      "steps": [
-        "Text /flood to @RiskMapBot.",
-        "Open the link and follow the instructions to input flood location, upload photo, and description.",
-        "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information."
-      ]
-    },
-    "facebook": {
-      "title": "Report with Facebook messenger",
-      "steps": [
-        "Search for Riskmap.in on Facebook messenger",
-        "Click on get started button and follow the instructions to input flood location, upload photo, and description.",
-        "You can see your report on the map via the link provided. Check Riskmap.in for up-to-date flood information."
-      ]
-    },
-    "otherapps": {
-      "title": "Report with local applications",
-      "steps": [
-        "You can report flood from Qlue, PasangMata, and Z-Alert.",
-        "Your report is now on the map. Check RiskMap.in for up-to-date flood information."
-      ],
-      "links": "<br><ul><li>Qlue:&nbsp;<a href='https://play.google.com/store/apps/details?id=org.qluein.android'><i class='icon-android'></i></a>&nbsp;&#124;&nbsp;<a href='https://itunes.apple.com/us/app/qlue-jakarta-smart-city/id987432944?ls=1&mt=8'><i class='icon-apple'></i></a></li><li><a href='http://pasangmata.detik.com/'>PasangMata</a></li><li><a href='https://www.zurich.co.id/id-id/kampanye-kami/zurich-alert-the-alert-you-really-need'>Z-Alert</a></li></ul>"
-    }
-  },
+
   "info_content": {
     "intro": "RiskMap.in harnesses the power of social media to gather, sort, and display information about flooding in real time.",
     "p1": "RiskMap.in is a project initiated by the Urban Risk Lab at MIT as a free, transparent platform for emergency response and disaster management in megacities in South and Southeast Asia.",

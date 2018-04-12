@@ -2,7 +2,7 @@ export default {
   items: [
     {
       icons: [
-        'project-logo' // Fontello name icon-project-logo
+        'project-logo' // Fontello name icon-project-logo //TODO add this after adding fontello
       ],
       videoLink: 'https://www.youtube.com/embed/k1wXvJvq6F4',
       localeKey: 'overview',
@@ -14,7 +14,7 @@ export default {
         'facebook'
       ],
       videoLink: '',
-      localeKey: 'social',
+      localeKey: 'facebook',
       steps: [
         1,
         2,
@@ -26,7 +26,7 @@ export default {
         'twitter'
       ],
       videoLink: '',
-      localeKey: 'social',
+      localeKey: 'twitter',
       steps: [
         1,
         2,

@@ -1,19 +1,21 @@
-<div
+<div id="contentWrapper">
+<div class="reportContent"
   *ngFor="let item of content">
-  {{ item.localeKey + "_name" | translate }} <br>
-  <iframe
+  <p id="title">{{ item.localeKey + "_title" | translate }}</p> <br>
+  <iframe id="videoFrame"
     *ngIf="item.videoLink"
-    width="300"
+    width="380"
     height="225"
     allowfullscreen="allowfullscreen"
     frameborder="0"
-    [src="https://www.youtube.com/embed/k1wXvJvq6F4">
+    [src]="item.videoLink | sanitize">
   </iframe>
-  <br>
+
   <ul>
     <li
       *ngFor="let step of item.steps">
       {{ item.localeKey + "_step" + step | translate }}
     </li>
   </ul>
+</div>
 </div>

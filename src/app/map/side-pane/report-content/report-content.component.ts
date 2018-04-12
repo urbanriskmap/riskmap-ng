@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { SanitizePipe } from '../../../pipes/sanitize.pipe';
 import { ReportContentInterface } from '../../../interfaces';
 import reportContent from '../../../../resources/report-content';
 

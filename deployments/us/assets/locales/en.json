@@ -3,21 +3,23 @@
   "display_env": "Current environment: {{ env }}",
   "reports_msg": "Received {{ r }} reports in past {{ h }} hours",
 
-  "overview_name": "Project overview",
+  "partners_label_implementing": "Implementing Partners",
+  "partners_label_data": "Data Partners",
+  
+  "overview_title": "Project overview",
 
-  "social_name": "Facebook",
-  "social_step1": "Search for RiskMapUS on Facebook messenger",
-  "social_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
-  "social_step3": "You can see your report on the map via the link provided. Check Riskmap.us for up-to-date flood information.",
+  "facebook_title": "Report with Facebook",
+  "facebook_step1": "Search for RiskMapUS on Facebook messenger",
+  "facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
+  "facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.us for up-to-date flood information.",
 
 
-  "social_name": "Twitter",
-  "social_title": "Report with Twitter",
-  "social_step1": "Send a Direct Message to @riskmapUS_bot.",
-  "social_step2": "@riskmapUS_bot will send you a one-time link to submit report",
-  "social_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
-  "social_step4": "On successful submission of the report, @riskmapUS_bot will send you a reply with a link to your report",
-  "social_step5": "Check RiskMap.us for up-to-date flood information.",
+  "twitter_title": "Report with Twitter",
+  "twitter_step1": "Send a Direct Message to @riskmapUS_bot.",
+  "twitter_step2": "@riskmapUS_bot will send you a one-time link to submit report",
+  "twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "twitter_step4": "On successful submission of the report, @riskmapUS_bot will send you a reply with a link to your report",
+  "twitter_step5": "Check RiskMap.us for up-to-date flood information.",
 
 
   "add_report": "Report Flooding",

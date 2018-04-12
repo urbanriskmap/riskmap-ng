@@ -26,6 +26,9 @@ import { LayerService } from '../services/layer.service';
 import { SensorService } from '../services/sensor.service';
 import { TimeService } from '../services/time.service';
 
+// Pipes
+import { SanitizePipe } from '../pipes/sanitize.pipe';
+
 
 @NgModule({
   imports: [
@@ -54,7 +57,8 @@ import { TimeService } from '../services/time.service';
     InfraInfoComponent,
     ReportContentComponent,
     MapContentComponent,
-    InfoContentComponent
+    InfoContentComponent,
+    SanitizePipe
   ]
 })
 export class MapModule { }
