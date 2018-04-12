@@ -10,6 +10,31 @@
     "bangalore": "बंगलोर",
     "kolkata": "कोलकाता"
   },
+
+
+  "overview_title": "Project overview",
+
+  "facebook_title": "Report with Facebook",
+  "facebook_step1": "Search for Riskmap.in on Facebook messenger",
+  "facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
+  "facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.in for up-to-date flood information.",
+
+  "telegram_title": "Report with Telegram",
+  "telegram_step1": "Text /flood to @RiskMapBot.",
+  "telegram_step2": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "telegram_step3": "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information.",
+
+
+  "twitter_title": "Report with Twitter",
+  "twitter_step1": "Send a Direct Message to @riskmapindia",
+  "twitter_step2": "@riskmapindia will send you a one-time link to submit report",
+  "twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "twitter_step4": "On successful submission of the report, @riskmapindia will send you a reply with a link to your report",
+  "twitter_step5": "Check RiskMap.in for up-to-date flood information.",
+
+
+
+
   "add_report": "पुराची नोंद करा",
   "reports_stats": "मागील {hoursplaceholder} तासांमध्ये मिळालेली निरीक्षणे : {reportsplaceholder}",
   "prep_menu": {
@@ -61,45 +86,6 @@
     }
   },
   "map_helper": "शहर  निवडा :",
-  "report_content": {
-    "flood": {
-      "title": "प्रकल्पाची माहिती",
-      "steps": [
-      ]
-    },
-    "twitter": {
-      "title": "ट्विटर द्वारे पुराची माहिती द्या.",
-      "steps": [
-        "@riskmapindia ह्या अकाऊंटला #flood ट्विट करा.",
-        "आपल्याला आलेली लिंक उघडून पुराच्या निरीक्षणाची जागा, पाण्याची पातळी, फोटो व माहिती द्या.",
-        "उत्तरादाखल आलेल्या लिंक द्वारा तुम्ही तुमची नोंद नकाशावर पाहू शकाल, पुराची अद्ययावत माहिती मिळवण्यासाठी Riskmap.in या वेबसाईटला भेट द्या"
-      ]
-    },
-    "telegram": {
-      "title": "टेलिग्राम द्वारे पुराची माहिती द्या.",
-      "steps": [
-        "@RiskMapBot हे अकाउंट शोधून त्यास ‘/flood’ हा संदेश पाठवा.",
-        "आपल्याला आलेली लिंक उघडून पुराच्या निरीक्षणाची जागा, पाण्याची पातळी, फोटो व माहिती द्या.",
-        "उत्तरादाखल आलेल्या लिंक द्वारा तुम्ही तुमची नोंद नकाशावर पाहू शकाल, पुराची अद्ययावत माहिती मिळवण्यासाठी Riskmap.in या वेबसाईटला भेट द्या"
-      ]
-    },
-    "facebook": {
-      "title": "फेसबुक मेसेंजरद्वारे द्वारे पुराची माहिती द्या.",
-      "steps": [
-        "फेसबुक मेसेंजरवर Riskmap.in हे अकाउंट शोधून त्यास ‘/flood’ हा संदेश पाठवा.",
-        "आपल्याला आलेली लिंक उघडून पुराच्या निरीक्षणाची जागा, पाण्याची पातळी, फोटो व माहिती द्या.",
-        "उत्तरादाखल आलेल्या लिंक द्वारा तुम्ही तुमची नोंद नकाशावर पाहू शकाल, पुराची अद्ययावत माहिती मिळवण्यासाठी Riskmap.in या वेबसाईटला भेट द्या"
-      ]
-    },
-    "otherapps": {
-      "title": "अन्य ऍप्पद्वारे आपले निरीक्षण नोंदवा",
-      "steps": [
-        "You can report flood from Qlue, PasangMata, and Z-Alert.",
-        "Your report is now on the map. Check RiskMap.in for up-to-date flood information."
-      ],
-      "links": "<br><ul><li>Qlue:&nbsp;<a href='https://play.google.com/store/apps/details?id=org.qluein.android'><i class='icon-android'></i></a>&nbsp;&#124;&nbsp;<a href='https://itunes.apple.com/us/app/qlue-jakarta-smart-city/id987432944?ls=1&mt=8'><i class='icon-apple'></i></a></li><li><a href='http://pasangmata.detik.com/'>PasangMata</a></li><li><a href='https://www.zurich.co.id/id-id/kampanye-kami/zurich-alert-the-alert-you-really-need'>Z-Alert</a></li></ul>"
-    }
-  },
   "info_content": {
     "intro": "RiskMap.in हे संकेतस्थळ  सोशल मीडियाचा वापर करून आपल्या शहरातील आपत्कालीन परिस्थितीची तत्कालीन माहिती सर्व नागरिकांना उपलब्ध करून देते. ",
     "p1": "वेगाने विकसित होणाऱ्या शहरांच्या आपत्कालीन व्यवस्थापनासाठी, पूर्णतः पारदर्शक व मुक्त-पारिभाषिक (ओपन सौर्स) असलेली ही प्रणाली, मॅसाच्युसेट्स इन्स्टिटयूट ऑफ टेक्नॉलॉजी येथील, अर्बन रिस्क लॅब द्वारे विकसित करण्यात आली आहे.",

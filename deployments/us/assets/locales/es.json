@@ -3,6 +3,21 @@
   "display_env": "env actual: {{ env }}",
   "reports_msg": "recibió {{ r }} informes en las últimas {{ h }} horas",
 
+  "overview_title": "Descripción del proyecto",
+
+  "facebook_title": "Informar con Facebook messenger",
+  "facebook_step1": "Busque el Risk Map Bot en Facebook Messenger",
+  "facebook_step2": "Haga click en 'get started' y siga las instrucciones",
+  "facebook_step3": "Usted puede ver su informe usando el URL. Mire RiskMap.us para mas información.",
+
+
+  "twitter_title": "Informar con Twitter",
+  "twitter_step1": "Mande un mensaje directo (DM) a @riskmapUS_bot.",
+  "twitter_step2": "@riskmapUS_bot te mandara un URL donde puedes entrar un informe",
+  "twitter_step3": "Abre ese URL y sigue las direcciones para entrar tu informe",
+  "twitter_step4": "Cuando tu informe ha entrado al mapa, @riskmapUS_bot te mandara un nuevo mensaje con un URL para tu informe",
+  "twitter_step5": "Porfavor chequea RiskMap.us para ver mas información.",
+
 
   "add_report": "informe de inundación",
   "reports_stats": "Received {reportsplaceholder} reports in past {hoursplaceholder} hours",

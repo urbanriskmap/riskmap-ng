@@ -2,10 +2,8 @@
 
 #content-info{
   overflow-y: scroll;
-  position: relative;
   height: 90%;
   @include text-regular(14px, $dark-gray);
-
 
   #headLogos {
     width: 90%;
@@ -31,37 +29,11 @@
       @include text-regular(14px, $dark-azure);
     }
   }
-
-
-  //// TODO: directly imported from AU - Fix this
   #partners {
     bottom: 5px;
     margin: auto;
     table-layout: fixed;
-    border-bottom: 1px solid $dark-azure;
-    border-top: 1px solid $dark-azure;
     padding-bottom: 20px;
-
-    .label {
-      height: 18px;
-      p {
-        @include text-light(12px, $dark-gray);
-        margin: 10px 0 4px 0;
-        padding: 0;
-      }
-    }
-    .GovPartnerLogo {
-      width: 60%;
-    }
-    .tataLogo {
-      padding: 10px;
-      width: 50%;
-    }
-    .partnerLogo {
-      height: 35px;
-      width: auto;
-      padding: 5px;
-    }
   }
 
 }::-webkit-scrollbar {

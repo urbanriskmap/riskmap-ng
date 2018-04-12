@@ -138,12 +138,14 @@ export interface InfoContentInterface {
   header: {
     path: string;
     url: string;
-  };
+  }[];
   partners: {
     groupId: string;
-    partnerLogos: {
-      path: string;
-      url: string;
+    partnerRows: {
+      partnerLogos: {
+        path: string;
+        url: string;
+      }[];
     }[];
   }[];
 }

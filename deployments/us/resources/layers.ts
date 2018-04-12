@@ -66,7 +66,7 @@ export default {
               '00045', ['literal', [0, -30]],
               ['literal', [0, 0]]
             ],
-            'icon-size': 0.75,
+            'icon-size': .75,
             'icon-allow-overlap': true
           }
         }
@@ -79,7 +79,7 @@ export default {
           data: <object|null>null
         },
         paint: {
-          'icon-opacity': 0.75
+          'icon-opacity': 1
         },
         layout: {
           'icon-image': [
@@ -103,7 +103,7 @@ export default {
             '00045', ['literal', [0, -30]],
             ['literal', [0, 0]]
           ],
-          'icon-size': 0.75,
+          'icon-size': .75,
           'icon-allow-overlap': true
         },
         filter: ['all', ['has', 'observations'], ['!=', 'uid', '']]

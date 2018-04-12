@@ -9,6 +9,28 @@
     "bangalore": "Bangalore",
     "kolkata": "Kolkata"
   },
+
+  "overview_title": "Project overview",
+
+  "facebook_title": "Report with Facebook",
+  "facebook_step1": "Search for Riskmap.in on Facebook messenger",
+  "facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
+  "facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.in for up-to-date flood information.",
+
+  "telegram_title": "Report with Telegram",
+  "telegram_step1": "Text /flood to @RiskMapBot.",
+  "telegram_step2": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "telegram_step3": "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information.",
+
+
+  "twitter_title": "Report with Twitter",
+  "twitter_step1": "Send a Direct Message to @riskmapindia",
+  "twitter_step2": "@riskmapindia will send you a one-time link to submit report",
+  "twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "twitter_step4": "On successful submission of the report, @riskmapindia will send you a reply with a link to your report",
+  "twitter_step5": "Check RiskMap.in for up-to-date flood information.",
+
+
   "add_report": "Report Flooding",
   "reports_stats": "Received {reportsplaceholder} reports in past {hoursplaceholder} hours",
   "prep_menu": {

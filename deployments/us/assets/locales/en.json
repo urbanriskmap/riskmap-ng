@@ -3,16 +3,24 @@
   "display_env": "Current environment: {{ env }}",
   "reports_msg": "Received {{ r }} reports in past {{ h }} hours",
 
-  "overview_name": "Project overview",
-  "overview_step1": "step 1 - do something",
-  "overview_step2": "then do this",
-  "overview_step3": "then live happily ever after",
+  "partners_label_implementing": "Implementing Partners",
+  "partners_label_data": "Data Partners",
+  
+  "overview_title": "Project overview",
 
-  "social_name": "Project overview",
-  "social_step1": "step 1 - do something",
-  "social_step2": "then do this",
-  "social_step3": "then live happily ever after",
-  "social_step4": "Last step",
+  "facebook_title": "Report with Facebook",
+  "facebook_step1": "Search for RiskMapUS on Facebook messenger",
+  "facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
+  "facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.us for up-to-date flood information.",
+
+
+  "twitter_title": "Report with Twitter",
+  "twitter_step1": "Send a Direct Message to @riskmapUS_bot.",
+  "twitter_step2": "@riskmapUS_bot will send you a one-time link to submit report",
+  "twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "twitter_step4": "On successful submission of the report, @riskmapUS_bot will send you a reply with a link to your report",
+  "twitter_step5": "Check RiskMap.us for up-to-date flood information.",
+
 
   "add_report": "Report Flooding",
     "reports_stats": "Received {reportsplaceholder} reports in past {hoursplaceholder} hours",
@@ -64,40 +72,7 @@
     }
   },
   "map_helper": "Select county :",
-  "report_content": {
-    "flood": {
-      "title": "Project overview",
-      "steps": []
-    },
-    "twitter": {
-      "title": "Report with Twitter",
-      "steps": [
-        "Send a Direct Message to @riskmapUS_bot.",
-        "@riskmapUS_bot will send you a one-time link to submit report",
-        "Open the link and follow the instructions to input flood location, upload photo, and description.",
-        "On successful submission of the report, @riskmapUS_bot will send you a reply with a link to your report",
-        "Check RiskMap.us for up-to-date flood information."
-      ]
-    },
-    "telegram": {
-      "title": "Report with Telegram",
-      "steps": [
-        "Search and add 'RiskmapUS' to your telegram.",
-        "Text '/flood' to @RiskmapUS.",
-        "Open the link and follow the instructions to input flood location, flood depth, upload photo, and description.",
-        "On successful submission of the report, @riskmapUS_bot will send you a reply with a link to your report.",
-        "Check RiskMap.us for up-to-date flood information."
-      ]
-    },
-    "facebook": {
-      "title": "Report with Facebook messenger",
-      "steps": [
-        "Search for RiskMapUS on Facebook messenger",
-        "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
-        "You can see your report on the map via the link provided. Check Riskmap.us for up-to-date flood information."
-      ]
-    }
-  },
+
   "info_content": {
     "intro": "RiskMap.us harnesses the power of social media to gather, sort, and display information about flooding in real time.",
     "p1": "RiskMap.us is a project initiated by the Urban Risk Lab at MIT as a free, transparent platform for public reporting and disaster management in cities around the world.",
