@@ -1,7 +1,7 @@
   export default {
     header: [
       {
-        path: 'assets/logos/url_logo.svg',
+        path: 'assets/logos/url_logo.png',
         url: 'http://urbanrisklab.org/'
       }
     ],

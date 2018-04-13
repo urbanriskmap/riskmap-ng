@@ -14,7 +14,7 @@
   <ul>
     <li
       *ngFor="let step of item.steps">
-      {{ item.localeKey + "_step" + step | translate }}
+      <p [innerHTML]= "item.localeKey + '_step' + step | translate"></p>
     </li>
   </ul>
 </div>

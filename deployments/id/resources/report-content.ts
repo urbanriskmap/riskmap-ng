@@ -46,6 +46,18 @@ export default {
         2,
         3
       ]
+    },
+    {
+      icons: [
+        'otherapps'
+      ],
+      videoLink: '',
+      localeKey: 'otherapps',
+      steps: [
+        1,
+        2,
+        3
+      ]
     }
   ]
 };

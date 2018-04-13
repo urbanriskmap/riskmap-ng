@@ -5,33 +5,36 @@
   height: 90%;
   @include text-regular(14px, $dark-gray);
 
-  #headLogos {
+  #intro {
+    @include text-light(20px, $dark-azure);
+    text-align: center;
+    margin: 12px auto;
     width: 90%;
-    padding-top: 10px;
-    margin: auto;
-    table-layout: fixed;
+  }
+
+  #headLogos {
+    width: auto;
+    padding: 5px;
     & #urlLogo {
-      width: 70%;
+      max-width: 170px;
+      margin: auto;
+      padding: 0;
+    }
+  }
+  #headLogos:nth-child(2) {
+    width: 200px;
+    & #urlLogo {
       margin: auto;
       padding: 0;
     }
   }
 
-  #logos{
-
-  }
   #projectText{
-    padding:  20px 20px 0px 20px;
-    #intro {
-      @include text-light(20px, $dark-azure);
-      text-align: center;
-      margin: 12px auto;
-      width: 90%;
-    }
+    padding:  0 20px 0px 20px;
+    border-top: solid 1px $dark-azure;
     #note{
       @include text-regular(14px, $dark-azure);
       padding-bottom: 5px;
-      border-bottom: solid 1px $dark-azure;
     }
   }
   #partners {
@@ -39,15 +42,15 @@
     margin: auto;
     width: 350px;
     padding-bottom: 10px;
-    border: solid 1px yellow;
+    // border: solid 1px yellow;
   }
   td.label {
     padding: 0;
     width: 100px;
-    border: solid 1px green;
+    // border: solid 1px green;
   }
   td.logoWrapper {
-    border: solid 1px red;
+    // border: solid 1px red;
      column-width: 120px;
   }
   .logoImage {

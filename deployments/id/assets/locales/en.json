@@ -28,6 +28,10 @@
   "twitter_step4": "On successful submission of the report, @Petabencana will send you a reply with a link to your report",
   "twitter_step5": "Check Petabencana.id for up-to-date flood information.",
 
+  "otherapps_title": "Report with other Apps",
+  "otherapps_step1": "You can report flood from <a href='http://www.qlue.co.id/'>Qlue</a>, <a href='http://pasangmata.detik.com/'>PasangMata</a>, and  <a href='https://www.zurich.co.id/id-id/kampanye-kami/zurich-alert-the-alert-you-really-need'>Z-Alert.</a>",
+  "otherapps_step2": "Your report is now on the map. Check PetaBencana.id for up-to-date flood information.",
+  "otherapps_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
 
 
   "add_report": "Report Flooding",
