@@ -68,6 +68,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^6.0.102",
     "codelyzer": "^4.2.1",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-changed-in-place": "^2.3.0",
     "gulp-typedoc": "^2.2.0",
