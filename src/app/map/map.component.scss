@@ -14,13 +14,12 @@
   @include text-light(12px, $dark-gray);
   background-color: $frost-white;
   z-index: 2;
-    box-shadow: $pane-shadow;
+  box-shadow: $pane-shadow;
 
-  .appLogo{
-  height: 80%;
-  padding-top: 5px;
-  width: auto;
-
+  .appLogo {
+    height: 80%;
+    padding-top: 5px;
+    width: auto;
   }
 
   & a span {
@@ -74,7 +73,6 @@ app-side-pane {
   right: 5px;
   bottom: 5px;
   @include pane-width(320px, 420px);
-  // height: 100%;
   background-color: $frost-white;
   box-shadow: $pane-shadow;
   @include text-light(12px, $dark-gray);
