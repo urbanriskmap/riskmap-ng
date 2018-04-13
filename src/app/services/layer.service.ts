@@ -27,7 +27,7 @@ export class LayerService {
 
   addSelectionLayer(
     settings: any,
-    selection: any,
+    selected: any,
     placeBelow: string
   ): void {
     const layerSettings: { [name: string]: any } = {};
@@ -36,11 +36,21 @@ export class LayerService {
     layerSettings.id = 'sel' + settings.id;
     layerSettings.type = settings.type;
     layerSettings.source = settings.source;
-    layerSettings[selection.type] = selection.style;
 
+    // REVIEW: each layer style may only have either paint or layout properties (?)
+    layerSettings[selected.type] = settings[selected.type];
+
+    // Override selected style properties
+    const propsToChange = Object.keys(selected.styles);
+    for (const prop of propsToChange) {
+      if (prop) {
+        layerSettings[selected.type][prop] = selected.styles[prop];
+      }
+    }
+
+    // Invert global layer filter (last item in array)
     const featureFilter = settings.filter.slice(-1).pop();
     featureFilter.splice(0, 1, '==');
-
     settings.filter.splice(-1, 1, featureFilter);
     layerSettings.filter = settings.filter;
 
