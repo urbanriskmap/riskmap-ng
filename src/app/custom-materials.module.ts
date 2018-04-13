@@ -11,6 +11,7 @@ import {
   MatSelectModule,
   MatToolbarModule
 } from '@angular/material';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {
     CdkTableModule,
     MatButtonModule,
     MatDialogModule,
+    MatExpansionModule,
     MatRadioModule,
     MatSelectModule,
     MatToolbarModule

@@ -1,4 +1,4 @@
-<div id="contentWrapper">
+<!-- <div id="contentWrapper">
 <div class="reportContent"
   *ngFor="let item of content">
   <p id="title">{{ item.localeKey + "_title" | translate }}</p> <br>
@@ -18,4 +18,33 @@
     </li>
   </ul>
 </div>
+</div> -->
+
+
+<div id="contentWrapper">
+  <mat-accordion>
+    <mat-expansion-panel
+      *ngFor="let item of content">
+      <mat-expansion-panel-header>
+        {{ item.localeKey + "_title" | translate }}
+      </mat-expansion-panel-header>
+      <mat-panel-description>
+        <iframe id="videoFrame"
+          *ngIf="item.videoLink"
+          width="380"
+          height="225"
+          allowfullscreen="allowfullscreen"
+          frameborder="0"
+          [src]="item.videoLink | sanitize">
+        </iframe>
+        <br>
+        <ul>
+          <li
+            *ngFor="let step of item.steps">
+            {{ item.localeKey + "_step" + step | translate }}
+          </li>
+        </ul>
+      </mat-panel-description>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
