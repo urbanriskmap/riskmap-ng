@@ -11,7 +11,8 @@ import {
   MatSelectModule,
   MatToolbarModule
 } from '@angular/material';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatExpansionModule,
     MatRadioModule,
     MatSelectModule,
+    MatTabsModule,
     MatToolbarModule
   ],
   providers: [

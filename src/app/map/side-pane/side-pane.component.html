@@ -1,21 +1,22 @@
-<div
+<mat-tab-group
   id="tabRow">
-  <button class="paneButtons" mat-button
+  <mat-tab
     color="primary"
     *ngFor="let tab of tabs"
-    (click)="changeTab(tab)">
-    {{ tab }}
-  </button>
-</div>
+    [label]="tab"
+    (click)="changeTab(tab)"
+    class="tab-buttons">
 
-<app-info-content
-  *ngIf="selectedTab === 'info'">
-</app-info-content>
+    <app-info-content
+      *ngIf="tab === 'info'">
+    </app-info-content>
 
-<app-map-content
-  *ngIf="selectedTab === 'map'">
-</app-map-content>
+    <app-map-content
+      *ngIf="tab === 'map'">
+    </app-map-content>
 
-<app-report-content
-  *ngIf="selectedTab === 'report'">
-</app-report-content>
+    <app-report-content
+      *ngIf="tab === 'report'">
+    </app-report-content>
+  </mat-tab>
+</mat-tab-group>
