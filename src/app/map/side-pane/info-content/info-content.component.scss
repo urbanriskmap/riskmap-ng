@@ -11,17 +11,17 @@
     margin: auto;
     table-layout: fixed;
     & #urlLogo {
-      width: 60%;
+      width: 70%;
       margin: auto;
+      padding: 0;
     }
   }
 
   #logos{
-    border-top: solid 1px $dark-azure;
-    margin: 20px;
+
   }
   #projectText{
-    padding:  20px;
+    padding:  20px 20px 0px 20px;
     #intro {
       @include text-light(20px, $dark-azure);
       text-align: center;
@@ -30,16 +30,29 @@
     }
     #note{
       @include text-regular(14px, $dark-azure);
+      padding-bottom: 5px;
+      border-bottom: solid 1px $dark-azure;
     }
   }
   #partners {
     bottom: 5px;
     margin: auto;
-    table-layout: fixed;
-    padding-bottom: 20px;
+    width: 350px;
+    padding-bottom: 10px;
+    border: solid 1px yellow;
+  }
+  td.label {
+    padding: 0;
+    width: 100px;
+    border: solid 1px green;
+  }
+  td.logoWrapper {
+    border: solid 1px red;
+     column-width: 120px;
   }
   .logoImage {
-    width: 150px;
+    height: 40px;
+    padding: 3px;
   }
 
 }::-webkit-scrollbar {

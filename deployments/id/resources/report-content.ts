@@ -2,10 +2,19 @@ export default {
   items: [
     {
       icons: [
-        'project-logo' // Fontello name icon-project-logo
+        'project-logo' // Fontello name icon-project-logo //TODO add this after adding fontello
       ],
-      videoLink: 'link to video',
+      videoLink: 'https://www.youtube.com/embed/Gb_BAAiRw2U',
       localeKey: 'overview',
+      steps: [
+      ]
+    },
+    {
+      icons: [
+        'facebook'
+      ],
+      videoLink: '',
+      localeKey: 'facebook',
       steps: [
         1,
         2,
@@ -14,17 +23,28 @@ export default {
     },
     {
       icons: [
-        'facebook',
-        'twitter',
-        'local-apps'
+        'twitter'
       ],
-      videoLink: 'http_link_to_youtube_video',
-      localeKey: 'social',
+      videoLink: '',
+      localeKey: 'twitter',
       steps: [
         1,
         2,
         3,
-        4
+        4,
+        5
+      ]
+    },
+    {
+      icons: [
+        'telegram'
+      ],
+      videoLink: '',
+      localeKey: 'telegram',
+      steps: [
+        1,
+        2,
+        3
       ]
     }
   ]
