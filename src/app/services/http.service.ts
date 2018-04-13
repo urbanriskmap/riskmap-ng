@@ -63,14 +63,13 @@ export class HttpService {
   getJsonData(
     server: string,
     endpoint: string,
-    flags?: {
-      key: string,
-      value: string
+    flags: {
+      [name: string]: any
     }[]
   ): Promise<GeoJsonProperties> {
     let queryUrl = env.servers[server] + endpoint;
 
-    if (flags && flags.length) {
+    if (flags.length) {
       let flagCount = 0;
 
       for (const flag of flags) {

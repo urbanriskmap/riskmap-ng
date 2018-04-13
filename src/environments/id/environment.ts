@@ -4,18 +4,18 @@ export const environment = {
 
   servers: {
     data: 'https://data-dev.petabencana.id/',
-    sensors: 'https://sensors-dev.petabencana.id/',
+    sensors: 'https://data.petabencana.id/',
     settings: {
       reportTimeperiod: 604800
     }
   },
 
   map: {
-    accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
+    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNpdmVhbTFraDAwNHIyeWw1ZDB6Y2hhbTYifQ.tpgt1PB5lkJ-wITS02c96Q',
     center: [106.8271, -6.1754],
-    initZoom: 10,
-    minZoom: 8,
-    baseMapStyle: 'mapbox://styles/asbarve/cj5sl6sg23qc12slb9zmg20kk'
+    initZoom: 12,
+    minZoom: 10,
+    baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
 
   locales: {

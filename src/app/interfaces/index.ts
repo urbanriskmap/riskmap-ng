@@ -74,13 +74,14 @@ export interface ReportInterface {
 }
 
 export interface SensorInterface {
-  id: number;
-  class: string;
-  created: string;
-  observations: string;
-  type: string;
-  uid: string;
-  units: string;
+  [name: string]: any;
+  // id: number;
+  // class: string;
+  // created: string;
+  // observations: string;
+  // type: string;
+  // uid: string;
+  // units: string;
 }
 
 export interface Region {
@@ -95,10 +96,10 @@ export interface Region {
 export interface LayerMetadata {
   name: string;
   server: string;
-  path?: string;
+  path: string;
   flags: {
     [name: string]: any
-  };
+  }[];
   responseType: string;
   uniqueKey: string;
   selected: {

@@ -1,19 +1,19 @@
 export const environment = {
   production: false,
-  envName: 'dev-us',
+  envName: 'dev-id',
 
   servers: {
-    data: 'https://data-dev.riskmap.us/',
-    sensors: 'https://sensors-dev.riskmap.us/',
+    data: 'https://data-dev.petabencana.id/',
+    sensors: 'https://data.petabencana.id/',
     settings: {
       reportTimeperiod: 604800
     }
   },
 
   map: {
-    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
-    center: [-80.199261, 26.138301],
-    initZoom: 10,
+    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNpdmVhbTFraDAwNHIyeWw1ZDB6Y2hhbTYifQ.tpgt1PB5lkJ-wITS02c96Q',
+    center: [106.8271, -6.1754],
+    initZoom: 12,
     minZoom: 10,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
@@ -21,9 +21,9 @@ export const environment = {
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'es', name: 'Spanish'}
+      {code: 'id', name: 'Bahasa'}
     ],
     defaultLanguage: 'en',
-    timezone: 'America/New_York'
+    timezone: 'Asia/Jakarta'
   }
 };

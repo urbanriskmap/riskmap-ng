@@ -22,7 +22,7 @@ export class ChartService {
     let hasUpstreamDownstream;
 
     return new Promise((resolve, reject) => {
-      this.httpService.getJsonData('sensors', 'sensors/' + sensor_id)
+      this.httpService.getJsonData('sensors', 'sensors/' + sensor_id, null)
       .then(data => {
 
         if (Array.isArray(data[0].properties.observations)) {

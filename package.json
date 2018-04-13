@@ -4,7 +4,7 @@
   "author": "Mayank Ojha",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "dep=us npm run fetch-assets && ng serve",
+    "start": "dep=id npm run fetch-assets && ng serve",
     "build": "npm run build-dev && npm run build-prod",
     "build-dev": "npm run build-dev-id && npm run build-dev-us",
     "build-prod": "npm run build-prod-id && npm run build-prod-us",
