@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const del = require('del');
 const changedInPlace = require('gulp-changed-in-place');
 const parseArgs = require('minimist');
 
@@ -18,6 +19,14 @@ if (dep === 'id' || dep === 'in' || dep === 'us') {
   throw 'No deployment specified, prefix dep=id|in|us to command';
 }
 
+gulp.task('clearPreviousAssets', () => {
+  return del([
+    '../src/assets/icons',
+    '../src/assets/locales',
+    '../src/assets/logos',
+    '../src/resources'
+  ], {force: true}); // Force deleting outside CWD
+});
 
 gulp.task('fetchAssets', () => {
   return gulp
@@ -33,4 +42,8 @@ gulp.task('fetchResources', () => {
   .pipe(gulp.dest('../src/resources/'));
 });
 
-gulp.task('default', ['fetchAssets', 'fetchResources']);
+gulp.task('default', [
+  'clearPreviousAssets',
+  'fetchAssets',
+  'fetchResources'
+]);
