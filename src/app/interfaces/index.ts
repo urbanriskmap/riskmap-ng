@@ -101,14 +101,16 @@ export interface LayerMetadata {
     [name: string]: any
   }[];
   responseType: string;
-  uniqueKey: string;
+  uniqueKey: string; // Used for onClick filtering
   selected: {
     type: string;
-    style: {
+    styles: {
+      // Add key value pairs for layout/paint properties
+      // that need to be changed for selection layer
       [name: string]: any
     };
   };
-  placeBelow?: string;
+  placeBelow?: string; // layer needs to be included in base style
 }
 
 export interface LayerSettings {

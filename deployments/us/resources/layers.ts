@@ -10,9 +10,8 @@ export default {
         uniqueKey: 'pkey',
         selected: {
           type: 'layout',
-          style: {
-            'icon-image': 'us_floodIcon_sel',
-            'icon-allow-overlap': true
+          styles: {
+            'icon-image': 'us_floodIcon_sel'
           }
         }
       },
@@ -38,37 +37,9 @@ export default {
         flags: [{region: false}],
         responseType: 'geojson',
         uniqueKey: 'uid',
-        // REVIEW: selection layer properties
-        // If layout property remains same, and only icon-opacity in paint changes
-        // without repeating all layout properties in selected: {}
-        // i.e. selected: {} only contains styles that either override or modify
-        // properties of base layer
         selected: {
           type: 'layout',
-          style: {
-            'icon-image': [
-              'match',
-              ['get', 'class'],
-              '63160', 'us_gauge',
-              '00065', 'us_elevation',
-              '62610', 'us_well',
-              '00060', 'us_discharge',
-              '00045', 'us_precipitation',
-              'us_pump'
-            ],
-            'icon-offset': [
-              'match',
-              ['get', 'class'],
-              '63160', ['literal', [0, -30]],
-              '00065', ['literal', [0, 0]],
-              '62610', ['literal', [0, 0]],
-              '00060', ['literal', [0, 30]],
-              '00045', ['literal', [0, -30]],
-              ['literal', [0, 0]]
-            ],
-            'icon-size': .75,
-            'icon-allow-overlap': true
-          }
+          styles: { }
         }
       },
       settings: {

@@ -10,17 +10,8 @@ export default {
         uniqueKey: 'area_id',
         selected: {
           type: 'paint',
-          style: {
-            'fill-color': [
-              'match',
-              ['get', 'state'],
-              1, '#a0a9f7',
-              2, '#ffff00',
-              3, '#ff8300',
-              4, '#cc2a41',
-              '#000'
-            ],
-            'fill-opacity': 0.75,
+          styles: {
+            'fill-opacity': 0.8,
             'fill-outline-color': '#000'
           }
         },
@@ -58,15 +49,8 @@ export default {
         uniqueKey: 'pkey',
         selected: {
           type: 'layout',
-          style: {
-            'icon-image': 'us_floodIcon_sel',
-            'icon-allow-overlap': true,
-            'icon-ignore-placement': false,
-            'icon-size': [
-              'interpolate', ['linear'], ['zoom'],
-              12, 0.75,
-              16, 1
-            ]
+          styles: {
+            'icon-image': 'us_floodIcon_sel'
           }
         }
       },
@@ -92,6 +76,11 @@ export default {
     },
     {
       metadata: {
+        // IDEA: View-only layers
+        // have 'viewOnly: boolean' key,
+        // for layers with metadata only (eg. name)
+        // and no realtime stream.
+        // Such layers do not trigger info panes to open
         name: 'pumps',
         server: 'data',
         path: 'infrastructure/',
@@ -100,15 +89,7 @@ export default {
         uniqueKey: 'name',
         selected: {
           type: 'layout',
-          style: {
-            'icon-image': 'us_pump',
-            'icon-allow-overlap': false,
-            'icon-size': [
-              'interpolate', ['linear'], ['zoom'],
-              12, 0.75,
-              16, 1
-            ]
-          }
+          styles: { }
         },
         placeBelow: 'place-village'
       },
@@ -148,14 +129,8 @@ export default {
         uniqueKey: 'gaugeid',
         selected: {
           type: 'layout',
-          style: {
-            'icon-image': 'us_gauge',
-            'icon-allow-overlap': true,
-            'icon-size': [
-              'interpolate', ['linear'], ['zoom'],
-              12, 0.75,
-              16, 1
-            ]
+          styles: {
+            'icon-image': 'us_gauge'
           }
         },
       },
@@ -169,7 +144,12 @@ export default {
         layout: {
           'icon-image': [
             'match',
-            ['to-number', ['get', 'f3', ['object', ['at', 10, ['array', ['get', 'observations']]]]]],
+            ['to-number', // convert to number
+              ['get', 'f3', // lookup (key=f3) of:
+                ['object',
+                  ['at', // lookup (index=length of array - 1): i.e. last observation
+                    ['-', ['length', ['array', ['get', 'observations']]], 1],
+                      ['array', ['get', 'observations']]]]]], // parse observations property (json) into array
             1, 'id_gauge_1',
             2, 'id_gauge_2',
             3, 'id_gauge_3',
@@ -183,7 +163,7 @@ export default {
             16, 1
           ]
         },
-        filter: ['all', ['!=', 'name', '']]
+        filter: ['all', ['!=', 'gaugeid', '']]
       }
     }
   ]
