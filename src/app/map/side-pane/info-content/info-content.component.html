@@ -1,43 +1,44 @@
 <div id="content-info">
 
-  <table id="headLogos" >
-  <tr>
-    <td align="center" *ngFor="let logo of content.header">
-      <a [href]="logo.url">
-        <img id="urlLogo" [src]="logo.path">
-      </a>
-    </td>
-  </tr>
-</table>
 
-<div id="projectText">
-<p id="intro">{{ 'info_content.intro' | translate }}</p>
-<p>{{ 'info_content.p1' | translate }}</p>
-<p>{{ 'info_content.p2' | translate }}</p>
-<p>{{ 'info_content.p3' | translate }}</p>
-<p id="note">{{ 'info_content.p4' | translate }}</p>
-</div>
+<div class="headLogoWrapper">
+  <table align="center">
+    <tr>
+      <td id="headLogos" align="center" *ngFor="let logo of content.header">
+        <a [href]="logo.url">
+          <img id="urlLogo" [src]="logo.path">
+        </a>
+      </td>
+    </tr>
+  </table>
+  </div>
+
+  <p id="intro">{{ 'info_content.intro' | translate }}</p>
 
 
-<table border="1"
-  *ngFor="let group of content.partners">
-  <tr>
-    <td class="label">
-      <p>{{ 'partners_label_' + group.groupId | translate }}</p>
-    </td>
-  </tr>
-  <tr  id="partners"
-    *ngFor="let row of group.partnerRows"
-    >
-    <td
-      *ngFor="let logo of row.partnerLogos">
-
+  <div id="logos">
+  <table id="partners" *ngFor="let group of content.partners">
+    <tr>
+      <td align="left" class="label">
+        <p>{{ 'partners_label_' + group.groupId | translate }}</p>
+      </td>
+    </tr>
+    <tr *ngFor="let row of group.partnerRows">
+      <td align="center" class="logoWrapper" *ngFor="let logo of row.partnerLogos">
       <a [href]="logo.url">
         <img class="logoImage" [src]="logo.path">
       </a>
-
     </td>
-  </tr>
-</table>
+    </tr>
+  </table>
+</div>
+
+  <div id="projectText">
+    <p>{{ 'info_content.p1' | translate }}</p>
+    <p>{{ 'info_content.p2' | translate }}</p>
+    <p>{{ 'info_content.p3' | translate }}</p>
+    <p id="note">{{ 'info_content.p4' | translate }}</p>
+  </div>
+
 
 </div>
