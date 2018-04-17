@@ -8,9 +8,9 @@
       <tr>
         <td id="headLogos" align="center" *ngFor="let logo of content.header">
           <a [href]="logo.url">
-            <!-- FIXME: Do not use id within a repeating block -->
-            <!-- two elements can't have same id, use class instead -->
-          <img id="urlLogo" [src]="logo.path">
+          <img
+          class="main-logos"
+          [id]="'logo'+ logo.name" [src]="logo.path">
         </a>
         </td>
       </tr>
@@ -30,7 +30,7 @@
         <td align="center" class="logoWrapper" *ngFor="let logo of row.partnerLogos">
           <a [href]="logo.url">
             <!-- REVIEW: #id in camelCase, .class in dash-case -->
-        <img class="logoImage" [src]="logo.path">
+        <img class="logo_image" [id]="'logo'+ logo.name" [src]="logo.path">
       </a>
         </td>
       </tr>

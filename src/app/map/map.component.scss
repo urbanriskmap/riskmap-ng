@@ -54,7 +54,8 @@
 
   & i {
     @include text-regular(28px, $dark-gray);
-    padding-left: 10px;
+    display: table;
+    margin:auto;
     padding-top: 10px;
   }
 
