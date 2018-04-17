@@ -39,7 +39,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }[];
   selectedLanguage: string;
   selectedReportId: null | number;
-  paneToOpen: string;
+  paneToOpen = 'info';
   deferredPrompt: any;
   showSidePane = false;
 
@@ -68,6 +68,9 @@ export class MapComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // TODO: geolocation observable
+  // https://angular.io/guide/observables
 
   initializeMap(): void {
     mapboxgl.accessToken = this.env.map.accessToken;
@@ -113,20 +116,30 @@ export class MapComponent implements OnInit, OnDestroy {
 
   storeQueryParams(): void {
     this.route.queryParams.subscribe((params: Params) => {
+      // Report id
       if (Number.isInteger(parseInt(params['id'], 10))) {
         this.selectedReportId = params['id'];
       }
 
+      // Side pane tab
       const paneParam = params['pane'];
-      for (const pane of ['report', 'map', 'about']) {
+      for (const pane of ['info', 'map', 'report']) {
         if (paneParam === pane) {
           this.paneToOpen = params['pane'];
+          this.toggleSidePane();
+          break;
         }
       }
 
+      // Language
       this.changeLanguage({
         value: this.getLanguageCode(params['lang'])
       });
+
+      // Clear URL
+      if (this.selectedRegion) {
+        window.history.pushState({}, document.title, '/' + this.selectedRegion.name);
+      }
     });
   }
 
@@ -182,13 +195,13 @@ export class MapComponent implements OnInit, OnDestroy {
   initialiseInvites(): void {
     this.initializeMap();
 
-    this.storeQueryParams();
-
     if (!this.hasRegionParam()) {
       this.openDialog();
     } else {
       this.bindMapEventHandlers();
     }
+
+    this.storeQueryParams();
   }
 
   ngOnInit(): void {
