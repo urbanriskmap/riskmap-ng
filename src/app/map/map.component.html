@@ -8,22 +8,22 @@
     </span>
   </a>
 
-  <div id="reportButton" (click)="reportTab()">
+  <div id="reportButton" (click)="toggleReportFlyer()">
       <i id="buttonIcon" class="icon-add-report"></i><br>
       <p id="buttonText">{{ 'add_report' | translate }}</p>
   </div>
 
-  <div id="reportLink">
-      <table>
-        <tr>
-          <td *ngFor="let network of env.networks.deep_links">
-            <a [href]=network.link>
-              <i [class]="'icon-' + network.name"></i> <br>
-              <!-- <p> {{ "'hint_' + 'network.name'" | translate }}</p> -->
-            </a>
-          </td>
-        </tr>
-      </table>
+  <div id="reportFlyer">
+    <table>
+      <tr>
+        <td *ngFor="let network of env.networks.deep_links">
+          <a [href]=network.link>
+            <i [class]="'icon-' + network.name"></i> <br>
+            <!-- <p> {{ "'hint_' + 'network.name'" | translate }}</p> -->
+          </a>
+        </td>
+      </tr>
+    </table>
   </div>
 
   <mat-form-field
