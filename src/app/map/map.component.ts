@@ -10,7 +10,8 @@ import { environment } from '../../environments/environment';
 import instances from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
-import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
+import { RegionPickerComponent } from './region-picker/region-picker.component';
+import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { EnvironmentInterface, Region } from '../interfaces';
 
 /**
@@ -195,7 +196,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.initializeMap();
 
     if (!this.hasRegionParam()) {
-      this.openDialog();
+      this.openDialog('pickRegion');
     } else {
       this.bindMapEventHandlers();
     }
@@ -220,11 +221,20 @@ export class MapComponent implements OnInit, OnDestroy {
     ]);
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ScreenPopupComponent, {
-      width: '320px',
-      data: this.instances.regions
-    });
+  openDialog(content: string): void {
+    let dialogRef;
+
+    if (content === 'pickRegion') {
+      dialogRef = this.dialog.open(RegionPickerComponent, {
+        width: '320px',
+        data: this.instances.regions
+      });
+    } else if (content === 'agreementPolicy') {
+      dialogRef = this.dialog.open(AgreementAndPolicyComponent, {
+        width: '420px',
+        data: null
+      });
+    }
 
     this.toggleSidePane({close: true});
 
@@ -236,6 +246,7 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
+  // COMBAK add to home screen prompt
   // Ref https://developers.google.com/web/fundamentals/app-install-banners/
   addToHomeScreen(): void {
     if (this.deferredPrompt) {

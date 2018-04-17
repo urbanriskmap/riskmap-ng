@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-side-pane',
@@ -9,6 +9,7 @@ export class SidePaneComponent implements OnInit {
   tabs = ['info', 'map', 'report'];
   selectedIndex: number;
   @Input() selectedTab: string;
+  @Output() agreementPolicy = new EventEmitter<null>();
 
   constructor() { }
 
@@ -18,5 +19,9 @@ export class SidePaneComponent implements OnInit {
 
   tabChanged(e) {
     this.selectedTab = this.tabs[e.index];
+  }
+
+  openAgreementPolicy() {
+    this.agreementPolicy.emit(null);
   }
 }

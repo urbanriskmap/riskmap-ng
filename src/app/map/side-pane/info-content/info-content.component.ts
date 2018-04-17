@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { InfoContentInterface } from '../../../interfaces';
 import infoContent from '../../../../resources/info-content';
@@ -10,12 +10,17 @@ import infoContent from '../../../../resources/info-content';
 })
 export class InfoContentComponent implements OnInit {
   content: InfoContentInterface;
+  @Output() agreementPolicy = new EventEmitter<null>();
 
   constructor() {
     this.content = infoContent;
   }
 
   ngOnInit() {
+  }
+
+  openAgreementPolicy() {
+    this.agreementPolicy.emit(null);
   }
 
 }

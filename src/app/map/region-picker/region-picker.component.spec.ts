@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScreenPopupComponent } from './screen-popup.component';
+import { RegionPickerComponent } from './region-picker.component';
 
-describe('ScreenPopupComponent', () => {
-  let component: ScreenPopupComponent;
-  let fixture: ComponentFixture<ScreenPopupComponent>;
+describe('RegionPickerComponent', () => {
+  let component: RegionPickerComponent;
+  let fixture: ComponentFixture<RegionPickerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScreenPopupComponent ]
+      declarations: [ RegionPickerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScreenPopupComponent);
+    fixture = TestBed.createComponent(RegionPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

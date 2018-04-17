@@ -19,7 +19,8 @@
     </app-report-content>
 
     <app-info-content
-      *ngSwitchDefault>
+      *ngSwitchDefault
+      (agreementPolicy)="openAgreementPolicy()">
     </app-info-content>
   </mat-tab>
 </mat-tab-group>
