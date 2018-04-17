@@ -1,37 +1,39 @@
-<div id="content-info">
+<div id="infoContentWrapper">
+  Hello
 
-
-<div class="headLogoWrapper">
-  <table align="center">
-    <tr>
-      <td id="headLogos" align="center" *ngFor="let logo of content.header">
-        <a [href]="logo.url">
+  <div id="headLogoWrapper">
+    <table align="center">
+      <tr>
+        <td id="headLogos" align="center" *ngFor="let logo of content.header">
+          <a [href]="logo.url">
+            <!-- FIXME: Do not use id within a repeating block -->
+            <!-- two elements can't have same id, use class instead -->
           <img id="urlLogo" [src]="logo.path">
         </a>
-      </td>
-    </tr>
-  </table>
+        </td>
+      </tr>
+    </table>
   </div>
 
   <p id="intro">{{ 'info_content.intro' | translate }}</p>
 
-
   <div id="logos">
-  <table id="partners" *ngFor="let group of content.partners">
-    <tr>
-      <td align="left" class="label">
-        <p>{{ 'partners_label_' + group.groupId | translate }}</p>
-      </td>
-    </tr>
-    <tr *ngFor="let row of group.partnerRows">
-      <td align="center" class="logoWrapper" *ngFor="let logo of row.partnerLogos">
-      <a [href]="logo.url">
+    <table id="partners" *ngFor="let group of content.partners">
+      <tr>
+        <td align="left" class="label">
+          <p>{{ 'partners_label_' + group.groupId | translate }}</p>
+        </td>
+      </tr>
+      <tr *ngFor="let row of group.partnerRows">
+        <td align="center" class="logoWrapper" *ngFor="let logo of row.partnerLogos">
+          <a [href]="logo.url">
+            <!-- REVIEW: #id in camelCase, .class in dash-case -->
         <img class="logoImage" [src]="logo.path">
       </a>
-    </td>
-    </tr>
-  </table>
-</div>
+        </td>
+      </tr>
+    </table>
+  </div>
 
   <div id="projectText">
     <p>{{ 'info_content.p1' | translate }}</p>
