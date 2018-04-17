@@ -4,20 +4,24 @@
     color="primary"
     style="min-width: 100px;"
     *ngFor="let tab of tabs"
-    [label]="tab"
-    (click)="changeTab(tab)"
-    class="tab-buttons">
+    [label]="tab | titlecase"
+    class="tab-buttons"
+    [ngSwitch]="tab">
 
     <app-info-content
-      *ngIf="tab === 'info'">
+      *ngSwitchCase="'info'">
     </app-info-content>
 
     <app-map-content
-      *ngIf="tab === 'map'">
+      *ngSwitchCase="'map'">
     </app-map-content>
 
     <app-report-content
-      *ngIf="tab === 'report'">
+      *ngSwitchCase="'report'">
     </app-report-content>
+
+    <div
+      *ngSwitchDefault>
+    </div>
   </mat-tab>
 </mat-tab-group>

@@ -1,11 +1,16 @@
-<div id="contentWrapper">
-  <mat-accordion>
+<div id="reportContentWrapper">
+  <mat-accordion
+    multi="false">
     <mat-expansion-panel
-      *ngFor="let item of content">
+      *ngFor="let item of content, let i = index"
+      [expanded]="i === 0">
+
       <mat-expansion-panel-header>
         {{ item.localeKey + "_title" | translate }}
       </mat-expansion-panel-header>
-      <mat-panel-description>
+
+      <!-- Use ng-template tag for Lazy rendering -->
+      <ng-template matExpansionPanelContent>
         <iframe id="videoFrame"
           *ngIf="item.videoLink"
           width="380"
@@ -14,14 +19,17 @@
           frameborder="0"
           [src]="item.videoLink | sanitize">
         </iframe>
-        <br>
+
+        <br *ngIf="item.videoLink">
+
         <ul>
           <li
             *ngFor="let step of item.steps">
             {{ item.localeKey + "_step" + step | translate }}
           </li>
         </ul>
-      </mat-panel-description>
+      </ng-template>
+
     </mat-expansion-panel>
   </mat-accordion>
 </div>
