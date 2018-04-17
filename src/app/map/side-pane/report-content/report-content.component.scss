@@ -2,28 +2,20 @@
 
 #contentWrapper {
   overflow-y: scroll;
+}
 
-  .reportContent {
-    border-bottom: solid 1px $dark-azure;
-    margin: 20px 20px 0 20px;
-    @include text-regular(14px, $dark-gray);
-
-    #title {
-      @include text-medium(14, $dark-azure)
-      padding: 0;
-      margin: 0;
-    }
-
-    #videoFrame {
-      padding-left: auto;
-      padding-right: auto;
-    }
+::ng-deep .mat-expansion-panel {
+  .mat-expansion-panel-header {
+    height: 48px!important;
   }
 
-  p {
-    margin: 2px;
-  }
+  .mat-expansion-panel-content {
+    .mat-expansion-panel-body {
+      padding-bottom: 0!important;
+    }
 
-}::-webkit-scrollbar {
- display: none;
+    &.mat-expanded .mat-expansion-panel-body {
+      padding-bottom: 16px!important;
+    }
+  }
 }

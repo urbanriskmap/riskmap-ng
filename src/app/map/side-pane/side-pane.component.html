@@ -4,8 +4,7 @@
     color="primary"
     style="min-width: 100px;"
     *ngFor="let tab of tabs"
-    [label]="tab"
-    (click)="changeTab(tab)"
+    [label]="tab | titlecase"
     class="tab-buttons">
 
     <app-info-content

@@ -7,14 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidePaneComponent implements OnInit {
   tabs = ['info', 'map', 'report'];
-  selectedTab = 'info';
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  changeTab(tab) {
-    this.selectedTab = tab;
   }
 }
