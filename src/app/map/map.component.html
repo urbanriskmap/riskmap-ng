@@ -25,9 +25,6 @@
       </table>
   </div>
 
-
-
-
   <mat-form-field
     *ngIf="showSidePane"
     id="langMenu">
@@ -101,5 +98,6 @@
 
 <app-side-pane
   *ngIf="showSidePane"
-  [selectedTab]="paneToOpen">
+  [selectedTab]="paneToOpen"
+  (agreementPolicy)="openDialog('agreementPolicy')">
 </app-side-pane>

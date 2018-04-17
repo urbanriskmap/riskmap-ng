@@ -9,11 +9,12 @@ import { AreaInfoComponent } from './area-info/area-info.component';
 import { InfraInfoComponent } from './infra-info/infra-info.component';
 import { ReportInfoComponent } from './report-info/report-info.component';
 import { SensorInfoComponent } from './sensor-info/sensor-info.component';
-import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 import { SidePaneComponent } from './side-pane/side-pane.component';
 import { ReportContentComponent } from './side-pane/report-content/report-content.component';
 import { MapContentComponent } from './side-pane/map-content/map-content.component';
 import { InfoContentComponent } from './side-pane/info-content/info-content.component';
+import { RegionPickerComponent } from './region-picker/region-picker.component';
+import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 
 // Modules
 import { CustomMaterialsModule } from '../custom-materials.module';
@@ -28,7 +29,6 @@ import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
-
 
 @NgModule({
   imports: [
@@ -46,12 +46,16 @@ import { SanitizePipe } from '../pipes/sanitize.pipe';
     InteractionService,
     ChartService
   ],
-  entryComponents: [ScreenPopupComponent],
+  entryComponents: [
+    RegionPickerComponent,
+    AgreementAndPolicyComponent
+  ],
   declarations: [
+    RegionPickerComponent,
+    AgreementAndPolicyComponent,
     ReportInfoComponent,
     SensorInfoComponent,
     AreaInfoComponent,
-    ScreenPopupComponent,
     SidePaneComponent,
     MapComponent,
     InfraInfoComponent,

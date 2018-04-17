@@ -1,12 +1,13 @@
 <div id="infoContentWrapper">
 
+  <!-- TEMP reposition user agreement & privacy policy -->
+  <p (click)="openAgreementPolicy()">User agreement and privacy policy</p>
+
   <div id="headLogoWrapper">
     <table align="center">
       <tr>
         <td id="headLogos" align="center" *ngFor="let logo of content.header">
           <a [href]="logo.url">
-            <!-- FIXME: Do not use id within a repeating block -->
-            <!-- two elements can't have same id, use class instead -->
           <img
           class="main-logos"
           [id]="'logo'+ logo.name" [src]="logo.path">
