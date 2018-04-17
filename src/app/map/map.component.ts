@@ -286,9 +286,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   reportTab(): void {
     const reportButton = document.getElementById('reportLink');
-
     reportButton.style.display = (reportButton.style.display !== 'block') ? 'block' : 'none';
-
-    // reportButton.style.animation = 'slidein 3s linear 1s infinite running';
-  }
+    }
 }

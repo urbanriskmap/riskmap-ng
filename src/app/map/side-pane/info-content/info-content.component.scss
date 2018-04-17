@@ -9,67 +9,80 @@
   // position: absolute;
   // top: $toolbar-height + (2 * $general-margin);
   // bottom: 5px;
-  background-color: yellow;
   // overflow-y: scroll;
 
   @include text-regular(14px, $dark-gray);
 
-  // #headLogoWrapper {
-  //   width: auto;
-  //   padding: 5px;
-  //   & #urlLogo {
-  //     max-width: 170px;
-  //     margin: auto;
-  //     padding: 0;
-  //   }
-  // }
-  //
-  //
-  // #headLogos:nth-child(2) {
-  //   width: 200px;
-  //   & #urlLogo {
-  //     margin: auto;
-  //     padding: 0;
-  //   }
-  // }
-  //
-  // #intro {
-  //   @include text-light(20px, $dark-azure);
-  //   text-align: center;
-  //   margin: 12px auto;
-  //   width: 90%;
-  // }
-  //
-  // #projectText{
-  //   padding:  0 20px 0px 20px;
-  //   border-top: solid 1px $dark-azure;
-  //   #note{
-  //     @include text-regular(14px, $dark-azure);
-  //     padding-bottom: 5px;
-  //   }
-  // }
-  // #partners {
-  //   bottom: 5px;
-  //   margin: auto;
-  //   width: 350px;
-  //   padding-bottom: 10px;
-  //   // border: solid 1px yellow;
-  // }
-  // td.label {
-  //   padding: 0;
-  //   width: 100px;
-  //   // border: solid 1px green;
-  // }
-  // td.logoWrapper {
-  //   // border: solid 1px red;
-  //    column-width: 120px;
-  // }
-  // .logoImage {
-  //   height: 40px;
-  //   padding: 3px;
-  // }
-  //
-  // &::-webkit-scrollbar {
-  //   display: none;
-  // }
+  #headLogoWrapper {
+    width: auto;
+    padding: 5px;
+    .main-logos {
+      &#logomain {
+        width: 150px;
+        padding: 3px;
+      }
+      &#logourl {
+        width: 180px;
+        padding: 3px
+      }
+    }
+  }
+
+  #intro {
+    @include text-light(20px, $dark-azure);
+    text-align: center;
+    margin: 12px auto;
+    width: 90%;
+  }
+
+  #partners {
+    bottom: 5px;
+    margin: auto;
+    width: 350px;
+    padding-bottom: 10px;
+    // border: solid 1px yellow;
+  }
+  td.label {
+
+    width: 100px;
+    // border: solid 1px green;
+  }
+  td.logoWrapper {
+    // border: solid 1px red;
+    column-width: auto;
+    padding: 5px;
+    .logo_image {
+      height: 40px;
+      padding: 3px;
+      &#logolocal {
+        width: 250px;
+        height: auto;
+        padding: 3px;
+        display: table;
+        margin:auto;
+      }
+      &#logomapbox {
+        width: 120px;
+        height: auto;
+        margin-right: 10px;
+      }
+      &#logotwitter {
+        width: 120px;
+        height: auto;
+      }
+    }
+  }
+
+  #projectText{
+    margin:  0 20px 0px 20px;
+    border-top: solid 1px $dark-azure;
+    #note{
+      @include text-regular(14px, $dark-azure);
+      padding-bottom: 5px;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

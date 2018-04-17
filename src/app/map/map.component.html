@@ -18,8 +18,7 @@
         <tr>
           <td *ngFor="let network of env.networks.deep_links">
             <a [href]=network.link>
-              <i [class]="'icon-' + network.name"></i> <br>
-              <!-- <p> {{ "'hint_' + 'network.name'" | translate }}</p> -->
+              <i [class]="'icon-' + network.name"></i>
             </a>
           </td>
         </tr>

@@ -144,6 +144,7 @@ export interface ReportContentInterface {
 
 export interface InfoContentInterface {
   header: {
+    name: string;
     path: string;
     url: string;
   }[];
@@ -151,6 +152,7 @@ export interface InfoContentInterface {
     groupId: string;
     partnerRows: {
       partnerLogos: {
+        name: string;
         path: string;
         url: string;
       }[];
