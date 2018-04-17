@@ -25,5 +25,14 @@ export const environment = {
     ],
     defaultLanguage: 'en',
     timezone: 'America/New_York'
+  },
+  networks: {
+    deep_links: [
+    {name: 'facebook', link: 'http://m.me/1747847428843379'}, //FB page id is used as no username is allowd at this point.
+    //TODO after the twitter dev bot is registered
+    {name: 'twitter', link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152&welcome_message_id=905919155492331523&text=/flood'}/*,
+    //Disable telegram button for US deployment
+    {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}*/
+  ]
   }
 };

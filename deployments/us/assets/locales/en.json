@@ -5,7 +5,7 @@
 
   "partners_label_implementing": "Implementing Partners",
   "partners_label_data": "Data Partners",
-  
+
   "overview_title": "Project overview",
 
   "facebook_title": "Report with Facebook",
@@ -23,6 +23,10 @@
 
 
   "add_report": "Report Flooding",
+  "hint_facebook":"Facebook Messenger",
+  "hint_twitter":"Twitter",
+  "hint_telegram":"Telegram",
+
     "reports_stats": "Received {reportsplaceholder} reports in past {hoursplaceholder} hours",
   "prep_menu": {
     "btn_names": {

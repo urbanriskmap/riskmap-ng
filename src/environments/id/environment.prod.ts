@@ -25,5 +25,13 @@ export const environment = {
     ],
     defaultLanguage: 'id',
     timezone: 'Asia/Jakarta'
+  },
+
+  networks: {
+    deep_links: [
+      {name: 'facebook', link: 'http://m.me/petabencana.id'},
+      {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Laporkan+banjir&via=petabencana'},
+      {name: 'telegram', link: 'https://telegram.me/BencanaBot'}
+    ]
   }
 };

@@ -8,16 +8,18 @@
     </span>
   </a>
 
+  <div id="reportButton" (click)="reportTab()">
+      <i id="buttonIcon" class="icon-add-report"></i><br>
+      <p id="buttonText">{{ 'add_report' | translate }}</p>
+  </div>
 
-  <div id="reportButton">
-      <p><i id="buttonText" class="icon-add-report"></i><br>{{webMenu.locale.add_report}}</p>
-    </div>
-  <div id="reportLink" (click)="reportTab()">
+  <div id="reportLink">
       <table>
         <tr>
-          <td ngFor="platform of config.deep_links">
-            <a [href]=platform.link>
-              <i [class]="'icon-' + platform.name"></i>
+          <td *ngFor="let network of env.networks.deep_links">
+            <a [href]=network.link>
+              <i [class]="'icon-' + network.name"></i> <br>
+              <!-- <p> {{ "'hint_' + 'network.name'" | translate }}</p> -->
             </a>
           </td>
         </tr>

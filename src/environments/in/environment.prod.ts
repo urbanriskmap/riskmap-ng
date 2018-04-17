@@ -29,5 +29,12 @@ export const environment = {
     ],
     defaultLanguage: 'en',
     timezone: 'Asia/Kolkata'
+  },
+  networks: {
+    deep_links: [
+      {name: 'facebook', link: 'http://m.me/riskmapbot'},
+      {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=riskmapindia'},
+      {name: 'telegram', link: 'https://telegram.me/riskmapbot'}
+    ]
   }
 };

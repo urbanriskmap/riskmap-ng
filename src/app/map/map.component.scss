@@ -10,6 +10,7 @@
 #reportButton {
     width: 70px;
     height: 70px;
+    text-align:center;
     position: fixed;
     border: none;
     top: 55px;
@@ -17,20 +18,18 @@
     z-index: 1025;
     border-radius: 5px;
     background-color: $snow-white;
-    & i {
-      color: $dark-azure;
-      text-align: center;
-      width: 58px;
-      height: 40px;
-      top: 2px;
+    box-shadow: $pane-shadow;
+    & #buttonIcon {
+      @include text-regular(28px, $dark-azure);
       }
-    & p {
+    & #buttonText {
+      @include text-medium(10px, $dark-azure);
       text-align: center;
       color: $dark-azure;
-      margin: 6px;
+      margin: 3px;
 
     }
-    &:hover {
+    :hover {
       cursor: pointer;
     }
     &:active {
@@ -41,7 +40,7 @@
    #reportLink {
     width: auto;
     height: 70px;
-    display:none;
+    display: none;
     position: fixed;
     border: none;
     top: 55px;
@@ -49,14 +48,14 @@
     z-index: 1025;
     border-radius: 5px;
     background-color: $snow-white;
-    // box-shadow: @drop-shadow;
+    box-shadow: $pane-shadow;
     & i {
-      // @include linkmedium-mixin(32px);
+      @include text-regular(28px, $dark-gray);
       padding-left: 10px;
       padding-top: 10px;
       position: fixed;
     }
-    &:hover {
+    :hover {
       color: $dark-azure;
     }
     & table {

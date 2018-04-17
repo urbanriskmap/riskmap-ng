@@ -33,6 +33,12 @@ export interface EnvironmentInterface {
     defaultLanguage: string;
     timezone: string;
   };
+  networks: {
+    deep_links: {
+      name: string;
+      link: string;
+    }[];
+  };
 }
 
 export interface AreaInterface {

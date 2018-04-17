@@ -32,6 +32,10 @@
   "otherapps_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
 
   "add_report": "Laporkan banjir",
+  "hint_facebook":"Facebook Messenger",
+  "hint_twitter":"Twitter",
+  "hint_telegram":"Telegram",
+
   "reports_stats": "Terdapat {reportsplaceholder} laporan dalam {hoursplaceholder} jam terakhir",
   "prep_menu": {
     "btn_names": {
