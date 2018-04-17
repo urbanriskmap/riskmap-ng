@@ -2,24 +2,28 @@
 
 #contentWrapper {
   overflow-y: scroll;
-  // height: auto;
+
   .reportContent {
     border-bottom: solid 1px $dark-azure;
     margin: 20px 20px 0 20px;
     @include text-regular(14px, $dark-gray);
+
     #title {
       @include text-medium(14, $dark-azure)
       padding: 0;
       margin: 0;
     }
+
     #videoFrame {
       padding-left: auto;
       padding-right: auto;
     }
   }
+
   p {
     margin: 2px;
   }
+
 }::-webkit-scrollbar {
  display: none;
 }

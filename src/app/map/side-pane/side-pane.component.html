@@ -2,6 +2,7 @@
   id="tabRow">
   <mat-tab
     color="primary"
+    style="min-width: 100px;"
     *ngFor="let tab of tabs"
     [label]="tab"
     (click)="changeTab(tab)"
