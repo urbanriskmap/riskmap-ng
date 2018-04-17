@@ -8,6 +8,25 @@
     </span>
   </a>
 
+
+  <div id="reportButton">
+      <p><i id="buttonText" class="icon-add-report"></i><br>{{webMenu.locale.add_report}}</p>
+    </div>
+  <div id="reportLink" (click)="reportTab()">
+      <table>
+        <tr>
+          <td ngFor="platform of config.deep_links">
+            <a [href]=platform.link>
+              <i [class]="'icon-' + platform.name"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+  </div>
+
+
+
+
   <mat-form-field
     *ngIf="showSidePane"
     id="langMenu">

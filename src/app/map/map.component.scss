@@ -6,6 +6,71 @@
   background-color: $light-gray;
 }
 
+
+#reportButton {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    border: none;
+    top: 55px;
+    left: 12px;
+    z-index: 1025;
+    border-radius: 5px;
+    background-color: $snow-white;
+    & i {
+      color: $dark-azure;
+      text-align: center;
+      width: 58px;
+      height: 40px;
+      top: 2px;
+      }
+    & p {
+      text-align: center;
+      color: $dark-azure;
+      margin: 6px;
+
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      transform: translateX(1px)translateY(2px);
+    }
+  }
+
+   #reportLink {
+    width: auto;
+    height: 70px;
+    display:none;
+    position: fixed;
+    border: none;
+    top: 55px;
+    left: 90px;
+    z-index: 1025;
+    border-radius: 5px;
+    background-color: $snow-white;
+    // box-shadow: @drop-shadow;
+    & i {
+      // @include linkmedium-mixin(32px);
+      padding-left: 10px;
+      padding-top: 10px;
+      position: fixed;
+    }
+    &:hover {
+      color: $dark-azure;
+    }
+    & table {
+      & tr {
+        & td {
+          width: 65px;
+        }
+      }
+    }
+  }
+
+
+
+
 #navBar {
   position: absolute;
   top: 0px;
