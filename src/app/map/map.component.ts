@@ -14,8 +14,8 @@ import { ScreenPopupComponent } from './screen-popup/screen-popup.component';
 import { EnvironmentInterface, Region } from '../interfaces';
 
 /**
-* View model for Riskmap landing page
-*/
+ * View model for Riskmap landing page
+ */
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -71,7 +71,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   // TODO: geolocation observable
   // https://angular.io/guide/observables
-
   initializeMap(): void {
     mapboxgl.accessToken = this.env.map.accessToken;
     this.map = new mapboxgl.Map({
@@ -174,7 +173,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
     // Handle click interactions
     this.map.on('click', event => {
-      this.toggleSidePane({ close: true });
+      this.toggleSidePane({close: true});
       this.layerService.handleMapInteraction(event);
     });
 
@@ -182,25 +181,26 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.on('dataloading', event => {
       if (event.sourceId === 'reports'
       && this.selectedReportId) {
-        // REVIEW: 3 dataloading calls are made per layer source
+        // 3 dataloading calls are made per layer source
         if (eventCall > 1) {
           this.zoomToQueriedReport(event);
         } else {
           eventCall += 1;
-          initialiseInvites(): void {
-            this.initializeMap();
-
-            if(!this.hasRegionParam()) {
-              this.openDialog();
-            } else {
-              this.bindMapEventHandlers();
-            }
-
-            this.storeQueryParams();
-          }
         }
-      });
+      }
+    });
+  }
+
+  initialiseInvites(): void {
+    this.initializeMap();
+
+    if (!this.hasRegionParam()) {
+      this.openDialog();
+    } else {
+      this.bindMapEventHandlers();
     }
+
+    this.storeQueryParams();
   }
 
   ngOnInit(): void {
@@ -226,7 +226,7 @@ export class MapComponent implements OnInit, OnDestroy {
       data: this.instances.regions
     });
 
-    this.toggleSidePane({ close: true });
+    this.toggleSidePane({close: true});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -254,7 +254,7 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleSidePane(forceAction ?: { close: boolean }): void {
+  toggleSidePane(forceAction?: {close: boolean}): void {
     if (this.showSidePane || (forceAction && forceAction.close)) {
       // Close
       this.showSidePane = false;
@@ -275,19 +275,20 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Required when app has more than one route, eg. /dashboard
-
-    //   // avoid memory leaks here by cleaning up after ourselves. If we
-    //   // don't then we will continue to run our initialiseInvites()
-    //   // method on every navigationEnd event.
-    //   if (this.navigationSubscription) {
-    //      this.navigationSubscription.unsubscribe();
-    //   }
+  // Required when app has more than one route, eg. /dashboard
+  //   // avoid memory leaks here by cleaning up after ourselves. If we
+  //   // don't then we will continue to run our initialiseInvites()
+  //   // method on every navigationEnd event.
+  //   if (this.navigationSubscription) {
+  //      this.navigationSubscription.unsubscribe();
+  //   }
   }
 
-  //report button on the map
-  reportTab() {
-    var e = document.getElementById('reportLink');
-    e.style.display = ((e.style.display != 'block') ? 'block' : 'none');
+  reportTab(): void {
+    const reportButton = document.getElementById('reportLink');
+
+    reportButton.style.display = (reportButton.style.display !== 'block') ? 'block' : 'none';
+
+    // reportButton.style.animation = 'slidein 3s linear 1s infinite running';
   }
 }
