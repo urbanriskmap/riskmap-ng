@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-side-pane',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidePaneComponent implements OnInit {
   tabs = ['info', 'map', 'report'];
+  selectedIndex: number;
+  @Input() selectedTab: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.selectedIndex = this.tabs.indexOf(this.selectedTab);
+  }
+
+  tabChanged(e) {
+    this.selectedTab = this.tabs[e.index];
   }
 }

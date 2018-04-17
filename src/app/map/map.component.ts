@@ -39,7 +39,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }[];
   selectedLanguage: string;
   selectedReportId: null | number;
-  paneToOpen: string;
+  paneToOpen = 'info';
   deferredPrompt: any;
   showSidePane = false;
 
@@ -64,224 +64,230 @@ export class MapComponent implements OnInit, OnDestroy {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
-      this.initialiseInvites();
-    }
-  });
-}
-
-
-
-
-initializeMap(): void {
-  mapboxgl.accessToken = this.env.map.accessToken;
-  this.map = new mapboxgl.Map({
-    attributionControl: false,
-    container: 'mapWrapper',
-    center: this.env.map.center,
-    zoom: this.env.map.initZoom,
-    minZoom: this.env.map.minZoom,
-    style: this.env.map.baseMapStyle,
-    hash: false,
-    preserveDrawingBuffer: true
-  });
-}
-
-hasRegionParam(): boolean {
-  const instance = this.route.snapshot.paramMap.get('region');
-
-  for (const region of this.instances.regions) {
-    if (instance === region.name) {
-      this.selectedRegion = region;
-      return true;
-    }
+        this.initialiseInvites();
+      }
+    });
   }
 
-  return false;
-}
+  // TODO: geolocation observable
+  // https://angular.io/guide/observables
 
-getLanguageCode(langParam: string): string {
-  for (const lang of this.languages) {
-    if (langParam === lang.code) {
-      return lang.code;
-    }
+  initializeMap(): void {
+    mapboxgl.accessToken = this.env.map.accessToken;
+    this.map = new mapboxgl.Map({
+      attributionControl: false,
+      container: 'mapWrapper',
+      center: this.env.map.center,
+      zoom: this.env.map.initZoom,
+      minZoom: this.env.map.minZoom,
+      style: this.env.map.baseMapStyle,
+      hash: false,
+      preserveDrawingBuffer: true
+    });
   }
 
-  return this.env.locales.defaultLanguage;
-}
+  hasRegionParam(): boolean {
+    const instance = this.route.snapshot.paramMap.get('region');
 
-changeLanguage(event): void {
-  this.selectedLanguage = event.value;
-  this.translate.use(event.value);
-}
-
-storeQueryParams(): void {
-  this.route.queryParams.subscribe((params: Params) => {
-    if (Number.isInteger(parseInt(params['id'], 10))) {
-      this.selectedReportId = params['id'];
-    }
-
-    const paneParam = params['pane'];
-    for (const pane of ['report', 'map', 'about']) {
-      if (paneParam === pane) {
-        this.paneToOpen = params['pane'];
+    for (const region of this.instances.regions) {
+      if (instance === region.name) {
+        this.selectedRegion = region;
+        return true;
       }
     }
 
-    this.changeLanguage({
-      value: this.getLanguageCode(params['lang'])
-    });
-  });
-}
+    return false;
+  }
 
-// FIXME: may get triggered before reports layer is rendered
-// Catch in tests
-zoomToQueriedReport(event): void {
-if (event.sourceId === 'reports') {
-  for (const report of event.source.data.features) {
-    if (report.properties.pkey === this.selectedReportId) {
-      this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
-      this.interactionService.handleLayerInteraction('reports', [report]);
-      this.map.flyTo({
-        zoom: 11,
-        center: report.geometry.coordinates
+  getLanguageCode(langParam: string): string {
+    for (const lang of this.languages) {
+      if (langParam === lang.code) {
+        return lang.code;
+      }
+    }
+
+    return this.env.locales.defaultLanguage;
+  }
+
+  changeLanguage(event): void {
+    this.selectedLanguage = event.value;
+    this.translate.use(event.value);
+  }
+
+  storeQueryParams(): void {
+    this.route.queryParams.subscribe((params: Params) => {
+      // Report id
+      if (Number.isInteger(parseInt(params['id'], 10))) {
+        this.selectedReportId = params['id'];
+      }
+
+      // Side pane tab
+      const paneParam = params['pane'];
+      for (const pane of ['info', 'map', 'report']) {
+        if (paneParam === pane) {
+          this.paneToOpen = params['pane'];
+          this.toggleSidePane();
+          break;
+        }
+      }
+
+      // Language
+      this.changeLanguage({
+        value: this.getLanguageCode(params['lang'])
       });
-      break;
+
+      // Clear URL
+      if (this.selectedRegion) {
+        window.history.pushState({}, document.title, '/' + this.selectedRegion.name);
+      }
+    });
+  }
+
+  // FIXME: may get triggered before reports layer is rendered
+  // Catch in tests
+  zoomToQueriedReport(event): void {
+    if (event.sourceId === 'reports') {
+      for (const report of event.source.data.features) {
+        if (report.properties.pkey === this.selectedReportId) {
+          this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
+          this.interactionService.handleLayerInteraction('reports', [report]);
+          this.map.flyTo({
+            zoom: 11,
+            center: report.geometry.coordinates
+          });
+          break;
+        }
+      }
     }
   }
-}
-}
 
-bindMapEventHandlers(): void {
-  this.map.on('style.load', () => {
-    if (this.selectedRegion) {
-      // Fly to selected region
-      this.setBounds();
+  bindMapEventHandlers(): void {
+    this.map.on('style.load', () => {
+      if (this.selectedRegion) {
+        // Fly to selected region
+        this.setBounds();
 
-      // Then load layers
-      this.layerService.initializeLayers(this.map, this.selectedRegion);
+        // Then load layers
+        this.layerService.initializeLayers(this.map, this.selectedRegion);
+      }
+    });
+
+    // Handle click interactions
+    this.map.on('click', event => {
+      this.toggleSidePane({ close: true });
+      this.layerService.handleMapInteraction(event);
+    });
+
+    let eventCall = 0;
+    this.map.on('dataloading', event => {
+      if (event.sourceId === 'reports'
+      && this.selectedReportId) {
+        // REVIEW: 3 dataloading calls are made per layer source
+        if (eventCall > 1) {
+          this.zoomToQueriedReport(event);
+        } else {
+          eventCall += 1;
+          initialiseInvites(): void {
+            this.initializeMap();
+
+            if(!this.hasRegionParam()) {
+              this.openDialog();
+            } else {
+              this.bindMapEventHandlers();
+            }
+
+            this.storeQueryParams();
+          }
+        }
+      });
     }
-  });
-
-  // Handle click interactions
-  this.map.on('click', event => {
-  this.toggleSidePane({close: true});
-  this.layerService.handleMapInteraction(event);
-});
-
-let eventCall = 0;
-this.map.on('dataloading', event => {
-  if (event.sourceId === 'reports'
-  && this.selectedReportId) {
-    // 3 dataloading calls are made per layer source
-    if (eventCall > 1) {
-    this.zoomToQueriedReport(event);
-  } else {
-    eventCall += 1;
   }
-}
-});
-}
 
-initialiseInvites(): void {
-  this.initializeMap();
+  ngOnInit(): void {
+    // Stash event so it can be triggered later
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      this.deferredPrompt = e;
 
-  this.storeQueryParams();
-
-  if (!this.hasRegionParam()) {
-    this.openDialog();
-  } else {
-    this.bindMapEventHandlers();
+      return false;
+    });
   }
-}
 
-ngOnInit(): void {
-  // Stash event so it can be triggered later
-  window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  this.deferredPrompt = e;
+  setBounds(): void {
+    this.map.fitBounds([
+      this.selectedRegion.bounds.sw,
+      this.selectedRegion.bounds.ne
+    ]);
+  }
 
-  return false;
-});
-}
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ScreenPopupComponent, {
+      width: '320px',
+      data: this.instances.regions
+    });
 
-setBounds(): void {
-  this.map.fitBounds([
-    this.selectedRegion.bounds.sw,
-    this.selectedRegion.bounds.ne
-  ]);
-}
+    this.toggleSidePane({ close: true });
 
-openDialog(): void {
-  const dialogRef = this.dialog.open(ScreenPopupComponent, {
-    width: '320px',
-    data: this.instances.regions
-  });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.closeInfoPane(); // Close any panes if open
+        this.router.navigate([result.name]);
+      }
+    });
+  }
 
-  this.toggleSidePane({close: true});
+  // Ref https://developers.google.com/web/fundamentals/app-install-banners/
+  addToHomeScreen(): void {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.closeInfoPane(); // Close any panes if open
-      this.router.navigate([result.name]);
+      this.deferredPrompt.userChoice
+      .then(choiceResult => {
+        if (choiceResult.outcome === 'dismissed') {
+          console.log('User cancelled A2HS');
+        } else {
+          console.log('User accepted A2HS');
+        }
+
+        this.deferredPrompt = null;
+      });
     }
-  });
-}
+  }
 
-// Ref https://developers.google.com/web/fundamentals/app-install-banners/
-addToHomeScreen(): void {
-if (this.deferredPrompt) {
-  this.deferredPrompt.prompt();
+  toggleSidePane(forceAction ?: { close: boolean }): void {
+    if (this.showSidePane || (forceAction && forceAction.close)) {
+      // Close
+      this.showSidePane = false;
+    } else if (!this.showSidePane || (forceAction && !forceAction.close)) {
+      // Open
+      this.showSidePane = true;
 
-  this.deferredPrompt.userChoice
-  .then(choiceResult => {
-    if (choiceResult.outcome === 'dismissed') {
-      console.log('User cancelled A2HS');
-    } else {
-      console.log('User accepted A2HS');
+      // Call handleMapInteraction without params
+      // to clear any selected features and close any open panes
+      this.layerService.handleMapInteraction();
     }
+  }
 
-    this.deferredPrompt = null;
-  });
-}
-}
-
-toggleSidePane(forceAction?: {close: boolean}): void {
-  if (this.showSidePane || (forceAction && forceAction.close)) {
-    // Close
-    this.showSidePane = false;
-  } else if (!this.showSidePane || (forceAction && !forceAction.close)) {
-    // Open
-    this.showSidePane = true;
-
+  closeInfoPane(): void {
     // Call handleMapInteraction without params
     // to clear any selected features and close any open panes
     this.layerService.handleMapInteraction();
   }
-}
 
-closeInfoPane(): void {
-  // Call handleMapInteraction without params
-  // to clear any selected features and close any open panes
-  this.layerService.handleMapInteraction();
-}
+  ngOnDestroy(): void {
+    // Required when app has more than one route, eg. /dashboard
 
-ngOnDestroy(): void {
-  // Required when app has more than one route, eg. /dashboard
+    //   // avoid memory leaks here by cleaning up after ourselves. If we
+    //   // don't then we will continue to run our initialiseInvites()
+    //   // method on every navigationEnd event.
+    //   if (this.navigationSubscription) {
+    //      this.navigationSubscription.unsubscribe();
+    //   }
+  }
 
-  //   // avoid memory leaks here by cleaning up after ourselves. If we
-  //   // don't then we will continue to run our initialiseInvites()
-  //   // method on every navigationEnd event.
-  //   if (this.navigationSubscription) {
-  //      this.navigationSubscription.unsubscribe();
-  //   }
-}
-
-
-//report button on the map
-reportTab() {
-var e = document.getElementById('reportLink');
-e.style.display = ((e.style.display!='block') ? 'block' : 'none');
-}
-
-
+  //report button on the map
+  reportTab() {
+    var e = document.getElementById('reportLink');
+    e.style.display = ((e.style.display != 'block') ? 'block' : 'none');
+  }
 }
