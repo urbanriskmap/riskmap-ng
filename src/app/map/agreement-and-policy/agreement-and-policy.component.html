@@ -1,6 +1,53 @@
-<p mat-dialog-title>
-  Agreement and policy blah...
-</p>
+
+
+<mat-tab-group>
+  <!-- <mat-tab
+    class="tab-buttons"
+    color="primary"
+    label="user_agreement_title | translate"
+    ngSwitch="selectedTab">
+
+    <div class="tab-content"
+      *ngSwitchCase="'privacypolicy'"
+      [innerHTML]="'user_agreement_content' | translate">
+    </div>
+
+  </mat-tab>
+
+  <mat-tab
+    class="tab-buttons"
+    color="primary"
+    label="privacy_policy_title | translate"
+    ngSwitch="selectedTab">
+
+    <div class="tab-content"
+      *ngSwitchCase="'privacypolicy'"
+      [innerHTML]="'privacy_policy_content' | translate">
+    </div>
+
+  </mat-tab> -->
+
+  <mat-tab
+  class="tab-buttons"
+  color="primary"
+  label="User Agreement">
+  <div class="tab-content"
+
+    [innerHTML]="'user_agreement_content' | translate">
+  </div>
+  </mat-tab>
+  <mat-tab
+  class="tab-buttons"
+  color="primary"
+  label="Privacy Policy">
+  <div class="tab-content"
+  
+    [innerHTML]="'privacy_policy_content' | translate">
+  </div>
+  </mat-tab>
+
+</mat-tab-group>
+
 
 <mat-dialog-actions>
   <button mat-button

@@ -1,0 +1,25 @@
+@import 'styles';
+
+::ng-deep .mat-dialog-container {
+  top: $toolbar-height + 10px;
+  max-height:80% !important;
+  width: 85%;
+  max-width: 600px;
+  height: 500px;
+}
+
+::ng-deep .mat-dialog-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-content {
+  padding: 16px;
+  @include text-regular(12px, $dark-azure);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+::ng-deep .mat-tab-label {
+  min-width: 50%!important; // Use !important to override
+}
