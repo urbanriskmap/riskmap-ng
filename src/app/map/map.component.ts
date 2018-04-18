@@ -175,6 +175,7 @@ export class MapComponent implements OnInit, OnDestroy {
     // Handle click interactions
     this.map.on('click', event => {
       this.toggleSidePane({close: true});
+      this.toggleReportFlyer({close: true});
       this.layerService.handleMapInteraction(event);
     });
 
@@ -269,10 +270,12 @@ export class MapComponent implements OnInit, OnDestroy {
     if (this.showSidePane || (forceAction && forceAction.close)) {
       // Close
       this.showSidePane = false;
-    } else if (!this.showSidePane || (forceAction && !forceAction.close)) {
+    } else if (!this.showSidePane) {
+
       // Open
       this.showSidePane = true;
-
+      // Force close report flooding flyer
+      this.toggleReportFlyer({close: true});
       // Call handleMapInteraction without params
       // to clear any selected features and close any open panes
       this.layerService.handleMapInteraction();
@@ -295,8 +298,24 @@ export class MapComponent implements OnInit, OnDestroy {
   //   }
   }
 
-  reportTab(): void {
-    const reportButton = document.getElementById('reportLink');
-    reportButton.style.display = (reportButton.style.display !== 'block') ? 'block' : 'none';
+  toggleReportFlyer(forceAction?: {close: boolean}): void {
+    const reportFlyer = document.getElementById('reportFlyer');
+    const flyerState = reportFlyer.style.display;
+
+    if (flyerState === 'block' || (forceAction && forceAction.close)) {
+      // is expanded
+      reportFlyer.style.display = 'none';
+    } else if (flyerState === 'none') {
+
+      // is closed
+      reportFlyer.style.display = 'block';
+      // Call toggleSidePane with force close
+      this.toggleSidePane({close: true});
+      // Call handleMapInteraction without params
+      // to clear any selected features and close any open panes
+      this.layerService.handleMapInteraction();
     }
+
+    // reportButton.style.animation = 'slidein 3s linear 1s infinite running';
+  }
 }
