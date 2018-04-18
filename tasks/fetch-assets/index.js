@@ -53,5 +53,6 @@ gulp.task('fetchHTML', () => {
 gulp.task('default', [
   'clearPreviousAssets',
   'fetchAssets',
-  'fetchResources'
+  'fetchResources',
+  'fetchHTML'
 ]);

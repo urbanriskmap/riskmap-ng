@@ -68,7 +68,7 @@ export class HttpService {
   ): Promise<GeoJsonProperties> {
     let queryUrl = env.servers[server] + endpoint;
 
-    if (flags.length) {
+    if (flags && flags.length) {
       let flagCount = 0;
 
       for (const flag of flags) {
