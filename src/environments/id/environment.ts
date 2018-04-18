@@ -29,10 +29,15 @@ export const environment = {
 
   networks: {
     deep_links: [
-          {name: 'facebook', link: 'http://m.me/CognicityDev.id'},
-          {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Laporkan+banjir&via=petabencana'}, //TODO : fill after twitter DM bot is created for Petabencana.
-          {name: 'telegram', link: 'https://telegram.me/CognicityDevBot'}
-        ]
+      { name: 'facebook',
+        link: 'http://m.me/CognicityDev.id'
+      },
+      { name: 'twitter',
+        link: 'https://twitter.com/intent/tweet?text=Laporkan+banjir&via=petabencana'
+      }, // TODO : fill after twitter DM bot is created for Petabencana.
+      { name: 'telegram',
+        link: 'https://telegram.me/CognicityDevBot'
+      }
+    ]
   }
-
 };
