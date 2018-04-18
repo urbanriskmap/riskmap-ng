@@ -25,8 +25,7 @@ export class HttpService {
     if (layer.path) {
       endpoint = endpoint + layer.path;
     }
-    // Add resource name
-    endpoint = endpoint + layer.name;
+
     // Add query parameters
     if (layer.flags['region']) {
       endpoint = endpoint + '?city=' + region;

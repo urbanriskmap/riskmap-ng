@@ -4,7 +4,7 @@ export default {
       metadata: {
         name: 'reports',
         server: 'data',
-        path: '',
+        path: 'reports/',
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',
@@ -33,7 +33,7 @@ export default {
       metadata: {
         name: 'sensors',
         server: 'sensors',
-        path: 'sensors',
+        path: 'sensors/',
         flags: [{region: false}],
         responseType: 'geojson',
         uniqueKey: 'uid',

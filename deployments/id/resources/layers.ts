@@ -4,7 +4,7 @@ export default {
       metadata: {
         name: 'floods',
         server: 'data',
-        path: '',
+        path: 'floods/',
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'area_id',
@@ -43,7 +43,7 @@ export default {
       metadata: {
         name: 'reports',
         server: 'data',
-        path: '',
+        path: 'reports/',
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',
@@ -123,7 +123,7 @@ export default {
       metadata: {
         name: 'floodgauges',
         server: 'sensors',
-        path: '',
+        path: 'floodgauges/',
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'gaugeid',
