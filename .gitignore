@@ -12,9 +12,8 @@
 /src/assets/icons
 /src/assets/locales
 /src/assets/logos
-
-# deployment specific assets
 /src/resources
+/src/index.html
 
 # docs
 /docs

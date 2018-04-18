@@ -24,7 +24,8 @@ gulp.task('clearPreviousAssets', () => {
     '../src/assets/icons',
     '../src/assets/locales',
     '../src/assets/logos',
-    '../src/resources'
+    '../src/resources',
+    '../src/index.html'
   ], {force: true}); // Force deleting outside CWD
 });
 
@@ -42,8 +43,16 @@ gulp.task('fetchResources', () => {
   .pipe(gulp.dest('../src/resources/'));
 });
 
+gulp.task('fetchHTML', () => {
+  return gulp
+  .src([`../deployments/${dep}/index.html`])
+  .pipe(changedInPlace({firstPass: true}))
+  .pipe(gulp.dest('../src/'));
+});
+
 gulp.task('default', [
   'clearPreviousAssets',
   'fetchAssets',
-  'fetchResources'
+  'fetchResources',
+  'fetchHTML'
 ]);
