@@ -35,15 +35,17 @@
     width: 90%;
   }
 
-
-    #projectText{
-      margin:  0 20px 0px 20px;
-      border-bottom: solid 1px $dark-azure;
-      #note{
-        @include text-regular(14px, $dark-azure);
-        padding-bottom: 5px;
-      }
+  #projectText{
+    margin:  0 20px 0px 20px;
+    border-bottom: solid 1px $dark-azure;
+    #note{
+      @include text-regular(14px, $snow-white);
+      background-color: $bright-azure;
+      text-align: center;
+      padding: 10px;
+      border-radius: 3px;
     }
+  }
   #partners {
     bottom: 5px;
     margin: auto;
@@ -72,6 +74,11 @@
       }
       &#logomapbox {
         width: 120px;
+        height: auto;
+        margin-right: 10px;
+      }
+      &#logobroward {
+        width: 160px;
         height: auto;
         margin-right: 10px;
       }

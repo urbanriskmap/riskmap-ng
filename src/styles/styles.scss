@@ -42,8 +42,8 @@ layers
 // ***** ANGULAR MATERIAL CUSTOM THEME *****
 @include mat-core();
 
-$riskmap-primary:     mat-palette($mat-azure, 900);
-$riskmap-accent:      mat-palette($mat-azure, 500);
+$riskmap-primary:     mat-palette($mat-azure, 600);
+$riskmap-accent:      mat-palette($mat-azure, 300);
 $riskmap-warn:        mat-palette($mat-deep-orange);
 $riskmap-theme:       mat-light-theme($riskmap-primary, $riskmap-accent, $riskmap-warn);
 
