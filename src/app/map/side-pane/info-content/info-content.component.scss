@@ -35,6 +35,15 @@
     width: 90%;
   }
 
+
+    #projectText{
+      margin:  0 20px 0px 20px;
+      border-bottom: solid 1px $dark-azure;
+      #note{
+        @include text-regular(14px, $dark-azure);
+        padding-bottom: 5px;
+      }
+    }
   #partners {
     bottom: 5px;
     margin: auto;
@@ -73,15 +82,26 @@
     }
   }
 
-  #projectText{
-    margin:  0 20px 0px 20px;
+
+  #attribution {
+    margin: 20px;
     border-top: solid 1px $dark-azure;
-    #note{
-      @include text-regular(14px, $dark-azure);
-      padding-bottom: 5px;
+    #termslink {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      @include link-regular(14px, $dark-azure);
+      text-transform: capitalize;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    #mapbox{
+      @include link-light(12px, $dark-azure);
+      & a {
+        @include link-light(12px, $dark-azure);
+      }
     }
   }
-
   &::-webkit-scrollbar {
     display: none;
   }

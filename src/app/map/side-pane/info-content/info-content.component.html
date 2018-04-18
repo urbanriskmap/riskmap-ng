@@ -1,23 +1,29 @@
 <div id="infoContentWrapper">
 
-  <!-- TEMP reposition user agreement & privacy policy -->
-  <p (click)="openAgreementPolicy()">User agreement and privacy policy</p>
-
   <div id="headLogoWrapper">
     <table align="center">
       <tr>
         <td id="headLogos" align="center" *ngFor="let logo of content.header">
           <a [href]="logo.url">
-          <img
-          class="main-logos"
-          [id]="'logo'+ logo.name" [src]="logo.path">
-        </a>
+            <img
+            class="main-logos"
+            [id]="'logo'+ logo.name" [src]="logo.path">
+          </a>
         </td>
       </tr>
     </table>
   </div>
 
   <p id="intro">{{ 'info_content.intro' | translate }}</p>
+
+
+  <div id="projectText">
+    <p>{{ 'info_content.p1' | translate }}</p>
+    <p>{{ 'info_content.p2' | translate }}</p>
+    <p>{{ 'info_content.p3' | translate }}</p>
+    <p id="note">{{ 'info_content.p4' | translate }}</p>
+  </div>
+
 
   <div id="logos">
     <table id="partners" *ngFor="let group of content.partners">
@@ -30,19 +36,22 @@
         <td align="center" class="logoWrapper" *ngFor="let logo of row.partnerLogos">
           <a [href]="logo.url">
             <!-- REVIEW: #id in camelCase, .class in dash-case -->
-        <img class="logo_image" [id]="'logo'+ logo.name" [src]="logo.path">
-      </a>
+            <img class="logo_image" [id]="'logo'+ logo.name" [src]="logo.path">
+          </a>
         </td>
       </tr>
     </table>
   </div>
 
-  <div id="projectText">
-    <p>{{ 'info_content.p1' | translate }}</p>
-    <p>{{ 'info_content.p2' | translate }}</p>
-    <p>{{ 'info_content.p3' | translate }}</p>
-    <p id="note">{{ 'info_content.p4' | translate }}</p>
+  <!-- TEMP reposition user agreement & privacy policy -->
+
+  <div id="attribution">
+    <p id="termslink" (click)="openAgreementPolicy()">
+      {{ 'info_content.termsPopup' | translate }}
+    </p>
+    <p id="mapbox">
+      {{ 'info_content.mapCredits' | translate }}  © <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> © <a href="http://www.openstreetmap.org/about" target="_blank">OpenStreetMap</a>.
+      {{ 'info_content.mapImproveLink' | translate }} <a href="https://www.mapbox.com/map-feedback/" target="_blank">Mapbox</a>.
+    </p>
   </div>
-
-
 </div>

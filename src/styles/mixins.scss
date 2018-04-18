@@ -19,6 +19,18 @@
   color: $col;
 }
 
+@mixin link-light($size, $col) {
+  font-family: "Roboto-Light", "Roboto", sans-serif;
+  font-size: $size;
+  color: $col;
+}
+
+@mixin link-regular($size, $col) {
+  font-family: "Roboto", "Roboto", sans-serif;
+  font-size: $size;
+  color: $col;
+}
+
 //_Transform class_
 @mixin translate-mixin($x, $y) {
   -ms-transform: translate($x, $y);
