@@ -8,13 +8,13 @@
 
 #reportButton {
   position: fixed;
-  top: 55px;
-  left: 12px;
-  width: 70px;
-  height: 70px;
+  top: $toolbar-height + $general-margin;
+  left: $general-margin;
+  width: 1.5 * $toolbar-height;
+  height: 1.5 * $toolbar-height;
   text-align: center;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: $snow-white;
   box-shadow: $pane-shadow;
   z-index: 1025;
@@ -35,20 +35,20 @@
   }
 
   &:active {
-    transform: translateY(2px);
+    box-shadow: $shadow-active;
   }
 }
 
 #reportFlyer {
   display: none;
   width: auto;
-  height: 70px;
+  height: 60px;
   position: absolute;
   border: none;
-  top: 55px;
-  left: 90px;
+  top: $toolbar-height + $general-margin;
+  left: (2 * $general-margin) + (1.5 * $toolbar-height);
   z-index: 1025;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: $snow-white;
   box-shadow: $pane-shadow;
 
