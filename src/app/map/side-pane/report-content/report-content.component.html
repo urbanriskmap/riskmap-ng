@@ -24,8 +24,8 @@
 
         <ul>
           <li
-            *ngFor="let step of item.steps">
-            {{ item.localeKey + "_step" + step | translate }}
+            *ngFor="let step of item.steps"
+            [innerHTML]="item.localeKey + '_step' + step | translate">
           </li>
         </ul>
       </ng-template>

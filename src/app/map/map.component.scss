@@ -136,9 +136,9 @@
 app-side-pane {
   position: fixed;
   top: $toolbar-height + 5px;
-  right: 5px;
-  bottom: 5px;
-  @include pane-width(320px, 420px);
+  right: $general-margin/2;
+  bottom: $general-margin/2;
+  @include pane-width(420px);
   background-color: $frost-white;
   box-shadow: $pane-shadow;
   @include text-light(12px, $dark-gray);

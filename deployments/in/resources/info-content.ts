@@ -1,11 +1,8 @@
 export default {
   header: [
     {
-      path: 'assets/logos/url_logo.svg',
-      url: 'http://urbanrisklab.org/'
-    },
-    {
-      path: 'assets/logos/url_logo.svg',
+      name: 'url',
+      path: 'assets/logos/url_logo.png',
       url: 'http://urbanrisklab.org/'
     }
   ],
@@ -16,7 +13,8 @@ export default {
         { // Row 1
           partnerLogos: [
             { // logo 1
-              path: 'assets/logos/broward_logo.svg',
+              name: 'cag',
+              path: 'assets/logos/cag_logo.png',
               url: 'http://www.broward.org/Pages/Welcome.aspx'
             }
           ]
@@ -26,13 +24,15 @@ export default {
     {
       groupId: 'data',
       partnerRows: [
-        { // Row 1
+        { // Row 2
           partnerLogos: [
             { // logo 1
+              name: 'twitter',
               path: 'assets/logos/twitter-logo.svg',
               url: 'https://twitter.com'
             },
             { // logo 2
+              name: 'mapbox',
               path: 'assets/logos/mapbox_logo.png',
               url: 'https://www.mapbox.com'
             }

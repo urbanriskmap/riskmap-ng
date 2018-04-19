@@ -39,13 +39,12 @@
 }
 
 //_Map component mixins_
-@mixin pane-width($w1, $w2) {
+@mixin pane-width($w1) {
   @media screen {
-    @media (min-width: $w1) {
-      width: 100%;
-    }
-    @media (min-width: $w2) {
-      width: $w2;
+    width: $w1;
+    @media (max-width: $w1) {
+      left: $general-margin/2;
+      width: auto;
     }
   }
 }
