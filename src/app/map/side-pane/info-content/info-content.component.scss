@@ -1,21 +1,12 @@
 @import 'styles';
 
-// FIXME: ensure css hierarchy matches html
-
-// NOTE: Refer nesting rules https://sass-lang.com/documentation/file.SASS_REFERENCE.html#nested_rules
-// NOTE: Refer parent / child selectors https://sass-lang.com/documentation/file.SASS_REFERENCE.html#parent-selector
-
 #infoContentWrapper {
-  // position: absolute;
-  // top: $toolbar-height + (2 * $general-margin);
-  // bottom: 5px;
-  // overflow-y: scroll;
-
   @include text-regular(14px, $dark-gray);
 
   #headLogoWrapper {
     width: auto;
     padding: 5px;
+
     .main-logos {
       &#logomain {
         width: 150px;
@@ -35,73 +26,74 @@
     width: 90%;
   }
 
-
-    #projectText{
-      margin:  0 20px 0px 20px;
-      border-bottom: solid 1px $dark-azure;
-      #note{
-        @include text-regular(14px, $dark-azure);
-        padding-bottom: 5px;
-      }
+  #projectText {
+    margin:  0 20px 0px 20px;
+    border-bottom: solid 1px $dark-azure;
+    #note {
+      @include text-regular(14px, $dark-azure);
+      padding-bottom: 5px;
     }
+  }
+
   #partners {
     bottom: 5px;
     margin: auto;
     width: 350px;
     padding-bottom: 10px;
-    // border: solid 1px yellow;
-  }
-  td.label {
 
-    width: 100px;
-    // border: solid 1px green;
-  }
-  td.logoWrapper {
-    // border: solid 1px red;
-    column-width: auto;
-    padding: 5px;
-    .logo_image {
-      height: 40px;
-      padding: 3px;
-      &#logolocal {
-        width: 250px;
-        height: auto;
+    td.partners-label {
+      width: 100px;
+    }
+
+    td.logo-wrapper {
+      column-width: auto;
+      padding: 5px;
+
+      .logo-image {
+        height: 40px;
         padding: 3px;
-        display: table;
-        margin:auto;
-      }
-      &#logomapbox {
-        width: 120px;
-        height: auto;
-        margin-right: 10px;
-      }
-      &#logotwitter {
-        width: 120px;
-        height: auto;
+        &#logolocal {
+          width: 250px;
+          height: auto;
+          padding: 3px;
+          display: table;
+          margin:auto;
+        }
+        &#logomapbox {
+          width: 120px;
+          height: auto;
+          margin-right: 10px;
+        }
+        &#logotwitter {
+          width: 120px;
+          height: auto;
+        }
       }
     }
   }
-
 
   #attribution {
     margin: 20px;
     border-top: solid 1px $dark-azure;
+
     #termslink {
       margin-top: 10px;
       margin-bottom: 10px;
       text-align: center;
-      @include link-regular(14px, $dark-azure);
+      @include link-regular(14px);
       text-transform: capitalize;
       text-decoration: underline;
       cursor: pointer;
     }
+
     #mapbox{
-      @include link-light(12px, $dark-azure);
-      & a {
-        @include link-light(12px, $dark-azure);
+      @include text-light(12px, $dark-gray);
+      a {
+        @include link-light(12px);
       }
     }
   }
+
   &::-webkit-scrollbar {
     display: none;
   }

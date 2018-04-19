@@ -3,11 +3,14 @@
   <div id="headLogoWrapper">
     <table align="center">
       <tr>
-        <td id="headLogos" align="center" *ngFor="let logo of content.header">
+        <td id="headLogos"
+          align="center"
+          *ngFor="let logo of content.header">
           <a [href]="logo.url">
             <img
             class="main-logos"
-            [id]="'logo'+ logo.name" [src]="logo.path">
+            [id]="'logo'+ logo.name"
+            [src]="logo.path">
           </a>
         </td>
       </tr>
@@ -16,7 +19,6 @@
 
   <p id="intro">{{ 'info_content.intro' | translate }}</p>
 
-
   <div id="projectText">
     <p>{{ 'info_content.p1' | translate }}</p>
     <p>{{ 'info_content.p2' | translate }}</p>
@@ -24,34 +26,56 @@
     <p id="note">{{ 'info_content.p4' | translate }}</p>
   </div>
 
-
   <div id="logos">
-    <table id="partners" *ngFor="let group of content.partners">
+    <table id="partners"
+      *ngFor="let group of content.partners">
       <tr>
-        <td align="left" class="label">
+        <td
+          align="left"
+          class="partners-label mat-caption">
           <p>{{ 'partners_label_' + group.groupId | translate }}</p>
         </td>
       </tr>
       <tr *ngFor="let row of group.partnerRows">
-        <td align="center" class="logoWrapper" *ngFor="let logo of row.partnerLogos">
+        <td
+          align="center"
+          class="logo-wrapper"
+          *ngFor="let logo of row.partnerLogos">
           <a [href]="logo.url">
-            <!-- REVIEW: #id in camelCase, .class in dash-case -->
-            <img class="logo_image" [id]="'logo'+ logo.name" [src]="logo.path">
+            <img
+              class="logo-image"
+              [id]="'logo'+ logo.name"
+              [src]="logo.path">
           </a>
         </td>
       </tr>
     </table>
   </div>
 
-  <!-- TEMP reposition user agreement & privacy policy -->
-
   <div id="attribution">
     <p id="termslink" (click)="openAgreementPolicy()">
       {{ 'info_content.termsPopup' | translate }}
     </p>
     <p id="mapbox">
-      {{ 'info_content.mapCredits' | translate }}  © <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> © <a href="http://www.openstreetmap.org/about" target="_blank">OpenStreetMap</a>.
-      {{ 'info_content.mapImproveLink' | translate }} <a href="https://www.mapbox.com/map-feedback/" target="_blank">Mapbox</a>.
+      {{ 'info_content.mapCredits' | translate }}
+      &copy;
+      <a
+        href="https://www.mapbox.com/about/maps/"
+        target="_blank">
+        Mapbox
+      </a>
+      &copy;
+      <a
+        href="http://www.openstreetmap.org/about"
+        target="_blank">
+        OpenStreetMap
+      </a>.
+      {{ 'info_content.mapImproveLink' | translate }}
+      <a
+        href="https://www.mapbox.com/map-feedback/"
+        target="_blank">
+        Mapbox
+      </a>.
     </p>
   </div>
 </div>

@@ -19,16 +19,24 @@
   color: $col;
 }
 
-@mixin link-light($size, $col) {
+@mixin link-light($size) {
   font-family: "Roboto-Light", "Roboto", sans-serif;
   font-size: $size;
-  color: $col;
+  color: $dark-azure;
+  &:hover {
+    color: $bright-azure;
+    cursor: pointer;
+  }
 }
 
-@mixin link-regular($size, $col) {
+@mixin link-regular($size) {
   font-family: "Roboto", "Roboto", sans-serif;
   font-size: $size;
-  color: $col;
+  color: $dark-azure;
+  &:hover {
+    color: $bright-azure;
+    cursor: pointer;
+  }
 }
 
 //_Transform class_

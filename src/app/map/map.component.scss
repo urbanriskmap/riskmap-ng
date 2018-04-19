@@ -10,28 +10,24 @@
   position: fixed;
   top: $toolbar-height + $general-margin;
   left: $general-margin;
-  width: 1.5 * $toolbar-height;
-  height: 1.5 * $toolbar-height;
+  width: 1.3 * $toolbar-height;
+  height: 1.3 * $toolbar-height;
+  padding: 3px;
   text-align: center;
   border: none;
   border-radius: 3px;
   background-color: $snow-white;
   box-shadow: $pane-shadow;
+  @include link-regular(10px);
   z-index: 1025;
 
-  #buttonIcon {
-    @include text-regular(28px, $dark-azure);
+  i {
+    font-size: 28px;
   }
 
-  #buttonText {
-    @include text-medium(10px, $dark-azure);
+  p {
     text-align: center;
-    color: $dark-azure;
-    margin: 3px;
-  }
-
-  &:hover {
-    cursor: pointer;
+    margin: 0 0 3px 0;
   }
 
   &:active {

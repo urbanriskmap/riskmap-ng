@@ -2,22 +2,26 @@
 
 #reportContentWrapper {
   overflow-y: scroll;
-  
 }
 
 ::ng-deep .mat-expansion-panel {
   background: rgba(0,0,0,0)!important;
   box-shadow: none!important;
+  border-bottom: solid 1px $light-gray!important;
+
   &.mat-expanded {
     margin-top: 0px!important;
     margin-bottom: 0px!important;
     box-shadow: none!important;
-    border-bottom: solid 1px $light-gray!important;
   }
 
   .mat-expansion-panel-header {
     height: 48px!important;
     box-shadow: none!important;
+
+    .mat-content {
+      color: $dark-azure;
+    }
   }
 
   .mat-expansion-panel-content {

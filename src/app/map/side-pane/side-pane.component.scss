@@ -2,12 +2,12 @@
 
 #tabRow {
   position: absolute;
-  top: 5px;
+  top: 0px;
   bottom: 5px;
   width: 100%;
 }
 
 // NOTE: https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep
 ::ng-deep .mat-tab-label {
-  min-width: 33%!important; // Use !important to override
+  min-width: 33.3%!important; // Use !important to override
 }
