@@ -1,5 +1,6 @@
 export default {
   supported: [
+    // Reports layer
     {
       metadata: {
         name: 'reports',
@@ -8,6 +9,7 @@ export default {
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',
+        legendGroup: 'reports',
         selected: {
           type: 'layout',
           styles: {
@@ -27,8 +29,17 @@ export default {
           'icon-allow-overlap': true
         },
         filter: ['all', ['!=', 'pkey', '']]
-      }
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-map-flood',
+          label: 'legend_flood_report'
+        }
+      ]
     },
+
+    // Sensors layer
     {
       metadata: {
         name: 'sensors',
@@ -37,6 +48,7 @@ export default {
         flags: [{region: false}],
         responseType: 'geojson',
         uniqueKey: 'uid',
+        legendGroup: 'infrastructure',
         selected: {
           type: 'layout',
           styles: { }
@@ -63,8 +75,7 @@ export default {
             '00045', 'us_precipitation',
             'us_pump'
           ],
-          // For multiple sensors at same location
-          'icon-offset': [
+          'icon-offset': [ // For multiple sensors at same location
             'match',
             ['get', 'class'],
             '63160', ['literal', [0, -30]],
@@ -78,7 +89,39 @@ export default {
           'icon-allow-overlap': true
         },
         filter: ['all', ['has', 'observations'], ['!=', 'uid', '']]
-      }
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-us-gauge',
+          label: 'legend_us_gauge',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-us-elevation',
+          label: 'legend_us_elevation',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-us-well',
+          label: 'legend_us_well',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-us-discharge',
+          label: 'legend_us_discharge',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-us-precipitation',
+          label: 'legend_us_precipitation',
+          source: 'USGS'
+        }
+      ]
     }
   ]
 };

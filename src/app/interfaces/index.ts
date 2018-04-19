@@ -108,6 +108,7 @@ export interface LayerMetadata {
   }[];
   responseType: string;
   uniqueKey: string; // Used for onClick filtering
+  legendGroup: string; // 'reports' | 'infrastructure' | '' (no legend)
   selected: {
     type: string;
     styles: {
@@ -133,6 +134,13 @@ export interface LayerSettings {
     [name: string]: any;
   };
   filter: any[];
+}
+
+export interface LayerLegend {
+  symbolType: string; // icon | fill | line
+  symbolStyle: string; // icon-name | fill-color hex | stroke-color hex
+  label: string; // locale key
+  source?: string;
 }
 
 export interface ReportContentInterface {

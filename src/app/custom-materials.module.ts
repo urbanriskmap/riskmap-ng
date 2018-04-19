@@ -12,6 +12,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 
 
@@ -25,6 +26,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatButtonModule,
     MatDialogModule,
     MatExpansionModule,
+    MatListModule,
     MatRadioModule,
     MatSelectModule,
     MatTabsModule,
