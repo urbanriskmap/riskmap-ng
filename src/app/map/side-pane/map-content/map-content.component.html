@@ -1,3 +1,57 @@
-<p>
-  map-content works!
-</p>
+<mat-list>
+  <p mat-subheader>Reports</p>
+  <mat-list-item
+    *ngFor="let item of legend.reports.items">
+    <i
+      *ngIf="item.symbolType === 'icon'"
+      [class]="item.symbolStyle"
+      mat-list-icon>
+    </i>
+    <!-- <i
+      *ngIf="item.symbolType === 'fill'"
+      [style]="'font-color: ' + item.symbolStyle + ';'"
+      class="icon-plus-circled"
+      mat-list-icon>
+    </i> -->
+    <p
+      class="legend-label"
+      mat-line>
+      {{ item.label }}
+    </p>
+    <p
+      *ngIf="item.source"
+      class="legend-subtitle"
+      mat-line>
+      Source: {{ item.source }}
+    </p>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+
+  <p mat-subheader>Infrastructure</p>
+  <mat-list-item
+    *ngFor="let item of legend.infrastructure.items">
+    <i
+      *ngIf="item.symbolType === 'icon'"
+      [class]="item.symbolStyle"
+      mat-list-icon>
+    </i>
+    <!-- <i
+      *ngIf="item.symbolType === 'fill'"
+      [style]="'font-color: ' + item.symbolStyle + ';'"
+      class="icon-plus-circled"
+      mat-list-icon>
+    </i> -->
+    <p
+      class="legend-label"
+      mat-line>
+      {{ item.label }}
+    </p>
+    <p
+      *ngIf="item.source"
+      class="legend-subtitle"
+      mat-line>
+      Source: {{ item.source }}
+    </p>
+  </mat-list-item>
+</mat-list>

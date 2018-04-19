@@ -8,47 +8,43 @@
 
 #reportButton {
   position: fixed;
-  top: 55px;
-  left: 12px;
-  width: 70px;
-  height: 70px;
+  top: $toolbar-height + $general-margin;
+  left: $general-margin;
+  width: 1.3 * $toolbar-height;
+  height: 1.3 * $toolbar-height;
+  padding: 3px;
   text-align: center;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: $snow-white;
   box-shadow: $pane-shadow;
+  @include link-regular(10px);
   z-index: 1025;
 
-  #buttonIcon {
-    @include text-regular(28px, $dark-azure);
+  i {
+    font-size: 28px;
   }
 
-  #buttonText {
-    @include text-medium(10px, $dark-azure);
+  p {
     text-align: center;
-    color: $dark-azure;
-    margin: 3px;
-  }
-
-  &:hover {
-    cursor: pointer;
+    margin: 0 0 3px 0;
   }
 
   &:active {
-    transform: translateY(2px);
+    box-shadow: $shadow-active;
   }
 }
 
 #reportFlyer {
   display: none;
   width: auto;
-  height: 70px;
+  height: 60px;
   position: absolute;
   border: none;
-  top: 55px;
-  left: 90px;
+  top: $toolbar-height + $general-margin;
+  left: (2 * $general-margin) + (1.5 * $toolbar-height);
   z-index: 1025;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: $snow-white;
   box-shadow: $pane-shadow;
 
