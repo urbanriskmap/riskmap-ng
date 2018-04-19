@@ -55,21 +55,29 @@
         height: 40px;
         padding: 3px;
         display: table;
-        margin:auto;
-      }
-      &#logomapbox {
-        width: 120px;
-        height: auto;
-        margin-right: 10px;
-      }
-      &#logobroward {
-        width: 160px;
-        height: auto;
-        margin-right: 10px;
-      }
-      &#logotwitter {
-        width: 120px;
-        height: auto;
+        margin: auto;
+        filter: gray;
+        -webkit-filter: grayscale(1);
+
+        &#logomapbox {
+          width: 120px;
+          height: auto;
+          margin-right: 10px;
+        }
+        &#logobroward {
+          width: 160px;
+          height: auto;
+          margin: auto;
+        }
+        &#logotwitter {
+          width: 120px;
+          height: auto;
+        }
+
+        &:hover {
+          -webkit-filter: grayscale(0);
+          filter: none;
+        }
       }
     }
   }

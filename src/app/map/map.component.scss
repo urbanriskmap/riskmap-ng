@@ -6,6 +6,7 @@
   background-color: $light-gray;
 }
 
+// REVIEW: variation across browsers
 #reportButton {
   position: fixed;
   top: $toolbar-height + $general-margin;
@@ -37,9 +38,10 @@
 
 #reportFlyer {
   display: none;
-  width: auto;
-  height: 60px;
   position: absolute;
+  width: auto;
+  height: 1.3 * $toolbar-height;
+  padding: 3px;
   border: none;
   top: $toolbar-height + $general-margin;
   left: (2 * $general-margin) + (1.5 * $toolbar-height);
