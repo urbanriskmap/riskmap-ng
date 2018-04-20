@@ -100,5 +100,7 @@
 <app-side-pane
   *ngIf="showSidePane"
   [selectedTab]="paneToOpen"
-  (agreementPolicy)="openDialog('agreementPolicy')">
+  (agreementPolicy)="openDialog('agreementPolicy')"
+  [regions]="instances.regions"
+  [selectedRegion]="selectedRegion">
 </app-side-pane>

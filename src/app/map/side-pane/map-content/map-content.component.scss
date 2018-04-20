@@ -1,3 +1,5 @@
+@import 'styles';
+
 mat-list {
   mat-list-item {
     font-size: 21px;
@@ -8,6 +10,15 @@ mat-list {
 
     p.legend-subtitle {
       font-size: 11px;
+    }
+
+    .mat-radio-group {
+      .mat-radio-button {
+        font-size: 14px; 
+        margin-top: $general-margin;
+        margin-bottom: 2 * $general-margin;
+        margin-left: $general-margin;
+      }
     }
   }
 }
