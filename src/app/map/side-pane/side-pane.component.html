@@ -11,7 +11,9 @@
     [ngSwitch]="selectedTab">
 
     <app-map-content
-      *ngSwitchCase="'map'">
+      *ngSwitchCase="'map'"
+      [regions]="regions"
+      [selectedRegion]="selectedRegion">
     </app-map-content>
 
     <app-report-content

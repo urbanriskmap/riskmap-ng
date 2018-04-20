@@ -15,6 +15,26 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   feature: SensorInterface;
   hasUpstreamDownstream: boolean | null;
+  usgsSensorMap = {
+    '_63160': {
+      title: 'Stream water elevation',
+      datum: 'NAVD 1988'
+    },
+    '_00065': {
+      title: 'Gauge height',
+      datum: 'NAVD 1988'
+    },
+    '_62610': {
+      title: 'Groundwater level',
+      datum: 'NGVD 1929'
+    },
+    '_00060': {
+      title: 'Discharge'
+    },
+    '_00045': {
+      title: 'Precipitation total'
+    }
+  };
 
   constructor(
     private chartService: ChartService
@@ -28,8 +48,11 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
 
       switch (this.features[0].layer.id) {
         case 'sensors':
-          this.chartService.parseData(this.feature.id)
-          .then(hasUpstreamDownstream => {
+          this.chartService.parseData(
+            this.feature.id,
+            this.usgsSensorMap['_' + this.feature.class],
+            this.feature.units
+          ).then(hasUpstreamDownstream => {
             this.hasUpstreamDownstream = hasUpstreamDownstream;
 
             this.chartService.drawSensorChart(document.getElementById('sensorChartWrapper'));

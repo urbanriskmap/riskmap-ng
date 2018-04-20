@@ -1,5 +1,6 @@
 export default {
   supported: [
+    // Flood areas layer
     {
       metadata: {
         name: 'floods',
@@ -8,6 +9,7 @@ export default {
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'area_id',
+        legendGroup: 'infrastructure',
         selected: {
           type: 'paint',
           styles: {
@@ -37,8 +39,32 @@ export default {
           'fill-opacity': 0.6
         },
         filter: ['all', ['>', 'state', 0], ['!=', 'area_id', '']]
-      }
+      },
+      legend: [
+        {
+          symbolType: 'fill',
+          symbolStyle: 'assets/icons/webapp/area_1.svg',
+          label: 'legend_area_1'
+        },
+        {
+          symbolType: 'fill',
+          symbolStyle: 'assets/icons/webapp/area_2.svg',
+          label: 'legend_area_2'
+        },
+        {
+          symbolType: 'fill',
+          symbolStyle: 'assets/icons/webapp/area_3.svg',
+          label: 'legend_area_3'
+        },
+        {
+          symbolType: 'fill',
+          symbolStyle: 'assets/icons/webapp/area_4.svg',
+          label: 'legend_area_4'
+        }
+      ]
     },
+
+    // Reports layer
     {
       metadata: {
         name: 'reports',
@@ -47,6 +73,7 @@ export default {
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',
+        legendGroup: 'reports',
         selected: {
           type: 'layout',
           styles: {
@@ -72,8 +99,17 @@ export default {
           ]
         },
         filter: ['all', ['!=', 'pkey', '']]
-      }
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-map-flood',
+          label: 'legend_flood_report'
+        }
+      ]
     },
+
+    // Pumps layer
     {
       metadata: {
         // IDEA: View-only layers
@@ -82,11 +118,12 @@ export default {
         // and no realtime stream.
         // Such layers do not trigger info panes to open
         name: 'pumps',
-        server: 'data',
-        path: 'infrastructure/',
+        server: 'sensors',
+        path: 'infrastructure/pumps',
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'name',
+        legendGroup: 'infrastructure',
         selected: {
           type: 'layout',
           styles: { }
@@ -117,8 +154,17 @@ export default {
           // ]
         },
         filter: ['all', ['!=', 'name', '']]
-      }
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-us-pump',
+          label: 'legend_pump'
+        }
+      ]
     },
+
+    // Flood gauges
     {
       metadata: {
         name: 'floodgauges',
@@ -127,6 +173,7 @@ export default {
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'gaugeid',
+        legendGroup: 'infrastructure',
         selected: {
           type: 'layout',
           styles: {
@@ -164,7 +211,29 @@ export default {
           ]
         },
         filter: ['all', ['!=', 'gaugeid', '']]
-      }
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-id-gauge-1',
+          label: 'legend_gauge_1'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-id-gauge-2',
+          label: 'legend_gauge_2'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-id-gauge-3',
+          label: 'legend_gauge_3'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-id-gauge-4',
+          label: 'legend_gauge_4'
+        },
+      ]
     }
   ]
 };

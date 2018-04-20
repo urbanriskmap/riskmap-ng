@@ -1,14 +1,20 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
+import { Region } from '../../interfaces';
+
 @Component({
   selector: 'app-side-pane',
   templateUrl: './side-pane.component.html',
   styleUrls: ['./side-pane.component.scss']
 })
 export class SidePaneComponent implements OnInit {
+  @Input() selectedTab: string;
+  @Input() regions: Region[];
+  @Input() selectedRegion: string;
+
   tabs = ['info', 'map', 'report'];
   selectedIndex: number;
-  @Input() selectedTab: string;
+
   @Output() agreementPolicy = new EventEmitter<null>();
 
   constructor() { }

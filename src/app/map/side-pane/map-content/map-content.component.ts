@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import layers from '../../../../resources/layers';
-import { LayerLegend } from '../../../interfaces';
+import { LayerLegend, Region } from '../../../interfaces';
 
 @Component({
   selector: 'app-map-content',
@@ -9,6 +10,9 @@ import { LayerLegend } from '../../../interfaces';
   styleUrls: ['./map-content.component.scss']
 })
 export class MapContentComponent implements OnInit {
+  @Input() regions: Region[];
+  @Input() selectedRegion: Region;
+
   legend: {
     reports: {
       items: LayerLegend[]
@@ -18,7 +22,9 @@ export class MapContentComponent implements OnInit {
     }
   };
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     this.legend = {
       reports: {items: []},
       infrastructure: {items: []}
@@ -31,11 +37,12 @@ export class MapContentComponent implements OnInit {
         }
       }
     }
-
-    console.log(this.legend);
   }
 
   ngOnInit() {
   }
 
+  changeRegion() {
+    this.router.navigate([this.selectedRegion.name]);
+  }
 }
