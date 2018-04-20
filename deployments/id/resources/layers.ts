@@ -77,7 +77,7 @@ export default {
         selected: {
           type: 'layout',
           styles: {
-            'icon-image': 'us_floodIcon_sel'
+            'icon-image': 'map_floodIcon_sel'
           }
         }
       },
@@ -89,7 +89,7 @@ export default {
           data: <object|null>null
         },
         layout: {
-          'icon-image': 'us_floodIcon',
+          'icon-image': 'map_floodIcon',
           'icon-allow-overlap': true,
           'icon-ignore-placement': false,
           'icon-size': [
@@ -138,7 +138,7 @@ export default {
           data: <object|null>null
         },
         layout: {
-          'icon-image': 'us_pump',
+          'icon-image': 'map_pump',
           'icon-allow-overlap': false,
           'icon-size': [
             'interpolate', ['linear'], ['zoom'],
@@ -177,7 +177,7 @@ export default {
         selected: {
           type: 'layout',
           styles: {
-            'icon-image': 'us_gauge'
+            'icon-image': 'map_gauge_sel'
           }
         },
       },
@@ -197,11 +197,11 @@ export default {
                   ['at', // lookup (index=length of array - 1): i.e. last observation
                     ['-', ['length', ['array', ['get', 'observations']]], 1],
                       ['array', ['get', 'observations']]]]]], // parse observations property (json) into array
-            1, 'id_gauge_1',
-            2, 'id_gauge_2',
-            3, 'id_gauge_3',
-            4, 'id_gauge_4',
-            'id_gauge_1'
+            1, 'map_gauge_1',
+            2, 'map_gauge_2',
+            3, 'map_gauge_3',
+            4, 'map_gauge_4',
+            'map_gauge'
           ],
           'icon-allow-overlap': true,
           'icon-size': [

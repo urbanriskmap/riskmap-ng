@@ -1,19 +1,19 @@
 export const environment = {
   production: false,
-  envName: 'dev-id',
+  envName: 'dev-us',
 
   servers: {
-    data: 'https://data-dev.petabencana.id/',
-    sensors: 'https://data.petabencana.id/',
+    data: 'https://data-dev.riskmap.us/',
+    sensors: 'https://sensors-dev.riskmap.us/',
     settings: {
       reportTimeperiod: 604800
     }
   },
 
   map: {
-    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNpdmVhbTFraDAwNHIyeWw1ZDB6Y2hhbTYifQ.tpgt1PB5lkJ-wITS02c96Q',
-    center: [106.8271, -6.1754],
-    initZoom: 12,
+    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
+    center: [-80.199261, 26.138301],
+    initZoom: 10,
     minZoom: 10,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
@@ -21,23 +21,23 @@ export const environment = {
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'id', name: 'Bahasa'}
+      {code: 'es', name: 'Spanish'}
     ],
     defaultLanguage: 'en',
-    timezone: 'Asia/Jakarta'
+    timezone: 'America/New_York'
   },
 
   networks: {
     deep_links: [
       { name: 'facebook',
-        link: 'http://m.me/CognicityDev.id'
+        link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.
       },
+      // TODO after the twitter dev bot is registered
       { name: 'twitter',
-        link: 'https://twitter.com/intent/tweet?text=Laporkan+banjir&via=petabencana'
-      }, // TODO : fill after twitter DM bot is created for Petabencana.
-      { name: 'telegram',
-        link: 'https://telegram.me/CognicityDevBot'
+        link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152&welcome_message_id=905919155492331523&text=/flood'
       }
+      // Disable telegram button for US deployment
+      // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}
     ]
   }
 };

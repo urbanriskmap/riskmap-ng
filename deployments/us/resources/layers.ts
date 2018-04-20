@@ -13,7 +13,7 @@ export default {
         selected: {
           type: 'layout',
           styles: {
-            'icon-image': 'us_floodIcon_sel'
+            'icon-image': 'map_floodIcon_sel'
           }
         }
       },
@@ -25,7 +25,7 @@ export default {
           data: <object|null>null
         },
         layout: {
-          'icon-image': 'us_floodIcon',
+          'icon-image': 'map_floodIcon',
           'icon-allow-overlap': true,
           'icon-size': 0.75
         },
@@ -48,11 +48,22 @@ export default {
         path: 'sensors/',
         flags: [{region: false}],
         responseType: 'geojson',
-        uniqueKey: 'uid',
+        uniqueKey: 'id',
         legendGroup: 'infrastructure',
         selected: {
           type: 'layout',
-          styles: { }
+          styles: {
+            'icon-image': [
+              'match',
+              ['get', 'class'],
+              '63160', 'map_gauge_sel',
+              '00065', 'map_level_sel',
+              '62610', 'map_well_sel',
+              '00060', 'map_discharge_sel',
+              '00045', 'map_precipitation_sel',
+              'map_pump_sel'
+            ]
+          }
         }
       },
       settings: {
@@ -69,12 +80,12 @@ export default {
           'icon-image': [
             'match',
             ['get', 'class'],
-            '63160', 'us_gauge',
-            '00065', 'us_level',
-            '62610', 'us_well',
-            '00060', 'us_discharge',
-            '00045', 'us_precipitation',
-            'us_pump'
+            '63160', 'map_gauge',
+            '00065', 'map_level',
+            '62610', 'map_well',
+            '00060', 'map_discharge',
+            '00045', 'map_precipitation',
+            'map_pump'
           ],
           'icon-offset': [ // For multiple sensors at same location
             'match',
@@ -89,7 +100,7 @@ export default {
           'icon-size': .75,
           'icon-allow-overlap': true
         },
-        filter: ['all', ['has', 'observations'], ['!=', 'uid', '']]
+        filter: ['all', ['has', 'observations'], ['!=', 'id', '']]
       },
       legend: [
         {
