@@ -11,6 +11,12 @@ export class ChartService {
     dataset_2?: {y: number, t: string}[]
   };
 
+  sensorProperties: {
+    title: string,
+    units: string,
+    datum?: string
+  };
+
   sensorChart: Chart;
 
   constructor(
@@ -18,12 +24,28 @@ export class ChartService {
     private timeService: TimeService
   ) { }
 
-  parseData(sensor_id: number): Promise<boolean|null> {
+  parseData(
+    sensor_id: number,
+    properties: {
+      title: string,
+      datum?: string
+    },
+    units: string
+  ): Promise<boolean|null> {
     let hasUpstreamDownstream;
 
     return new Promise((resolve, reject) => {
       this.httpService.getJsonData('sensors', 'sensors/' + sensor_id, null)
       .then(data => {
+        const prop = {
+          title: properties.title,
+          units: units
+        };
+
+        this.sensorProperties = Object.assign(
+          properties.hasOwnProperty('datum') ? { datum : properties.datum } : {}, // Conditionally set datum property
+          prop // to this object
+        );
 
         if (Array.isArray(data[0].properties.observations)) {
           hasUpstreamDownstream = false;
@@ -129,6 +151,17 @@ export class ChartService {
       );
     }
 
+    const title = [
+      this.sensorProperties.title
+    ];
+    if (this.sensorProperties.hasOwnProperty('datum')) {
+      title.push(
+        this.sensorProperties.units + ' above ' + this.sensorProperties.datum
+      );
+    } else {
+      title[0] += ' (' + this.sensorProperties.units + ')';
+    }
+
     return {
       type: 'line',
       data: {
@@ -138,14 +171,20 @@ export class ChartService {
         responsive: true,
         maintainAspectRatio: false,
         title: {
-          display: false
+          display: true,
+          fontColor: '#2f2f2f',
+          text: title,
+          fontSize: 10,
+          padding: 3
         },
         legend: {
-          display: true,
-          position: 'top',
+          display: this.sensorData.hasOwnProperty('dataset_2'),
+          position: 'bottom',
           labels: {
             fontColor: '#2f2f2f',
-            fontFamily: '"Roboto-Medium", "Roboto", "Open Sans"'
+            fontFamily: '"Roboto-Medium", "Roboto", "Open Sans"',
+            fontSize: 10,
+            padding: 3
           }
         },
         scales: {
@@ -155,7 +194,7 @@ export class ChartService {
             position: 'left',
             ticks: {
               fontColor: '#2f2f2f',
-              fontFamily: '"Roboto-Medium", "Roboto", "Open Sans"'
+              fontSize: 10
             }
           }],
           xAxes: [{
@@ -177,7 +216,7 @@ export class ChartService {
               autoSkip: true,
               autoSkipPadding: 12,
               fontColor: '#2f2f2f',
-              fontFamily: '"Roboto Light", "Roboto", "Open Sans"'
+              fontSize: 10
             }
           }],
         }
