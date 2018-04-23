@@ -22,14 +22,14 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   parsedTags: {
     [name: string]: any
   };
-  timestamp: string;
+  reportTime: string;
 
   constructor(
     public timeService: TimeService
   ) {}
 
   ngOnInit(): void {
-    this.timestamp = this.timeService.getLocalTime(this.feature.created_at, 'LT ll');
+    this.reportTime = this.timeService.getLocalTime(this.feature.created_at, 'LLL');
   }
 
 

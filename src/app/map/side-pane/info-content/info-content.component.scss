@@ -20,7 +20,7 @@
   }
 
   #intro {
-    @include text-light(20px, $dark-azure);
+    @include text-light(20px, $medium-azure);
     text-align: center;
     margin: 12px auto;
     width: 90%;
@@ -28,7 +28,7 @@
 
   #projectText{
     margin:  0 20px 0px 20px;
-    border-bottom: solid 1px $dark-azure;
+    border-bottom: solid 1px $medium-azure;
     #note{
       @include text-regular(14px, $snow-white);
       background-color: $bright-azure;
@@ -84,7 +84,7 @@
 
   #attribution {
     margin: 20px;
-    border-top: solid 1px $dark-azure;
+    border-top: solid 1px $medium-azure;
 
     #termslink {
       margin-top: 10px;

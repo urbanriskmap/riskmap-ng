@@ -59,7 +59,7 @@
   }
 
   :hover {
-    color: $dark-azure;
+    color: $medium-azure;
   }
 
   & table {
@@ -128,8 +128,9 @@
     min-height: 160px;
     bottom: $general-margin;
     right: $general-margin;
-    border: 5px solid $frost-white;
+    padding: 5px;
   }
+
 }
 
 app-side-pane {
