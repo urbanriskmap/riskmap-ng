@@ -32,9 +32,6 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     this.timestamp = this.timeService.getLocalTime(this.feature.created_at, 'LT ll');
   }
 
-  closeInfoPane(): void {
-    this.closePane.emit();
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {

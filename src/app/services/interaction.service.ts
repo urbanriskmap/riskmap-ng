@@ -18,7 +18,7 @@ export class InteractionService {
     name?: string,
     features?: object[]
   ): void {
-    // TODO: Use switch case if layer names cannot
+    // TEMP: Use switch case if layer names cannot
     // be the same as listed featureTypes
     if (name) {
       this.clearAllInfoPanes(name);

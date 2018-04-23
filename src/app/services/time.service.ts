@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment-timezone';
 
-// IDEA Use gulp task to import locales as per deployment in one generated file,
+// TODO Mayank - time/date locales ?
+// Use gulp task to import locales as per deployment in one generated file,
 // then import time-locales file here, change with language
-// REVIEW utility of time/date locales ?
+
 
 // default timezone locale is English (US)
 import 'moment/locale/id'; // Indonesian
@@ -26,7 +27,7 @@ export class TimeService {
     moment.tz.setDefault(env.locales.timezone);
   }
 
-  // TODO create method to change moment.locale on language change, if required
+  // TODO Mayank - create method to change moment.locale on language change, if required
 
   getLocalTime(zulu: string, format?: string) {
     if (format) {

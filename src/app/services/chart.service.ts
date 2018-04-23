@@ -206,7 +206,7 @@ export class ChartService {
               displayFormats: {
                 hour: 'HH:mm'
               },
-              // FIXME: not working
+              // FIXME: Mayank - not working
               // parser: (time) => {
               //   return this.timeService.getLocalTime(time);
               // }

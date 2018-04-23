@@ -112,7 +112,7 @@ export default {
     // Pumps layer
     {
       metadata: {
-        // IDEA: View-only layers
+        // TODO Mayank: View-only layers
         // have 'viewOnly: boolean' key,
         // for layers with metadata only (eg. name)
         // and no realtime stream.
