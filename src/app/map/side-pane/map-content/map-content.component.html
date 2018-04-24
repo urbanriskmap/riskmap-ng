@@ -37,13 +37,13 @@
     <p
       class="legend-label"
       mat-line>
-      {{ item.label }}
+      {{ item.label | translate }}
     </p>
     <p
       *ngIf="item.source"
-      class="legend-subtitle"
+      class="legend-caption"
       mat-line>
-      Source: {{ item.source }}
+      Source: {{ item.source  }}
     </p>
   </mat-list-item>
 
@@ -60,7 +60,7 @@
     <p
       class="legend-label"
       mat-line>
-      {{ item.label }}
+      {{ item.label | translate }}
     </p>
     <p
       *ngIf="item.source"

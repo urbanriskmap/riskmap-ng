@@ -28,6 +28,7 @@ export default {
         layout: {
           'icon-image': 'map_floodIcon',
           'icon-allow-overlap': true,
+          'icon-ignore-placement': true,
           'icon-size': 0.75
         },
         filter: ['all', ['!=', 'pkey', '']]
@@ -36,7 +37,7 @@ export default {
         {
           symbolType: 'icon',
           symbolStyle: 'icon-map-flood',
-          label: 'legend_flood_report'
+          label: 'legend.flood_report'
         }
       ]
     },
@@ -108,31 +109,31 @@ export default {
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-gauge',
-          label: 'Gauge',
+          label: 'legend.us_gauge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-elevation',
-          label: 'Gauge Elevation',
+          label: 'legend.us_elevation',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-well',
-          label: 'Monitoring Well',
+          label: 'legend.us_well',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-discharge',
-          label: 'Discharge',
+          label: 'legend.us_discharge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-precipitation',
-          label: 'Precipitation',
+          label: 'legend.us_precipitation',
           source: 'USGS'
         }
       ]

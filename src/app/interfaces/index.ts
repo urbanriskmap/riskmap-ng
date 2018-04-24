@@ -34,6 +34,14 @@ export interface EnvironmentInterface {
     timezone: string;
   };
   networks: {
+    contact_links: {
+      flag_email: string;
+    };
+    socialButtons: {
+      {
+        name: string;
+        intent: string;
+      };
     deep_links: {
       name: string;
       link: string;

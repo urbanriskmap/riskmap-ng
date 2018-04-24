@@ -25,11 +25,12 @@
     [src]="feature.image_url">
 </div>
 
+
 <div
   id="detailsWrapper">
 
   <div
-    id="static">
+    id="static" class="report-description">
     <p
       class="mat-caption-1"
       style="text-align: left;">
@@ -47,18 +48,53 @@
     </p>
   </div>
 
+  <div
+    *ngIf="showFlyer.flag"
+    id="flagFlyer"
+    class="report-description flyer">
+    <p> {{ 'report_info.flagReport_title' | translate }} </p>
+    <a [href]="'mailto:' + env.networks.contact_links.flag_email + '?subject=Please%20review%20this%20report%20&#40;Report%20id%20&#58;%20' + feature.pkey + '&#41;' | sanitize">
+      <button mat-raised-button
+        id="submitButton">
+        {{ 'report_info.flagReport_button' | translate }}
+      </button>
+    </a>
+  </div>
+
+  <div
+    *ngIf="showFlyer.share"
+    class="report-description flyer">
+
+    <p> {{ 'report_info.share' | translate }}</p>
+    <td *ngFor="button of socialButtons">
+      <a [href]="button.intent"></a><i  id="socialButtons" class.bind="'icon-' + button.name" ></i>
+    </td>
+
+        <!-- <p>${locale.report_info.share}</p>
+        <a repeat.for="button of socialButtons" href.bind="button.intent" >
+          <i  id="socialButtons" class.bind="'icon-' + button.name" ></i>
+        </a> -->
+
+  </div>
+
   <table id="interactive">
     <tr>
-      <td>
+      <td
+        (click)="handleVotes('up')">
         <i class="icon-upvote"></i>
       </td>
-      <td>
+      <td
+        (click)="handleVotes('up')">
         <i class="icon-downvote"></i>
       </td>
-      <td>
+      <td
+        id="flagButton"
+        (click)="toggleFlyer('flag')">
         <i class="icon-flag-filled"></i>
       </td>
-      <td>
+      <td
+        id="shareButton"
+        (click)="toggleFlyer('share')">
         <i class="icon-share"></i>
       </td>
     </tr>

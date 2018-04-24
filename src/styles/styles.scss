@@ -85,6 +85,7 @@ $frost-white: transparentize($snow-white, 0.15);
 $rich-amber: #ffb505; // use for utility related, like broken drain; rgb: 241 181 0
 $dark-gold: #803c02; // *available; rgb: 194 111 0
 $green-haze: #1ac892; // Tree fallen; rgb: 0 165 94
+$faint-azure: mat-color($riskmap-accent, 100); 
 $bright-azure: mat-color($riskmap-accent, 300); // UI accents; rgb: 8 145 251
 $dark-azure: mat-color($riskmap-primary, 900);
 $medium-azure: mat-color($riskmap-primary, 600);

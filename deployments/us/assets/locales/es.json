@@ -126,11 +126,11 @@
   "legend": {
     "title": "Leyenda",
     "flood_gauges": "Medidores de inundación",
-    "us_gauge": "Flood Gauges",
-    "us_elevation": "",
-    "us_well":"",
-    "us_discharge":"",
-    "us_precipitation":"",
+    "us_gauge": "Stream water elevation",
+    "us_elevation": "Gauge height",
+    "us_well": "Groundwater level",
+    "us_discharge":"Discharge",
+    "us_precipitation":"Precipitation total",
     "flood_depth": "Profundidad de inundación: {{ flood_depth }} in"
   },
 

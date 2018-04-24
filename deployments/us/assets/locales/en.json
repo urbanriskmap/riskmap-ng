@@ -47,7 +47,7 @@
     "share_msg": "Check%20flood%20reports%20on%20riskmap%2Eus",
     "water_depth": "Water depth",
     "source": "Source",
-    "flagReport_Title": "flag this report as inappropriate",
+    "flagReport_title": "flag this report as inappropriate",
     "flagReport_button": "tell us more",
     "flagReport_email": "riskmapus@gmail.com",
     "share": "Share this report"
@@ -98,11 +98,12 @@
 
   "legend": {
     "title": "Legend",
-    "us_gauge": "Flood Gauges",
-    "us_elevation": "",
-    "us_well":"",
-    "us_discharge":"",
-    "us_precipitation":"",
+    "flood_report": "Flood Report",
+    "us_gauge": "Stream water elevation",
+    "us_elevation": "Gauge height",
+    "us_well": "Groundwater level",
+    "us_discharge":"Discharge",
+    "us_precipitation":"Precipitation total",
     "flood_depth": "Flood Depth: {{ flood_depth }} in"
   },
 
