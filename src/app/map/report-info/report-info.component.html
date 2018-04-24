@@ -1,14 +1,21 @@
-<!-- REVIEW utility of close button -->
-<!-- slide down action? no button at all? -->
-<!-- <div
-  id="closeBtn"
-  (click)="closeInfoPane()">
-  <i class="icon-close"></i>
-</div> -->
+
+<div id="headingWrapper">
+  <p
+    *ngIf="parsedReportData && parsedReportData.flood_depth"
+    class="mat-subheading-1">
+    {{ 'legend.flood_depth' | translate:parsedReportData }}
+  </p>
+  <p
+    *ngIf="feature.title !== 'null'"
+    class="mat-subheading-1">
+    {{ feature.title }}
+  </p>
+</div>
 
 <div
   id="imgWrapper">
-  <!-- REVIEW utility of image placeholder -->
+  <!--  TODO: aditya  utility of image placeholder -->
+  <!-- add only for phone screens -->
   <!-- <div
     *ngIf="feature.image_url === 'null'">
     <i class="icon-flood-img"></i>
@@ -24,25 +31,16 @@
   <div
     id="static">
     <p
-      *ngIf="parsedReportData && parsedReportData.flood_depth"
-      class="mat-subheading-1">
-      Depth: {{ parsedReportData.flood_depth }} cm
+      class="mat-caption-1"
+      style="text-align: left;">
+      {{ reportTime }}
     </p>
     <p
-      *ngIf="feature.title !== 'null'"
-      class="mat-subheading-1">
-      {{ feature.title }}
-    </p>
-    <p
-      class="mat-caption"
+      class="mat-caption-1"
       style="float: left;">
       {{ feature.source | titlecase }}
     </p>
-    <p
-      class="mat-caption"
-      style="text-align: right;">
-      {{ timestamp }}
-    </p>
+    <br>
     <p
       class="mat-body-1">
       {{ feature.text }}

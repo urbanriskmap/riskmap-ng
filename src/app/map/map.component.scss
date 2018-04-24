@@ -6,7 +6,6 @@
   background-color: $light-gray;
 }
 
-// REVIEW: variation across browsers
 #reportButton {
   position: fixed;
   top: $toolbar-height + $general-margin;
@@ -60,7 +59,7 @@
   }
 
   :hover {
-    color: $dark-azure;
+    color: $medium-azure;
   }
 
   & table {
@@ -129,8 +128,9 @@
     min-height: 160px;
     bottom: $general-margin;
     right: $general-margin;
-    border: 5px solid $frost-white;
+    padding: 5px;
   }
+
 }
 
 app-side-pane {

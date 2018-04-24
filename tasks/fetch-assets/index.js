@@ -24,7 +24,7 @@ gulp.task('clearPreviousAssets', () => {
     '../src/assets/icons',
     '../src/assets/locales',
     '../src/assets/logos',
-    '../src/resources',
+    '../src/resources/*',
     '../src/index.html'
   ], {force: true}); // Force deleting outside CWD
 });

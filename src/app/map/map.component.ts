@@ -71,8 +71,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
     });
   }
 
-  // TODO: geolocation observable
-  // https://angular.io/guide/observables
+  // TODO: Aditya - Add geolocation button
+  // geolocation observable https://angular.io/guide/observables
   initializeMap(): void {
     mapboxgl.accessToken = this.env.map.accessToken;
     this.map = new mapboxgl.Map({

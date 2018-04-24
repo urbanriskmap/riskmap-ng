@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-// NOTE: https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep
+// NOTE Override ng-Mat styles: https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep
 ::ng-deep .mat-tab-label {
   min-width: 33.3%!important; // Use !important to override
 }

@@ -13,7 +13,7 @@
 
 .tab-content {
   padding: 16px;
-  @include text-regular(12px, $dark-azure);
+  @include text-regular(12px, $medium-azure);
   overflow-y: auto;
   overflow-x: hidden;
 }

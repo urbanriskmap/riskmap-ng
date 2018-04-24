@@ -204,12 +204,12 @@ export class LayerService {
 
           } else if (features.length > 1) {
             // CASE 3: Clicked with multiple features overlapping
-            // TODO: use clustering to show all features
-            // Ref https://www.mapbox.com/mapbox-gl-js/example/cluster/
+            this.modifyLayerFilter(name, uniqueKey, features);
             this.interactionService.handleLayerInteraction(name, features);
 
-            // FIXME: Fails when features from 2 different layers are overlapping
-            // only first layer encountered is selected (report behind flood polygon case?)
+            // Susceptible to fail when features from 2 different layers are overlapping;
+            // only first layer encountered is selected (report behind flood polygon case)
+            // NOTE: RESOLVED by using placeBelow key of LayerMetadata
             break;
 
           } else {

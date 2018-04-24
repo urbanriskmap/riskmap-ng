@@ -1,7 +1,7 @@
 {
   "name": "riskmap-ng",
   "version": "0.0.0",
-  "author": "Mayank Ojha",
+  "author": "Urban Risk Lab",
   "license": "GPL-3.0",
   "scripts": {
     "start": "dep=us npm run fetch-assets && ng serve",

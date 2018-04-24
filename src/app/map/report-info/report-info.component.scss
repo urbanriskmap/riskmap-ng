@@ -2,24 +2,27 @@
 
 $img-width-percent: 44%;
 $margin-percent: 1%;
+$heading-height: 25px;
 
-// REVIEW utility of close button
-// #closeBtn {
-//   position: absolute;
-//   top: $general-margin / 2;
-//   right: $general-margin / 2;
-//   @include icon-button(14px);
-//
-//   @media (min-width: 420px) {
-//     width: 2 * $general-margin;
-//     height: 2 * $general-margin;
-//     border-radius: $general-margin;
-//     text-align: center;
-//     line-height: 2 * $general-margin;
-//     z-index: 3;
-//     background-color: transparentize($snow-white, 0.4);
-//   }
-// }
+#headingWrapper {
+  position: absolute;
+  left: $img-width-percent;
+  height: auto;
+  width: 100% - $img-width-percent - (2 * $margin-percent);
+  margin-left: $margin-percent;
+  & .mat-subheading-1 {
+    color: $medium-azure;
+    height: $heading-height;
+    margin-bottom: 3px;
+    padding-left: 5px;
+  }
+  @media (min-width: 420px) {
+  position: relative;
+  left: auto;
+  margin-left: 0;
+  width: 100%;
+  }
+}
 
 #imgWrapper {
   position: absolute;
@@ -35,7 +38,7 @@ $margin-percent: 1%;
     float: none;
   }
 
-  // REVIEW utility of image placeholder
+  // TODO aditya -  utility of image placeholder
   // & div {
   //   color: $snow-white;
   //   font-size: 84px;
@@ -83,10 +86,10 @@ $margin-percent: 1%;
   & #static {
     width: 100%;
     height: 128px;
-    // margin-top: 20px; // REVIEW Add in case of closeBtn
     word-wrap: break-word;
     overflow-x: hidden;
     overflow-y: scroll;
+    margin-top: $heading-height;
 
     @media (min-width: 420px) {
       margin: 0;
@@ -95,10 +98,15 @@ $margin-percent: 1%;
     & p {
       margin: 0;
       &.mat-subheading-1 {
-        color: $dark-azure;
+        color: $medium-azure;
+      }
+      &.mat-caption-1 {
+        color: $medium-azure;
+        padding-left: 5px;
       }
       &.mat-body-1 {
-        margin-top: 6px;
+        @include text-regular(14px, $dark-gray);
+        padding: 5px;
       }
     }
   }
@@ -106,7 +114,7 @@ $margin-percent: 1%;
   & #interactive {
     width: 100%;
     height: 36px;
-    border-top: 1px solid $dark-azure;
+    border-top: 1px solid $medium-azure;
     text-align: center;
     vertical-align: middle;
     & i {
