@@ -1,9 +1,12 @@
 <mat-list>
-  <p mat-subheader>Region</p>
+  <p mat-subheader
+    *ngIf="regions.length > 1">
+    Region
+  </p>
 
-  <mat-list-item>
+  <mat-list-item
+    *ngIf="regions.length > 1">
     <mat-radio-group
-      *ngIf="regions.length > 1"
       [(ngModel)]="selectedRegion"
       (change)="changeRegion()">
       <mat-radio-button
@@ -15,7 +18,7 @@
     </mat-radio-group>
   </mat-list-item>
 
-  <mat-divider></mat-divider>
+  <mat-divider *ngIf="regions.length > 1"></mat-divider>
 
   <p mat-subheader>Reports</p>
   <mat-list-item

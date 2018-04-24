@@ -63,12 +63,12 @@ export class MapComponent implements OnInit { // , OnDestroy {
     this.translate.use(this.env.locales.defaultLanguage);
 
     // IDEA: singlePage nav
-    // this.navigationSubscription = this.router.events.subscribe((e: any) => {
-    //   // If it is a NavigationEnd event re-initalise the component (landing page)
-    //   if (e instanceof NavigationEnd) {
-    //     this.initialiseLandingRoute();
-    //   }
-    // });
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component (landing page)
+      if (e instanceof NavigationEnd) {
+        this.initialiseLandingRoute();
+      }
+    });
   }
 
   // TODO: geolocation observable
@@ -198,7 +198,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     // IDEA: singlePage nav
     // Reset map layers, sources;
     // Clear stored values for instances
-    // this.initializeMap();
+    this.initializeMap();
 
     if (!this.hasRegionParam()) {
       this.openDialog('pickRegion');
@@ -221,8 +221,9 @@ export class MapComponent implements OnInit { // , OnDestroy {
       return false;
     });
 
-    this.initializeMap();
-    this.initialiseLandingRoute();
+    // IDEA: singlePage nav
+    // this.initializeMap();
+    // this.initialiseLandingRoute();
   }
 
   setBounds(): void {
