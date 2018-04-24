@@ -126,7 +126,12 @@
   "legend": {
     "title": "Leyenda",
     "flood_gauges": "Medidores de inundación",
-    "flood_depth": "Profundidad de inundación (cm)"
+    "us_gauge": "Flood Gauges",
+    "us_elevation": "",
+    "us_well":"",
+    "us_discharge":"",
+    "us_precipitation":"",
+    "flood_depth": "Profundidad de inundación: {{ flood_depth }} in"
   },
 
   "user_agreement_title": "Acuerdo de usuario",

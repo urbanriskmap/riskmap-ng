@@ -8,7 +8,7 @@ import * as moment from 'moment-timezone';
 
 // default timezone locale is English (US)
 //import 'moment/locale/id'; // Indonesian
- import 'moment/locale/es'; // Spanish
+//import 'moment/locale/es'; // Spanish
 // import 'moment/locale/bn'; // Bengali
 // import 'moment/locale/hi'; // Hindi
 // import 'moment/locale/mr'; // Marathi

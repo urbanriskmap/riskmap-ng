@@ -22,7 +22,7 @@
 @mixin link-light($size) {
   font-family: "Roboto-Light", "Roboto", sans-serif;
   font-size: $size;
-  color: $dark-azure;
+  color: $medium-azure;
   &:hover {
     color: $bright-azure;
     cursor: pointer;
@@ -32,7 +32,7 @@
 @mixin link-regular($size) {
   font-family: "Roboto", "Roboto", sans-serif;
   font-size: $size;
-  color: $dark-azure;
+  color: $medium-azure;
   &:hover {
     color: $bright-azure;
     cursor: pointer;
