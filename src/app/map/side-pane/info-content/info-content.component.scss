@@ -29,14 +29,16 @@
   #projectText{
     margin:  0 20px 0px 20px;
     border-bottom: solid 1px $dark-azure;
-    #note{
-      @include text-regular(14px, $snow-white);
-      background-color: $bright-azure;
+
+    #note {
+      @include text-regular(14px, $fire-red);
+      background-color: $light-gray;
       text-align: center;
       padding: 10px;
       border-radius: 3px;
     }
   }
+
   #partners {
     bottom: 5px;
     margin: auto;
