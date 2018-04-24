@@ -60,6 +60,11 @@ body {
   height: 100%;
 }
 
+/* Let's get this party started */
+::-webkit-scrollbar {
+    display: none;
+}
+
 // ***** GLOBAL UNIT VALUES *****
 $toolbar-height: 42px;
 $general-margin: 10px;
@@ -80,8 +85,10 @@ $frost-white: transparentize($snow-white, 0.15);
 $rich-amber: #ffb505; // use for utility related, like broken drain; rgb: 241 181 0
 $dark-gold: #803c02; // *available; rgb: 194 111 0
 $green-haze: #1ac892; // Tree fallen; rgb: 0 165 94
-$bright-azure: mat-color($riskmap-accent); // UI accents; rgb: 8 145 251
-$dark-azure: mat-color($riskmap-primary); // Flood Reports / UI accents, rgb: 0 85 155
+$bright-azure: mat-color($riskmap-accent, 300); // UI accents; rgb: 8 145 251
+$dark-azure: mat-color($riskmap-primary, 900);
+$medium-azure: mat-color($riskmap-primary, 600);
+
 $fire-red: #c23700; // *available; rgb: 194 55 0
 
 // Deprecated

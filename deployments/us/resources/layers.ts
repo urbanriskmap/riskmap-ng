@@ -106,31 +106,31 @@ export default {
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-gauge',
-          label: 'legend_us_gauge',
+          label: 'Gauge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-elevation',
-          label: 'legend_us_elevation',
+          label: 'Gauge Elevation',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-well',
-          label: 'legend_us_well',
+          label: 'Monitoring Well',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-discharge',
-          label: 'legend_us_discharge',
+          label: 'Discharge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-us-precipitation',
-          label: 'legend_us_precipitation',
+          label: 'Precipitation',
           source: 'USGS'
         }
       ]
