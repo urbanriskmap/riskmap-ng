@@ -117,6 +117,7 @@ export interface LayerMetadata {
       [name: string]: any
     };
   };
+  viewOnly: boolean; // view only layers do not trigger an info pane to open
   placeBelow?: string; // layer needs to be included in base style
 }
 

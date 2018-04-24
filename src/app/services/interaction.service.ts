@@ -16,11 +16,13 @@ export class InteractionService {
 
   handleLayerInteraction(
     name?: string,
+    viewOnly?: boolean,
     features?: object[]
   ): void {
-    // TEMP: Use switch case if layer names cannot
+    // NOTE: Use switch case if layer names cannot
     // be the same as listed featureTypes
-    if (name) {
+
+    if (name && !viewOnly) {
       this.clearAllInfoPanes(name);
       this.featureTypes[name] = features;
     } else {

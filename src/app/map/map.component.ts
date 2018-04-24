@@ -151,7 +151,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
       for (const report of event.source.data.features) {
         if (report.properties.pkey === this.selectedReportId) {
           this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
-          this.interactionService.handleLayerInteraction('reports', [report]);
+          this.interactionService.handleLayerInteraction('reports', null, [report]);
           this.map.flyTo({
             zoom: 11,
             center: report.geometry.coordinates
