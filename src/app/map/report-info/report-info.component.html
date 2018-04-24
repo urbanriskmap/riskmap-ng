@@ -32,12 +32,12 @@
   <div
     id="static" class="report-description">
     <p
-      class="mat-caption-1"
+      class="mat-caption"
       style="text-align: left;">
       {{ reportTime }}
     </p>
     <p
-      class="mat-caption-1"
+      class="mat-caption"
       style="float: left;">
       {{ feature.source | titlecase }}
     </p>
@@ -64,17 +64,17 @@
   <div
     *ngIf="showFlyer.share"
     class="report-description flyer">
-
-    <p> {{ 'report_info.share' | translate }}</p>
-    <td *ngFor="button of socialButtons">
-      <a [href]="button.intent"></a><i  id="socialButtons" class.bind="'icon-' + button.name" ></i>
-    </td>
-
-        <!-- <p>${locale.report_info.share}</p>
-        <a repeat.for="button of socialButtons" href.bind="button.intent" >
-          <i  id="socialButtons" class.bind="'icon-' + button.name" ></i>
-        </a> -->
-
+    <mat-grid-list cols="2" rowHeight="45%">
+      <a
+        *ngFor="let button of socialButtons"
+        [href]="button.intent">
+        <mat-grid-tile>
+          <i [class]="'icon-' + button.name"></i>
+          <br>
+          <p class="mat-caption">{{ button.name | titlecase }}</p>
+        </mat-grid-tile>
+      </a>
+    </mat-grid-list>
   </div>
 
   <table id="interactive">

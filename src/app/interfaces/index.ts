@@ -14,6 +14,7 @@ export interface EnvironmentInterface {
   servers: {
     data: string;
     sensors: string;
+    web_app: string;
     settings: {
       reportTimeperiod: number;
     };
@@ -37,11 +38,6 @@ export interface EnvironmentInterface {
     contact_links: {
       flag_email: string;
     };
-    socialButtons: {
-      {
-        name: string;
-        intent: string;
-      };
     deep_links: {
       name: string;
       link: string;
