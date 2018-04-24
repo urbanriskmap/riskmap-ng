@@ -2,6 +2,8 @@ import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange
 
 import { ReportInterface } from '../../interfaces';
 import { TimeService } from '../../services/time.service';
+import { SanitizePipe } from '../../pipes/sanitize.pipe';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-report-info',
@@ -13,8 +15,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     [name: string]: any
   }[];
 
-  @Output() closePane = new EventEmitter<null>();
-
+  env = environment;
   feature: ReportInterface;
   parsedReportData: {
     [name: string]: any
@@ -22,7 +23,13 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   parsedTags: {
     [name: string]: any
   };
+  showFlyer = {
+    flag: false,
+    share: false
+  };
   reportTime: string;
+
+  @Output() closePane = new EventEmitter<null>();
 
   constructor(
     public timeService: TimeService
@@ -43,6 +50,54 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
       if (this.feature.tags) {
         this.parsedTags = JSON.parse(this.feature.tags);
+      }
+    }
+  }
+
+  handleVotes(vote: string): void {
+    // close if any flyer is open
+    this.toggleFlyer();
+
+    // do something
+  }
+
+  toggleFlyer(flyer?: string): void {
+    if (!this.showFlyer.flag && !this.showFlyer.share) {
+      // case 1: both false
+      this.showFlyer[flyer] = true;
+
+      document.getElementById(flyer + 'Button').classList.add('active');
+    } else {
+      // either one is true
+      if (flyer) {
+        if (this.showFlyer[flyer]) {
+          // clicked on already open flyer
+          this.showFlyer[flyer] = false;
+
+          document.getElementById(flyer + 'Button').classList.remove('active');
+        } else {
+          // clicked on other
+          // close already open flyer
+          if (flyer === 'share') {
+            this.showFlyer.flag = false;
+
+            document.getElementById('flagButton').classList.remove('active');
+          } else if (flyer === 'flag') {
+            this.showFlyer.share = false;
+
+            document.getElementById('shareButton').classList.remove('active');
+          }
+          // open clicked flyer
+          this.showFlyer[flyer] = true;
+
+          document.getElementById(flyer + 'Button').classList.add('active');
+        }
+      } else {
+        // external control
+        this.showFlyer.flag = false;
+        this.showFlyer.share = false;
+        document.getElementById('flagButton').classList.remove('active');
+        document.getElementById('shareButton').classList.remove('active');
       }
     }
   }

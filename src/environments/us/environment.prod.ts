@@ -27,6 +27,9 @@ export const environment = {
     timezone: 'America/New_York'
   },
   networks: {
+    contact_links: {
+      flag_email: 'risk@mit.edu'
+    },
     deep_links: [
       {name: 'facebook', link: 'http://m.me/riskmapUS'},
       //TODO after the twitter dev bot is registered

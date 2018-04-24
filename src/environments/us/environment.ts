@@ -28,6 +28,9 @@ export const environment = {
   },
 
   networks: {
+    contact_links: {
+      flag_email: 'risk@mit.edu'
+    },
     deep_links: [
       { name: 'facebook',
         link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.

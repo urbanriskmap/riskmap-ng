@@ -19,7 +19,6 @@ import { environment as env } from '../../environments/environment';
 
 @Injectable()
 export class TimeService {
-
   constructor() {
     if (env.locales.defaultLanguage !== 'en') {
       moment.locale(env.locales.defaultLanguage);
@@ -36,5 +35,4 @@ export class TimeService {
       return moment(zulu);
     }
   }
-
 }

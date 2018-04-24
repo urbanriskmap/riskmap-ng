@@ -28,6 +28,30 @@ export const environment = {
   },
 
   networks: {
+    contact_links: {
+      flag_email: 'risk@mit.edu'
+    },
+    socialButtons: {
+      // Name string should match fontello icons name
+      {
+        name: 'twitter',
+        intent: 'https://twitter.com/intent/tweet?text=' + msgText + '%20' + reportUrl
+      },
+      {
+        name: 'telegram',
+        intent: 'https://telegram.me/share/url?url=' + reportUrl + ' &text= ' + msgText
+      },
+      {
+        name: 'whatsapp',
+        intent: 'https://api.whatsapp.com/send?text=' + msgText + '%20' + reportUrl
+      },
+
+      {
+        name: 'facebook',
+        intent: 'https://www.facebook.com/sharer/sharer.php?u=' + self.reportUrl
+      }
+    },
+
     deep_links: [
       { name: 'facebook',
         link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.
