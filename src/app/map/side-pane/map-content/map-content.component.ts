@@ -43,6 +43,7 @@ export class MapContentComponent implements OnInit {
   }
 
   changeRegion() {
-    this.router.navigate([this.selectedRegion.name]);
+    location.assign(location.origin + '/' + this.selectedRegion.name);
+    // this.router.navigate([this.selectedRegion.name]);
   }
 }

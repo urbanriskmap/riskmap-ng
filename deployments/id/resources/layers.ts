@@ -126,7 +126,9 @@ export default {
         legendGroup: 'infrastructure',
         selected: {
           type: 'layout',
-          styles: { }
+          styles: {
+            'icon-image': 'map_pump_sel'
+          }
         },
         placeBelow: 'place-village'
       },

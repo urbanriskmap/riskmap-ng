@@ -22,7 +22,7 @@ import { EnvironmentInterface, Region } from '../interfaces';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit { // , OnDestroy {
   navigationSubscription;
 
   env: EnvironmentInterface = environment;
@@ -62,10 +62,11 @@ export class MapComponent implements OnInit, OnDestroy {
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.translate.use(this.env.locales.defaultLanguage);
 
+    // IDEA: singlePage nav
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
+      // If it is a NavigationEnd event re-initalise the component (landing page)
       if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
+        this.initialiseLandingRoute();
       }
     });
   }
@@ -193,11 +194,17 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  initialiseInvites(): void {
+  initialiseLandingRoute(): void {
+    // IDEA: singlePage nav
+    // Reset map layers, sources;
+    // Clear stored values for instances
     this.initializeMap();
 
     if (!this.hasRegionParam()) {
       this.openDialog('pickRegion');
+
+      // IDEA: singlePage nav
+      // Then fly to selected instance
     } else {
       this.bindMapEventHandlers();
     }
@@ -213,6 +220,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
       return false;
     });
+
+    // IDEA: singlePage nav
+    // this.initializeMap();
+    // this.initialiseLandingRoute();
   }
 
   setBounds(): void {
@@ -288,16 +299,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.layerService.handleMapInteraction();
   }
 
-  ngOnDestroy(): void {
-  // Required when app has more than one route, eg. /dashboard
-  //   // avoid memory leaks here by cleaning up after ourselves. If we
-  //   // don't then we will continue to run our initialiseInvites()
-  //   // method on every navigationEnd event.
-  //   if (this.navigationSubscription) {
-  //      this.navigationSubscription.unsubscribe();
-  //   }
-  }
-
   toggleReportFlyer(forceAction?: {close: boolean}): void {
     const reportFlyer = document.getElementById('reportFlyer');
     const flyerState = reportFlyer.style.display;
@@ -318,4 +319,14 @@ export class MapComponent implements OnInit, OnDestroy {
 
     // reportButton.style.animation = 'slidein 3s linear 1s infinite running';
   }
+
+  // ngOnDestroy(): void {
+  //   // Required when app has more than one route, eg. /dashboard
+  //   // avoid memory leaks here by cleaning up after ourselves. If we
+  //   // don't then we will continue to run our initialiseLandingRoute()
+  //   // method on every navigationEnd event.
+  //   if (this.navigationSubscription) {
+  //      this.navigationSubscription.unsubscribe();
+  //   }
+  // }
 }
