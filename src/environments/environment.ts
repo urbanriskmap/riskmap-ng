@@ -31,7 +31,7 @@ export const environment = {
     contact_links: {
       flag_email: 'risk@mit.edu'
     },
-    socialButtons: {
+    socialButtons: [
       // Name string should match fontello icons name
       {
         name: 'twitter',
@@ -45,12 +45,11 @@ export const environment = {
         name: 'whatsapp',
         intent: 'https://api.whatsapp.com/send?text=' + msgText + '%20' + reportUrl
       },
-
       {
         name: 'facebook',
         intent: 'https://www.facebook.com/sharer/sharer.php?u=' + self.reportUrl
       }
-    },
+    ],
 
     deep_links: [
       { name: 'facebook',
