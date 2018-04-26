@@ -2,6 +2,7 @@ import { Component, Output, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import 'rxjs/add/operator/switchMap';
 
 import * as mapboxgl from 'mapbox-gl';
@@ -49,7 +50,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    public dialog: MatDialog,
+    public notify: MatSnackBar,
     public translate: TranslateService,
     public layerService: LayerService,
     public interactionService: InteractionService
@@ -71,8 +73,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
     });
   }
 
-  // TODO: Aditya - Add geolocation button
-  // geolocation observable https://angular.io/guide/observables
   initializeMap(): void {
     mapboxgl.accessToken = this.env.map.accessToken;
     this.map = new mapboxgl.Map({
@@ -86,6 +86,17 @@ export class MapComponent implements OnInit { // , OnDestroy {
       preserveDrawingBuffer: true
     });
   }
+
+  // TODO: Aditya - Add geolocation button
+  // geolocation observable https://angular.io/guide/observables
+
+  // TODO: Mayank - Add notifications
+  // 1. Reports in past {{timeperiod}}
+  // 2. Queried Report id not found in instance
+    // > Fly to instance which has queried report?
+  // 3. Geolocation
+    // > Error
+    // > (onFound) x flood reports around you?
 
   hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
@@ -210,6 +221,33 @@ export class MapComponent implements OnInit { // , OnDestroy {
     }
 
     this.storeQueryParams();
+
+    // TEMP
+    this.showNotification('Welcome', 'info');
+  }
+
+  showNotification(
+    msg: string,
+    type: 'info' | 'warn' | 'error',
+    actionText?: string
+  ) {
+    let action;
+    if (actionText) {
+      action = actionText;
+    } else {
+      action = 'Close';
+    }
+
+    const notification = this.notify.open(msg, action, {
+      duration: 3000,
+      verticalPosition: 'top',
+      panelClass: ['notification-bar', 'notify-' + type]
+    });
+
+    notification.onAction().subscribe(() => {
+      // Dismiss notification
+      notification.dismiss();
+    });
   }
 
   ngOnInit(): void {

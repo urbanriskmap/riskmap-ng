@@ -8,6 +8,7 @@ import { MapComponent } from './map/map.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   constructor() { }
 
   ngOnInit() {

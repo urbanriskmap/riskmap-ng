@@ -57,7 +57,6 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         this.parsedTags = JSON.parse(this.feature.tags);
       }
 
-
       let msgText;
       this.translate.get('report_info.msg_text').subscribe((res: string) => {
         msgText = res;
@@ -85,6 +84,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  // TODO: Port handleVotes method
   handleVotes(vote: string): void {
     // close if any flyer is open
     this.toggleFlyer();
