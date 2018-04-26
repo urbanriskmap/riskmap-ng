@@ -52,26 +52,27 @@
     *ngIf="showFlyer.flag"
     id="flagFlyer"
     class="report-description flyer">
-    <p> {{ 'report_info.flagReport_title' | translate }} </p>
-    <a [href]="'mailto:' + env.networks.contact_links.flag_email + '?subject=Please%20review%20this%20report%20&#40;Report%20id%20&#58;%20' + feature.pkey + '&#41;' | sanitize">
-      <button mat-raised-button
-        id="submitButton">
-        {{ 'report_info.flagReport_button' | translate }}
-      </button>
-    </a>
+    <p class="mat-subheading-1 flyerHeading"> {{ 'report_info.flagReport_title' | translate }} </p>
+    <div id="flagButton">
+      <a [href]="'mailto:' + env.networks.contact_links.flag_email + '?subject=Please%20review%20this%20report%20&#40;Report%20id%20&#58;%20' + feature.pkey + '&#41;' | sanitize">
+        <button mat-raised-button id="submitButton"
+          id="submitButton">
+          {{ 'report_info.flagReport_button' | translate }}
+        </button>
+        </a>
+    </div>
   </div>
 
   <div
     *ngIf="showFlyer.share"
     class="report-description flyer">
-    <mat-grid-list cols="2" rowHeight="45%">
+    <p class="mat-subheading-1 flyerHeading">{{ 'report_info.share_header' | translate }}</p>
+    <mat-grid-list cols="4"  rowHeight="50px">
       <a
         *ngFor="let button of socialButtons"
         [href]="button.intent">
         <mat-grid-tile>
           <i [class]="'icon-' + button.name"></i>
-          <br>
-          <p class="mat-caption">{{ button.name | titlecase }}</p>
         </mat-grid-tile>
       </a>
     </mat-grid-list>

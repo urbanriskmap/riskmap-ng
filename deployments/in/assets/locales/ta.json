@@ -8,7 +8,7 @@
   "partners_label_project": "Project Partners",
 
   "overview_title": "Project overview",
-  
+
   "instance_regions" : {
     "chennai": "சென்னை",
     "mumbai": "மும்பை",
@@ -58,7 +58,7 @@
     "flagReport_Title": "Flag this report as inappropriate",
     "flagReport_button": "tell us more",
     "flagReport_email": "riskmapindia@gmail.com",
-    "share": "Share this report",
+    "share_header": "Share this report",
 
   "flood_info": {
     "title": "வெள்ளம் பாதிக்கப்பட்ட பகுதி",
