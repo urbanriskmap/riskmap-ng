@@ -111,11 +111,9 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           // close already open flyer
           if (flyer === 'share') {
             this.showFlyer.flag = false;
-
             document.getElementById('flagButton').classList.remove('active');
           } else if (flyer === 'flag') {
             this.showFlyer.share = false;
-
             document.getElementById('shareButton').classList.remove('active');
           }
           // open clicked flyer

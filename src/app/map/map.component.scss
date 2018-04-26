@@ -1,10 +1,10 @@
 @import 'styles';
 
 ::ng-deep .notification-bar {
-  margin-top: $toolbar-height!important;
+  margin-top: $toolbar-height + $general-margin!important;
 
   &.notify-info {
-    background-color: yellow!important;
+    background-color: $dark-gray!important;
   }
 
   &.notify-warn {
