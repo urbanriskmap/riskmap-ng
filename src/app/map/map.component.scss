@@ -4,15 +4,21 @@
   margin-top: $toolbar-height + $general-margin!important;
 
   &.notify-info {
-    background-color: $dark-gray!important;
+    background-color: $frost-white!important;
+    @include text-regular(12px, $dark-gray);
+    box-shadow: $pane-shadow;
   }
 
   &.notify-warn {
     background-color: orange!important;
+    @include text-regular(12px, $dark-gray);
+    box-shadow: $pane-shadow;
   }
 
   &.notify-error {
     background-color: red!important;
+    @include text-regular(12px, $snow-white);
+    box-shadow: $pane-shadow;
   }
 }
 
