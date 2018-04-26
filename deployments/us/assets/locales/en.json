@@ -13,14 +13,12 @@
   "facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
   "facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.us for up-to-date flood information.",
 
-
   "twitter_title": "Report with Twitter",
   "twitter_step1": "Send a Direct Message to @riskmapUS_bot.",
   "twitter_step2": "@riskmapUS_bot will send you a one-time link to submit report",
   "twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
   "twitter_step4": "On successful submission of the report, @riskmapUS_bot will send you a reply with a link to your report",
   "twitter_step5": "Check RiskMap.us for up-to-date flood information.",
-
 
   "add_report": "Report Flooding",
   "hint_facebook":"Facebook Messenger",
@@ -44,13 +42,13 @@
     }
   },
   "report_info": {
-    "share_msg": "Check%20flood%20reports%20on%20riskmap%2Eus",
+    "msg_text": "Check%20flood%20reports%20on%20riskmap%2Eus",
     "water_depth": "Water depth",
     "source": "Source",
     "flagReport_title": "flag this report as inappropriate",
     "flagReport_button": "tell us more",
     "flagReport_email": "riskmapus@gmail.com",
-    "share": "Share this report"
+    "share_header": "Share this report"
   },
   "flood_info": {
     "title": "Flood affected area",

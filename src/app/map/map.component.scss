@@ -1,5 +1,21 @@
 @import 'styles';
 
+::ng-deep .notification-bar {
+  margin-top: $toolbar-height!important;
+
+  &.notify-info {
+    background-color: yellow!important;
+  }
+
+  &.notify-warn {
+    background-color: orange!important;
+  }
+
+  &.notify-error {
+    background-color: red!important;
+  }
+}
+
 #mapWrapper {
   width: 100%;
   height: 100%;

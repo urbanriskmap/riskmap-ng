@@ -14,6 +14,7 @@ export interface EnvironmentInterface {
   servers: {
     data: string;
     sensors: string;
+    web_app: string;
     settings: {
       reportTimeperiod: number;
     };
@@ -37,11 +38,6 @@ export interface EnvironmentInterface {
     contact_links: {
       flag_email: string;
     };
-    socialButtons: {
-      {
-        name: string;
-        intent: string;
-      };
     deep_links: {
       name: string;
       link: string;
@@ -125,6 +121,7 @@ export interface LayerMetadata {
       [name: string]: any
     };
   };
+  viewOnly: boolean; // view only layers do not trigger an info pane to open
   placeBelow?: string; // layer needs to be included in base style
 }
 

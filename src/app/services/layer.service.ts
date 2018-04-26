@@ -199,13 +199,13 @@ export class LayerService {
           if (features.length === 1) {
             // CASE 2: Clicked on a single feature
             this.modifyLayerFilter(name, uniqueKey, features);
-            this.interactionService.handleLayerInteraction(name, features);
+            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features);
             break;
 
           } else if (features.length > 1) {
             // CASE 3: Clicked with multiple features overlapping
             this.modifyLayerFilter(name, uniqueKey, features);
-            this.interactionService.handleLayerInteraction(name, features);
+            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features);
 
             // Susceptible to fail when features from 2 different layers are overlapping;
             // only first layer encountered is selected (report behind flood polygon case)

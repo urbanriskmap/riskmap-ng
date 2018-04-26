@@ -8,9 +8,11 @@ import {
   MatDialog,
   MatDialogRef,
   MatExpansionModule,
+  MatGridListModule,
   MatListModule,
   MatRadioModule,
   MatSelectModule,
+  MatSnackBarModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -26,9 +28,11 @@ import {
     MatButtonModule,
     MatDialogModule,
     MatExpansionModule,
+    MatGridListModule,
     MatListModule,
     MatRadioModule,
     MatSelectModule,
+    MatSnackBarModule,
     MatTabsModule,
     MatToolbarModule
   ],

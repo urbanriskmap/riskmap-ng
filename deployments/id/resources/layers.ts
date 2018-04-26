@@ -17,6 +17,7 @@ export default {
             'fill-outline-color': '#000'
           }
         },
+        viewOnly: false,
         placeBelow: 'place-village'
       },
       settings: {
@@ -79,7 +80,8 @@ export default {
           styles: {
             'icon-image': 'map_floodIcon_sel'
           }
-        }
+        },
+        viewOnly: false
       },
       settings: {
         id: 'reports',
@@ -112,11 +114,6 @@ export default {
     // Pumps layer
     {
       metadata: {
-        // TODO Mayank: View-only layers
-        // have 'viewOnly: boolean' key,
-        // for layers with metadata only (eg. name)
-        // and no realtime stream.
-        // Such layers do not trigger info panes to open
         name: 'pumps',
         server: 'sensors',
         path: 'infrastructure/pumps',
@@ -130,6 +127,7 @@ export default {
             'icon-image': 'map_pump_sel'
           }
         },
+        viewOnly: true,
         placeBelow: 'place-village'
       },
       settings: {
@@ -182,6 +180,7 @@ export default {
             'icon-image': 'map_gauge_sel'
           }
         },
+        viewOnly: false
       },
       settings: {
         id: 'floodgauges',

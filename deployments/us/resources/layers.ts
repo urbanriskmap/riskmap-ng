@@ -15,7 +15,8 @@ export default {
           styles: {
             'icon-image': 'map_floodIcon_sel'
           }
-        }
+        },
+        viewOnly: false
       },
       settings: {
         id: 'reports',
@@ -65,7 +66,8 @@ export default {
               'map_pump_sel'
             ]
           }
-        }
+        },
+        viewOnly: false
       },
       settings: {
         id: 'sensors',

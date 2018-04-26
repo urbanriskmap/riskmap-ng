@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ReportInterface } from '../../interfaces';
 import { TimeService } from '../../services/time.service';
@@ -28,17 +29,21 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     share: false
   };
   reportTime: string;
+  socialButtons: {
+    name: string,
+    intent: string
+  }[];
 
   @Output() closePane = new EventEmitter<null>();
 
   constructor(
-    public timeService: TimeService
-  ) {}
+    public timeService: TimeService,
+    public translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.reportTime = this.timeService.getLocalTime(this.feature.created_at, 'LLL');
   }
-
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
@@ -51,9 +56,35 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       if (this.feature.tags) {
         this.parsedTags = JSON.parse(this.feature.tags);
       }
+
+      let msgText;
+      this.translate.get('report_info.msg_text').subscribe((res: string) => {
+        msgText = res;
+      });
+      const reportUrl = location.href + '%3Freport_id%3D' + this.feature.pkey;
+
+      this.socialButtons = [
+        {
+          name: 'twitter',
+          intent: 'https://twitter.com/intent/tweet?text=' + msgText + '%20' + reportUrl
+        },
+        {
+          name: 'telegram',
+          intent: 'https://telegram.me/share/url?url=' + reportUrl + ' &text= ' + msgText
+        },
+        {
+          name: 'whatsapp',
+          intent: 'https://api.whatsapp.com/send?text=' + msgText + '%20' + reportUrl
+        },
+        {
+          name: 'facebook',
+          intent: 'https://www.facebook.com/sharer/sharer.php?u=' + reportUrl
+        }
+      ];
     }
   }
 
+  // TODO: Port handleVotes method
   handleVotes(vote: string): void {
     // close if any flyer is open
     this.toggleFlyer();

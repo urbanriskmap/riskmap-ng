@@ -5,6 +5,7 @@ export const environment = {
   servers: {
     data: 'https://data-dev.riskmap.us/',
     sensors: 'https://sensors-dev.riskmap.us/',
+    web_app: 'https://dev.riskmap.us/',
     settings: {
       reportTimeperiod: 604800
     }
@@ -31,6 +32,7 @@ export const environment = {
     contact_links: {
       flag_email: 'risk@mit.edu'
     },
+
     deep_links: [
       { name: 'facebook',
         link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.

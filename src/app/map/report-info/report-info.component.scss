@@ -103,6 +103,19 @@ $strip-height: 30px;
       bottom: $strip-height;
       background-color: $frost-white;
       border: 1px solid $dark-azure;
+    
+      & .flyerHeading {
+        text-align: center;
+      }
+      & #submitButton {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+      }
+      & i{
+        @include icon-button(30px);
+        }
+
     }
 
     & p {
@@ -110,7 +123,7 @@ $strip-height: 30px;
       &.mat-subheading-1 {
         color: $medium-azure;
       }
-      &.mat-caption-1 {
+      &.mat-caption {
         color: $medium-azure;
         padding-left: 5px;
       }
