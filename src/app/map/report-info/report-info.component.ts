@@ -35,6 +35,10 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   }[];
 
   @Output() closePane = new EventEmitter<null>();
+  @Output() showFullSizeImg = new EventEmitter<string>();
+
+  // that's exactly how we did closePane... need to follow the same logic.
+  // let me recheck
 
   constructor(
     public timeService: TimeService,
@@ -82,6 +86,11 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         }
       ];
     }
+  }
+
+  emitUrl(url: string) {
+    console.log('From report info: ' + url);
+    this.showFullSizeImg.emit(url);
   }
 
   // TODO: Port handleVotes method

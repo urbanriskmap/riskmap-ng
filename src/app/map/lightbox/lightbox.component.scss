@@ -1,0 +1,19 @@
+@import 'styles';
+
+// TODO: aditya - also are we using lightbox library???
+// we'd never have more than one img to preview... right?
+// should change the name later toimage-preview.component - lightbox will be misleading
+
+.image {
+  width: 80%;
+  height:auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.closeButton {
+  float: right;
+  padding: 10px;
+  @include text-medium(12px, $dark-gray);
+  z-index: 1501;
+  cursor: pointer;
+}

@@ -149,6 +149,15 @@
 
 }
 
+app-lightbox{
+  position: fixed;
+  top: $toolbar-height + 5px;
+  width: 80%;
+  height: 80%;
+  background-color: $dark-gray;
+  z-index: 1200;
+}
+
 app-side-pane {
   position: fixed;
   top: $toolbar-height + 5px;

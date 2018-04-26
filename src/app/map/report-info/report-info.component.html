@@ -12,6 +12,7 @@
   </p>
 </div>
 
+
 <div
   id="imgWrapper">
   <!--  TODO: aditya  utility of image placeholder -->
@@ -22,9 +23,9 @@
   </div> -->
   <img
     *ngIf="feature.image_url !== 'null'"
-    [src]="feature.image_url">
+    [src]="feature.image_url"
+    (click)="emitUrl(feature.image_url)">
 </div>
-
 
 <div
   id="detailsWrapper">

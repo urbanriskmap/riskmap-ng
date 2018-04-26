@@ -29,6 +29,7 @@ import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
+import { LightboxComponent } from './lightbox/lightbox.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { SanitizePipe } from '../pipes/sanitize.pipe';
     ReportContentComponent,
     MapContentComponent,
     InfoContentComponent,
-    SanitizePipe
+    SanitizePipe,
+    LightboxComponent
   ]
 })
 export class MapModule { }

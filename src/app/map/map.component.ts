@@ -44,6 +44,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
   paneToOpen = 'info';
   deferredPrompt: any;
   showSidePane = false;
+  imgUrl: string;
 
   @Output() map: mapboxgl.Map;
 
@@ -239,7 +240,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     }
 
     const notification = this.notify.open(msg, action, {
-      duration: 3000,
+      duration: 30000,
       verticalPosition: 'top',
       panelClass: ['notification-bar', 'notify-' + type]
     });
@@ -356,6 +357,12 @@ export class MapComponent implements OnInit { // , OnDestroy {
     }
 
     // reportButton.style.animation = 'slidein 3s linear 1s infinite running';
+  }
+
+  parseFullSizeImgUrl(url: string): void {
+    if (url) {
+      this.imgUrl = url.replace(/(\/[-a-zA-Z0-9]*)(?=\.jpg)/, '/large' + '$1');
+    }
   }
 
   // ngOnDestroy(): void {
