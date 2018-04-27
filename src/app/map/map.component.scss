@@ -26,6 +26,7 @@
   width: 100%;
   height: 100%;
   background-color: $light-gray;
+  z-index: 1;
 }
 
 #reportButton {
@@ -41,7 +42,7 @@
   background-color: $snow-white;
   box-shadow: $pane-shadow;
   @include link-regular(10px);
-  z-index: 1025;
+  z-index: 2;
 
   i {
     font-size: 26px;
@@ -68,7 +69,7 @@
   border: none;
   top: $toolbar-height + $general-margin;
   left: (2 * $general-margin) + (1.5 * $toolbar-height);
-  z-index: 1025;
+  z-index: 2;
   border-radius: 3px;
   background-color: $snow-white;
   box-shadow: $pane-shadow;
@@ -100,7 +101,7 @@
   height: $toolbar-height;
   @include text-light(12px, $dark-gray);
   background-color: $frost-white;
-  z-index: 2;
+  z-index: 4;
   box-shadow: $pane-shadow;
 
   .appLogo {
@@ -124,7 +125,7 @@
     height: 38px;
   }
 
-  #menuBtn {
+  .menu-button {
     position: absolute;
     top: 0px;
     right: $general-margin;
@@ -152,16 +153,6 @@
     right: $general-margin;
     padding: 5px;
   }
-
-}
-
-app-lightbox{
-  position: fixed;
-  top: $toolbar-height + 5px;
-  width: 80%;
-  height: 80%;
-  background-color: $dark-gray;
-  z-index: 1200;
 }
 
 app-side-pane {
@@ -174,4 +165,14 @@ app-side-pane {
   box-shadow: $pane-shadow;
   @include text-light(12px, $dark-gray);
   z-index: 2;
+}
+
+app-image-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $frost-white;
+  z-index: 3;
 }

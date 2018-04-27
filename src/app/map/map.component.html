@@ -1,30 +1,30 @@
 <div id="mapWrapper">
 </div>
 
+<div id="reportButton" (click)="toggleReportFlyer()">
+  <i class="icon-add-report"></i><br>
+  <p>{{ 'add_report' | translate }}</p>
+</div>
+
+<div id="reportFlyer">
+  <table>
+    <tr>
+      <td *ngFor="let network of env.networks.deep_links">
+        <a [href]=network.link>
+          <i [class]="'icon-' + network.name"></i><br>
+          <!-- <p> {{ "'hint_' + 'network.name'" | translate }}</p> -->
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
 <div id="navBar">
   <a>
     <span>
       <img class="appLogo" src="assets/logos/app_logo.svg">
     </span>
   </a>
-
-  <div id="reportButton" (click)="toggleReportFlyer()">
-    <i class="icon-add-report"></i><br>
-    <p>{{ 'add_report' | translate }}</p>
-  </div>
-
-  <div id="reportFlyer">
-    <table>
-      <tr>
-        <td *ngFor="let network of env.networks.deep_links">
-          <a [href]=network.link>
-            <i [class]="'icon-' + network.name"></i><br>
-            <!-- <p> {{ "'hint_' + 'network.name'" | translate }}</p> -->
-          </a>
-        </td>
-      </tr>
-    </table>
-  </div>
 
   <mat-form-field
     *ngIf="showSidePane"
@@ -42,7 +42,8 @@
   </mat-form-field>
 
   <div
-    id="menuBtn"
+    class="menu-button"
+    *ngIf="!fullSizeImgUrl"
     (click)="toggleSidePane()">
     <i
       *ngIf="!showSidePane"
@@ -50,6 +51,15 @@
     </i>
     <i
       *ngIf="showSidePane"
+      class="icon-close">
+    </i>
+  </div>
+
+  <div
+    class="menu-button"
+    *ngIf="fullSizeImgUrl"
+    (click)="closeImgPreview()">
+    <i
       class="icon-close">
     </i>
   </div>
@@ -66,7 +76,6 @@
   class="info-panes"
   *ngIf="interactionService.featureTypes.reports"
   [features]="interactionService.featureTypes.reports"
-  (closePane)="closeInfoPane()"
   (showFullSizeImg)="parseFullSizeImgUrl($event)">
 </app-report-info>
 
@@ -75,29 +84,25 @@
 <app-area-info
   class="info-panes"
   *ngIf="interactionService.featureTypes.floods"
-  [features]="interactionService.featureTypes.floods"
-  (closePane)="closeInfoPane()">
+  [features]="interactionService.featureTypes.floods">
 </app-area-info>
 
 <app-sensor-info
   class="info-panes"
   *ngIf="interactionService.featureTypes.sensors"
-  [features]="interactionService.featureTypes.sensors"
-  (closePane)="closeInfoPane()">
+  [features]="interactionService.featureTypes.sensors">
 </app-sensor-info>
 
 <app-sensor-info
   class="info-panes"
   *ngIf="interactionService.featureTypes.floodgauges"
-  [features]="interactionService.featureTypes.floodgauges"
-  (closePane)="closeInfoPane()">
+  [features]="interactionService.featureTypes.floodgauges">
 </app-sensor-info>
 
 <app-infra-info
   class="info-panes"
   *ngIf="interactionService.featureTypes.pumps"
-  [features]="interactionService.featureTypes.pumps"
-  (closePane)="closeInfoPane()">
+  [features]="interactionService.featureTypes.pumps">
 </app-infra-info>
 
 <app-side-pane
@@ -108,8 +113,7 @@
   [selectedRegion]="selectedRegion">
 </app-side-pane>
 
-<app-lightbox
-  *ngIf="imgUrl"
-  [imgUrl]="imgUrl"
-  (closePane)="closeInfoPane()">
-</app-lightbox>
+<app-image-preview
+  *ngIf="fullSizeImgUrl"
+  [imgUrl]="fullSizeImgUrl">
+</app-image-preview>

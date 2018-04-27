@@ -17,10 +17,10 @@ $strip-height: 30px;
     padding-left: 5px;
   }
   @media (min-width: 420px) {
-  position: relative;
-  left: auto;
-  margin-left: 0;
-  width: 100%;
+    position: relative;
+    left: auto;
+    margin-left: 0;
+    width: 100%;
   }
 }
 
@@ -30,6 +30,9 @@ $strip-height: 30px;
   height: 100%;
   float: left;
   background-color: transparentize($light-gray, 0.5);
+  color: transparentize($snow-white, 0.3);
+  font-size: 18px;
+  cursor: zoom-in;
 
   @media (min-width: 420px) {
     position: relative;
@@ -50,7 +53,7 @@ $strip-height: 30px;
   //   }
   // }
 
-  & img {
+  img {
     position: absolute;
     top: 50%;
     max-width: 100%;
@@ -63,6 +66,12 @@ $strip-height: 30px;
       max-height: 240px;
       @include translate-mixin(0, 0);
     }
+  }
+
+  i {
+    position: absolute;
+    top: $general-margin / 2;
+    right: $general-margin / 4;
   }
 }
 
@@ -83,7 +92,7 @@ $strip-height: 30px;
     float: none;
   }
 
-  & .report-description {
+  .report-description {
     width: 100%;
     height: 128px;
     word-wrap: break-word;
@@ -94,30 +103,8 @@ $strip-height: 30px;
     @media (min-width: 420px) {
       margin: 0;
     }
-    &.flyer {
-      position: absolute;
-      height: auto;
-      left: 0;
-      right: 0;
-      top: $general-margin/2 - 2px;
-      bottom: $strip-height;
-      background-color: $frost-white;
-      border: 1px solid $dark-azure;
-      text-align: center;
-      & i{
-        @include icon-button(30px);
-        }
-      }
-    & .flyerHeading {
-      text-align: center;
-      height: 40px;
-    }
-    & #submitButton {
-      width: 60%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    & p {
+
+    p {
       margin: 0;
       &.mat-subheading-1 {
         margin-top: $general-margin;
@@ -130,6 +117,33 @@ $strip-height: 30px;
       &.mat-body-1 {
         @include text-regular(14px, $dark-gray);
         padding: 5px;
+      }
+    }
+
+    &.flyer {
+      position: absolute;
+      height: auto;
+      left: 0;
+      right: 0;
+      top: $general-margin/2 - 2px;
+      bottom: $strip-height;
+      background-color: $frost-white;
+      border: 1px solid $dark-azure;
+      text-align: center;
+
+      .flyerHeading {
+        text-align: center;
+        height: 40px;
+      }
+
+      i {
+        @include icon-button(30px);
+      }
+
+      #submitButton {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }

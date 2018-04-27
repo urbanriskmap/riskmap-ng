@@ -44,7 +44,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
   paneToOpen = 'info';
   deferredPrompt: any;
   showSidePane = false;
-  imgUrl: string;
+  fullSizeImgUrl: string;
 
   @Output() map: mapboxgl.Map;
 
@@ -338,6 +338,10 @@ export class MapComponent implements OnInit { // , OnDestroy {
     this.layerService.handleMapInteraction();
   }
 
+  closeImgPreview(): void {
+    this.fullSizeImgUrl = null;
+  }
+
   toggleReportFlyer(forceAction?: {close: boolean}): void {
     const reportFlyer = document.getElementById('reportFlyer');
     const flyerState = reportFlyer.style.display;
@@ -361,7 +365,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
   parseFullSizeImgUrl(url: string): void {
     if (url) {
-      this.imgUrl = url.replace(/(\/[-a-zA-Z0-9]*)(?=\.jpg)/, '/large' + '$1');
+      this.fullSizeImgUrl = url.replace(/(\/[-a-zA-Z0-9]*)(?=\.jpg)/, '/large' + '$1');
     }
   }
 

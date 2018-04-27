@@ -1,0 +1,19 @@
+@import 'styles';
+
+#previewWrapper {
+  position: absolute;
+  top: $toolbar-height + $general-margin;
+  left: $general-margin;
+  right: $general-margin;
+  bottom: $general-margin;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    @include translate-mixin(-50%, -50%);
+    box-shadow: $pane-shadow;
+  }
+}

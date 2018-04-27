@@ -15,6 +15,7 @@ import { MapContentComponent } from './side-pane/map-content/map-content.compone
 import { InfoContentComponent } from './side-pane/info-content/info-content.component';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
+import { ImagePreviewComponent } from './image-preview/image-preview.component';
 
 // Modules
 import { CustomMaterialsModule } from '../custom-materials.module';
@@ -29,7 +30,6 @@ import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
-import { LightboxComponent } from './lightbox/lightbox.component';
 
 @NgModule({
   imports: [
@@ -64,7 +64,7 @@ import { LightboxComponent } from './lightbox/lightbox.component';
     MapContentComponent,
     InfoContentComponent,
     SanitizePipe,
-    LightboxComponent
+    ImagePreviewComponent
   ]
 })
 export class MapModule { }
