@@ -206,10 +206,10 @@ export class ChartService {
               displayFormats: {
                 hour: 'HH:mm'
               },
-              // FIXME: not working?
-              // parser: (time) => {
-              //   return this.timeService.getLocalTime(time);
-              // }
+              // COMBAK: glitch in 'id' deployment ? 
+              parser: (time) => {
+                return this.timeService.getLocalTime(time);
+              }
             },
             position: 'bottom',
             ticks: {

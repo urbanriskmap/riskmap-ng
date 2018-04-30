@@ -223,7 +223,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
     this.storeQueryParams();
 
-    // TEMP
+    // TEMP: Notification sample
     this.showNotification('Welcome', 'info');
   }
 
@@ -349,8 +349,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     if (flyerState === 'block' || (forceAction && forceAction.close)) {
       // is expanded
       reportFlyer.style.display = 'none';
-    } else if (flyerState === 'none') {
-
+    } else {
       // is closed
       reportFlyer.style.display = 'block';
       // Call toggleSidePane with force close

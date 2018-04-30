@@ -29,30 +29,36 @@
   z-index: 1;
 }
 
+$button-stroke: 1px;
+$factor: 1.1;
+$button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
+
 #reportButton {
   position: fixed;
   top: $toolbar-height + $general-margin;
   left: $general-margin;
-  width: 1.4 * $toolbar-height;
-  height: 1.4 * $toolbar-height;
-  padding: 3px;
-  text-align: center;
-  border: none;
-  border-radius: 3px;
-  background-color: $snow-white;
+  width: $button-dia;
+  height: $button-dia;
+  border: $button-stroke solid $snow-white;
+  border-radius: ($button-dia + 2 * $button-stroke) / 2;
+  background-color: $frost-white;
   box-shadow: $pane-shadow;
-  @include link-regular(10px);
+  cursor: pointer;
   z-index: 2;
 
   i {
-    font-size: 26px;
-    margin: 0;
-    padding: 0;
+    margin-left: -5px;
+    @include text-regular(38px, $medium-azure);
+    line-height: $button-dia;
   }
 
   p {
     text-align: center;
-    margin: 0 0 3px 0;
+    @include text-regular(10px, $medium-azure);
+  }
+
+  &:hover {
+    background-color: $snow-white;
   }
 
   &:active {
@@ -63,32 +69,35 @@
 #reportFlyer {
   display: none;
   position: absolute;
-  width: auto;
-  height: 1.4 * $toolbar-height;
-  padding: 3px;
-  border: none;
+  height: $button-dia;
   top: $toolbar-height + $general-margin;
-  left: (2 * $general-margin) + (1.5 * $toolbar-height);
-  z-index: 2;
-  border-radius: 3px;
+  left: (2 * $general-margin) + $button-dia;
+  border: $button-stroke solid $snow-white;
+  border-radius: ($button-dia + 2 * $button-stroke) / 2;
   background-color: $snow-white;
   box-shadow: $pane-shadow;
+  z-index: 2;
 
-  & i {
-    @include text-regular(28px, $dark-gray);
-    display: table;
-    margin:auto;
-    padding-top: 8px;
-  }
+  table {
+    border-collapse: collapse;
+    tr td {
+      width: ($factor + 0.2) * $toolbar-height;
+      text-align: center;
+      a i {
+        margin: auto;
+        display: table;
+        @include text-regular(28px, $dark-gray);
+        line-height: $button-dia;
+      }
 
-  :hover {
-    color: $medium-azure;
-  }
+      p {
+        @include text-regular(10px, $dark-gray);
+      }
 
-  & table {
-    & tr {
-      & td {
-        width: 65px;
+      &:hover {
+        a i, p {
+          color: $medium-azure;
+        }
       }
     }
   }
@@ -99,10 +108,10 @@
   top: 0px;
   width: 100%;
   height: $toolbar-height;
-  @include text-light(12px, $dark-gray);
   background-color: $frost-white;
-  z-index: 4;
   box-shadow: $pane-shadow;
+  @include text-light(12px, $dark-gray);
+  z-index: 4;
 
   .appLogo {
     height: 80%;
@@ -129,7 +138,7 @@
     position: absolute;
     top: 0px;
     right: $general-margin;
-    @include icon-button(21px);
+    @include icon-button(32px);
     line-height: $toolbar-height;
   }
 }

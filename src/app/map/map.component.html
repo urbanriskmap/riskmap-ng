@@ -2,7 +2,7 @@
 </div>
 
 <div id="reportButton" (click)="toggleReportFlyer()">
-  <i class="icon-add-report"></i><br>
+  <i class="icon-add-report-1"></i><br>
   <p>{{ 'add_report' | translate }}</p>
 </div>
 
@@ -11,9 +11,9 @@
     <tr>
       <td *ngFor="let network of env.networks.deep_links">
         <a [href]=network.link>
-          <i [class]="'icon-' + network.name"></i><br>
-          <!-- <p> {{ "'hint_' + 'network.name'" | translate }}</p> -->
+          <i [class]="'icon-' + network.name"></i>
         </a>
+        <p>{{ network.name | titlecase }}</p>
       </td>
     </tr>
   </table>

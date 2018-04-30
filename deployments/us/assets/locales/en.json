@@ -97,11 +97,11 @@
   "legend": {
     "title": "Legend",
     "flood_report": "Flood Report",
-    "us_gauge": "Stream water elevation",
-    "us_elevation": "Gauge height",
-    "us_well": "Groundwater level",
-    "us_discharge":"Discharge",
-    "us_precipitation":"Precipitation total",
+    "gauge": "Stream water elevation",
+    "elevation": "Gauge height",
+    "well": "Groundwater level",
+    "discharge":"Discharge rate",
+    "precipitation":"Precipitation total",
     "flood_depth": "Flood Depth: {{ flood_depth }} in"
   },
 

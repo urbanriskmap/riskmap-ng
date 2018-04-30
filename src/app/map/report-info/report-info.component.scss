@@ -156,7 +156,7 @@ $strip-height: 30px;
     vertical-align: middle;
     tr td {
       i {
-        @include icon-button(21px);
+        @include icon-button(24px);
         line-height: $strip-height;
       }
 

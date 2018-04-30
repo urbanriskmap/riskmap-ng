@@ -2,14 +2,17 @@
 
 mat-list {
   mat-list-item {
-    font-size: 21px;
+    height: $toolbar-height!important;
+    @include text-regular(28px!important, $dark-gray!important); // Icon style
 
-    p.legend-label {
-      font-size: 14px;
-    }
+    p {
+      &.legend-label { // Label size
+        font-size: 14px!important;
+      }
 
-    p.legend-caption {
-      font-size: 10px;
+      &.legend-subtitle { // Subtitle size
+        font-size: 10px!important;
+      }
     }
 
     .mat-radio-group {

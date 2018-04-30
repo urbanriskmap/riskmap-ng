@@ -108,32 +108,32 @@ export default {
       legend: [
         {
           symbolType: 'icon',
-          symbolStyle: 'icon-us-gauge',
-          label: 'legend.us_gauge',
+          symbolStyle: 'icon-gauge',
+          label: 'legend.gauge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
-          symbolStyle: 'icon-us-elevation',
-          label: 'legend.us_elevation',
+          symbolStyle: 'icon-level',
+          label: 'legend.level',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
-          symbolStyle: 'icon-us-well',
-          label: 'legend.us_well',
+          symbolStyle: 'icon-well',
+          label: 'legend.well',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
-          symbolStyle: 'icon-us-discharge',
-          label: 'legend.us_discharge',
+          symbolStyle: 'icon-discharge',
+          label: 'legend.discharge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
-          symbolStyle: 'icon-us-precipitation',
-          label: 'legend.us_precipitation',
+          symbolStyle: 'icon-precipitation',
+          label: 'legend.precipitation',
           source: 'USGS'
         }
       ]
