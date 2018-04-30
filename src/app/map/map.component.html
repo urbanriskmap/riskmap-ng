@@ -22,7 +22,9 @@
 <div id="navBar">
   <a>
     <span>
-      <img class="appLogo" src="assets/logos/app_logo.svg">
+      <a [href]="env.servers.web_app + selectedRegion.name">
+        <img class="appLogo" src="assets/logos/app_logo.svg">
+      </a>
     </span>
   </a>
 
@@ -78,8 +80,6 @@
   [features]="interactionService.featureTypes.reports"
   (showFullSizeImg)="parseFullSizeImgUrl($event)">
 </app-report-info>
-
-<!-- TODO: mayank - remove all closePane functions from info-panes -->
 
 <app-area-info
   class="info-panes"

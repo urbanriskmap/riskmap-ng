@@ -210,6 +210,7 @@ export class LayerService {
             // Susceptible to fail when features from 2 different layers are overlapping;
             // only first layer encountered is selected (report behind flood polygon case)
             // NOTE: RESOLVED by using placeBelow key of LayerMetadata
+            // Catch in tests
             break;
 
           } else {

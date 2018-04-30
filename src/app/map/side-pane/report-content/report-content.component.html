@@ -6,6 +6,11 @@
       [expanded]="i === 0">
 
       <mat-expansion-panel-header>
+        <i
+          *ngFor="let icon of item.icons"
+          [class]="'icon-' + icon">
+        </i>
+        &nbsp;
         {{ item.localeKey + "_title" | translate }}
       </mat-expansion-panel-header>
 
