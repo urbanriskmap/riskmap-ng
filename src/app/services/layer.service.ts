@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import * as mapboxgl from 'mapbox-gl';
 
@@ -7,6 +7,7 @@ import layers from '../../resources/layers';
 import { HttpService } from './http.service';
 import { SensorService } from './sensor.service';
 import { InteractionService } from './interaction.service';
+import { NotificationService } from './notification.service';
 import { Region, LayerMetadata, LayerSettings } from '../interfaces';
 
 @Injectable()
@@ -16,9 +17,15 @@ export class LayerService {
     metadata: LayerMetadata,
     settings: LayerSettings
   }[];
+  notify: EventEmitter<{
+    msg: string,
+    type: 'info' | 'warn' | 'error',
+    actionText?: string
+  }>;
 
   constructor(
     private httpService: HttpService,
+    private notificationService: NotificationService,
     private sensorService: SensorService,
     public interactionService: InteractionService
   ) {
@@ -91,6 +98,11 @@ export class LayerService {
           .then(geojson => {
             // Overwrite data object
             layer.settings.source.data = geojson;
+
+            if (layer.metadata.name === 'reports') {
+              this.showReportsNotification(geojson.features.length);
+            }
+
             // Add base layer
             this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
             // Add selection layer
@@ -227,5 +239,25 @@ export class LayerService {
       }
       this.interactionService.handleLayerInteraction();
     }
+  }
+
+  showReportsNotification(reports: number): void {
+    const timeperiod = env.servers.settings.reportTimeperiod / 3600;
+    let msg;
+
+    switch (reports) {
+      case 0:
+        msg = 'No report received in past ' + timeperiod + ' hrs';
+        break;
+
+      case 1:
+        msg = 'Recieved 1 report in past ' + timeperiod + ' hrs';
+        break;
+
+      default:
+        msg = 'Recieved ' + reports + ' report in past ' + timeperiod + ' hrs';
+    }
+
+    this.notificationService.notify(msg, 'info');
   }
 }

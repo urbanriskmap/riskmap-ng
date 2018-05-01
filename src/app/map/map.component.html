@@ -22,7 +22,7 @@
 <div id="navBar">
   <a>
     <span>
-      <a [href]="env.servers.web_app + selectedRegion.name">
+      <a [href]="selectedRegion ? env.servers.web_app + selectedRegion.name : 'https://urbanriskmap.org'">
         <img class="appLogo" src="assets/logos/app_logo.svg">
       </a>
     </span>

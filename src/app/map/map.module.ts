@@ -30,6 +30,7 @@ import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
+import { NotificationService } from '../services/notification.service';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { SanitizePipe } from '../pipes/sanitize.pipe';
     TranslatePipe,
     SensorService,
     InteractionService,
-    ChartService
+    ChartService,
+    NotificationService
   ],
   entryComponents: [
     RegionPickerComponent,

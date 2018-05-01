@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params, ParamMap, NavigationEnd } from '@angula
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 
 import * as mapboxgl from 'mapbox-gl';
@@ -11,6 +12,7 @@ import { environment } from '../../environments/environment';
 import instances from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
+import { NotificationService } from '../services/notification.service';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { EnvironmentInterface, Region } from '../interfaces';
@@ -26,25 +28,26 @@ import { EnvironmentInterface, Region } from '../interfaces';
 export class MapComponent implements OnInit { // , OnDestroy {
   navigationSubscription;
 
+  deferredPrompt: any;
   env: EnvironmentInterface = environment;
+  fullSizeImgUrl: string;
   instances: {
     instanceType: string,
     regions: Region[]
-  };
-  selectedRegion: Region;
-  translateParams = {
-    title: 'RiskMap'
   };
   languages: {
     code: string,
     name: string
   }[];
-  selectedLanguage: string;
-  selectedReportId: null | number;
+  notificationSubscription: Subscription;
   paneToOpen = 'info';
-  deferredPrompt: any;
+  selectedLanguage: string;
+  selectedRegion: Region;
+  selectedReportId: null | number;
   showSidePane = false;
-  fullSizeImgUrl: string;
+  translateParams = {
+    title: 'RiskMap'
+  };
 
   @Output() map: mapboxgl.Map;
 
@@ -55,7 +58,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
     public notify: MatSnackBar,
     public translate: TranslateService,
     public layerService: LayerService,
-    public interactionService: InteractionService
+    public interactionService: InteractionService,
+    private notificationService: NotificationService
   ) {
     this.instances = instances;
     this.languages = this.env.locales.supportedLanguages;
@@ -207,6 +211,12 @@ export class MapComponent implements OnInit { // , OnDestroy {
   }
 
   initialiseLandingRoute(): void {
+    // Initialise notification subscription
+    this.notificationSubscription = this.notificationService.message
+    .subscribe(content => {
+      if (!content.skipNotification) this.showNotification(content.msg, content.type)
+    });
+
     // IDEA: singlePage nav
     // Reset map layers, sources;
     // Clear stored values for instances
@@ -222,24 +232,15 @@ export class MapComponent implements OnInit { // , OnDestroy {
     }
 
     this.storeQueryParams();
-
-    // TEMP: Notification sample
-    this.showNotification('Welcome', 'info');
   }
 
+  // TODO: Mayank - stack notifications
+  // REVIEW: Mayank - use openFromComponent method to pass custom component
   showNotification(
     msg: string,
-    type: 'info' | 'warn' | 'error',
-    actionText?: string
+    type: 'info' | 'warn' | 'error'
   ) {
-    let action;
-    if (actionText) {
-      action = actionText;
-    } else {
-      action = 'Close';
-    }
-
-    const notification = this.notify.open(msg, action, {
+    const notification = this.notify.open(msg, '✕', {
       duration: 3000,
       verticalPosition: 'top',
       panelClass: ['notification-bar', 'notify-' + type]
