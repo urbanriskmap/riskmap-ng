@@ -5,6 +5,7 @@ export const environment = {
   servers: {
     data: 'https://data.petabencana.id/',
     sensors: 'https://sensors.petabencana.id/',
+    web_app: 'https://petabencana.id/',
     settings: {
       reportTimeperiod: 43200
     }

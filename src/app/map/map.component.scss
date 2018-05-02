@@ -46,7 +46,7 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
   background-color: $frost-white;
   box-shadow: $pane-shadow;
   cursor: pointer;
-  z-index: 2;
+  z-index: 3;
 
   i {
     margin-left: -5px;
@@ -56,7 +56,7 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
 
   p {
     text-align: center;
-    @include text-regular(10px, $medium-azure);
+    @include text-medium(10px, $medium-azure);
   }
 
   &:hover {
@@ -93,7 +93,7 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
       }
 
       p {
-        @include text-regular(10px, $dark-gray);
+        @include text-medium(10px, $dark-gray);
       }
 
       &:hover {

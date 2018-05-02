@@ -5,6 +5,7 @@ export const environment = {
   servers: {
     data: 'https://data.riskmap.in/',
     sensors: 'https://sensors.riskmap.in/',
+    web_app: 'https://riskmap.in/',
     settings: {
       reportTimeperiod: 43200
     }

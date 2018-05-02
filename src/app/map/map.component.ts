@@ -241,7 +241,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     type: 'info' | 'warn' | 'error'
   ) {
     const notification = this.notify.open(msg, '✕', {
-      duration: 3000,
+      duration: 30000,
       verticalPosition: 'top',
       panelClass: ['notification-bar', 'notify-' + type]
     });
