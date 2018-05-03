@@ -28,7 +28,11 @@ export const environment = {
     timezone: 'Asia/Jakarta'
   },
 
+
   networks: {
+    contact_links: {
+      flag_email: 'info@petabencana.id'
+    },
     deep_links: [
       {name: 'facebook', link: 'http://m.me/petabencana.id'},
       {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Laporkan+banjir&via=petabencana'},
