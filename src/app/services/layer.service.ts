@@ -1,6 +1,8 @@
-import { Injectable, EventEmitter } from '@angular/core';
+/// <reference types="geojson" />
 
+import { Injectable, EventEmitter } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { Feature, GeometryObject, GeoJsonProperties } from 'geojson';
 
 import { environment as env } from '../../environments/environment';
 import layers from '../../resources/layers';
@@ -175,6 +177,27 @@ export class LayerService {
     }
 
     return false;
+  }
+
+  addSingleReportToLayer(
+    pkey: number
+  ): Promise<Feature<GeometryObject, GeoJsonProperties>> {
+    return new Promise((resolve, reject) => {
+      this.httpService
+        .simpleFetchGeometry(env.servers.data, 'reports/' + pkey)
+        .then(report => {
+          const loadedData = this.map.getSource('selreports')._data;
+          loadedData.features.push(report.features[0]);
+          this.map.getSource('selreports').setData(loadedData);
+          resolve(report.features[0]);
+        })
+        .catch(error => {
+          // Show notification if queried report id not found
+          const msg = 'Report with id: ' + pkey + ' does not exist';
+          this.notificationService.notify(msg, 'info');
+          reject(error);
+        });
+    });
   }
 
   handleMapInteraction(

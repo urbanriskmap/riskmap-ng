@@ -15,6 +15,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   @Input() features: {
     [name: string]: any
   }[];
+  @Input() archivedReport: boolean;
 
   env = environment;
   feature: ReportInterface;
@@ -53,11 +54,19 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       this.feature = this.features[0].properties;
 
       if (this.feature.report_data) {
-        this.parsedReportData = JSON.parse(this.feature.report_data);
+        if (typeof this.feature.report_data === 'string') {
+          this.parsedReportData = JSON.parse(this.feature.report_data);
+        } else {
+          this.parsedReportData = this.feature.report_data;
+        }
       }
 
       if (this.feature.tags) {
-        this.parsedTags = JSON.parse(this.feature.tags);
+        if (typeof this.feature.tags === 'string') {
+          this.parsedTags = JSON.parse(this.feature.tags);
+        } else {
+          this.parsedTags = this.feature.tags;
+        }
       }
 
       let msgText;

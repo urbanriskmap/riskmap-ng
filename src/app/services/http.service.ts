@@ -15,9 +15,77 @@ export class HttpService {
     private http: HttpClient
   ) { }
 
+  fetchGeojson(
+    endpoint: string
+  ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
+    return new Promise((resolve, reject) => {
+      this.http
+      .get(endpoint)
+      .subscribe(
+        response => {
+          if (response['statusCode'] === 200) {
+            resolve(response['body']);
+          } else {
+            reject(response);
+          }
+        },
+        error => reject(error)
+      );
+    });
+  }
+
+  convertTopojsonToGeojson(
+    endpoint: string
+  ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
+    return new Promise((resolve, reject) => {
+      this.http
+      .get(endpoint)
+      .subscribe(
+        response => {
+          if (response && response['statusCode'] === 200) {
+            const topojsonData = response['result'];
+            if (topojsonData && topojsonData.objects) {
+              const geojsonData = topojson.feature(topojsonData, topojsonData.objects.output);
+              resolve(geojsonData);
+            }
+          } else {
+            reject(response);
+          }
+        },
+        error => reject(error)
+      );
+    });
+  }
+
+  simpleFetchGeometry(
+    server: string,
+    path?: string
+  ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
+    // Set to data server
+    let endpoint = server;
+    // Add additional path routes
+    if (path) {
+      endpoint = endpoint + path;
+    }
+
+    return new Promise((resolve, reject) => {
+      this.convertTopojsonToGeojson(endpoint)
+      .then(geojson => {
+        resolve(geojson);
+      })
+      .catch(error => {
+        reject(error)
+      });
+    })
+    ;
+  }
+
   getGeometryData(
     layer: LayerMetadata,
-    region: string
+    region: string,
+    miscellaneous?: {
+      [name: string]: any
+    }
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     // Set to data server
     let endpoint = env.servers[layer.server];
@@ -34,29 +102,12 @@ export class HttpService {
       }
     }
 
-    return new Promise((resolve, reject) => {
-      this.http
-      .get(endpoint)
-      .subscribe(response => {
-        if (response['statusCode'] === 200) {
-
-          if (layer.responseType === 'topojson') {
-            // TOPOJSON
-            const topojsonData = response['result'];
-            if (topojsonData && topojsonData.objects) {
-              const geojsonData = topojson.feature(topojsonData, topojsonData.objects.output);
-              resolve(geojsonData);
-            }
-          } else {
-            // GEOJSON
-            resolve(response['body']);
-          }
-
-        } else {
-          reject(response);
-        }
-      });
-    });
+    if (layer.responseType === 'topojson') {
+      return this.convertTopojsonToGeojson(endpoint);
+    } else {
+      // GEOJSON
+      return this.fetchGeojson(endpoint);
+    }
   }
 
   getJsonData(
@@ -83,16 +134,6 @@ export class HttpService {
       }
     }
 
-    return new Promise((resolve, reject) => {
-      this.http
-      .get(queryUrl)
-      .subscribe(response => {
-        if (response['statusCode'] === 200) {
-          resolve(response['body']);
-        } else {
-          reject(response);
-        }
-      });
-    });
+    return this.fetchGeojson(queryUrl);
   }
 }

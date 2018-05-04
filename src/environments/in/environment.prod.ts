@@ -31,10 +31,12 @@ export const environment = {
     defaultLanguage: 'en',
     timezone: 'Asia/Kolkata'
   },
+
   networks: {
     contact_links: {
       flag_email: 'risk@mit.edu'
     },
+
     deep_links: [
       {name: 'facebook', link: 'http://m.me/riskmapbot'},
       {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=riskmapindia'},
