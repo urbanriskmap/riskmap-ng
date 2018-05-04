@@ -90,17 +90,20 @@ export class MapComponent implements OnInit { // , OnDestroy {
       hash: false,
       preserveDrawingBuffer: true
     });
+    // Add navigation control
+    const nav = new mapboxgl.NavigationControl();
+    this.map.addControl(nav, 'bottom-left');
 
+    // Add geolocation button
     this.map.addControl(new mapboxgl.GeolocateControl({
     positionOptions: {
         enableHighAccuracy: true,
     },
-    position: 'bottom-right',
     trackUserLocation: true
-    }));
+  }),
+    'bottom-left');
 
-    var nav = new mapboxgl.NavigationControl();
-    this.map.addControl(nav, 'bottom-right');
+
   }
 
   // TODO: Aditya - Add geolocation button
@@ -252,7 +255,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     type: 'info' | 'warn' | 'error'
   ) {
     const notification = this.notify.open(msg, '✕', {
-      duration: 30000,
+      duration: 3000,
       verticalPosition: 'top',
       panelClass: ['notification-bar', 'notify-' + type]
     });
