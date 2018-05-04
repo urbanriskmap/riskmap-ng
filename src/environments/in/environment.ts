@@ -36,7 +36,7 @@ export const environment = {
     contact_links: {
       flag_email: 'risk@mit.edu'
     },
-    
+
     deep_links: [
         {name: 'facebook', link: 'http://m.me/CognicityDevIndia'},
         {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=CognicityDev_IN'},
