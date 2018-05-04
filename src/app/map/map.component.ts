@@ -90,6 +90,17 @@ export class MapComponent implements OnInit { // , OnDestroy {
       hash: false,
       preserveDrawingBuffer: true
     });
+
+    this.map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true,
+    },
+    position: 'bottom-right',
+    trackUserLocation: true
+    }));
+
+    var nav = new mapboxgl.NavigationControl();
+    this.map.addControl(nav, 'bottom-right');
   }
 
   // TODO: Aditya - Add geolocation button
