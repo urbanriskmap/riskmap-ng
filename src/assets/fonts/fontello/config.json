@@ -91,7 +91,7 @@
     },
     {
       "uid": "cdb30b00e688c393db6752e3a7b2f86a",
-      "css": "add-report-1",
+      "css": "add",
       "code": 59415,
       "src": "custom_icons",
       "selected": true,
@@ -269,20 +269,6 @@
       },
       "search": [
         "flag-report"
-      ]
-    },
-    {
-      "uid": "62323d8b270df9cc67bd4241727bbc5e",
-      "css": "report-problem",
-      "code": 59428,
-      "src": "custom_icons",
-      "selected": true,
-      "svg": {
-        "path": "M133.3 816.7H866.7L500 183.3ZM533.3 716.7H466.7V650H533.3ZM533.3 583.3H466.7V450H533.3Z",
-        "width": 1000
-      },
-      "search": [
-        "report-problem"
       ]
     },
     {
@@ -521,6 +507,20 @@
       },
       "search": [
         "well"
+      ]
+    },
+    {
+      "uid": "265d43645fb8273273be42af31a7d31c",
+      "css": "report-problem",
+      "code": 59392,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M533.3 400H466.7V600H533.3ZM533.3 666.7H466.7V733.3H533.3ZM924.5 850H75.5L500 116.8ZM191.1 783.3H808.9L500 249.9Z",
+        "width": 1000
+      },
+      "search": [
+        "report-problem"
       ]
     },
     {

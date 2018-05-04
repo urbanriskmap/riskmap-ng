@@ -1,8 +1,9 @@
 
+.icon-report-problem:before { content: '\e800'; } /* '' */
 .icon-flood-img:before { content: '\e80a'; } /* '' */
 .icon-add-report:before { content: '\e815'; } /* '' */
 .icon-otherapps:before { content: '\e816'; } /* '' */
-.icon-add-report-1:before { content: '\e817'; } /* '' */
+.icon-add:before { content: '\e817'; } /* '' */
 .icon-close:before { content: '\e818'; } /* '' */
 .icon-back:before { content: '\e819'; } /* '' */
 .icon-menu:before { content: '\e81a'; } /* '' */
@@ -15,7 +16,6 @@
 .icon-locate:before { content: '\e821'; } /* '' */
 .icon-locate-error:before { content: '\e822'; } /* '' */
 .icon-flag-report:before { content: '\e823'; } /* '' */
-.icon-report-problem:before { content: '\e824'; } /* '' */
 .icon-share:before { content: '\e825'; } /* '' */
 .icon-upvote:before { content: '\e826'; } /* '' */
 .icon-downvote:before { content: '\e827'; } /* '' */

@@ -100,14 +100,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
   // TODO: Aditya - Add geolocation button
   // geolocation observable https://angular.io/guide/observables
 
-  // TODO: Mayank - Add notifications
-  // 1. Reports in past {{timeperiod}}
-  // 2. Queried Report id not found in instance
-    // > Fly to instance which has queried report?
-  // 3. Geolocation
-    // > Error
-    // > (onFound) x flood reports around you?
-
   hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
 

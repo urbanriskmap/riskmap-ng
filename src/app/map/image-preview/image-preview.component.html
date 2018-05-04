@@ -1,5 +1,6 @@
 <div
   id="previewWrapper">
   <img
-    [src]="imgUrl">
+    [src]="imgUrl"
+    [style]="'transform: ' + transformations[getOrientation(imgUrl)]">
 </div>
