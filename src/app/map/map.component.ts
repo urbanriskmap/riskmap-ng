@@ -1,8 +1,11 @@
+/// <reference types="geojson" />
+
 import { Component, Output, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
+import { Feature, GeometryObject, GeoJsonProperties } from 'geojson';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 
@@ -15,7 +18,7 @@ import { InteractionService } from '../services/interaction.service';
 import { NotificationService } from '../services/notification.service';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
-import { EnvironmentInterface, Region } from '../interfaces';
+import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
 
 /**
  * View model for Riskmap landing page
@@ -40,6 +43,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     name: string
   }[];
   notificationSubscription: Subscription;
+  openNotificationMsg: string;
   paneToOpen = 'info';
   selectedLanguage: string;
   selectedRegion: Region;
@@ -48,6 +52,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
   translateParams = {
     title: 'RiskMap'
   };
+  viewingArchivedReport: boolean;
 
   @Output() map: mapboxgl.Map;
 
@@ -106,10 +111,15 @@ export class MapComponent implements OnInit { // , OnDestroy {
   hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
 
-    for (const region of this.instances.regions) {
-      if (instance === region.name) {
-        this.selectedRegion = region;
-        return true;
+    if (this.instances.regions.length === 1) {
+      this.selectedRegion = this.instances.regions[0];
+      return true;
+    } else {
+      for (const region of this.instances.regions) {
+        if (instance === region.name) {
+          this.selectedRegion = region;
+          return true;
+        }
       }
     }
 
@@ -160,21 +170,35 @@ export class MapComponent implements OnInit { // , OnDestroy {
     });
   }
 
+  zoomToQueriedReport(report: Feature<GeometryObject, GeoJsonProperties>) {
+    this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
+    this.interactionService.handleLayerInteraction('reports', null, [report]);
+    this.map.flyTo({
+      zoom: 11,
+      center: report.geometry['coordinates']
+    });
+  }
+
   // FIXME: may get triggered before reports layer is rendered
   // Catch in tests
-  zoomToQueriedReport(event): void {
+  lookupQueriedReport(event): void {
     if (event.sourceId === 'reports') {
       for (const report of event.source.data.features) {
         if (report.properties.pkey === this.selectedReportId) {
-          this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
-          this.interactionService.handleLayerInteraction('reports', null, [report]);
-          this.map.flyTo({
-            zoom: 11,
-            center: report.geometry.coordinates
-          });
-          break;
+          // Report found in loaded dataset
+          this.zoomToQueriedReport(report);
+          return;
         }
       }
+
+      // Report not found in set server timeperiod
+      // Fetch from server OR notify
+      this.layerService.addSingleReportToLayer(this.selectedReportId)
+      .then(report => {
+        this.zoomToQueriedReport(report);
+        this.viewingArchivedReport = true;
+      })
+      .catch(error => console.log('Queried report does not exist'));
     }
   }
 
@@ -193,6 +217,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     this.map.on('click', event => {
       this.toggleSidePane({close: true});
       this.toggleReportFlyer({close: true});
+      if (this.viewingArchivedReport) this.viewingArchivedReport = false;
       this.layerService.handleMapInteraction(event);
     });
 
@@ -201,8 +226,9 @@ export class MapComponent implements OnInit { // , OnDestroy {
       if (event.sourceId === 'reports'
       && this.selectedReportId) {
         // 3 dataloading calls are made per layer source
-        if (eventCall > 1) {
-          this.zoomToQueriedReport(event);
+        if (eventCall === 2) {
+          this.lookupQueriedReport(event);
+          eventCall += 1;
         } else {
           eventCall += 1;
         }
@@ -240,15 +266,30 @@ export class MapComponent implements OnInit { // , OnDestroy {
     msg: string,
     type: 'info' | 'warn' | 'error'
   ) {
+    let notificationMsg;
+    if (this.openNotificationMsg) {
+      msg = msg + '; ' + this.openNotificationMsg;
+    }
+
     const notification = this.notify.open(msg, '✕', {
-      duration: 30000,
+      duration: 3000,
       verticalPosition: 'top',
       panelClass: ['notification-bar', 'notify-' + type]
+    });
+
+    notification.afterOpened().subscribe(() => {
+      // Store state
+      this.openNotificationMsg = msg;
     });
 
     notification.onAction().subscribe(() => {
       // Dismiss notification
       notification.dismiss();
+    });
+
+    notification.afterDismissed().subscribe(() => {
+      // Store state
+      this.openNotificationMsg = '';
     });
   }
 

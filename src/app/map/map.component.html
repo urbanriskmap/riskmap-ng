@@ -78,6 +78,7 @@
   class="info-panes"
   *ngIf="interactionService.featureTypes.reports"
   [features]="interactionService.featureTypes.reports"
+  [archivedReport]="viewingArchivedReport"
   (showFullSizeImg)="parseFullSizeImgUrl($event)">
 </app-report-info>
 

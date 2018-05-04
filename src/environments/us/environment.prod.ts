@@ -27,10 +27,12 @@ export const environment = {
     defaultLanguage: 'en',
     timezone: 'America/New_York'
   },
+  
   networks: {
     contact_links: {
       flag_email: 'risk@mit.edu'
     },
+
     deep_links: [
       {
         name: 'facebook',

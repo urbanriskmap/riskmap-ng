@@ -29,6 +29,10 @@ export const environment = {
   },
 
   networks: {
+    contact_links: {
+      flag_email: 'risk@mit.edu'
+    },
+    
     deep_links: [
       { name: 'facebook',
         link: 'http://m.me/CognicityDev.id'

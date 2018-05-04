@@ -1,13 +1,19 @@
 <div id="headingWrapper">
   <p
+    *ngIf="archivedReport"
+    class="mat-caption">
+    <i class="icon-report-problem"></i>
+    Archived report
+  </p>
+  <p
     *ngIf="parsedReportData && parsedReportData.flood_depth"
     class="mat-subheading-1">
     {{ 'legend.flood_depth' | translate:parsedReportData }}
   </p>
   <p
-    *ngIf="feature.title !== 'null'"
+    *ngIf="feature.title !== 'null' && feature.title !== null"
     class="mat-subheading-1">
-    {{ feature.title }}
+    test {{ feature.title }}
   </p>
 </div>
 
@@ -20,7 +26,7 @@
     <i class="icon-flood-img"></i>
   </div> -->
   <img
-    *ngIf="feature.image_url !== 'null'"
+    *ngIf="feature.image_url !== 'null' && feature.image_url !== null"
     [src]="feature.image_url"
     (click)="showFullSizeImg.emit(feature.image_url)">
 
