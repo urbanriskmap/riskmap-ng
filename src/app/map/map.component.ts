@@ -111,8 +111,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
   }
 
-  // TODO: Aditya - Add geolocation button
-  // geolocation observable https://angular.io/guide/observables
 
   // TODO: Mayank - Add notifications
   // 1. Reports in past {{timeperiod}}

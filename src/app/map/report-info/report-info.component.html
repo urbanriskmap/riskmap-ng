@@ -21,10 +21,10 @@
   id="imgWrapper">
   <!--  TODO: aditya  utility of image placeholder -->
   <!-- add only for phone screens -->
-  <!-- <div
+  <div id="imagePlaceholder"
     *ngIf="feature.image_url === 'null'">
     <i class="icon-flood-img"></i>
-  </div> -->
+  </div>
   <img
     *ngIf="feature.image_url !== 'null' && feature.image_url !== null"
     [src]="feature.image_url"
