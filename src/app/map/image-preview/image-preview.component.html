@@ -1,6 +1,7 @@
 <div
   id="previewWrapper">
   <img
+    id="fullSizeImage"
     [src]="imgUrl"
-    [style]="'transform: ' + transformations[getOrientation(imgUrl)]">
+    (click)="getExif()">
 </div>
