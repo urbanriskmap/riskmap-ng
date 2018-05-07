@@ -72,11 +72,8 @@ export class LayerService {
     region: Region
   ): void {
     this.map = map;
-    let count = 1;
 
     for (const layer of layers.supported) {
-      console.log('layer' + count);
-      count += 1;
 
       switch (layer.metadata.name) {
         case 'sensors':

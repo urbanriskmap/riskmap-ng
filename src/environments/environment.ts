@@ -24,7 +24,7 @@ export const environment = {
       {code: 'en', name: 'English'},
       {code: 'es', name: 'Spanish'}
     ],
-    defaultLanguage: 'en',
+    defaultLanguage: 'es',
     timezone: 'America/New_York'
   },
 
