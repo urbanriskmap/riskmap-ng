@@ -3,5 +3,5 @@
   <img
     id="fullSizeImage"
     [src]="imgUrl"
-    (click)="getExif()">
+    [style]="imgUrl | reorient | async">
 </div>
