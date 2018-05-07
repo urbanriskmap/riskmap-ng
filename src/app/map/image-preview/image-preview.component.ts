@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { EXIF } from 'exif-js';
 
 import { SanitizePipe } from '../../pipes/sanitize.pipe';
+import { ReorientPipe } from '../../pipes/reorient.pipe';
 
 @Component({
   selector: 'app-image-preview',
@@ -14,5 +16,4 @@ export class ImagePreviewComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

@@ -16,6 +16,7 @@ import instances from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
 import { NotificationService } from '../services/notification.service';
+import { TimeService } from '../services/time.service';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
@@ -64,7 +65,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
     public translate: TranslateService,
     public layerService: LayerService,
     public interactionService: InteractionService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public timeService: TimeService
   ) {
     this.instances = instances;
     this.languages = this.env.locales.supportedLanguages;
@@ -95,30 +97,24 @@ export class MapComponent implements OnInit { // , OnDestroy {
       hash: false,
       preserveDrawingBuffer: true
     });
+
     // Add navigation control
-    const nav = new mapboxgl.NavigationControl();
-    this.map.addControl(nav, 'bottom-left');
+    this.map.addControl(
+      new mapboxgl.NavigationControl(),
+      'bottom-left'
+    );
 
     // Add geolocation button
-    this.map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true,
-    },
-    trackUserLocation: true
-  }),
-    'bottom-left');
-
-
+    this.map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true
+      }),
+      'bottom-left'
+    );
   }
-
-
-  // TODO: Mayank - Add notifications
-  // 1. Reports in past {{timeperiod}}
-  // 2. Queried Report id not found in instance
-    // > Fly to instance which has queried report?
-  // 3. Geolocation
-    // > Error
-    // > (onFound) x flood reports around you?
 
   hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
@@ -151,6 +147,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
   changeLanguage(event): void {
     this.selectedLanguage = event.value;
     this.translate.use(event.value);
+    this.timeService.changeTimeLocale(event.value);
   }
 
   storeQueryParams(): void {
@@ -403,6 +400,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     if (flyerState === 'block' || (forceAction && forceAction.close)) {
       // is expanded
       reportFlyer.style.display = 'none';
+
     } else {
       // is closed
       reportFlyer.style.display = 'block';
@@ -412,8 +410,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
       // to clear any selected features and close any open panes
       this.layerService.handleMapInteraction();
     }
-
-    // reportButton.style.animation = 'slidein 3s linear 1s infinite running';
   }
 
   parseFullSizeImgUrl(url: string): void {

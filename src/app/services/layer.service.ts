@@ -278,7 +278,7 @@ export class LayerService {
         break;
 
       default:
-        msg = 'Recieved ' + reports + ' report in past ' + timeperiod + ' hrs';
+        msg = 'Recieved ' + reports + ' reports in past ' + timeperiod + ' hrs';
     }
 
     this.notificationService.notify(msg, 'info');

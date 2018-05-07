@@ -25,12 +25,13 @@ import { ChartService } from '../services/chart.service';
 import { HttpService } from '../services/http.service';
 import { InteractionService } from '../services/interaction.service';
 import { LayerService } from '../services/layer.service';
+import { NotificationService } from '../services/notification.service';
 import { SensorService } from '../services/sensor.service';
 import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
-import { NotificationService } from '../services/notification.service';
+import { ReorientPipe } from '../pipes/reorient.pipe';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { NotificationService } from '../services/notification.service';
     MapContentComponent,
     InfoContentComponent,
     SanitizePipe,
-    ImagePreviewComponent
+    ImagePreviewComponent,
+    ReorientPipe
   ]
 })
 export class MapModule { }

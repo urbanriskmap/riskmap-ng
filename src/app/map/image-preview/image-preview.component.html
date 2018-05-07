@@ -1,5 +1,7 @@
 <div
   id="previewWrapper">
   <img
-    [src]="imgUrl">
+    id="fullSizeImage"
+    [src]="imgUrl"
+    [style]="imgUrl | reorient | async">
 </div>
