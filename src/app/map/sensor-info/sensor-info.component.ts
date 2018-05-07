@@ -18,22 +18,22 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   //TODO aditya- add locale keys
   usgsSensorMap = {
     '_63160': {
-      title: 'Stream water elevation',
+      title: '63160',
       datum: 'NAVD 1988'
     },
     '_00065': {
-      title: 'Gauge height',
+      title: '00065',
       datum: 'NAVD 1988'
     },
     '_62610': {
-      title: 'Groundwater level',
+      title: '62610',
       datum: 'NGVD 1929'
     },
     '_00060': {
-      title: 'Discharge'
+      title: '00060'
     },
     '_00045': {
-      title: 'Precipitation total'
+      title: '00045'
     }
   };
 

@@ -106,6 +106,7 @@
   },
   "legend": {
     "title": "Legenda",
+    "flood_report": "Flood Report",
     "flood_gauges": "Tinggi Muka Air",
     "flood_depth": "Tinggi Banjir (cm)"
   },

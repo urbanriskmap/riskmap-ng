@@ -106,6 +106,7 @@
 
   "legend": {
     "title": "Legend",
+    "flood_report": "Flood Report",
     "flood_gauges": "Flood Gauges",
     "flood_depth": "Flood Depth (cm)"
   },
