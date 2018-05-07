@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment-timezone';
 
+import momentLocales from '../../resources/moment-locales';
 // TODO Mayank - time/date locales ?
 // Use gulp task to import locales as per deployment in one generated file,
 // then import time-locales file here, change with language
 
 
 // default timezone locale is English (US)
-//import 'moment/locale/id'; // Indonesian
-//import 'moment/locale/es'; // Spanish
+// import 'moment/locale/id'; // Indonesian
+// import 'moment/locale/es'; // Spanish
 // import 'moment/locale/bn'; // Bengali
 // import 'moment/locale/hi'; // Hindi
 // import 'moment/locale/mr'; // Marathi

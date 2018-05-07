@@ -240,6 +240,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
     // Clear stored values for instances
     this.initializeMap();
 
+    console.log('here');
+
     if (!this.hasRegionParam()) {
       this.openDialog('pickRegion');
 
