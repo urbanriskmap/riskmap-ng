@@ -57,16 +57,17 @@ $strip-height: 30px;
 
   // TODO aditya -  utility of image placeholder
   // Required for mobile view
-  // & div {
-  //   color: $snow-white;
-  //   font-size: 84px;
-  //   @include translate-mixin(10px, 42px);
-  //
-  //   @media (min-width: 420px) {
-  //     font-size: 108px;
-  //     @include translate-mixin(24px, 54px);
-  //   }
-  // }
+  #imagePlaceholder {
+    color: $frost-white;
+    font-size: 86px;
+    margin-left: auto;
+    margin-right: auto;
+    @include translate-mixin(-35px, 35px);
+    // above 420px - non mobile media
+    @media (min-width: 420px) {
+      display: none;
+    }
+  }
 
   img {
     position: absolute;

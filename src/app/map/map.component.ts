@@ -95,10 +95,22 @@ export class MapComponent implements OnInit { // , OnDestroy {
       hash: false,
       preserveDrawingBuffer: true
     });
+    // Add navigation control
+    const nav = new mapboxgl.NavigationControl();
+    this.map.addControl(nav, 'bottom-left');
+
+    // Add geolocation button
+    this.map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true,
+    },
+    trackUserLocation: true
+  }),
+    'bottom-left');
+
+
   }
 
-  // TODO: Aditya - Add geolocation button
-  // geolocation observable https://angular.io/guide/observables
 
   hasRegionParam(): boolean {
     const instance = this.route.snapshot.paramMap.get('region');
