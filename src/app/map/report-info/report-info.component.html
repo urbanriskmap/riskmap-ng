@@ -82,39 +82,25 @@
     </mat-grid-list>
   </div>
 
-
   <table id="interactive">
     <tr>
+      <td
+        id="upvoteButton"
+        [class]="voteSelector[1] === 1 ? 'active' : ''"
+        (click)="handleVotes(+1)">
+        <i class="icon-upvote"></i>
+      </td>
 
-        <!-- <td>
-            <i class="icon-upvote"></i>
-        </td>
-        <td>
-            <i class="icon-downvote"></i>
-        </td> -->
-      <td>
-        <ng-vote
-          (vote)="onVote($event)"
-          [totalVotes]="votes"
-          [selectedVote]="selectedVote"
-          [config]="voteConfig">
-          <!-- Define Up Vote Button -->
+      <td
+        class="vote-count">
+        {{ votes }}
+      </td>
 
-          <!-- Add Down Vote Button -->
-          <ng-vote-down
-          class="voteButton"
-          matTooltip="Tooltip!">
-            <i class="icon-downvote"></i>
-          </ng-vote-down>
-
-          <ng-vote-up
-          classs="voteButton"
-          matTooltip="Tooltip!">
-            <!-- Content will be projected -->
-            <i class="icon-upvote"></i>
-          </ng-vote-up>
-
-        </ng-vote>
+      <td
+        id="downvoteButton"
+        [class]="voteSelector[1] === -1 ? 'active' : ''"
+        (click)="handleVotes(-1)">
+        <i class="icon-downvote"></i>
       </td>
 
       <td
@@ -122,6 +108,7 @@
         (click)="toggleFlyer('flag')">
         <i class="icon-flag-report"></i>
       </td>
+
       <td
         id="shareButton"
         (click)="toggleFlyer('share')">

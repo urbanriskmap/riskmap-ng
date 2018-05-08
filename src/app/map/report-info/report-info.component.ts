@@ -2,6 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange
 import { TranslateService } from '@ngx-translate/core';
 
 import { ReportInterface } from '../../interfaces';
+import { HttpService } from '../../services/http.service';
 import { TimeService } from '../../services/time.service';
 import { SanitizePipe } from '../../pipes/sanitize.pipe';
 import { environment } from '../../../environments/environment';
@@ -17,14 +18,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   }[];
   @Input() archivedReport: boolean;
 
-  voteConfig = {
-    cssClass: 'votebuttons',
-    allowEdit: true,
-    disabled: false
-  };
-  votes = 0; // total amount of votes
-  selectedVote = 0; // not voted yet
-
+  votes: number;
+  voteSelector = [-1, 0, 1]; // Current vote index = 1
 
   env = environment;
   feature: ReportInterface;
@@ -46,10 +41,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() showFullSizeImg = new EventEmitter<string>();
 
-  // that's exactly how we did closePane... need to follow the same logic.
-  // let me recheck
-
   constructor(
+    private httpService: HttpService,
     public timeService: TimeService,
     public translate: TranslateService
   ) { }
@@ -68,6 +61,16 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         } else {
           this.parsedReportData = this.feature.report_data;
         }
+      }
+
+      // Set votes
+      this.votes = this.feature.report_data['points'] ? this.feature.report_data['points'] : 0;
+      const storedVote = localStorage.getItem('id_' + this.feature.pkey);
+      if (storedVote) {
+        // [-1, 0, 1] -> [0, 1, -1]
+        if (parseInt(storedVote, 10) > 0) this.voteSelector.push(this.voteSelector.shift());
+        // [-1, 0, 1] -> [1, -1, 0]
+        if (parseInt(storedVote, 10) < 0) this.voteSelector.unshift(this.voteSelector.pop());
       }
 
       if (this.feature.tags) {
@@ -105,28 +108,59 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  // TODO: Port handleVotes method
-  handleVotes(vote: string): void {
+  handleVotes(vote: number): void {
     // close if any flyer is open
     this.toggleFlyer();
 
-    // do something
+    if (vote > 0) {
+      // Upvote
+      if (this.voteSelector[1] > 0) {
+        // Reset
+        // [0, 1, -1] -> [-1, 0, 1]
+        this.voteSelector.unshift(this.voteSelector.pop());
+        this.votes -= 1;
+      } else {
+        // [1, -1, 0] -> [-1, 0, 1]
+        // [-1, 0, 1] -> [0, 1, -1]
+        this.voteSelector.push(this.voteSelector.shift());
+        this.votes += 1;
+      }
+
+    } else if (vote < 0) {
+      // Downvote
+      if (this.voteSelector[1] < 0) {
+        // Reset
+        // [1, -1, 0] -> [-1, 0, 1]
+        this.voteSelector.push(this.voteSelector.shift());
+        this.votes += 1;
+      } else {
+        // [-1, 0, 1] -> [1, -1, 0]
+        // [0, 1, -1] -> [-1, 0, 1]
+        this.voteSelector.unshift(this.voteSelector.pop());
+        this.votes -= 1;
+      }
+    }
+
+    localStorage.setItem(
+      'id_' + this.feature.pkey,
+      JSON.stringify(this.voteSelector[1])
+    );
   }
 
   toggleFlyer(flyer?: string): void {
-    if (!this.showFlyer.flag && !this.showFlyer.share) {
-      // case 1: both false
-      this.showFlyer[flyer] = true;
+    if (flyer) {
+      if (!this.showFlyer.flag && !this.showFlyer.share) {
+        // case 1: both false
+        this.showFlyer[flyer] = true;
+        document.getElementById(flyer + 'Button').classList.add('active');
 
-      document.getElementById(flyer + 'Button').classList.add('active');
-    } else {
-      // either one is true
-      if (flyer) {
+      } else {
+        // either one is true
         if (this.showFlyer[flyer]) {
           // clicked on already open flyer
           this.showFlyer[flyer] = false;
-
           document.getElementById(flyer + 'Button').classList.remove('active');
+
         } else {
           // clicked on other
           // close already open flyer
@@ -139,24 +173,21 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           }
           // open clicked flyer
           this.showFlyer[flyer] = true;
-
           document.getElementById(flyer + 'Button').classList.add('active');
         }
-      } else {
-        // external control
-        this.showFlyer.flag = false;
-        this.showFlyer.share = false;
-        document.getElementById('flagButton').classList.remove('active');
-        document.getElementById('shareButton').classList.remove('active');
       }
+
+    } else {
+      // external control
+      this.showFlyer.flag = false;
+      this.showFlyer.share = false;
+      document.getElementById('flagButton').classList.remove('active');
+      document.getElementById('shareButton').classList.remove('active');
     }
   }
 
-  onVote(vote) {
-    console.log('onVote response: ', vote);
-  }
-
   ngOnDestroy(): void {
+    this.httpService.updateVotes(this.feature.pkey, this.votes);
     this.features = null;
     this.feature = null;
   }

@@ -136,4 +136,25 @@ export class HttpService {
 
     return this.fetchGeojson(queryUrl);
   }
+
+  updateVotes(
+    pkey: string,
+    points: number
+  ): void {
+    const endpoint = env.servers.data + 'reports/' + pkey;
+
+    this.http
+    .patch(endpoint, {
+      points: points
+    })
+    .subscribe(
+      response => {
+        console.log('Success');
+      },
+      error => {
+        console.log('Failed');
+        console.log(error);
+      }
+    );
+  }
 }

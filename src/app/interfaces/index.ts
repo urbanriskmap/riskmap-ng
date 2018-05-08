@@ -66,6 +66,7 @@ export interface ReportInterface {
   report_data: {
     flood_depth?: number
     report_type: string
+    points?: number
   }
   */
   source: string;
