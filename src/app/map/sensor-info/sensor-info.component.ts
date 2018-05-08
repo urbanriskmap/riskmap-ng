@@ -15,7 +15,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   feature: SensorInterface;
   hasUpstreamDownstream: boolean | null;
-  //TODO aditya- add locale keys
+  //TODO aditya - add locale keys
   usgsSensorMap = {
     '_63160': {
       title: 'Stream water elevation',
