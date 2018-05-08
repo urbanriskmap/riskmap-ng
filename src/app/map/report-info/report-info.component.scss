@@ -4,6 +4,34 @@ $img-width-percent: 44%;
 $margin-percent: 1%;
 $strip-height: 30px;
 
+::ng-deep .ng-vote{
+    display: flex !important;
+    padding: 0 !important;
+    border: 0 !important;
+    max-width: 60px !important;
+    min-width: 0 !important;
+}
+
+::ng-deep .ng-vote-btn{
+  height: 30px;
+  background: none !important;
+  padding: 0 !important;
+}
+
+::ng-deep .ng-vote-count{
+  display: inline-flex;
+  width: 20px;
+  @include text-regular(14px, $dark-gray);
+  font-size: 12px !important;
+  padding:$general-margin 0 0 8px !important;
+
+}
+
+
+::ng-deep .ng-vote-count--positive{
+ color: $medium-azure !important;
+  }
+
 #headingWrapper {
   position: absolute;
   left: $img-width-percent;
@@ -179,6 +207,10 @@ $strip-height: 30px;
           color: $bright-azure;
         }
       }
+    }
+    &.votebuttons{
+      height: 30px;
+      width: 30px
     }
   }
 }

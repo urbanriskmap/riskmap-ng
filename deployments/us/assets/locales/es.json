@@ -43,7 +43,7 @@
     "share_msg": "Revise%20los%20informes%20de%20inundaciones%20en%20riskmap%2Eus",
     "water_depth": "Profundidad de agua",
     "source": "Origen",
-    "flagReport_Title": "Marcar contenido inadecuado",
+    "flagReport_title": "Marcar contenido inadecuado",
     "flagReport_button": "cuentanos más",
     "flagReport_email": "riskmapus@gmail.com",
     "share_header": "Compartir este reporte"
@@ -132,6 +132,14 @@
     "us_discharge":"Discharge",
     "us_precipitation":"Precipitation total",
     "flood_depth": "Profundidad de inundación: {{ flood_depth }} in"
+  },
+
+  "sensortitle" : {
+      "63160":" Stream water elevation",
+      "00065": "Gauge height",
+      "62610": "Groundwater level",
+      "00060": "Discharge",
+      "00045":" Precipitation total"
   },
 
   "user_agreement_title": "Acuerdo de usuario",

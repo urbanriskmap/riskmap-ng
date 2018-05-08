@@ -15,8 +15,8 @@ export const environment = {
     accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
     center: [-80.199261, 26.138301],
     initZoom: 10,
-    minZoom: 10,
-    baseMapStyle: 'mapbox://styles/mapbox/light-v9'
+    minZoom: 9,
+    baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
 
   locales: {
