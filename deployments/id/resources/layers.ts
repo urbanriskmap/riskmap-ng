@@ -145,13 +145,6 @@ export default {
             12, 0.75,
             16, 1
           ]
-          // IDEA: NOT YET SUPPORTED
-          // 'visibility': [
-          //   'step',
-          //   ['zoom'],
-          //   1, 'none',
-          //   16, 'visible'
-          // ]
         },
         filter: ['all', ['!=', 'name', '']]
       },

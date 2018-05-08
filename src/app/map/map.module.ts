@@ -31,7 +31,6 @@ import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
-import { ReorientPipe } from '../pipes/reorient.pipe';
 
 @NgModule({
   imports: [
@@ -67,8 +66,7 @@ import { ReorientPipe } from '../pipes/reorient.pipe';
     MapContentComponent,
     InfoContentComponent,
     SanitizePipe,
-    ImagePreviewComponent,
-    ReorientPipe
+    ImagePreviewComponent
   ]
 })
 export class MapModule { }
