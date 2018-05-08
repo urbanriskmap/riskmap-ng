@@ -55,6 +55,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.22.1",
     "moment-timezone": "^0.5.16",
+    "ng-vote": "^0.1.5",
     "node-sass": "^4.9.0",
     "rxjs": "^5.5.10",
     "sass-loader": "^6.0.7",

@@ -17,6 +17,15 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   }[];
   @Input() archivedReport: boolean;
 
+  voteConfig = {
+    cssClass: 'votebuttons',
+    allowEdit: true,
+    disabled: false
+  };
+  votes = 0; // total amount of votes
+  selectedVote = 0; // not voted yet
+
+
   env = environment;
   feature: ReportInterface;
   parsedReportData: {
@@ -141,6 +150,10 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         document.getElementById('shareButton').classList.remove('active');
       }
     }
+  }
+
+  onVote(vote) {
+    console.log('onVote response: ', vote);
   }
 
   ngOnDestroy(): void {

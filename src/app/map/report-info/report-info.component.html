@@ -84,16 +84,41 @@
     </mat-grid-list>
   </div>
 
+
   <table id="interactive">
     <tr>
-      <td
-        (click)="handleVotes('up')">
-        <i class="icon-upvote"></i>
+
+        <!-- <td>
+            <i class="icon-upvote"></i>
+        </td>
+        <td>
+            <i class="icon-downvote"></i>
+        </td> -->
+      <td>
+        <ng-vote
+          (vote)="onVote($event)"
+          [totalVotes]="votes"
+          [selectedVote]="selectedVote"
+          [config]="voteConfig">
+          <!-- Define Up Vote Button -->
+
+          <!-- Add Down Vote Button -->
+          <ng-vote-down
+          class="voteButton"
+          matTooltip="Tooltip!">
+            <i class="icon-downvote"></i>
+          </ng-vote-down>
+
+          <ng-vote-up
+          classs="voteButton"
+          matTooltip="Tooltip!">
+            <!-- Content will be projected -->
+            <i class="icon-upvote"></i>
+          </ng-vote-up>
+
+        </ng-vote>
       </td>
-      <td
-        (click)="handleVotes('up')">
-        <i class="icon-downvote"></i>
-      </td>
+
       <td
         id="flagButton"
         (click)="toggleFlyer('flag')">

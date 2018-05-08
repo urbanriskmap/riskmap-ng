@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { Component } from '@angular/core';
 
 // Components
 import { MapComponent } from './map.component';
@@ -16,6 +17,7 @@ import { InfoContentComponent } from './side-pane/info-content/info-content.comp
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
+import { NgVoteModule } from 'ng-vote';
 
 // Modules
 import { CustomMaterialsModule } from '../custom-materials.module';
@@ -38,7 +40,8 @@ import { ReorientPipe } from '../pipes/reorient.pipe';
     CommonModule,
     CustomMaterialsModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    NgVoteModule
   ],
   providers: [
     TimeService,
