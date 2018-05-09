@@ -131,7 +131,7 @@
     "us_well": "Groundwater level",
     "us_discharge":"Discharge",
     "us_precipitation":"Precipitation total",
-    "flood_depth": "Profundidad de inundación: {{ flood_depth }} in"
+    "flood_depth": "Altura de inundación: {{ flood_depth }} in"
   },
 
   "sensortitle" : {

@@ -1,6 +1,6 @@
 @import 'styles';
 
-$img-width-percent: 44%;
+$img-width-percent: 40%; //for mobile
 $margin-percent: 1%;
 $strip-height: 30px;
 
@@ -43,8 +43,6 @@ $strip-height: 30px;
   width: $img-width-percent;
   height: 100%;
   float: left;
-  background-color: transparentize($light-gray, 0.5);
-  color: transparentize($snow-white, 0.3);
   font-size: 18px;
   cursor: zoom-in;
 
@@ -56,7 +54,7 @@ $strip-height: 30px;
   }
 
   #imagePlaceholder {
-    color: $frost-white;
+    color: $light-gray;
     font-size: 86px;
     margin-left: auto;
     margin-right: auto;
@@ -70,15 +68,17 @@ $strip-height: 30px;
   img {
     position: absolute;
     top: 50%;
+    left: 50%;
     max-width: 100%;
     max-height: 100%;
-    @include translate-mixin(0, -50%);
+    @include translate-mixin(-50%, -50%);
 
     @media (min-width: 420px) {
       position: relative;
       top: 0;
-      max-height: 240px;
+      left: 0;
       @include translate-mixin(0, 0);
+      width: 100%;
     }
   }
 

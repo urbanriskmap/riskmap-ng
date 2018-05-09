@@ -19,15 +19,17 @@
 
 <div
   id="imgWrapper">
+
   <div id="imagePlaceholder"
     *ngIf="feature.image_url === 'null'">
     <i class="icon-flood-img"></i>
   </div>
+
   <img
+    id="reportImage"
     *ngIf="feature.image_url !== 'null' && feature.image_url !== null"
     [src]="feature.image_url"
     (click)="showFullSizeImg.emit(feature.image_url)">
-
   <i class="icon-plus-circled"></i>
 </div>
 
