@@ -64,7 +64,9 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       }
 
       // Set votes
-      this.votes = this.feature.report_data['points'] ? this.feature.report_data['points'] : 0;
+      this.votes = this.parsedReportData['points'] ? this.parsedReportData['points'] : 0;
+
+      // Lookup voting history
       const storedVote = localStorage.getItem('id_' + this.feature.pkey);
       if (storedVote) {
         // [-1, 0, 1] -> [0, 1, -1]
@@ -187,7 +189,9 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.httpService.updateVotes(this.feature.pkey, this.votes);
+    if (this.votes) {
+      this.httpService.updateVotes(this.feature.pkey, this.votes);
+    }
     this.features = null;
     this.feature = null;
   }
