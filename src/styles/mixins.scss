@@ -1,28 +1,34 @@
 @import "assets/fonts/roboto/css/fonts.css";
 
 //_Font styles Variables_
-@mixin text-light($size, $col) {
-  font-family: "Roboto-Light", "Roboto", sans-serif;
+@mixin text-base($size, $col) {
   font-size: $size;
   color: $col;
+}
+
+@mixin text-light($size, $col) {
+  font-family: "Roboto-Light", "Roboto", sans-serif;
+  @include text-base($size, $col);
 }
 
 @mixin text-regular($size, $col) {
   font-family: "Roboto", "Roboto", sans-serif;
-  font-size: $size;
-  color: $col;
+  @include text-base($size, $col);
 }
 
 @mixin text-medium($size, $col) {
   font-family: "Roboto-Medium", "Roboto", sans-serif;
-  font-size: $size;
-  color: $col;
+  @include text-base($size, $col);
+}
+
+@mixin text-bold($size, $col) {
+  font-family: "Roboto-Bold", "Roboto", sans-serif;
+  @include text-base($size, $col);
 }
 
 @mixin link-light($size) {
+  @include text-light($size, $medium-azure)
   font-family: "Roboto-Light", "Roboto", sans-serif;
-  font-size: $size;
-  color: $medium-azure;
   &:hover {
     color: $bright-azure;
     cursor: pointer;
@@ -30,13 +36,19 @@
 }
 
 @mixin link-regular($size) {
+  @include text-regular($size, $medium-azure)
   font-family: "Roboto", "Roboto", sans-serif;
-  font-size: $size;
-  color: $medium-azure;
   &:hover {
     color: $bright-azure;
     cursor: pointer;
   }
+}
+
+@mixin text-glow($size, $spread, $color) {
+  text-shadow: 0 $size $spread $color,
+               $size 0 $spread $color,
+               0 -$size $spread $color,
+               -$size 0 $spread $color;
 }
 
 //_Transform class_

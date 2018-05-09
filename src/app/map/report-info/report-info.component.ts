@@ -189,6 +189,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Submit client votes when report info pane closes
+    // COMBAK: Submit votes every time user clicks?
     if (this.votes) {
       this.httpService.updateVotes(this.feature.pkey, this.votes);
     }

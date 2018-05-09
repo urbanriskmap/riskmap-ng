@@ -14,7 +14,7 @@ export const environment = {
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
     center: [106.8271, -6.1754],
-    initZoom: 12,
+    initZoom: 8,
     minZoom: 10,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
@@ -38,7 +38,7 @@ export const environment = {
       },
       { name: 'twitter',
         link: 'https://twitter.com/intent/tweet?text=Laporkan+banjir&via=petabencana'
-      }, // TODO: fill after twitter DM bot is created for Petabencana.
+      },
       { name: 'telegram',
         link: 'https://telegram.me/CognicityDevBot'
       }

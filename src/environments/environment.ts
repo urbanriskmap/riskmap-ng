@@ -1,20 +1,20 @@
 export const environment = {
   production: false,
-  envName: 'dev-us',
+  envName: 'dev-id',
 
   servers: {
-    data: 'https://data-dev.riskmap.us/',
-    sensors: 'https://sensors-dev.riskmap.us/',
-    web_app: 'https://dev.riskmap.us/',
+    data: 'https://data.petabencana.id/',
+    sensors: 'https://data.petabencana.id/',
+    web_app: 'https://dev.petabencana.id/',
     settings: {
-      reportTimeperiod: 604800
+      reportTimeperiod: 43200
     }
   },
 
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
-    center: [-80.199261, 26.138301],
-    initZoom: 10,
+    center: [106.8271, -6.1754],
+    initZoom: 8,
     minZoom: 10,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
@@ -22,26 +22,26 @@ export const environment = {
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'es', name: 'Spanish'}
+      {code: 'id', name: 'Bahasa'}
     ],
-    defaultLanguage: 'es',
-    timezone: 'America/New_York'
+    defaultLanguage: 'en',
+    timezone: 'Asia/Jakarta'
   },
 
   networks: {
     contact_links: {
-      flag_email: 'risk@mit.edu'
+      flag_email: 'info@petabencana.id'
     },
-
     deep_links: [
       { name: 'facebook',
-        link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.
+        link: 'http://m.me/CognicityDev.id'
       },
       { name: 'twitter',
-        link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152&welcome_message_id=905919155492331523&text=/flood'
+        link: 'https://twitter.com/intent/tweet?text=Laporkan+banjir&via=petabencana'
+      },
+      { name: 'telegram',
+        link: 'https://telegram.me/CognicityDevBot'
       }
-      // Disable telegram button for US deployment
-      // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}
     ]
   }
 };

@@ -76,7 +76,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.translate.use(this.env.locales.defaultLanguage);
 
-    // IDEA: singlePage nav
+    // IDEA: Switch to single page navigation?
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component (landing page)
       if (e instanceof NavigationEnd) {
@@ -252,7 +252,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
       if (!content.skipNotification) this.showNotification(content.msg, content.type)
     });
 
-    // IDEA: singlePage nav
+    // IDEA: Switch to single page navigation?
     // Reset map layers, sources;
     // Clear stored values for instances
     this.initializeMap();
@@ -260,7 +260,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     if (!this.hasRegionParam()) {
       this.openDialog('pickRegion');
 
-      // IDEA: singlePage nav
+      // IDEA: Switch to single page navigation?
       // Then fly to selected instance
     } else {
       this.bindMapEventHandlers();
@@ -311,7 +311,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
       return false;
     });
 
-    // IDEA: singlePage nav
+    // IDEA: Switch to single page navigation?
     // this.initializeMap();
     // this.initialiseLandingRoute();
   }
