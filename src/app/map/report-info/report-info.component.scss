@@ -180,6 +180,9 @@ $strip-height: 30px;
       }
 
       &.active {
+        // Disable click
+        pointer-events: none;
+
         i {
           color: $bright-azure;
         }

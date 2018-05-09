@@ -20,6 +20,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   votes: number;
   voteSelector = [-1, 0, 1]; // Current vote index = 1
+  voteChanged: boolean;
 
   env = environment;
   feature: ReportInterface;
@@ -73,6 +74,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         if (parseInt(storedVote, 10) > 0) this.voteSelector.push(this.voteSelector.shift());
         // [-1, 0, 1] -> [1, -1, 0]
         if (parseInt(storedVote, 10) < 0) this.voteSelector.unshift(this.voteSelector.pop());
+
+        this.voteChanged = false;
       }
 
       if (this.feature.tags) {
@@ -116,37 +119,25 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
     if (vote > 0) {
       // Upvote
-      if (this.voteSelector[1] > 0) {
-        // Reset
-        // [0, 1, -1] -> [-1, 0, 1]
-        this.voteSelector.unshift(this.voteSelector.pop());
-        this.votes -= 1;
-      } else {
-        // [1, -1, 0] -> [-1, 0, 1]
-        // [-1, 0, 1] -> [0, 1, -1]
-        this.voteSelector.push(this.voteSelector.shift());
-        this.votes += 1;
-      }
+      // [1, -1, 0] -> [-1, 0, 1]
+      // [-1, 0, 1] -> [0, 1, -1]
+      this.voteSelector.push(this.voteSelector.shift());
+      this.votes += 1;
 
     } else if (vote < 0) {
       // Downvote
-      if (this.voteSelector[1] < 0) {
-        // Reset
-        // [1, -1, 0] -> [-1, 0, 1]
-        this.voteSelector.push(this.voteSelector.shift());
-        this.votes += 1;
-      } else {
-        // [-1, 0, 1] -> [1, -1, 0]
-        // [0, 1, -1] -> [-1, 0, 1]
-        this.voteSelector.unshift(this.voteSelector.pop());
-        this.votes -= 1;
-      }
+      // [-1, 0, 1] -> [1, -1, 0]
+      // [0, 1, -1] -> [-1, 0, 1]
+      this.voteSelector.unshift(this.voteSelector.pop());
+      this.votes -= 1;
     }
 
     localStorage.setItem(
       'id_' + this.feature.pkey,
       JSON.stringify(this.voteSelector[1])
     );
+
+    this.voteChanged = true;
   }
 
   toggleFlyer(flyer?: string): void {
@@ -191,7 +182,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     // Submit client votes when report info pane closes
     // COMBAK: Submit votes every time user clicks?
-    if (this.votes) {
+    if (this.voteChanged) {
       this.httpService.updateVotes(this.feature.pkey, this.votes);
     }
     this.features = null;
