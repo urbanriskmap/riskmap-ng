@@ -6,14 +6,18 @@
   "scripts": {
     "start": "dep=us npm run fetch-assets && ng serve",
     "build": "npm run build-dev && npm run build-prod",
+
     "build-dev": "npm run build-dev-id && npm run build-dev-us",
     "build-prod": "npm run build-prod-id && npm run build-prod-us",
+
     "build-dev-id": "dep=id npm run fetch-assets && ng build --env=dev-id --output-path='dist/dev-id'",
     "build-dev-us": "dep=us npm run fetch-assets && ng build --env=dev-us --output-path='dist/dev-us'",
     "build-dev-in": "dep=in npm run fetch-assets && ng build --env=dev-in --output-path='dist/dev-in'",
+
     "build-prod-id": "dep=id npm run fetch-assets && ng build --env=prod-id --output-path='dist/prod-id'",
     "build-prod-us": "dep=us npm run fetch-assets && ng build --env=prod-us --output-path='dist/prod-us'",
     "build-prod-in": "dep=in npm run fetch-assets && ng build --env=prod-in --output-path='dist/prod-in'",
+
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
