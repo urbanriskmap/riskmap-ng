@@ -20,6 +20,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   votes: number;
   voteSelector = [-1, 0, 1]; // Current vote index = 1
+  storedVote: number;
   voteChanged: boolean;
 
   env = environment;
@@ -56,6 +57,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
 
+      // Parse report data
       if (this.feature.report_data) {
         if (typeof this.feature.report_data === 'string') {
           this.parsedReportData = JSON.parse(this.feature.report_data);
@@ -68,16 +70,15 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       this.votes = this.parsedReportData['points'] ? this.parsedReportData['points'] : 0;
 
       // Lookup voting history
-      const storedVote = localStorage.getItem('id_' + this.feature.pkey);
-      if (storedVote) {
-        // [-1, 0, 1] -> [0, 1, -1]
-        if (parseInt(storedVote, 10) > 0) this.voteSelector.push(this.voteSelector.shift());
-        // [-1, 0, 1] -> [1, -1, 0]
-        if (parseInt(storedVote, 10) < 0) this.voteSelector.unshift(this.voteSelector.pop());
+      const vote = localStorage.getItem('id_' + this.feature.pkey);
+      this.storedVote = vote ? parseInt(vote, 10) : 0;
 
-        this.voteChanged = false;
-      }
+      // [-1, 0, 1] -> [0, 1, -1]
+      if (this.storedVote > 0) this.voteSelector.push(this.voteSelector.shift());
+      // [-1, 0, 1] -> [1, -1, 0]
+      if (this.storedVote < 0) this.voteSelector.unshift(this.voteSelector.pop());
 
+      // Parse tags
       if (this.feature.tags) {
         if (typeof this.feature.tags === 'string') {
           this.parsedTags = JSON.parse(this.feature.tags);
@@ -182,10 +183,14 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     // Submit client votes when report info pane closes
     // COMBAK: Submit votes every time user clicks?
-    if (this.voteChanged) {
-      this.httpService.updateVotes(this.feature.pkey, this.votes);
+    if (this.voteChanged && (this.voteSelector[1] - this.storedVote)) {
+      const voteDifference = this.voteSelector[1] - this.storedVote;
+      // FIXME: voteDifference ranges from -2 to 2, server accepts -1 & 1 values
+      this.httpService.updateVotes(this.feature.pkey, voteDifference);
     }
     this.features = null;
     this.feature = null;
+    this.voteChanged = null;
+    this.storedVote = null;
   }
 }
