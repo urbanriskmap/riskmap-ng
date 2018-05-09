@@ -32,14 +32,14 @@ Deployments are projects deployed in a macro-region / country with one or more s
 
 Currently supported deployments with their instances include:
 1. PetaBencana.id
-  * Jakarta
-  * Bandung
-  * Surabaya
-  * Semarang
+    * Jakarta
+    * Bandung
+    * Surabaya
+    * Semarang
 2. Riskmap.in
-  * Chennai
+    * Chennai
 3. Riskmap.us
-  * Broward
+    * Broward
 
 The app comprises of a common source code and a few shared assets across these deployments. However, majority of assets and resources are dependent on the deployment. These are picked from the deployments/ folder using the specified deployment key (id | in | us) and placed in the src/ folder before the build process. Ref. tasks/fetch-assets
 
@@ -67,7 +67,7 @@ The project structure is as follows:
 - **tasks**: Pre-build tasks are located here.
 - .angular-cli.json: Config file for angular project. When adding a new deployment, insert a directory map for the deployment's environment files here.
 
-NOTE: Folders marked with [DS] are generated ahead of build scripts, from files located in /deployments folder.
+NOTE: Folders marked as Deployment Specific [DS] are generated ahead of build scripts. Changes made in the src/ folder will not be tracked and will be overwritten with content from files located in /deployments folder.
 
 ___
 
