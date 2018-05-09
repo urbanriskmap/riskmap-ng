@@ -22,6 +22,7 @@ if (dep === 'id' || dep === 'in' || dep === 'us') {
 gulp.task('clearPreviousAssets', () => {
   return del([
     '../src/assets/icons',
+    '../src/assets/images',
     '../src/assets/locales',
     '../src/assets/logos',
     '../src/resources/*',
