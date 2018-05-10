@@ -7,12 +7,14 @@ sudo: false
 branches:
   only:
     - dev
+    - master
 
 install:
   - npm i
 
 script:
-  - npm run build-dev
+  - if [ "$TRAVIS_BRANCH" = "dev" ]; then npm run build-dev; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build-prod; fi
 
 deploy:
   - provider: s3
@@ -24,3 +26,12 @@ deploy:
     local_dir: dist/dev-us
     on:
       branch: dev
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $AWS_S3_BUCKET_RISKMAP_US_PROD
+    region: $AWS_S3_BUCKET_REGION_RISKMAP_US
+    skip_cleanup: true
+    local_dir: dist/prod-us
+    on:
+      branch: master
