@@ -21,7 +21,6 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   votes: number;
   voteSelector = [-1, 0, 1]; // Current vote index = 1
   storedVote: number;
-  voteChanged: boolean;
 
   env = environment;
   feature: ReportInterface;
@@ -114,7 +113,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  handleVotes(vote: number): void {
+  handleVotes(vote: 1 | -1): void {
     // close if any flyer is open
     this.toggleFlyer();
 
@@ -138,7 +137,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       JSON.stringify(this.voteSelector[1])
     );
 
-    this.voteChanged = true;
+    // Submit vote
+    this.httpService.updateVotes(this.feature.pkey, vote);
   }
 
   toggleFlyer(flyer?: string): void {
@@ -181,16 +181,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Submit client votes when report info pane closes
-    // COMBAK: Submit votes every time user clicks?
-    if (this.voteChanged && (this.voteSelector[1] - this.storedVote)) {
-      const voteDifference = this.voteSelector[1] - this.storedVote;
-      // FIXME: voteDifference ranges from -2 to 2, server accepts -1 & 1 values
-      this.httpService.updateVotes(this.feature.pkey, voteDifference);
-    }
     this.features = null;
     this.feature = null;
-    this.voteChanged = null;
     this.storedVote = null;
   }
 }
