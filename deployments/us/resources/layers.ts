@@ -47,7 +47,7 @@ export default {
       metadata: {
         name: 'sensors',
         server: 'sensors',
-        path: 'sensors/',
+        path: '',
         flags: [{region: false}],
         responseType: 'geojson',
         uniqueKey: 'id',

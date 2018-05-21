@@ -35,7 +35,7 @@ export class ChartService {
     let hasUpstreamDownstream;
 
     return new Promise((resolve, reject) => {
-      this.httpService.getJsonData('sensors', 'sensors/' + sensor_id, null)
+      this.httpService.getJsonData('sensors', '' + sensor_id, null)
       .then(data => {
         const prop = {
           title: properties.title,
@@ -206,7 +206,7 @@ export class ChartService {
               displayFormats: {
                 hour: 'HH:mm'
               },
-              // COMBAK: glitch in 'id' deployment ? 
+              // COMBAK: glitch in 'id' deployment ?
               parser: (time) => {
                 return this.timeService.getLocalTime(time);
               }
