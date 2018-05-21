@@ -38,22 +38,25 @@ export class SensorService {
           const latestObs = observationGroups[observationGroups.length - 1];
 
           // Append sensor observations to sensor properties
-          if (latestObs.properties.hasOwnProperty('observations')) {
+          if (latestObs.properties.hasOwnProperty('properties')) {
+            if (latestObs.properties.properties.hasOwnProperty('observations')) {
+              const observations = latestObs.properties.properties.observations;
 
-            if (Array.isArray(latestObs.properties.observations)) {
-              // Case: Without upstream / downstream values
-              if (latestObs.properties.observations.length) {
-                sensor.properties.observations = latestObs.properties.observations;
-              }
-            } else {
+              if (Array.isArray(observations)) {
+                // Case: Without upstream / downstream values
+                if (observations.length) {
+                  sensor.properties.observations = observations;
+                }
+              } else {
 
-              // Case: With upstream / downstream values
-              if (
-                latestObs.properties.observations.hasOwnProperty('upstream')
-                && Array.isArray(latestObs.properties.observations.upstream)
-                && latestObs.properties.observations.upstream.length
-              ) {
-                sensor.properties.observations = latestObs.properties.observations;
+                // Case: With upstream / downstream values
+                if (
+                  observations.hasOwnProperty('upstream')
+                  && Array.isArray(observations.upstream)
+                  && observations.upstream.length
+                ) {
+                  sensor.properties.observations = observations;
+                }
               }
             }
           }
@@ -85,8 +88,11 @@ export class SensorService {
     const fetchAndTransformProcesses = [];
 
     for (const sensor of geojson.features) {
-      // Ref https://daveceddia.com/waiting-for-promises-in-a-loop/
-      fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor, server, path, flags));
+      // TODO: remove if after removing sensor 54
+      if (sensor.properties.id !== '54') {
+        // Ref https://daveceddia.com/waiting-for-promises-in-a-loop/
+        fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor, server, path, flags));
+      }
     }
 
     return new Promise ((resolve, reject) => {

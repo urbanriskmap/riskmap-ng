@@ -35,6 +35,10 @@ export class ChartService {
     let hasUpstreamDownstream;
 
     return new Promise((resolve, reject) => {
+      // FIXME: double data call
+      // If sensor observations already included in layer,
+      // avoid this, or else don't update sensor properties
+      // when adding layer
       this.httpService.getJsonData('sensors', '' + sensor_id, null)
       .then(data => {
         const prop = {
@@ -47,13 +51,13 @@ export class ChartService {
           prop // to this object
         );
 
-        if (Array.isArray(data[0].properties.observations)) {
+        if (Array.isArray(data[0].properties.properties.observations)) {
           hasUpstreamDownstream = false;
           this.sensorData = {
             dataset_1: []
           };
 
-          for (const obs of data[0].properties.observations) {
+          for (const obs of data[0].properties.properties.observations) {
             this.sensorData.dataset_1.push({
               y: parseFloat(obs.value),
               t: obs.dateTime.substring(0, 19)
@@ -64,7 +68,7 @@ export class ChartService {
 
         } else {
           hasUpstreamDownstream = true;
-          const observations = data[0].properties.observations;
+          const observations = data[0].properties.properties.observations;
           this.sensorData = {
             dataset_1: [],
             dataset_2: []
