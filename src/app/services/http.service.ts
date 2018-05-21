@@ -24,7 +24,7 @@ export class HttpService {
       .subscribe(
         response => {
           if (response['statusCode'] === 200) {
-            resolve(response['body']);
+            resolve(response['result']);
           } else {
             reject(response);
           }

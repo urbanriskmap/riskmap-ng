@@ -71,7 +71,7 @@
     "@types/node": "^6.0.106",
     "codelyzer": "^4.3.0",
     "del": "^3.0.0",
-    "gulp": "^4.0.0",
+    "gulp": "~3.9.1",
     "gulp-changed-in-place": "^2.3.0",
     "gulp-typedoc": "^2.2.0",
     "jasmine-core": "~2.6.2",
