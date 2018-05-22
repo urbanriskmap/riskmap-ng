@@ -92,6 +92,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
 
+      // Set prefill text for social media sharing
       let msgText;
       this.translate.get('report_info.msg_text').subscribe((res: string) => {
         msgText = res;
@@ -100,20 +101,20 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
       this.socialButtons = [
         {
-          name: 'twitter',
-          intent: 'https://twitter.com/intent/tweet?text=' + msgText + '%20' + reportUrl
+          name: 'facebook',
+          intent: 'https://www.facebook.com/sharer/sharer.php?u=' + reportUrl
         },
         {
-          name: 'telegram',
-          intent: 'https://telegram.me/share/url?url=' + reportUrl + ' &text= ' + msgText
+          name: 'twitter',
+          intent: 'https://twitter.com/intent/tweet?text=' + msgText + '%20' + reportUrl
         },
         {
           name: 'whatsapp',
           intent: 'https://api.whatsapp.com/send?text=' + msgText + '%20' + reportUrl
         },
         {
-          name: 'facebook',
-          intent: 'https://www.facebook.com/sharer/sharer.php?u=' + reportUrl
+          name: 'telegram',
+          intent: 'https://telegram.me/share/url?url=' + reportUrl + ' &text= ' + msgText
         }
       ];
     }

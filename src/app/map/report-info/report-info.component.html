@@ -87,7 +87,7 @@
     <tr>
       <td
         id="upvoteButton"
-        [class]="voteSelector[1] === 1 ? 'active' : ''"
+        [class]="voteSelector[1] === 1 ? 'vote active' : 'vote'"
         (click)="handleVotes(+1)">
         <i class="icon-upvote"></i>
       </td>
@@ -99,7 +99,7 @@
 
       <td
         id="downvoteButton"
-        [class]="voteSelector[1] === -1 ? 'active' : ''"
+        [class]="voteSelector[1] === -1 ? 'vote active' : 'vote'"
         (click)="handleVotes(-1)">
         <i class="icon-downvote"></i>
       </td>

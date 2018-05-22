@@ -47,8 +47,8 @@
     "msg_text": "Check%20flood%20reports%20on%20riskmap%2Eus",
     "water_depth": "Water depth",
     "source": "Source",
-    "flagReport_title": "flag this report as inappropriate",
-    "flagReport_button": "tell us more",
+    "flagReport_title": "Flag report as inappropriate",
+    "flagReport_button": "Tell us more",
     "flagReport_email": "riskmapus@gmail.com",
     "share_header": "Share this report"
   },
