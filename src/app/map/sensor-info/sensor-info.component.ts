@@ -38,7 +38,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   };
 
   constructor(
-    private chartService: ChartService
+    public chartService: ChartService
   ) { }
 
   ngOnInit(): void { }
@@ -49,29 +49,52 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
 
       switch (this.features[0].layer.id) {
         case 'sensors':
-          this.chartService.parseData(
-            this.feature.id,
-            this.usgsSensorMap['_' + this.feature.class],
-            this.feature.units
-          ).then(hasUpstreamDownstream => {
-            this.hasUpstreamDownstream = hasUpstreamDownstream;
+          const observations = JSON.parse(this.feature.observations);
+          const properties = {
+            title: this.feature.class,
+            units: this.feature.units,
+            datum: this.usgsSensorMap['_' + this.feature.class].datum
+          };
 
-            this.chartService.drawSensorChart(document.getElementById('sensorChartWrapper'));
-          })
-          .catch(error => console.log(error));
+          if (Array.isArray(observations)) {
+            this.chartService.drawSensorChart(
+              document.getElementById('sensorChartWrapper'),
+              this.chartService.parseData(observations, false),
+              properties
+            );
+          } else if (
+            observations.hasOwnProperty('upstream')
+            && observations.hasOwnProperty('downstream')
+          ) {
+            this.hasUpstreamDownstream = true;
+
+            this.chartService.drawSensorChart(
+              document.getElementById('sensorChartWrapper'),
+              this.chartService.parseData(observations, true),
+              properties
+            );
+          }
           break;
 
         case 'floodgauges':
-          this.chartService.sensorData = {dataset_1: []};
+          const sensorData = {dataset_1: []};
 
           for (const obs of JSON.parse(this.feature.observations)) {
-            this.chartService.sensorData.dataset_1.push({
+            sensorData.dataset_1.push({
               y: obs.f2,
               t: obs.f1
             });
           }
 
-          this.chartService.drawSensorChart(document.getElementById('sensorChartWrapper'));
+          this.chartService.drawSensorChart(
+            document.getElementById('sensorChartWrapper'),
+            sensorData,
+            {
+              title: 'Set Title',
+              units: 'Set Units',
+              datum: 'If available'
+            }
+          );
           break;
 
         default:

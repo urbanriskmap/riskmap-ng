@@ -6,17 +6,6 @@ import { TimeService } from './time.service';
 
 @Injectable()
 export class ChartService {
-  sensorData: {
-    dataset_1: {y: number, t: string}[],
-    dataset_2?: {y: number, t: string}[]
-  };
-
-  sensorProperties: {
-    title: string,
-    units: string,
-    datum?: string
-  };
-
   sensorChart: Chart;
 
   constructor(
@@ -25,82 +14,62 @@ export class ChartService {
   ) { }
 
   parseData(
-    sensor_id: number,
-    properties: {
-      title: string,
-      datum?: string
-    },
-    units: string
-  ): Promise<boolean|null> {
-    let hasUpstreamDownstream;
+    observations: any,
+    hasUpstreamDownstream: boolean
+  ): {
+    dataset_1: {
+      y: number,
+      t: string
+    }[],
+    dataset_2?: {
+      y: number,
+      t: string
+    }[]
+  } {
+    let sensorData;
 
-    return new Promise((resolve, reject) => {
-      // FIXME: double data call
-      // If sensor observations already included in layer,
-      // avoid this, or else don't update sensor properties
-      // when adding layer
-      this.httpService.getJsonData('sensors', '' + sensor_id, null)
-      .then(data => {
-        const prop = {
-          title: properties.title,
-          units: units
-        };
+    if (hasUpstreamDownstream) {
+      sensorData = {
+        dataset_1: [],
+        dataset_2: []
+      };
 
-        this.sensorProperties = Object.assign(
-          properties.hasOwnProperty('datum') ? { datum : properties.datum } : {}, // Conditionally set datum property
-          prop // to this object
-        );
-
-        if (Array.isArray(data[0].properties.properties.observations)) {
-          hasUpstreamDownstream = false;
-          this.sensorData = {
-            dataset_1: []
-          };
-
-          for (const obs of data[0].properties.properties.observations) {
-            this.sensorData.dataset_1.push({
-              y: parseFloat(obs.value),
-              t: obs.dateTime.substring(0, 19)
-            });
-          }
-
-          resolve(hasUpstreamDownstream);
-
-        } else {
-          hasUpstreamDownstream = true;
-          const observations = data[0].properties.properties.observations;
-          this.sensorData = {
-            dataset_1: [],
-            dataset_2: []
-          };
-
-          for (const i in observations.upstream) {
-            if (i) {
-              this.sensorData.dataset_1.push({
-                y: parseFloat(observations.upstream[i].value),
-                t: observations.upstream[i].dateTime.substring(0, 19)
-              });
-              this.sensorData.dataset_2.push({
-                y: parseFloat(observations.downstream[i].value),
-                t: observations.downstream[i].dateTime.substring(0, 19)
-              });
-            }
-          }
-
-          resolve(hasUpstreamDownstream);
+      for (const i in observations['upstream']) {
+        if (i) {
+          sensorData.dataset_1.push({
+            y: parseFloat(observations['upstream'][i].value),
+            t: observations['upstream'][i].dateTime.substring(0, 19)
+          });
+          sensorData.dataset_2.push({
+            y: parseFloat(observations['downstream'][i].value),
+            t: observations['downstream'][i].dateTime.substring(0, 19)
+          });
         }
-      })
-      .catch(error => reject(error));
-    });
+      }
+    } else {
+      sensorData = {
+        dataset_1: []
+      };
+
+      for (const obs of observations) {
+        sensorData.dataset_1.push({
+          y: parseFloat(obs['value']),
+          t: obs['dateTime'].substring(0, 19)
+        });
+      }
+    }
+
+    return sensorData;
   }
 
   prepareCanvas(htmlElement) {
-    // $('#foo').empty();
+    console.log('Preparing canvas');
+    // Empty wrapper
     while (htmlElement.firstChild) {
       htmlElement.removeChild(htmlElement.firstChild);
     }
 
-    // $('#foo').html('<canvas id="chartInset"></canvas>');
+    // Append canvas
     const canvasElement = document.createElement('canvas');
     canvasElement.setAttribute('id', 'chartInset');
     htmlElement.appendChild(canvasElement);
@@ -108,16 +77,24 @@ export class ChartService {
     const canvas = document.getElementById('chartInset');
     const chart_ctx = canvas['getContext']('2d');
 
-    // chart_ctx.canvas.width = htmlElement.style.clientWidth;
-    // chart_ctx.canvas.height = htmlElement.style.clientHeight;
-
     return chart_ctx;
   }
 
-  prepareSensorChart() {
+  prepareSensorChart(
+    sensorData: {
+      dataset_1: {y: number, t: string}[],
+      dataset_2?: {y: number, t: string}[]
+    },
+    sensorProperties: {
+      title: string,
+      units: string,
+      datum?: string
+    }
+  ) {
+    console.log('Preparing data');
     const datasets = [];
 
-    if (this.sensorData.hasOwnProperty('dataset_2')) {
+    if (sensorData.hasOwnProperty('dataset_2')) {
       datasets.push(
         {
           label: 'Upstream',
@@ -127,7 +104,7 @@ export class ChartService {
           borderColor: '#1ac892',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           pointRadius: 0,
-          data: this.sensorData.dataset_1,
+          data: sensorData.dataset_1,
         },
         {
           label: 'Downstream',
@@ -137,7 +114,7 @@ export class ChartService {
           borderColor: '#0891fb',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           pointRadius: 0,
-          data: this.sensorData.dataset_2,
+          data: sensorData.dataset_2,
         }
       );
     } else {
@@ -150,20 +127,20 @@ export class ChartService {
           borderColor: '#00579b', // dark-azure
           backgroundColor: 'rgba(0, 0, 0, 0)',
           pointRadius: 0,
-          data: this.sensorData.dataset_1,
+          data: sensorData.dataset_1,
         }
       );
     }
 
     const title = [
-      this.sensorProperties.title
+      sensorProperties.title
     ];
-    if (this.sensorProperties.hasOwnProperty('datum')) {
+    if (sensorProperties.hasOwnProperty('datum')) {
       title.push(
-        this.sensorProperties.units + ' above ' + this.sensorProperties.datum
+        sensorProperties.units + ' above ' + sensorProperties.datum
       );
     } else {
-      title[0] += ' (' + this.sensorProperties.units + ')';
+      title[0] += ' (' + sensorProperties.units + ')';
     }
 
     return {
@@ -182,7 +159,7 @@ export class ChartService {
           padding: 3
         },
         legend: {
-          display: this.sensorData.hasOwnProperty('dataset_2'),
+          display: sensorData.hasOwnProperty('dataset_2'),
           position: 'bottom',
           labels: {
             fontColor: '#2f2f2f',
@@ -228,10 +205,21 @@ export class ChartService {
     };
   }
 
-  drawSensorChart(htmlElement) {
+  drawSensorChart(
+    htmlElement,
+    sensorData: {
+      dataset_1: {y: number, t: string}[],
+      dataset_2?: {y: number, t: string}[]
+    },
+    sensorProperties: {
+      title: string,
+      units: string,
+      datum?: string
+    }
+  ) {
     this.sensorChart = new Chart(
       this.prepareCanvas(htmlElement),
-      this.prepareSensorChart()
+      this.prepareSensorChart(sensorData, sensorProperties)
     );
   }
 }
