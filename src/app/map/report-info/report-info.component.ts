@@ -73,9 +73,15 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       this.storedVote = vote ? parseInt(vote, 10) : 0;
 
       // [-1, 0, 1] -> [0, 1, -1]
-      if (this.storedVote > 0) this.voteSelector.push(this.voteSelector.shift());
+      if (this.storedVote > 0) {
+        this.voteSelector.push(this.voteSelector.shift());
+        this.votes += 1;
+      }
       // [-1, 0, 1] -> [1, -1, 0]
-      if (this.storedVote < 0) this.voteSelector.unshift(this.voteSelector.pop());
+      if (this.storedVote < 0) {
+        this.voteSelector.unshift(this.voteSelector.pop());
+        this.votes -= 1;
+      }
 
       // Parse tags
       if (this.feature.tags) {

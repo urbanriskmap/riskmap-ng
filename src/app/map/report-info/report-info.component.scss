@@ -20,7 +20,7 @@ $strip-height: 30px;
     }
 
     &.mat-caption {
-      background-color: yellow;
+      background-color: $rich-amber;
       padding: 0;
       margin: 0;
 
@@ -96,7 +96,6 @@ $strip-height: 30px;
   left: $img-width-percent;
   margin: 0;
   margin-left: $margin-percent;
-  float: left;
 
   @media (min-width: 420px) {
     position: relative;
@@ -120,17 +119,17 @@ $strip-height: 30px;
 
     p {
       margin: 0;
+      padding-left: 0 5px 0 5px;
       &.mat-subheading-1 {
         margin-top: $general-margin;
         color: $dark-gray;
       }
       &.mat-caption {
         color: $medium-azure;
-        padding-left: 5px;
       }
       &.mat-body-1 {
+        margin-top: $general-margin;
         @include text-regular(14px, $dark-gray);
-        padding: 5px;
       }
     }
 

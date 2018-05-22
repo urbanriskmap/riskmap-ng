@@ -39,15 +39,14 @@
     class="report-description">
     <p
       class="mat-caption"
-      style="text-align: left;">
-      {{ reportTime }}
+      style="float: right;">
+      {{ feature.source | titlecase }}
     </p>
     <p
       class="mat-caption"
       style="float: left;">
-      {{ feature.source | titlecase }}
+      {{ reportTime }}
     </p>
-    <br>
     <p
       class="mat-body-1">
       {{ feature.text }}
