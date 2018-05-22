@@ -34,6 +34,7 @@
       "treeclearing": "Fallen Tree"
     }
   },
+
   "web_menu": {
     "tab_names": {
       "map": "map",
@@ -41,6 +42,7 @@
       "info": "info"
     }
   },
+
   "report_info": {
     "msg_text": "Check%20flood%20reports%20on%20riskmap%2Eus",
     "water_depth": "Water depth",
@@ -50,29 +52,7 @@
     "flagReport_email": "riskmapus@gmail.com",
     "share_header": "Share this report"
   },
-  "flood_info": {
-    "title": "Flood affected area",
-    "level_hint": "Alert level",
-    "time_hint": "Last updated",
-    "state_codes": {
-      "1": {
-        "severity": "Unknown",
-        "description": "An unknown level of flooding, use caution"
-      },
-      "2": {
-        "severity": "Minor",
-        "description": "Flooding between 10 to 70 cm"
-      },
-      "3": {
-        "severity": "Moderate",
-        "description": "Flooding between 71 to 150 cm"
-      },
-      "4": {
-        "severity": "Severe",
-        "description": "Flooding over 150 cm"
-      }
-    }
-  },
+
   "map_helper": "Select county :",
 
   "info_content": {
@@ -105,12 +85,17 @@
     "flood_depth": "Flood Depth: {{ flood_depth }} in"
   },
 
-  "sensortitle" : {
-      "63160":" Stream water elevation",
-      "00065": "Gauge height",
-      "62610": "Groundwater level",
-      "00060": "Discharge",
-      "00045":" Precipitation total"
+  "sensorTitle": {
+    "63160": "Stream water elevation",
+    "00065": "Gauge height",
+    "62610": "Groundwater level",
+    "00060": "Discharge rate",
+    "00045": "Precipitation total"
+  },
+  "sensorSubtitleConjunction": " above ",
+  "sensorLabels": {
+    "up": "Upstream",
+    "down": "Downstream"
   },
 
   "user_agreement_title": "User agreement",

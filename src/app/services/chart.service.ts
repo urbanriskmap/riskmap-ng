@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Chart from 'chart.js';
+import { TranslateService } from '@ngx-translate/core';
 
 import { HttpService } from './http.service';
 import { TimeService } from './time.service';
@@ -10,21 +11,16 @@ export class ChartService {
 
   constructor(
     private httpService: HttpService,
-    private timeService: TimeService
+    private timeService: TimeService,
+    public translate: TranslateService
   ) { }
 
   parseData(
     observations: any,
     hasUpstreamDownstream: boolean
   ): {
-    dataset_1: {
-      y: number,
-      t: string
-    }[],
-    dataset_2?: {
-      y: number,
-      t: string
-    }[]
+    dataset_1: {y: number, t: string}[],
+    dataset_2?: {y: number, t: string}[]
   } {
     let sensorData;
 
@@ -63,7 +59,6 @@ export class ChartService {
   }
 
   prepareCanvas(htmlElement) {
-    console.log('Preparing canvas');
     // Empty wrapper
     while (htmlElement.firstChild) {
       htmlElement.removeChild(htmlElement.firstChild);
@@ -91,13 +86,20 @@ export class ChartService {
       datum?: string
     }
   ) {
-    console.log('Preparing data');
     const datasets = [];
+
+    const labels = {up: null, down: null};
+    this.translate.get('sensorLabels.up').subscribe((res: string) => {
+      labels.up = res;
+    });
+    this.translate.get('sensorLabels.down').subscribe((res: string) => {
+      labels.down = res;
+    });
 
     if (sensorData.hasOwnProperty('dataset_2')) {
       datasets.push(
         {
-          label: 'Upstream',
+          label: labels.up,
           xAxisId: 'x1',
           yAxisId: 'y1',
           borderWidth: 1,
@@ -107,7 +109,7 @@ export class ChartService {
           data: sensorData.dataset_1,
         },
         {
-          label: 'Downstream',
+          label: labels.down,
           xAxisId: 'x1',
           yAxisId: 'y1',
           borderWidth: 1,
@@ -132,16 +134,20 @@ export class ChartService {
       );
     }
 
-    const title = [
-      sensorProperties.title
-    ];
-    if (sensorProperties.hasOwnProperty('datum')) {
-      title.push(
-        sensorProperties.units + ' above ' + sensorProperties.datum
-      );
-    } else {
-      title[0] += ' (' + sensorProperties.units + ')';
-    }
+    let title;
+    this.translate.get('sensorTitle.' + sensorProperties.title).subscribe((res: string) => {
+      title = [res];
+    });
+
+    this.translate.get('sensorSubtitleConjunction').subscribe((res: string) => {
+      if (sensorProperties.hasOwnProperty('datum')) {
+        title.push(
+          sensorProperties.units + res + sensorProperties.datum
+        );
+      } else {
+        title[0] += ' (' + sensorProperties.units + ')';
+      }
+    });
 
     return {
       type: 'line',

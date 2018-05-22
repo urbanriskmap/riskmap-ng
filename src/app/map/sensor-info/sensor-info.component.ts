@@ -106,5 +106,6 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     this.features = null;
     this.feature = null;
+    this.hasUpstreamDownstream = null;
   }
 }
