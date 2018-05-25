@@ -13,17 +13,17 @@ install:
   - npm i
 
 script:
-  - if [ "$TRAVIS_BRANCH" = "dev" ]; then npm run build-prod-us; fi # revert to build-dev-us
+  - if [ "$TRAVIS_BRANCH" = "dev" ]; then npm run build-dev-us; fi
   - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build-prod-us; fi
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: $AWS_S3_BUCKET_RISKMAP_US_PROD # revert to $AWS_S3_BUCKET_RISKMAP_US
+    bucket: $AWS_S3_BUCKET_RISKMAP_US
     region: $AWS_S3_BUCKET_REGION_RISKMAP_US
     skip_cleanup: true
-    local_dir: dist/prod-us # revert to dist/dev-us
+    local_dir: dist/dev-us
     on:
       branch: dev
   - provider: s3
