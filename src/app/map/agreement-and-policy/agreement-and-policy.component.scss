@@ -18,7 +18,8 @@
   overflow-x: hidden;
 }
 
-
-::ng-deep .mat-tab-label {
-  min-width: 50%!important; // Use !important to override
-}
+// NOTE: using ng-deep will override all .mat-tab-label classes in
+// entire project, eg. in side pane tab buttons
+// ::ng-deep .mat-tab-label {
+//   min-width: 50%!important; // Use !important to override
+// }

@@ -115,7 +115,7 @@ export default {
         {
           symbolType: 'icon',
           symbolStyle: 'icon-level',
-          label: 'legend.level',
+          label: 'legend.elevation',
           source: 'USGS'
         },
         {
