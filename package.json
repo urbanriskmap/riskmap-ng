@@ -1,6 +1,6 @@
 {
-  "name": "UrbanRiskMap web app",
-  "version": "2.0.0",
+  "name": "urbanriskmap-webapp",
+  "version": "2.0.1",
   "author": "Urban Risk Lab",
   "license": "GPL-3.0",
   "scripts": {
