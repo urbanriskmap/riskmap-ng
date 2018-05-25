@@ -202,6 +202,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
       // Report not found in set server timeperiod
       // Fetch from server OR notify
+      // FIXME: CORS error
+      // Try http://localhost:4200/broward/53 then check console logs
       this.layerService.addSingleReportToLayer(this.selectedReportId)
       .then(report => {
         this.zoomToQueriedReport(report);
