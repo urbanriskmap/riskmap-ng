@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/urbanriskmap/riskmap-ng.svg?branch=dev)](https://travis-ci.org/urbanriskmap/riskmap-ng)
 
 # Riskmap
-CogniCity web app [Angular](https://github.com/angular/angular-cli) project using [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/).
+UrbanRiskMap web app [Angular](https://github.com/angular/angular-cli) project using [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/).
 
 ## Development server
 
