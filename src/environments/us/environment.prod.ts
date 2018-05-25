@@ -36,7 +36,8 @@ export const environment = {
     deep_links: [
       {
         name: 'facebook',
-        link: 'http://m.me/riskmapUS'},
+        link: 'http://m.me/riskmapUS'
+      },
       {
         name: 'twitter',
         link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152&welcome_message_id=905919155492331523&text=/flood'
