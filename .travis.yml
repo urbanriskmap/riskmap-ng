@@ -14,7 +14,7 @@ install:
 
 script:
   - if [ "$TRAVIS_BRANCH" = "dev" ]; then npm run build-dev-us; fi
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build-prod-us; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build-prod-ngsw; fi
 
 deploy:
   - provider: s3
@@ -26,6 +26,7 @@ deploy:
     local_dir: dist/dev-us
     on:
       branch: dev
+
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY

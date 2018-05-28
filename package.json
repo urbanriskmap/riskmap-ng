@@ -4,21 +4,27 @@
   "author": "Urban Risk Lab",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "dep=us npm run fetch-assets && ng serve",
+    "start": "dep=us npm run fetch-assets && ng serve -e prod-us",
     "build": "npm run build-dev && npm run build-prod",
+
     "build-dev": "npm run build-dev-id && npm run build-dev-us",
     "build-prod": "npm run build-prod-id && npm run build-prod-us",
+
     "build-dev-id": "dep=id npm run fetch-assets && ng build --env=dev-id --output-path='dist/dev-id'",
     "build-dev-us": "dep=us npm run fetch-assets && ng build --env=dev-us --output-path='dist/dev-us'",
     "build-dev-in": "dep=in npm run fetch-assets && ng build --env=dev-in --output-path='dist/dev-in'",
+
     "build-prod-id": "dep=id npm run fetch-assets && ng build --env=prod-id --output-path='dist/prod-id'",
     "build-prod-us": "dep=us npm run fetch-assets && ng build --env=prod-us --output-path='dist/prod-us'",
     "build-prod-in": "dep=in npm run fetch-assets && ng build --env=prod-in --output-path='dist/prod-in'",
+
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod-ngsw": "npm run build-prod-us && node_modules/.bin/ngsw-config dist ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/ngsw-worker.js",
-    "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist -p 8080",
+
+    "build-prod-ngsw": "npm run build-prod-us && node_modules/.bin/ngsw-config dist/prod-us ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/prod-us/ngsw-worker.js",
+    "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist/prod-us -p 8080",
+
     "fetch-assets": "gulp --gulpfile ./tasks/fetch-assets --dep $dep",
     "docs": "rm -rf ./docs && gulp --gulpfile ./tasks/generate-docs"
   },
@@ -74,6 +80,7 @@
     "gulp": "~3.9.1",
     "gulp-changed-in-place": "^2.3.0",
     "gulp-typedoc": "^2.2.0",
+    "http-server": "^0.11.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
