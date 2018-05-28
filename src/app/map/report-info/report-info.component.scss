@@ -25,7 +25,7 @@ $strip-height: 30px;
       margin: 0;
 
       i {
-        font-size: 18px;
+        font-size: 16px;
       }
     }
   }
@@ -111,7 +111,7 @@ $strip-height: 30px;
     word-wrap: break-word;
     overflow-x: hidden;
     overflow-y: scroll;
-    margin-top: $strip-height;
+    margin-top: $strip-height + ($general-margin / 2);
 
     @media (min-width: 420px) {
       margin: 0;
