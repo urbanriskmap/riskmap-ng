@@ -160,7 +160,9 @@ export class MapComponent implements OnInit { // , OnDestroy {
       // Side pane tab
       const paneParam = params['pane'];
       for (const pane of ['info', 'map', 'report']) {
-        if (paneParam === pane) {
+        if (paneParam === pane
+          && !params['id'] // Open side pane only when report id is not queried
+        ) {
           this.paneToOpen = params['pane'];
           this.toggleSidePane();
           break;
@@ -169,10 +171,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
       // User agreement / Privacy policy
       if (params['terms']
-        && (
-          params['terms'] === 'u_a'
-          || params['terms'] === 'p_p'
-        )
+        && !params['id'] // Open user agreement only when report id is not queried
       ) {
         this.openDialog('agreementPolicy');
       }

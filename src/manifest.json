@@ -2,62 +2,62 @@
   "short_name":"RiskMap",
   "name":"RiskMap",
   "start_url":"/",
-  "theme_color":"#31aade",
+  "theme_color":"#0683e3",
   "background_color":"#f0f0f0",
   "display":"standalone",
   "orientation":"portrait",
   "icons":[
     {
-      "src":"/assets/icons/apple-touch-icon.png",
+      "src":"/assets/icons/webapp/apple-touch-icon.png",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/apple-touch-icon-120x120.png",
+      "src":"/assets/icons/webapp/apple-touch-icon-120x120.png",
       "sizes":"120x120",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/apple-touch-icon-120x120-precomposed.png",
+      "src":"/assets/icons/webapp/apple-touch-icon-120x120-precomposed.png",
       "sizes":"120x120",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/apple-touch-icon-180x180.png",
+      "src":"/assets/icons/webapp/apple-touch-icon-180x180.png",
       "sizes":"180x180",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/apple-touch-icon-180x180-precomposed.png",
+      "src":"/assets/icons/webapp/apple-touch-icon-180x180-precomposed.png",
       "sizes":"180x180",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/favicon-16x16.png",
+      "src":"/assets/icons/webapp/favicon-16x16.png",
       "sizes":"16x16",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/favicon-32x32.png",
+      "src":"/assets/icons/webapp/favicon-32x32.png",
       "sizes":"32x32",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/mstile-150x150.png",
+      "src":"/assets/icons/webapp/mstile-150x150.png",
       "sizes":"150x150",
       "type":"image/png"
     },
     {
-      "src":"/assets/icons/mstile-310x310.png",
+      "src":"/assets/icons/webapp/mstile-310x310.png",
       "sizes":"310x310",
       "type":"image/png"
     },
     {
-      "src": "/assets/icons/android-chrome-512x512.png",
+      "src": "/assets/icons/webapp/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src":"/assets/icons/android-chrome-192x192.png",
+      "src":"/assets/icons/webapp/android-chrome-192x192.png",
       "sizes":"192x912",
       "type":"image/png"
     }
