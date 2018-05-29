@@ -2,18 +2,19 @@
   <mat-tab
     class="tab-buttons"
     color="primary"
-    label="User Agreement">
+    label="User Agreement"
+    [isActive]="data==='u_a'">
     <div class="tab-content"
-
       [innerHTML]="'user_agreement_content' | translate">
     </div>
   </mat-tab>
+
   <mat-tab
     class="tab-buttons"
     color="primary"
-    label="Privacy Policy">
+    label="Privacy Policy"
+    [isActive]="data==='p_p'">
     <div class="tab-content"
-
       [innerHTML]="'privacy_policy_content' | translate">
     </div>
   </mat-tab>

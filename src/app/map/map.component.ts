@@ -49,6 +49,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
   selectedLanguage: string;
   selectedRegion: Region;
   selectedReportId: null | number;
+  selectedTermsPage: 'u_a' | 'p_p' | null;
   showSidePane = false;
   translateParams = {
     title: 'RiskMap'
@@ -164,6 +165,15 @@ export class MapComponent implements OnInit { // , OnDestroy {
           this.paneToOpen = params['pane'];
           this.toggleSidePane();
           break;
+        }
+      }
+
+      // User agreement / Privacy policy
+      if (params['terms']) {
+        if (params['terms'] === 'u_a') {
+          this.selectedTermsPage = 'u_a';
+        } else if (params['terms'] === 'p_p') {
+          this.selectedTermsPage = 'p_p';
         }
       }
 
@@ -336,7 +346,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     } else if (content === 'agreementPolicy') {
       dialogRef = this.dialog.open(AgreementAndPolicyComponent, {
         width: '420px',
-        data: null
+        data: this.selectedTermsPage
       });
     }
 
