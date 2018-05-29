@@ -9,12 +9,8 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 export class AgreementAndPolicyComponent implements OnInit {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: string | null
-  ) {
-    if (!this.data) {
-      this.data = 'u_a';
-    }
-  }
+    @Inject(MAT_DIALOG_DATA) private data: null
+  ) { }
 
   ngOnInit() {
   }
