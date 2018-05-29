@@ -1,6 +1,6 @@
 {
-  "name": "UrbanRiskMap web app",
-  "version": "2.0.0",
+  "name": "urbanriskmap-webapp",
+  "version": "2.0.1",
   "author": "Urban Risk Lab",
   "license": "GPL-3.0",
   "scripts": {
@@ -17,8 +17,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod-ngsw": "npm run build-prod-us && node_modules/.bin/ngsw-config dist ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/ngsw-worker.js",
-    "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist -p 8080",
+    "build-prod-ngsw": "npm run build-prod-us && node_modules/.bin/ngsw-config dist/prod-us ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/prod-us/ngsw-worker.js",
+    "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist/prod-us -p 8080",
     "fetch-assets": "gulp --gulpfile ./tasks/fetch-assets --dep $dep",
     "docs": "rm -rf ./docs && gulp --gulpfile ./tasks/generate-docs"
   },
@@ -55,7 +55,6 @@
     "minimist": "^1.2.0",
     "moment": "^2.22.1",
     "moment-timezone": "^0.5.16",
-    "ng-vote": "^0.1.5",
     "node-sass": "^4.9.0",
     "rxjs": "^5.5.10",
     "sass-loader": "^6.0.7",
@@ -74,6 +73,7 @@
     "gulp": "~3.9.1",
     "gulp-changed-in-place": "^2.3.0",
     "gulp-typedoc": "^2.2.0",
+    "http-server": "^0.11.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",

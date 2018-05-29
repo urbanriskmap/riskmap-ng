@@ -17,7 +17,6 @@ import { InfoContentComponent } from './side-pane/info-content/info-content.comp
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
-import { NgVoteModule } from 'ng-vote';
 
 // Modules
 import { CustomMaterialsModule } from '../custom-materials.module';
@@ -39,8 +38,7 @@ import { SanitizePipe } from '../pipes/sanitize.pipe';
     CommonModule,
     CustomMaterialsModule,
     RouterModule,
-    TranslateModule,
-    NgVoteModule
+    TranslateModule
   ],
   providers: [
     TimeService,
