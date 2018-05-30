@@ -4,7 +4,7 @@ export const environment = {
 
   servers: {
     data: 'https://data-dev.riskmap.us/',
-    sensors: 'https://sensors.riskmap.us/',
+    sensors: 'https://sensors-dev.riskmap.us/',
     web_app: 'https://dev.riskmap.us/',
     settings: {
       reportTimeperiod: 604800

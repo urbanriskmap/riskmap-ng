@@ -38,25 +38,23 @@ export class SensorService {
           const latestObs = observationGroups[observationGroups.length - 1];
 
           // Append sensor observations to sensor properties
-          if (latestObs.properties.hasOwnProperty('properties')) {
-            if (latestObs.properties.properties.hasOwnProperty('observations')) {
-              const observations = latestObs.properties.properties.observations;
+          if (latestObs.properties.hasOwnProperty('observations')) {
+            const observations = latestObs.properties.observations;
 
-              if (Array.isArray(observations)) {
-                // Case: Without upstream / downstream values
-                if (observations.length) {
-                  sensor.properties.observations = observations;
-                }
-              } else {
+            if (Array.isArray(observations)) {
+              // Case: Without upstream / downstream values
+              if (observations.length) {
+                sensor.properties.observations = observations;
+              }
+            } else {
 
-                // Case: With upstream / downstream values
-                if (
-                  observations.hasOwnProperty('upstream')
-                  && Array.isArray(observations.upstream)
-                  && observations.upstream.length
-                ) {
-                  sensor.properties.observations = observations;
-                }
+              // Case: With upstream / downstream values
+              if (
+                observations.hasOwnProperty('upstream')
+                && Array.isArray(observations.upstream)
+                && observations.upstream.length
+              ) {
+                sensor.properties.observations = observations;
               }
             }
           }
