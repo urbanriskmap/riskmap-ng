@@ -22,11 +22,12 @@
 
   .mat-expansion-panel-content {
     .mat-expansion-panel-body {
-      padding-bottom: 0!important;
+      padding: 0!important;
+      margin: 0 !important;
       overflow-x: hidden;
     }
 
-    &.mat-expanded .mat-expansion-panel-body {
+    &.mat-expanded {
       padding-bottom: 16px!important;
     }
   }
