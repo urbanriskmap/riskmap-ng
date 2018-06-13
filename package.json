@@ -4,7 +4,7 @@
   "author": "Urban Risk Lab",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "dep=us npm run fetch-assets && ng serve",
+    "start": "dep=in npm run fetch-assets && ng serve",
     "build": "npm run build-dev && npm run build-prod",
     "build-dev": "npm run build-dev-in && npm run build-dev-us",
     "build-prod": "npm run build-prod-in && npm run build-prod-us",

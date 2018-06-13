@@ -39,6 +39,20 @@ export default {
           ]
         }
       ]
+    },
+    {
+      groupId: 'support',
+      partnerRows: [
+        { // Row 1
+          partnerLogos: [
+            { // logo 1
+              name: 'tatacenter',
+              path: 'assets/logos/tatacenter_logo.png',
+              url: 'http://tatacenter.mit.edu'
+            }
+          ]
+        }
+      ]
     }
   ]
 };

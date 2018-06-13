@@ -6,16 +6,40 @@
   "partners_label_implementing": "Implementing Partners",
   "partners_label_data": "Data Partners",
   "partners_label_project": "Project Partners",
-
-  "overview_title": "Project overview",
+  "partners_label_support": "Supported by",
 
   "instance_regions": {
     "chennai": "Chennai",
     "mumbai": "Mumbai",
     "bangalore": "Bangalore",
-    "kolkata": "kolkata",
+    "kolkata": "Kolkata"
   },
+
+  "overview_title": "Project Overview",
+
+  "facebook_title": "Report with Facebook",
+  "facebook_step1": "Search for Riskmap.in on Facebook messenger",
+  "facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
+  "facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.in for up-to-date flood information.",
+
+  "telegram_title": "Report with Telegram",
+  "telegram_step1": "Text /flood to @RiskMapBot.",
+  "telegram_step2": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "telegram_step3": "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information.",
+
+
+  "twitter_title": "Report with Twitter",
+  "twitter_step1": "Send a Direct Message to @riskmapindia",
+  "twitter_step2": "@riskmapindia will send you a one-time link to submit report",
+  "twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
+  "twitter_step4": "On successful submission of the report, @riskmapindia will send you a reply with a link to your report",
+  "twitter_step5": "Check RiskMap.in for up-to-date flood information.",
+
   "add_report": "Report Flooding",
+  "hint_facebook":"Facebook Messenger",
+  "hint_twitter":"Twitter",
+  "hint_telegram":"Telegram",
+
   "reports_stats": "Received {reportsplaceholder} reports in past {hoursplaceholder} hours",
   "prep_menu": {
     "btn_names": {
@@ -25,6 +49,7 @@
       "treeclearing": "Fallen Tree"
     }
   },
+
   "web_menu": {
     "tab_names": {
       "map": "map",
@@ -32,101 +57,51 @@
       "info": "info"
     }
   },
+
   "report_info": {
-    "share_msg": "Check%20flood%20reports%20on%20riskmap%2Ein",
+    "msg_text": "Check%20flood%20reports%20on%20riskmap%2Eus",
     "water_depth": "Water depth",
     "source": "Source",
-    "flagReport_Title": "flag this report as inappropriate",
-    "flagReport_button": "tell us more",
+    "flagReport_title": "Flag report as inappropriate",
+    "flagReport_button": "Tell us more",
     "flagReport_email": "riskmapindia@gmail.com",
     "share_header": "Share this report"
   },
-  "flood_info": {
-    "title": "Flood affected area",
-    "level_hint": "Alert level",
-    "time_hint": "Last updated",
-    "state_codes": {
-      "1": {
-        "severity": "Unknown",
-        "description": "An unknown level of flooding, use caution"
-      },
-      "2": {
-        "severity": "Minor",
-        "description": "Flooding between 10 to 70 cm"
-      },
-      "3": {
-        "severity": "Moderate",
-        "description": "Flooding between 71 to 150 cm"
-      },
-      "4": {
-        "severity": "Severe",
-        "description": "Flooding over 150 cm"
-      }
-    }
-  },
+
   "map_helper": "Select city :",
-  "report_content": {
-    "flood": {
-      "title": "Project overview",
-      "steps": [
-      ]
-    },
-    "twitter": {
-      "title": "Report with Twitter",
-      "steps": [
-        "Tweet #flood to @riskmapindia.",
-        "Open the link and follow the instructions to input flood location, upload photo, and description.",
-        "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information."
-      ]
-    },
-    "telegram": {
-      "title": "Report with Telegram",
-      "steps": [
-        "Text /flood to @RiskMapBot.",
-        "Open the link and follow the instructions to input flood location, upload photo, and description.",
-        "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information."
-      ]
-    },
-    "facebook": {
-      "title": "Report with Facebook messenger",
-      "steps": [
-        "Search for Riskmap.in on Facebook messenger",
-        "Click on get started button and follow the instructions to input flood location, upload photo, and description.",
-        "You can see your report on the map via the link provided. Check Riskmap.in for up-to-date flood information."
-      ]
-    },
-    "otherapps": {
-      "title": "Report with local applications",
-      "steps": [
-        "You can report flood from Qlue, PasangMata, and Z-Alert.",
-        "Your report is now on the map. Check RiskMap.in for up-to-date flood information."
-      ],
-      "links": "<br><ul><li>Qlue:&nbsp;<a href='https://play.google.com/store/apps/details?id=org.qluein.android'><i class='icon-android'></i></a>&nbsp;&#124;&nbsp;<a href='https://itunes.apple.com/us/app/qlue-jakarta-smart-city/id987432944?ls=1&mt=8'><i class='icon-apple'></i></a></li><li><a href='http://pasangmata.detik.com/'>PasangMata</a></li><li><a href='https://www.zurich.co.id/id-id/kampanye-kami/zurich-alert-the-alert-you-really-need'>Z-Alert</a></li></ul>"
-    }
-  },
+
   "info_content": {
     "intro": "RiskMap.in harnesses the power of social media to gather, sort, and display information about flooding in real time.",
     "p1": "RiskMap.in is a project initiated by the Urban Risk Lab at MIT as a free, transparent platform for emergency response and disaster management in megacities in South and Southeast Asia.",
     "p2": "The platform adopts a “people are the best sensors” paradigm, where confirmed reports are collected directly from the users at street level in a manner that removes expensive and time-consuming data processing. This framework creates accurate, real-time data which is immediately made available for users and first responders.",
     "p3": "RiskMap.in gathers, sorts, and visualizes data using specially developed CogniCity Open Source Software - an enterprise-level platform for emergency response and disaster management - to transforms the noise of social and digital media into critical information for residents, communities, and government agencies.",
     "p4":"NOTE: For any emergency situation that requires immediate assistance please call Police - 100, Fire - 101, or Ambulance - 108. To register civic complaints call Greater Chennai Corporation on 1913",
+
     "partners": {
       "implementing": "Implementing partner",
       "project": "Project partners",
       "data": "Data partners",
       "support": "Supported by"
     },
-    "termsPopup": "User agreement &amp; Privacy policy",
+    "termsPopup": "User agreement & Privacy policy",
     "mapCredits": "Basemap tiles",
     "mapImproveLink": "Improve the basemap at",
     "browserStack": "Testing supported by <a href='https://www.browserstack.com' target='_blank'>BrowserStack</a>.",
     "USAID": "This website was made possible with the support of the American People through the U.S. Agency for International Development. This is not an official USAID or U.S. Government website. The contents of this website are the sole responsibility of the authors and do not necessarily reflect the views of USAID of the U.S. Government."
   },
+
   "legend": {
     "title": "Legend",
-    "report_icon": "Report Type",
-    "flood_gauges": "Flood Gauges",
-    "flood_depth": "Flood Depth (cm)"
+    "flood_report": "Flood Report",
+    "tree": "Downed tree",
+    "block": "Drain blocked",
+    "damage": "repairs needed",
+    "power":"power outage",
+    "precipitation":"Precipitation total",
+    "flood_depth": "Flood Depth: {{ flood_depth }} cm",
+    "map_infrastructure":"Infrastructure",
+    "map_reports": "Reports",
+    "map_region": "Reports"
   },
 
   "user_agreement_title": "User agreement",
@@ -134,4 +109,5 @@
 
   "privacy_policy_title": "Privacy policy",
   "privacy_policy_content": "<p class='header'>RiskMap.in Privacy Policy</p><p>Welcome to RiskMap.in, a website that collects and shares flood information from residents and government agencies, helping to reduce risk during flood events. RiskMap.in is a project of the Urban Risk Lab at the Massachusetts Institute of Technology ('we,' 'us,' 'our,' 'ours'). We are committed to respecting the privacy of users who access the RiskMap.in website (the 'Site,' which includes all pages within the RiskMap.in domain). <p class='header'>Web Server Logs</p><p>When you visit the Site, including for submission of flood reports, our web server may record the following information in its server log: <ul> <li>your IP Address <li>the URLs you have requested to access, <li>the dates and methods of requests, <li>the status code of your requests, <li>URLs of pages that referred you to the Site, <li>number of bytes transferred, <li>your web browser and operating system platform, <li>your location (if you provide it), <li>your preferred language (based on browser preference), and <li>your social messaging account username or user identification number </ul>We use server log information to help diagnose problems with our server and to administer our website by identifying which parts of the Site are most heavily used. We also use this information to tailor Site content to user needs and to generate aggregate statistical reports. Web server logs are retained on a temporary basis, during which time their contents are accessible to Site administrators, and then deleted completely from our systems. Unless required by legal process, we do not link IP addresses to any personally identifiable information. This means that user sessions will be tracked by IP address, but the user’s identity will remain anonymous. <p>We ordinarily do not disclose to third parties site usage by individual IP addresses, but we may do so in very limited circumstances to comply with law or legal process or when working with consultants assisting us with fixing or improving the Site or monitoring and improving the security of our network.<p class='header'>User-Generated Content</p><p>User-generated content is collected via flood report cards. You may request a flood report card via the RiskMap.in social messaging bot. You do not need to register to use flood report cards, although information you provide, including your social media username or ID number, is used to provide this service and contact you to confirm receipt of your report card. User-generated content will be available for all Site visitors to view and will identify you as the poster by the username from your social messaging account. <p>Any and all user-generated content that you post to the Site is publicly available to anyone who visits the Site, so do not post any information you do not want generally known to the public. More information about information collected through report cards can be found in our User Agreement. <p class='header'>Research Access to Data</p><p>In addition to providing flood information to residents, government and disaster-response agencies, RiskMap.in facilitates academic research into risk reduction. Any content you post to the Site may be used for academic research. <p class='header'>Programming Analytics</p><p>In order to refine the resources on offer through the Site and to optimize RiskMap.in programming, RiskMap.in may elect to conduct internal analytics of content submitted by users. Any such internal analytics will be conducted on an anonymized set of user-generated content. <p class='header'>Google Analytics</p><p>We use Google Analytics software to perform Site usage analytics. Google Analytics collects anonymous information from users to help us track Site usage and referrals from other websites. These data are used primarily to optimize the website experience for our visitors, but we may also use the data to assist us in marketing the Site. <p>Information collected and processed by Google Analytics includes the user’s IP address, network location, and geographic location. Google Analytics acquires all its information directly from the user, by installing a cookie (see below) on JavaScript-enabled computers. The Site does not share any information it collects with Google, and Google does not collect any personally identifiable information. <p class='header'>Cookies</p><p>Cookies are unique bits of computer data that many major websites will transfer to your computer the first time that you visit. Cookies are stored on your hard drive and may be later accessed by the website to track prior usage. As noted above, Google Analytics will install a cookie on the hard drives of Site visitors. <p class='header'>Disclosure To The Third Parties</p><p>We will not sell, lend, or disclose to third parties any personally identifiable information we collect, except as discussed in this Policy or required by law or legal process. We may disclose information to MIT employees, fellows, students, consultants and agents who have a legitimate need to know the information for the purpose of fixing or improving the Site and monitoring and improving the security of our network. We may also disclose this information when special circumstances call for it, such as when disclosure is required by law or legal process or when disclosure is, in our judgement, necessary to protect our legal rights, including intellectual property rights. <p class='header'>Other Websites</p><p>This Site may contain links to other web resources, including websites of organizations other than the Massachusetts Institute of Technology. The websites to which the Site links may also install cookies on your computer, log your access to their web pages, or collect user-identifying information directly from you, once you proceed to those sites. We are not responsible for the privacy practices of other sites to which the Site links. The privacy policies on those sites, if any, will govern your use of the sites. <p class='header'>Data Security</p><p>We have in place physical, electronic and managerial procedures to protect the information we collect online. However, as effective as these measures are, no security system is impenetrable. We cannot completely guarantee the security of our database, nor can we guarantee that the information you supply will not be intercepted while being transmitted to us over the Internet. <p class='header'>Notification Of Changes In The Privacy Policy</p><p>We will review our security measures and Privacy Policy on a periodic basis. We may change our Privacy Policy from time to time based on those reviews or because we add or change services or features. If we change our Privacy Policy, we will post it on the Site. We encourage you to review our Privacy Policy on a regular basis. <p>If you have any questions about this Privacy Policy, the practices of this Site, or your dealings with this Site, you can contact privacy@riskmap.in or Urban Risk Lab, School of Architecture and Planning, 77 Massachusetts Avenue, Cambridge 02139, Massachusetts, United States. <p class='header'>Effective Date</p><p>This Privacy Policy is in effect as of <a name='anchor8'></a>7<sup>th</sup> February 2017."
+
 }

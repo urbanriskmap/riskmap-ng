@@ -13,9 +13,9 @@ export const environment = {
 
   map: {
     accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
-    center: [-80.199261, 26.138301],
+    center: [80.23, 13.06],  // map initializes on chennai
     initZoom: 10,
-    minZoom: 10,
+    minZoom: 9,
     baseMapStyle: 'mapbox://styles/mapbox/light-v9'
   },
 
@@ -34,7 +34,7 @@ export const environment = {
 
   networks: {
     contact_links: {
-      flag_email: 'risk@mit.edu'
+      flag_email: 'riskmap@mit.edu'
     },
 
     deep_links: [

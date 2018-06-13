@@ -34,7 +34,7 @@ export const environment = {
 
   networks: {
     contact_links: {
-      flag_email: 'risk@mit.edu'
+      flag_email: 'riskmap@mit.edu'
     },
 
     deep_links: [

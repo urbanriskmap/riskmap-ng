@@ -40,7 +40,7 @@ export default {
         'telegram'
       ],
       videoLink: 'https://www.youtube.com/embed/Sp1JbFd9KhM',
-      localeKey: 'facebook',
+      localeKey: 'telegram',
       steps: [
         1,
         2,
