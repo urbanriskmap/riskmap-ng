@@ -28,7 +28,7 @@ export default {
           partnerLogos: [
             { // logo 1
               name: 'twitter',
-              path: 'assets/logos/twitter-logo.svg',
+              path: 'assets/logos/twitter_logo.svg',
               url: 'https://twitter.com'
             },
             { // logo 2
