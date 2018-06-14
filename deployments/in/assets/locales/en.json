@@ -69,12 +69,6 @@
     "p3": "RiskMap.in gathers, sorts, and visualizes data using specially developed CogniCity Open Source Software - an enterprise-level platform for emergency response and disaster management - to transforms the noise of social and digital media into critical information for residents, communities, and government agencies.",
     "p4":"NOTE: For any emergency situation that requires immediate assistance please call Police - 100, Fire - 101, or Ambulance - 108. To register civic complaints call Greater Chennai Corporation on 1913",
 
-    "partners": {
-      "implementing": "Implementing partner",
-      "project": "Project partners",
-      "data": "Data partners",
-      "support": "Supported by"
-    },
     "termsPopup": "User agreement & Privacy policy",
     "mapCredits": "Basemap tiles",
     "mapImproveLink": "Improve the basemap at",

@@ -8,7 +8,7 @@ export default {
   ],
   partners: [
     {
-      groupId: 'implementing',
+      groupId: 'project',
       partnerRows: [
         { // Row 1
           partnerLogos: [
