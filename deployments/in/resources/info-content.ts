@@ -8,7 +8,7 @@ export default {
   ],
   partners: [
     {
-      groupId: 'implementing',
+      groupId: 'project',
       partnerRows: [
         { // Row 1
           partnerLogos: [
@@ -28,13 +28,27 @@ export default {
           partnerLogos: [
             { // logo 1
               name: 'twitter',
-              path: 'assets/logos/twitter-logo.svg',
+              path: 'assets/logos/twitter_logo.svg',
               url: 'https://twitter.com'
             },
             { // logo 2
               name: 'mapbox',
               path: 'assets/logos/mapbox_logo.png',
               url: 'https://www.mapbox.com'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      groupId: 'support',
+      partnerRows: [
+        { // Row 1
+          partnerLogos: [
+            { // logo 1
+              name: 'tatacenter',
+              path: 'assets/logos/tatacenter_logo.png',
+              url: 'http://tatacenter.mit.edu'
             }
           ]
         }

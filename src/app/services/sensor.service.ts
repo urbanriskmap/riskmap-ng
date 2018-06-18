@@ -86,11 +86,8 @@ export class SensorService {
     const fetchAndTransformProcesses = [];
 
     for (const sensor of geojson.features) {
-      // TODO: remove if after removing sensor 54
-      if (sensor.properties.id !== '54') {
-        // Ref https://daveceddia.com/waiting-for-promises-in-a-loop/
-        fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor, server, path, flags));
-      }
+      // Ref https://daveceddia.com/waiting-for-promises-in-a-loop/
+      fetchAndTransformProcesses.push(this.fetchAndTransformData(sensor, server, path, flags));
     }
 
     return new Promise ((resolve, reject) => {

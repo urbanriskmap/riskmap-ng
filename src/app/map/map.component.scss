@@ -45,21 +45,20 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
   height: $button-dia;
   border: $button-stroke solid $snow-white;
   border-radius: ($button-dia + 2 * $button-stroke) / 2;
-  background-color: $frost-white;
+  background-color: transparentize($snow-white, $translucency);
   box-shadow: $pane-shadow;
   cursor: pointer;
   z-index: 3;
 
   i {
     margin-left: -5px;
-    @include text-regular(38px, $medium-azure);
+    @include text-bold(38px, $medium-azure);
     line-height: $button-dia;
   }
 
   p {
     text-align: center;
-    @include text-bold(10px, $medium-azure);
-    @include text-glow(1px, 2px, $snow-white);
+    @include text-bold(11px, $medium-azure);
   }
 
   &:hover {
@@ -96,7 +95,7 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
       }
 
       p {
-        @include text-bold(10px, $dark-gray);
+        @include text-bold(11px, $dark-gray);
       }
 
       &:hover {
