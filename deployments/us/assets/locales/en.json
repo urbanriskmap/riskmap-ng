@@ -82,7 +82,9 @@
     "well": "Groundwater level",
     "discharge":"Discharge rate",
     "precipitation":"Precipitation total",
-    "flood_depth": "Flood Depth: {{ flood_depth }} in"
+    "flood_depth": "Flood Depth: {{ flood_depth }} in",
+    "infrastructure_title":"Infrastructure",
+    "reports_title": "Reports"
   },
 
   "sensorTitle": {

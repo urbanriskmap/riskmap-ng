@@ -40,7 +40,7 @@ export const environment = {
       },
       {
         name: 'twitter',
-        link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152&welcome_message_id=905919155492331523&text=/flood'
+        link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152'
       }/*,
       // Disable telegram button for US deployment
       {name: 'telegram', link: 'https://telegram.me/riskmapus_bot'}*/

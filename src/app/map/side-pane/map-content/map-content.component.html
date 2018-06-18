@@ -1,7 +1,7 @@
 <mat-list>
   <p mat-subheader
     *ngIf="regions.length > 1">
-    Region
+    {{ 'legend.map_region' | translate }}
   </p>
 
   <mat-list-item
@@ -20,7 +20,9 @@
 
   <mat-divider *ngIf="regions.length > 1"></mat-divider>
 
-  <p mat-subheader>Reports</p>
+  <p mat-subheader>
+    {{ 'legend.map_reports' | translate }}
+  </p>
   <mat-list-item
     *ngFor="let item of legend.reports.items">
     <i
@@ -49,7 +51,10 @@
 
   <mat-divider></mat-divider>
 
-  <p mat-subheader>Infrastructure</p>
+  <p mat-subheader
+    *ngIf="legend.infrastructure.items.length">
+      {{ 'legend.map_infrastructure' | translate }}
+  </p>
   <mat-list-item
     *ngFor="let item of legend.infrastructure.items">
     <i
