@@ -83,30 +83,39 @@ export class HttpService {
   getGeometryData(
     layer: LayerMetadata,
     region: string,
-    miscellaneous?: {
+    miscellaneous?: { //REVIEW vestige?
       [name: string]: any
     }
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     // Set to data server
-    let endpoint = env.servers[layer.server];
+    let queryUrl = env.servers[layer.server];
     // Add additional path routes
     if (layer.path) {
-      endpoint = endpoint + layer.path;
+      queryUrl += layer.path;
     }
 
     // Add query parameters
-    if (layer.flags['region']) {
-      endpoint = endpoint + '?city=' + region;
-      if (layer.name === 'reports') {
-        endpoint = endpoint + '&timeperiod=' + env.servers.settings.reportTimeperiod;
+    let isFirstFlag = true;
+    for (let flag of layer.flags) {
+      if (flag.hasOwnProperty('region')) {
+        isFirstFlag = false;
+        queryUrl += '?city=' + region;
+
+        if (layer.name === 'reports') {
+          queryUrl += '&timeperiod=' + env.servers.settings.reportTimeperiod;
+        }
+      } else {
+        queryUrl += (isFirstFlag ? '?' : '&') + Object.entries(flag)[0][0] + '=' + Object.entries(flag)[0][1];
+        isFirstFlag = false;
       }
     }
 
     if (layer.responseType === 'topojson') {
-      return this.convertTopojsonToGeojson(endpoint);
+      // TOPOJSON
+      return this.convertTopojsonToGeojson(queryUrl);
     } else {
       // GEOJSON
-      return this.fetchGeojson(endpoint);
+      return this.fetchGeojson(queryUrl);
     }
   }
 
@@ -120,17 +129,10 @@ export class HttpService {
     let queryUrl = env.servers[server] + endpoint;
 
     if (flags && flags.length) {
-      let flagCount = 0;
-
-      for (const flag of flags) {
-        if (flag && flag.key) {
-          if (flagCount === 0) {
-            queryUrl = queryUrl + '?' + flag.key + '=' + flag.value;
-            flagCount += 1;
-          } else {
-            queryUrl = queryUrl + '&' + flag.key + '=' + flag.value;
-          }
-        }
+      let isFirstFlag = true;
+      for (let flag of flags) {
+        queryUrl += (isFirstFlag ? '?' : '&') + Object.entries(flag)[0][0] + '=' + Object.entries(flag)[0][1];
+        isFirstFlag = false;
       }
     }
 

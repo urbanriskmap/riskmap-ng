@@ -45,10 +45,13 @@ export default {
     // Sensors layer
     {
       metadata: {
-        name: 'sensors',
+        name: 'sensors_usgs',
         server: 'sensors',
         path: '',
-        flags: [{region: false}],
+        flags: [
+          {region: false},
+          {agency: 'usgs'}
+        ],
         responseType: 'geojson',
         uniqueKey: 'id',
         legendGroup: 'infrastructure',
