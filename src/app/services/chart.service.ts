@@ -140,7 +140,9 @@ export class ChartService {
     });
 
     this.translate.get('sensorSubtitleConjunction').subscribe((res: string) => {
-      if (sensorProperties.hasOwnProperty('datum')) {
+      if (sensorProperties.hasOwnProperty('datum')
+        && sensorProperties.datum
+      ) {
         title.push(
           sensorProperties.units + res + sensorProperties.datum
         );
