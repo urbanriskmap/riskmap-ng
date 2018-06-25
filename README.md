@@ -2,7 +2,7 @@
 [![DOI](https://zenodo.org/badge/116730055.svg)](https://zenodo.org/badge/latestdoi/116730055)
 
 # Riskmap
-UrbanRiskMap web app [Angular](https://github.com/angular/angular-cli) project using [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/).
+UrbanRiskMap web app [Angular](https://github.com/angular/angular-cli) project using [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/). UrbanRiskMap reports flooding in real-time
 
 ## Development server
 
