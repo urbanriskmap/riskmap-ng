@@ -290,7 +290,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
     msg: string,
     type: 'info' | 'warn' | 'error'
   ) {
-    const notificationMsg;
     if (this.openNotificationMsg) {
       msg = msg + '; ' + this.openNotificationMsg;
     }
