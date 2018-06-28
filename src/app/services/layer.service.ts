@@ -76,7 +76,7 @@ export class LayerService {
     for (const layer of layers.supported) {
 
       switch (layer.metadata.name) {
-        case 'sensors':
+        case 'sensors_usgs':
           this.httpService
           .getGeometryData(layer.metadata, region.code)
           .then(geojson => {

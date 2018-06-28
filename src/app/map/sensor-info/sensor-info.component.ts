@@ -47,7 +47,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
       this.feature = this.features[0].properties;
 
       switch (this.features[0].layer.id) {
-        case 'sensors':
+        case 'sensors_usgs':
           const observations = JSON.parse(this.feature.observations);
           const properties = {
             title: this.feature.class,
