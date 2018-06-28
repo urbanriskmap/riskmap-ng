@@ -46,3 +46,13 @@ deploy:
     local_dir: dist/prod-us
     on:
       branch: master
+
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $AWS_S3_BUCKET_RISKMAP_IN_PROD
+    region: $AWS_S3_BUCKET_REGION_RISKMAP_IN
+    skip_cleanup: true
+    local_dir: dist/prod-in
+    on:
+      branch: master
