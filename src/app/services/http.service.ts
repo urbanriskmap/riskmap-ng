@@ -74,7 +74,7 @@ export class HttpService {
         resolve(geojson);
       })
       .catch(error => {
-        reject(error)
+        reject(error);
       });
     })
     ;
@@ -83,7 +83,7 @@ export class HttpService {
   getGeometryData(
     layer: LayerMetadata,
     region: string,
-    miscellaneous?: { //REVIEW vestige?
+    miscellaneous?: { // REVIEW vestige?
       [name: string]: any
     }
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
@@ -96,7 +96,7 @@ export class HttpService {
 
     // Add query parameters
     let isFirstFlag = true;
-    for (let flag of layer.flags) {
+    for (const flag of layer.flags) {
       if (flag.hasOwnProperty('region')) {
         isFirstFlag = false;
         queryUrl += '?city=' + region;
@@ -130,7 +130,7 @@ export class HttpService {
 
     if (flags && flags.length) {
       let isFirstFlag = true;
-      for (let flag of flags) {
+      for (const flag of flags) {
         queryUrl += (isFirstFlag ? '?' : '&') + Object.entries(flag)[0][0] + '=' + Object.entries(flag)[0][1];
         isFirstFlag = false;
       }
