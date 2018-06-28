@@ -78,13 +78,13 @@
 
   "legend": {
     "title": "Legend",
-    "flood_report": "Flood Report",
+    "flood_report": "Flood report",
     "tree": "Downed tree",
     "block": "Drain blocked",
-    "damage": "repairs needed",
-    "power":"power outage",
+    "damage": "Repairs needed",
+    "power":"Power outage",
     "precipitation":"Precipitation total",
-    "flood_depth": "Flood Depth: {{ flood_depth }} cm",
+    "flood_depth": "Flood depth: {{ flood_depth }} cm",
     "map_infrastructure":"Infrastructure",
     "map_reports": "Reports",
     "map_region": "Region"
