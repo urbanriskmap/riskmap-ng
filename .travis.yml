@@ -8,7 +8,6 @@ branches:
   only:
     - dev
     - master
-    - linting # temporary
 
 install:
   - npm i
