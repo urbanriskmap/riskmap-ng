@@ -237,7 +237,9 @@ export class MapComponent implements OnInit { // , OnDestroy {
     this.map.on('click', event => {
       this.toggleSidePane({close: true});
       this.toggleReportFlyer({close: true});
-      if (this.viewingArchivedReport) this.viewingArchivedReport = false;
+      if (this.viewingArchivedReport) {
+        this.viewingArchivedReport = false;
+      }
       this.layerService.handleMapInteraction(event);
     });
 
@@ -260,7 +262,9 @@ export class MapComponent implements OnInit { // , OnDestroy {
     // Initialise notification subscription
     this.notificationSubscription = this.notificationService.message
     .subscribe(content => {
-      if (!content.skipNotification) this.showNotification(content.msg, content.type)
+      if (!content.skipNotification) {
+        this.showNotification(content.msg, content.type);
+      }
     });
 
     // IDEA: Switch to single page navigation?
@@ -286,7 +290,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     msg: string,
     type: 'info' | 'warn' | 'error'
   ) {
-    let notificationMsg;
+    const notificationMsg;
     if (this.openNotificationMsg) {
       msg = msg + '; ' + this.openNotificationMsg;
     }
