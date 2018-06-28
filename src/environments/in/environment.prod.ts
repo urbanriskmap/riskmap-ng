@@ -12,11 +12,11 @@ export const environment = {
   },
 
   map: {
-    accessToken: 'pk.eyJ1IjoiYXNiYXJ2ZSIsImEiOiI4c2ZpNzhVIn0.A1lSinnWsqr7oCUo0UMT7w',
+    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
     center: [80.23, 13.06],  // map initializes on chennai
     initZoom: 10,
     minZoom: 9,
-    baseMapStyle: 'mapbox://styles/mapbox/light-v9'
+    baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
 
   locales: {
