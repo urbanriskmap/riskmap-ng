@@ -2,7 +2,7 @@
 
 import { Injectable, EventEmitter } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
-import { Feature, GeometryObject, GeoJsonProperties } from 'geojson';
+import { Feature, FeatureCollection, GeometryObject, GeoJsonProperties } from 'geojson';
 
 import { environment as env } from '../../environments/environment';
 import layers from '../../resources/layers';
@@ -67,6 +67,29 @@ export class LayerService {
     this.map.addLayer(layerSettings);
   }
 
+  addSensorLayers(
+    geojson: FeatureCollection<GeometryObject, GeoJsonProperties>,
+    server: string,
+    path: string,
+    flags: {[name: string]: any}[]
+  ) {
+    return new Promise((resolve, reject) => {
+      this.sensorService.updateProperties(geojson, server, path, flags)
+      .then(updatedSensors => {
+        geojson.features = updatedSensors;
+        resolve(geojson);
+      })
+      .catch(error => reject(error));
+    });
+  }
+
+  renderLayers(settings, selectionSettings, placeBelow) {
+    // Add base layer
+    this.map.addLayer(settings, placeBelow);
+    // Add selection layer
+    this.addSelectionLayer(settings, selectionSettings, placeBelow);
+  }
+
   initializeLayers(
     map: mapboxgl.Map,
     region: Region
@@ -74,43 +97,42 @@ export class LayerService {
     this.map = map;
 
     for (const layer of layers.supported) {
-
-      switch (layer.metadata.name) {
-        case 'sensors_usgs':
-          this.httpService
-          .getGeometryData(layer.metadata, region.code)
-          .then(geojson => {
-            this.sensorService.updateProperties(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
-            .then(updatedSensors => {
-              geojson.features = updatedSensors;
-              layer.settings.source.data = geojson;
-
-              // Add layer
-              this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
-              // Add selection layer
-              this.addSelectionLayer(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+      this.httpService
+      .getGeometryData(layer.metadata, region.code)
+      .then(geojson => {
+        switch (layer.metadata.name) {
+          case 'sensors_usgs':
+            this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
+            .then((data) => {
+              if (data) {
+                layer.settings.source.data = data;
+                this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+              }
             })
-            .catch(error => console.log(error));
-          });
-          break;
+            .catch((error) => console.log(error));
+            break;
 
-        default:
-          this.httpService
-          .getGeometryData(layer.metadata, region.code)
-          .then(geojson => {
-            // Overwrite data object
-            layer.settings.source.data = geojson;
+          case 'sensors_sfwmd':
+            this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
+            .then((data) => {
+              if (data) {
+                layer.settings.source.data = data;
+                this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+              }
+            })
+            .catch((error) => console.log(error));
+            break;
 
+          default:
             if (layer.metadata.name === 'reports') {
               this.showReportsNotification(geojson.features.length);
             }
-
-            // Add base layer
-            this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
-            // Add selection layer
-            this.addSelectionLayer(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
-          });
-      }
+            // Overwrite data object
+            layer.settings.source.data = geojson;
+            this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+        }
+      })
+      .catch(error => console.log(error));
     }
   }
 

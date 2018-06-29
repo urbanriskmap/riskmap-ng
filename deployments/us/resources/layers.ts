@@ -42,16 +42,13 @@ export default {
       ]
     },
 
-    // Sensors layer
+    // Sensors layer (USGS)
     {
       metadata: {
         name: 'sensors_usgs',
         server: 'sensors',
         path: '',
-        flags: [
-          {region: false},
-          {agency: 'usgs'}
-        ],
+        flags: [{agency: 'usgs'}],
         responseType: 'geojson',
         uniqueKey: 'id',
         legendGroup: 'infrastructure',
@@ -112,32 +109,127 @@ export default {
         {
           symbolType: 'icon',
           symbolStyle: 'icon-gauge',
-          label: 'legend.gauge',
+          label: 'legend.usgs.gauge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-level',
-          label: 'legend.elevation',
+          label: 'legend.usgs.elevation',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-well',
-          label: 'legend.well',
+          label: 'legend.usgs.well',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-discharge',
-          label: 'legend.discharge',
+          label: 'legend.usgs.discharge',
           source: 'USGS'
         },
         {
           symbolType: 'icon',
           symbolStyle: 'icon-precipitation',
-          label: 'legend.precipitation',
+          label: 'legend.usgs.precipitation',
           source: 'USGS'
+        }
+      ]
+    },
+
+    // Sensors layer (SFWMD)
+    {
+      metadata: {
+        name: 'sensors_sfwmd',
+        server: 'sensors',
+        path: '',
+        flags: [{agency: 'sfwmd'}],
+        responseType: 'geojson',
+        uniqueKey: 'id',
+        legendGroup: 'infrastructure',
+        selected: {
+          type: 'layout',
+          styles: {
+            'icon-image': [
+              'match',
+              ['get', 'class'],
+              'H', 'map_headwater_sel',
+              'T', 'map_tailwater_sel',
+              'S', 'map_spillway_sel',
+              'C', 'map_discharge_sel',
+              'P', 'map_pump_sel',
+              'W', 'map_weir_sel',
+              'map_gauge_sel'
+            ]
+          }
+        },
+        viewOnly: false
+      },
+      settings: {
+        id: 'sensors_sfwmd',
+        type: 'symbol',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'icon-opacity': 1
+        },
+        layout: {
+          'icon-image': [
+            'match',
+            ['get', 'class'],
+            'H', 'map_headwater',
+            'T', 'map_tailwater',
+            'S', 'map_spillway',
+            'C', 'map_discharge',
+            'P', 'map_pump',
+            'W', 'map_weir',
+            'map_gauge'
+          ],
+          'icon-size': .75,
+          'icon-allow-overlap': false
+        },
+        filter: ['all', ['!=', 'id', '']] // ['has', 'observations'],
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-headwater',
+          label: 'legend.headwater',
+          source: 'SFWMD'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-tailwater',
+          label: 'legend.sfwmd.tailwater',
+          source: 'SFWMD'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-spillway',
+          label: 'legend.sfwmd.spillway',
+          source: 'SFWMD'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-discharge',
+          label: 'legend.sfwmd.culvert',
+          source: 'SFWMD'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-pump',
+          label: 'legend.sfwmd.pump',
+          source: 'SFWMD'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-weir',
+          label: 'legend.sfwmd.weir',
+          source: 'SFWMD'
         }
       ]
     }

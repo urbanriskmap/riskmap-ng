@@ -96,6 +96,12 @@
 
 <app-sensor-info
   class="info-panes"
+  *ngIf="interactionService.featureTypes.sensors_sfwmd"
+  [features]="interactionService.featureTypes.sensors_sfwmd">
+</app-sensor-info>
+
+<app-sensor-info
+  class="info-panes"
   *ngIf="interactionService.featureTypes.floodgauges"
   [features]="interactionService.featureTypes.floodgauges">
 </app-sensor-info>

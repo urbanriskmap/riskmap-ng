@@ -26,10 +26,11 @@ export class HttpService {
           if (response['statusCode'] === 200) {
             resolve(response['result']);
           } else {
-            reject(response);
+            resolve();
+            // COMBAK reject(response);
           }
         },
-        error => reject(error)
+        error => resolve() // COMBAK reject(error)
       );
     });
   }
@@ -128,13 +129,14 @@ export class HttpService {
   ): Promise<GeoJsonProperties> {
     let queryUrl = env.servers[server] + endpoint;
 
-    if (flags && flags.length) {
-      let isFirstFlag = true;
-      for (const flag of flags) {
-        queryUrl += (isFirstFlag ? '?' : '&') + Object.entries(flag)[0][0] + '=' + Object.entries(flag)[0][1];
-        isFirstFlag = false;
-      }
-    }
+    // COMBAK refactor for flags support in data calls
+    // if (flags && flags.length) {
+    //   let isFirstFlag = true;
+    //   for (const flag of flags) {
+    //     queryUrl += (isFirstFlag ? '?' : '&') + Object.entries(flag)[0][0] + '=' + Object.entries(flag)[0][1];
+    //     isFirstFlag = false;
+    //   }
+    // }
 
     return this.fetchGeojson(queryUrl);
   }

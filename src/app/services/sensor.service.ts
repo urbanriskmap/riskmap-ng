@@ -34,7 +34,7 @@ export class SensorService {
         flags
       )
       .then(observationGroups => {
-        if (observationGroups.length) {
+        if (observationGroups && observationGroups.length) {
           const latestObs = observationGroups[observationGroups.length - 1];
 
           // Append sensor observations to sensor properties
