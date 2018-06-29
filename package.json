@@ -1,13 +1,13 @@
-{
+      {
   "name": "urbanriskmap-webapp",
   "version": "2.0.1",
   "author": "Urban Risk Lab",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "dep=us npm run fetch-assets && ng serve",
+    "start": "dep=in npm run fetch-assets && ng serve",
     "build": "npm run build-dev && npm run build-prod",
     "build-dev": "npm run build-dev-in && npm run build-dev-us",
-    "build-prod": "npm run build-prod-in && npm run build-prod-us",
+    "build-prod": "npm run build-prod-ngsw-us && npm run build-prod-ngsw-in",
     "build-dev-id": "dep=id npm run fetch-assets && ng build --env=dev-id --output-path='dist/dev-id'",
     "build-dev-us": "dep=us npm run fetch-assets && ng build --env=dev-us --output-path='dist/dev-us'",
     "build-dev-in": "dep=in npm run fetch-assets && ng build --env=dev-in --output-path='dist/dev-in'",
@@ -17,7 +17,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod-ngsw": "npm run build-prod-us && node_modules/.bin/ngsw-config dist/prod-us ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/prod-us/ngsw-worker.js",
+    "build-prod-ngsw-us": "npm run build-prod-us && node_modules/.bin/ngsw-config dist/prod-us ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/prod-us/ngsw-worker.js",
+    "build-prod-ngsw-in": "npm run build-prod-in && node_modules/.bin/ngsw-config dist/prod-in ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/prod-in/ngsw-worker.js",
     "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist/prod-us -p 8080",
     "fetch-assets": "gulp --gulpfile ./tasks/fetch-assets --dep $dep",
     "docs": "rm -rf ./docs && gulp --gulpfile ./tasks/generate-docs"
