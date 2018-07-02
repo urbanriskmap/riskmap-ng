@@ -64,7 +64,7 @@ export class LayerService {
     layerSettings.filter = settings.filter;
 
     // add selected feature layer
-    this.map.addLayer(layerSettings);
+    this.map.addLayer(layerSettings, placeBelow);
   }
 
   addSensorLayers(
@@ -84,6 +84,7 @@ export class LayerService {
   }
 
   renderLayers(settings, selectionSettings, placeBelow) {
+    console.log('Rendering ' + settings.id + ' layer');
     // Add base layer
     this.map.addLayer(settings, placeBelow);
     // Add selection layer
@@ -136,6 +137,22 @@ export class LayerService {
     }
   }
 
+  getNestedProperties(uniqueKey: string, properties: any) {
+    try {
+      return uniqueKey
+        .split('.')
+        .reduce((object, property) => {
+          if (typeof object === 'string') {
+            return JSON.parse(object)[property];
+          } else {
+            return object[property];
+          }
+        }, properties);
+    } catch (error) {
+      return properties[uniqueKey];
+    }
+  }
+
   modifyLayerFilter(layerName: string, uniqueKey: string|null, features: any, restore?: boolean): void {
     // Get filter for queried layer
     const filter = this.map.getFilter(layerName);
@@ -144,7 +161,8 @@ export class LayerService {
     const featureFilter = filter.slice(-1).pop();
 
     // Replace 'value' item in ['operator', 'key', 'value'] array
-    const value = restore ? '' : features[0].properties[uniqueKey];
+    const value = restore ? '' : this.getNestedProperties(uniqueKey, features[0].properties);
+    // console.log(value);
     featureFilter.splice(-1, 1, value);
     // Replace featureFilter in queried layer filter
     filter.splice(-1, 1, featureFilter);

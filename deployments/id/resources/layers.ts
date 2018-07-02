@@ -115,7 +115,7 @@ export default {
     {
       metadata: {
         name: 'pumps',
-        server: 'sensors',
+        server: 'sensors', // TEMP 
         path: 'infrastructure/pumps',
         flags: [{region: true}],
         responseType: 'topojson',

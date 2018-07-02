@@ -141,7 +141,7 @@ export class ChartService {
       if (sensorProperties.hasOwnProperty('datum')
         && sensorProperties.datum) {
         title.push(
-          sensorProperties.units + sensorProperties.datum
+          sensorProperties.units + ' ' + sensorProperties.datum
         );
       } else {
         title[0] += ' (' + sensorProperties.units + ')';

@@ -1,5 +1,10 @@
 
 .icon-report-problem:before { content: '\e800'; } /* '' */
+.icon-cam:before { content: '\e801'; } /* '' */
+.icon-headwater:before { content: '\e802'; } /* '' */
+.icon-weir:before { content: '\e803'; } /* '' */
+.icon-spillway:before { content: '\e804'; } /* '' */
+.icon-site:before { content: '\e805'; } /* '' */
 .icon-flood-img:before { content: '\e80a'; } /* '' */
 .icon-add-report:before { content: '\e815'; } /* '' */
 .icon-otherapps:before { content: '\e816'; } /* '' */
@@ -16,6 +21,7 @@
 .icon-locate:before { content: '\e821'; } /* '' */
 .icon-locate-error:before { content: '\e822'; } /* '' */
 .icon-flag-report:before { content: '\e823'; } /* '' */
+.icon-tailwater:before { content: '\e824'; } /* '' */
 .icon-share:before { content: '\e825'; } /* '' */
 .icon-upvote:before { content: '\e826'; } /* '' */
 .icon-downvote:before { content: '\e827'; } /* '' */

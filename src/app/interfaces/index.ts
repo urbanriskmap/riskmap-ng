@@ -145,6 +145,8 @@ export interface LayerMetadata {
 
 export interface LayerSettings {
   id: string;
+  minzoom?: number;
+  maxzoom?: number; 
   type: string;
   source: {
     type: string;

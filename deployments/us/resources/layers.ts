@@ -169,6 +169,7 @@ export default {
       },
       settings: {
         id: 'sensors_sfwmd',
+        minzoom: 16,
         type: 'symbol',
         source: {
           type: 'geojson',
@@ -192,7 +193,7 @@ export default {
           'icon-size': .75,
           'icon-allow-overlap': false
         },
-        filter: ['all', ['!=', 'id', '']] // ['has', 'observations'],
+        filter: ['all', ['has', 'observations'], ['!=', 'id', '']]
       },
       legend: [
         {
@@ -229,6 +230,92 @@ export default {
           symbolType: 'icon',
           symbolStyle: 'icon-weir',
           label: 'legend.sfwmd.weir',
+          source: 'SFWMD'
+        }
+      ]
+    },
+
+    // Basins
+    {
+      metadata: {
+        name: 'basins',
+        server: 'data',
+        path: 'infrastructure/basins',
+        flags: [],
+        responseType: 'topojson',
+        uniqueKey: 'tags.basin_code',
+        legendGroup: 'infrastructure',
+        selected: {
+          type: 'paint',
+          styles: {
+            'fill-opacity': 0.8,
+            'fill-outline-color': '#0474cb'
+          }
+        },
+        viewOnly: false,
+        placeBelow: 'place-village'
+      },
+      settings: {
+        id: 'basins',
+        type: 'fill',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'fill-color': '#fff',
+          'fill-opacity': 0.25,
+          'fill-outline-color': '#000'
+        },
+        filter: ['all', ['!=', ['get', 'basin_code', ['object', ['get', 'tags']]], '']]
+      },
+      legend: [
+        {
+          symbolType: 'fill',
+          symbolStyle: 'assets/icons/webapp/apple-touch-icon-76x76.png',
+          label: 'legend.sfwmd.basin'
+        }
+      ]
+    },
+
+    // Sites SFWMD
+    {
+      metadata: {
+        name: 'sites',
+        server: 'data',
+        path: 'infrastructure/sites',
+        flags: [], // REVIEW region flag doesn't work, 3d infrastructure coordinates?
+        responseType: 'topojson',
+        uniqueKey: 'name',
+        legendGroup: 'infrastructure',
+        selected: {
+          type: 'layout',
+          styles: {
+            'icon-image': 'map_site_sel'
+          }
+        },
+        viewOnly: false
+      },
+      settings: {
+        id: 'sites',
+        maxzoom: 16,
+        type: 'symbol',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        layout: {
+          'icon-image': 'map_site',
+          'icon-allow-overlap': true,
+          'icon-size': 0.75
+        },
+        filter: ['all', ['!=', 'name', '']]
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-site',
+          label: 'legend.sfwmd.site',
           source: 'SFWMD'
         }
       ]
