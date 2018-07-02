@@ -35,6 +35,14 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
       title: '00045'
     }
   };
+  sfwmdSensorMap = { // TODO Move to locales
+    H: 'Headwater elevation',
+    T: 'Tailwater elevation',
+    S: 'Spillway',
+    P: 'Pump',
+    C: 'Culvert',
+    W: 'Weir'
+  };
 
   constructor(
     public chartService: ChartService
@@ -44,12 +52,14 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
+      let observations;
+      let properties;
       this.feature = this.features[0].properties;
 
       switch (this.features[0].layer.id) {
         case 'sensors_usgs':
-          const observations = JSON.parse(this.feature.observations);
-          const properties = {
+          observations = JSON.parse(this.feature.observations);
+          properties = {
             title: this.feature.class,
             units: this.feature.units,
             datum: this.usgsSensorMap['_' + this.feature.class].datum
@@ -73,6 +83,22 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
               properties
             );
           }
+          break;
+
+        case 'sensors_sfwmd':
+          observations = JSON.parse(this.feature.observations);
+          properties = {
+            title: 'Get from Site Map',
+            units: this.sfwmdSensorMap[this.feature.class] + ', ' + this.feature.units,
+            datum: ' '
+          };
+
+          this.chartService.drawSensorChart(
+            document.getElementById('sensorChartWrapper'),
+            this.chartService.parseData(observations, false),
+            properties
+          );
+
           break;
 
         case 'floodgauges':

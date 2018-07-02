@@ -94,7 +94,6 @@
     "00060": "Discharge rate",
     "00045": "Precipitation total"
   },
-  "sensorSubtitleConjunction": " above ",
   "sensorLabels": {
     "up": "Upstream",
     "down": "Downstream"

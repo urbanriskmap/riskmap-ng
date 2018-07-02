@@ -137,14 +137,11 @@ export class ChartService {
     let title;
     this.translate.get('sensorTitle.' + sensorProperties.title).subscribe((res: string) => {
       title = [res];
-    });
 
-    this.translate.get('sensorSubtitleConjunction').subscribe((res: string) => {
       if (sensorProperties.hasOwnProperty('datum')
-        && sensorProperties.datum
-      ) {
+        && sensorProperties.datum) {
         title.push(
-          sensorProperties.units + res + sensorProperties.datum
+          sensorProperties.units + sensorProperties.datum
         );
       } else {
         title[0] += ' (' + sensorProperties.units + ')';

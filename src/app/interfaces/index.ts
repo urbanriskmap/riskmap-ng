@@ -86,13 +86,30 @@ export interface ReportInterface {
 
 export interface SensorInterface {
   [name: string]: any;
-  // id: number;
-  // class: string;
-  // created: string;
-  // observations: string;
-  // type: string;
-  // uid: string;
-  // units: string;
+  // Sample USGS
+  /*
+  agency: 'usgs';
+  class: string;
+  created: string;
+  id: number;
+  observations: string;
+  type: string;
+  uid: string;
+  units: string;
+  */
+
+  // Sample SFWMD
+  /*
+  agency: 'sfwmd';
+  basin: string;
+  class: string;
+  created: string;
+  id: number;
+  observations: string;
+  site: string;
+  stationId: string;
+  units: string;
+  */
 }
 
 export interface Region {

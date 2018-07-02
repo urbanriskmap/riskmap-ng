@@ -94,7 +94,6 @@
     "00060": "Tasa de descarga",
     "00045": "Precipitatión total"
   },
-  "sensorSubtitleConjunction": " por encima del ",
   "sensorLabels": {
     "up": "Río arriba",
     "down": "Río abajo"
