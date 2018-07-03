@@ -76,15 +76,27 @@
 
   "legend": {
     "title": "Leyenda",
-    "flood_report": "Medidores de inundación",
-    "gauge": "Elevación de agua corriente",
-    "elevation": "Altura del indicador",
-    "well": "Nivel del agua subterránea",
-    "discharge":"Tasa de descarga",
-    "precipitation":"Precipitación total",
-    "flood_depth": "Altura de inundación: {{ flood_depth }} in",
     "infrastructure_title":"Infraestructura",
-    "reports_title": "Reportes"
+    "reports_title": "Reportes",
+    "flood_report": "Medidores de inundación",
+    "usgs": {
+      "gauge": "Elevación de agua corriente",
+      "elevation": "Altura del indicador",
+      "well": "Nivel del agua subterránea",
+      "discharge":"Tasa de descarga",
+      "precipitation":"Precipitación total"
+    },
+    "sfwmd": {
+      "headwater": "Headwater elevation",
+      "tailwater": "Tailwater elevation",
+      "spillway": "Spillway flow rate",
+      "culvert": "Culvert flow rate",
+      "pump": "Pump flow rate",
+      "weir": "Weir flow rate",
+      "site": "Water control structures",
+      "basin": "Water control catchment"
+    },
+    "flood_depth": "Altura de inundación: {{ flood_depth }} in"
   },
 
   "sensorTitle" : {

@@ -24,6 +24,13 @@ export class LayerService {
     type: 'info' | 'warn' | 'error',
     actionText?: string
   }>;
+  basins: {
+    basinCode: string,
+    sites: {
+      name: string,
+      stations: string[]
+    }[]
+  }[];
 
   constructor(
     private httpService: HttpService,
@@ -84,7 +91,6 @@ export class LayerService {
   }
 
   renderLayers(settings, selectionSettings, placeBelow) {
-    console.log('Rendering ' + settings.id + ' layer');
     // Add base layer
     this.map.addLayer(settings, placeBelow);
     // Add selection layer
@@ -102,6 +108,8 @@ export class LayerService {
       .getGeometryData(layer.metadata, region.code)
       .then(geojson => {
         switch (layer.metadata.name) {
+          // REVIEW: All following cases will be deployment specific
+          // Worth refactoring?
           case 'sensors_usgs':
             this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
             .then((data) => {
@@ -119,6 +127,7 @@ export class LayerService {
               if (data) {
                 layer.settings.source.data = data;
                 this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                this.linkSfwmdInfrastructure(data['features']);
               }
             })
             .catch((error) => console.log(error));
@@ -137,6 +146,57 @@ export class LayerService {
     }
   }
 
+  linkSfwmdInfrastructure(stations: {[name: string]: any}[]): void {
+    this.basins = [];
+    for (const station of stations) {
+      const _b = station.properties.basin;
+      const _s = station.properties.site;
+      const _id = station.properties.stationId;
+
+      // Lookup matching basin
+      const basinStored = this.basins.filter((basin) => {
+        return basin.basinCode === _b;
+      }).length;
+      if (basinStored) {
+        // Go to matching basin
+        for (const basin of this.basins) {
+
+          if (basin.basinCode === _b) {
+            // Lookup matching site
+            const siteStored = basin.sites.filter((site) => {
+              return site.name === _s;
+            }).length;
+            if (siteStored) {
+              // Go to matching site
+              for (const site of basin.sites) {
+                if (site.name === _s) {
+                  site.stations.push(_id);
+                }
+              }
+
+            } else {
+              // site not stored
+              basin.sites.push({
+                name: String(_s),
+                stations: [String(_id)]
+              });
+            }
+          }
+        }
+
+      } else {
+        // basin not stored
+        this.basins.push({
+          basinCode: String(_b),
+          sites: [{
+            name: String(_s),
+            stations: [String(_id)]
+          }]
+        });
+      }
+    }
+  }
+
   getNestedProperties(uniqueKey: string, properties: any) {
     try {
       return uniqueKey
@@ -148,7 +208,7 @@ export class LayerService {
             return object[property];
           }
         }, properties);
-    } catch (error) {
+    } catch (err) {
       return properties[uniqueKey];
     }
   }
@@ -162,7 +222,6 @@ export class LayerService {
 
     // Replace 'value' item in ['operator', 'key', 'value'] array
     const value = restore ? '' : this.getNestedProperties(uniqueKey, features[0].properties);
-    // console.log(value);
     featureFilter.splice(-1, 1, value);
     // Replace featureFilter in queried layer filter
     filter.splice(-1, 1, featureFilter);
@@ -263,6 +322,8 @@ export class LayerService {
 
       } else {
         // Iterate over all layers
+        // NOTE: In layers.ts file, declare layer objects in the order of click interaction priority
+
         for (const layer of layers.supported) {
           const name = layer.metadata.name;
           const uniqueKey = layer.metadata.uniqueKey;
@@ -271,21 +332,26 @@ export class LayerService {
             features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
           }
 
-          if (features.length === 1) {
+          if (features.length >= 1) {
             // CASE 2: Clicked on a single feature
-            this.modifyLayerFilter(name, uniqueKey, features);
-            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features);
-            break;
-
-          } else if (features.length > 1) {
             // CASE 3: Clicked with multiple features overlapping
             this.modifyLayerFilter(name, uniqueKey, features);
-            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features);
-
-            // Susceptible to fail when features from 2 different layers are overlapping;
-            // only first layer encountered is selected (report behind flood polygon case)
-            // NOTE: RESOLVED by using placeBelow key of LayerMetadata
-            // Catch in tests
+            let site;
+            let basin;
+            if (name === 'sites') {
+              for (const basin of this.basins) {
+                site = basin.sites.filter((site) => {
+                  return site.name === features[0].properties.name;
+                });
+                if (site.length) break;
+              }
+            }
+            if (name === 'basins') {
+              basin = this.basins.filter((basin) => {
+                return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
+              });
+            }
+            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, site, basin);
             break;
 
           } else {

@@ -11,20 +11,44 @@ export class InteractionService {
   }
   */
   featureTypes = {};
+  stations = [];
+  sites = [];
 
   constructor() { }
 
   handleLayerInteraction(
     name?: string,
     viewOnly?: boolean,
-    features?: object[]
+    features?: object[],
+    site?: {
+      name: string,
+      stations: string[]
+    },
+    basin?: {
+      basinCode: string,
+      sites: {
+        name: string,
+        stations: string[]
+      }[]
+    }
   ): void {
     // NOTE: Use switch case if layer names cannot
     // be the same as listed featureTypes
 
     if (name && !viewOnly) {
       this.clearAllInfoPanes(name);
-      this.featureTypes[name] = features;
+      switch (name) {
+        case 'sites':
+          this.stations = site.stations;
+          break;
+
+        case 'basins':
+          this.sites = basin.sites;
+          break;
+
+        default:
+          this.featureTypes[name] = features;
+      }
     } else {
       this.clearAllInfoPanes();
     }

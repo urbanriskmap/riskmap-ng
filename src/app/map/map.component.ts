@@ -201,6 +201,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
   // Catch in tests
   lookupQueriedReport(event): void {
     if (event.sourceId === 'reports') {
+      // Iterate over report layer geojson features
       for (const report of event.source.data.features) {
         if (report.properties.pkey === this.selectedReportId) {
           // Report found in loaded dataset
@@ -211,10 +212,10 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
       // Report not found in set server timeperiod
       // Fetch from server OR notify
-      // FIXME: CORS error
-      // Try http://localhost:4200/broward/53 then check console logs
       this.layerService.addSingleReportToLayer(this.selectedReportId)
       .then(report => {
+        // FIXME: pans anywhere across the globe,
+        // check ?id=85
         this.zoomToQueriedReport(report);
         this.viewingArchivedReport = true;
       })

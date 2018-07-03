@@ -32,6 +32,8 @@ import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
+import { SiteInfoComponent } from './site-info/site-info.component';
+import { BasinInfoComponent } from './basin-info/basin-info.component';
 
 @NgModule({
   imports: [
@@ -67,7 +69,9 @@ import { SanitizePipe } from '../pipes/sanitize.pipe';
     MapContentComponent,
     InfoContentComponent,
     SanitizePipe,
-    ImagePreviewComponent
+    ImagePreviewComponent,
+    SiteInfoComponent,
+    BasinInfoComponent
   ]
 })
 export class MapModule { }

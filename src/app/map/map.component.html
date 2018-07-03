@@ -106,6 +106,18 @@
   [features]="interactionService.featureTypes.floodgauges">
 </app-sensor-info>
 
+<app-site-info
+  class="info-panes"
+  *ngIf="interactionService.stations.length"
+  [stations]="interactionService.stations">
+</app-site-info>
+
+<app-basin-info
+  class="info-panes"
+  *ngIf="interactionService.sites.length"
+  [sites]="interactionService.sites">
+</app-basin-info>
+
 <app-infra-info
   class="info-panes"
   *ngIf="interactionService.featureTypes.pumps"

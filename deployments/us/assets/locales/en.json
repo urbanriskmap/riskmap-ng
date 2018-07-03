@@ -76,15 +76,27 @@
 
   "legend": {
     "title": "Legend",
-    "flood_report": "Flood Report",
-    "gauge": "Stream water elevation",
-    "elevation": "Gauge height",
-    "well": "Groundwater level",
-    "discharge":"Discharge rate",
-    "precipitation":"Precipitation total",
-    "flood_depth": "Flood Depth: {{ flood_depth }} in",
     "infrastructure_title":"Infrastructure",
-    "reports_title": "Reports"
+    "reports_title": "Reports",
+    "flood_report": "Flood Report",
+    "usgs": {
+      "gauge": "Stream water elevation",
+      "elevation": "Gauge height",
+      "well": "Groundwater level",
+      "discharge": "Discharge rate",
+      "precipitation": "Precipitation total"
+    },
+    "sfwmd": {
+      "headwater": "Headwater elevation",
+      "tailwater": "Tailwater elevation",
+      "spillway": "Spillway flow rate",
+      "culvert": "Culvert flow rate",
+      "pump": "Pump flow rate",
+      "weir": "Weir flow rate",
+      "site": "Water control structures",
+      "basin": "Water control catchment"
+    },
+    "flood_depth": "Flood Depth: {{ flood_depth }} in"
   },
 
   "sensorTitle": {
