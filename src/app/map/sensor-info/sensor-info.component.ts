@@ -12,6 +12,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   @Input() features: {
     [name: string]: any
   }[];
+  @Input() idIndex: string;
 
   feature: SensorInterface;
   hasUpstreamDownstream: boolean | null;
@@ -45,13 +46,20 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   };
 
   constructor(
-    public chartService: ChartService
-  ) { }
+    private chartService: ChartService
+  ) {
+    this.idIndex = '_' + Math.floor(Math.random() * 100);
+  }
 
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     if (changes.hasOwnProperty('features')) {
+      const id = 'sensorChartWrapper' + this.idIndex;
+      const htmlElement = document.getElementById(id); // FIXME failing here
+      console.log(htmlElement);
+
       let observations;
       let properties;
       this.feature = this.features[0].properties;
@@ -67,7 +75,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
 
           if (Array.isArray(observations)) {
             this.chartService.drawSensorChart(
-              document.getElementById('sensorChartWrapper'),
+              document.getElementById('sensorChartWrapper' + this.idIndex),
               this.chartService.parseData(observations, false),
               properties
             );
@@ -78,7 +86,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
             this.hasUpstreamDownstream = true;
 
             this.chartService.drawSensorChart(
-              document.getElementById('sensorChartWrapper'),
+              document.getElementById('sensorChartWrapper' + this.idIndex),
               this.chartService.parseData(observations, true),
               properties
             );
@@ -86,7 +94,9 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
           break;
 
         case 'sensors_sfwmd':
-          observations = JSON.parse(this.feature.observations);
+          observations = Array.isArray(this.feature.observations) ?
+            this.feature.observations :
+            JSON.parse(this.feature.observations);
           properties = {
             title: 'Get from Site Map',
             units: this.sfwmdSensorMap[this.feature.class] + ', ' + this.feature.units,
@@ -94,7 +104,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
           };
 
           this.chartService.drawSensorChart(
-            document.getElementById('sensorChartWrapper'),
+            document.getElementById('sensorChartWrapper' + this.idIndex),
             this.chartService.parseData(observations, false),
             properties
           );
@@ -112,7 +122,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
           }
 
           this.chartService.drawSensorChart(
-            document.getElementById('sensorChartWrapper'),
+            document.getElementById('sensorChartWrapper' + this.idIndex),
             sensorData,
             {
               title: 'Set Title',
@@ -131,6 +141,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     this.features = null;
     this.feature = null;
+    this.idIndex = null;
     this.hasUpstreamDownstream = null;
   }
 }

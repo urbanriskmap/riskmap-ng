@@ -109,12 +109,14 @@
 <app-site-info
   class="info-panes"
   *ngIf="interactionService.stations.length"
+  [site]="interactionService.featureTypes.sites[0].properties"
   [stations]="interactionService.stations">
 </app-site-info>
 
 <app-basin-info
   class="info-panes"
   *ngIf="interactionService.sites.length"
+  [basin]="interactionService.featureTypes.basins[0].properties"
   [sites]="interactionService.sites">
 </app-basin-info>
 

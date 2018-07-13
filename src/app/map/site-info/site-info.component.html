@@ -1,4 +1,16 @@
-<p
-  *ngFor="let station of stations">
-  {{ station }}
-</p>
+<mat-accordion
+  multi="true">
+  <mat-expansion-panel
+    *ngFor="let feature of features, let i = index"
+    expanded="true">
+    <mat-expansion-panel-header>
+      {{ stations[i] }}
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <app-sensor-info
+        [features]="feature">
+      </app-sensor-info>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>

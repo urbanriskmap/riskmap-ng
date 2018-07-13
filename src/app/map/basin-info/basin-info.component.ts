@@ -9,6 +9,7 @@ export class BasinInfoComponent implements OnInit {
   @Input() sites: {
     [name: string]: any
   }[];
+  @Input() basin;
 
   constructor() { }
 
