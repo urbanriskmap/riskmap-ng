@@ -37,17 +37,19 @@ export class InteractionService {
 
     if (name && !viewOnly) {
       this.clearAllInfoPanes(name);
+      this.featureTypes[name] = features;
+
       switch (name) {
         case 'sites':
-          this.stations = site.stations;
+          this.stations = site[0].stations;
           break;
 
         case 'basins':
-          this.sites = basin.sites;
+          this.sites = basin[0].sites;
           break;
 
         default:
-          this.featureTypes[name] = features;
+          // Do something
       }
     } else {
       this.clearAllInfoPanes();
@@ -59,6 +61,12 @@ export class InteractionService {
       if (type && type !== excludeLayer) {
         delete this.featureTypes[type];
       }
+    }
+
+    if (this.sites.length && excludeLayer !== 'basins') {
+      this.sites = [];
+    } else if (this.stations.length && excludeLayer !== 'sites') {
+      this.stations = [];
     }
   }
 }

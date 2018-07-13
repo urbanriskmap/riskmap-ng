@@ -336,12 +336,13 @@ export class LayerService {
             // CASE 2: Clicked on a single feature
             // CASE 3: Clicked with multiple features overlapping
             this.modifyLayerFilter(name, uniqueKey, features);
+
             let site;
             let basin;
             if (name === 'sites') {
               for (const basin of this.basins) {
-                site = basin.sites.filter((site) => {
-                  return site.name === features[0].properties.name;
+                site = basin.sites.filter((siteGroup) => {
+                  return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
                 });
                 if (site.length) break;
               }
@@ -351,6 +352,7 @@ export class LayerService {
                 return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
               });
             }
+
             this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, site, basin);
             break;
 

@@ -1,3 +1,10 @@
-<p>
-  basin-info works!
-</p>
+<div
+  *ngFor="let site of sites">
+  {{ site.name }}
+  <ul>
+    <li
+      *ngFor="let station of site.stations">
+      {{ station }}
+    </li>
+  </ul>
+</div>
