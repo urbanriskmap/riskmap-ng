@@ -1,13 +1,46 @@
-<h4>
-  {{ basin.name }}
-</h4>
-<div
-  *ngFor="let site of sites">
-  {{ site.name }}
-  <ul>
-    <li
-      *ngFor="let station of site.stations">
-      {{ station }}
-    </li>
-  </ul>
-</div>
+<mat-card>
+  <mat-card-title>
+    {{ basin.name }}
+  </mat-card-title>
+
+  <mat-card-subtitle>
+    Select stations to view 7 day mean values:
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <mat-list
+      *ngFor="let site of siteList">
+      <h4 mat-subheader>Site: {{ site.name }}</h4>
+
+      <mat-list-item
+        *ngFor="let station of site.stations">
+        <mat-checkbox
+          [(ngModel)]="station.selected"
+          labelPosition="after">
+          {{ station.name }}
+        </mat-checkbox>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button
+      (click)="submitSelection()">
+      SUBMIT
+    </button>
+  </mat-card-actions>
+
+  <mat-divider inset="false"></mat-divider>
+
+  <mat-card-footer>
+    <!-- <h4 mat-subheader>Suffix reference:</h4> -->
+    <p mat-caption>
+      H: Headwater <br>
+      T: Tailwater <br>
+      S-Q: Spillway flow <br>
+      C-Q: Culvert flow <br>
+      P-Q: Pump flow <br>
+      W-Q: Weir flow
+    </p>
+  </mat-card-footer>
+</mat-card>

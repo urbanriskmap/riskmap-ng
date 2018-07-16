@@ -335,6 +335,7 @@ export class LayerService {
           if (features.length >= 1) {
             // CASE 2: Clicked on a single feature
             // CASE 3: Clicked with multiple features overlapping
+              // will select the top-most rendered icon / feature
             this.modifyLayerFilter(name, uniqueKey, features);
 
             let site;

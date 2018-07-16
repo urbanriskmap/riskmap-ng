@@ -4,6 +4,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatDialog,
   MatDialogRef,
@@ -26,6 +28,8 @@ import {
     FormsModule,
     CdkTableModule,
     MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
