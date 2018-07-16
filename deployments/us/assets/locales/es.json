@@ -100,11 +100,21 @@
   },
 
   "sensorTitle" : {
-    "63160": "Elevación de agua corriente",
-    "00065": "Altura del indicador",
-    "62610": "Nivel del agua subterránea",
-    "00060": "Tasa de descarga",
-    "00045": "Precipitatión total"
+    "usgs": {
+      "63160": "Elevación de agua corriente",
+      "00065": "Altura del indicador",
+      "62610": "Nivel del agua subterránea",
+      "00060": "Tasa de descarga",
+      "00045": "Precipitatión total"
+    },
+    "sfwmd": {
+      "H": "Headwater elevation",
+      "T": "Tailwater elevation",
+      "S": "Spillway",
+      "P": "Pump",
+      "C": "Culvert",
+      "W": "Weir"
+    }
   },
   "sensorLabels": {
     "up": "Río arriba",

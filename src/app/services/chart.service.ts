@@ -140,18 +140,25 @@ export class ChartService {
     }
 
     let title;
-    this.translate.get('sensorTitle.' + sensorProperties.title).subscribe((res: string) => {
-      title = [res];
+    if (sensorProperties.title) {
+      this.translate.get('sensorTitle.' + sensorProperties.title).subscribe((res: string) => {
+        title = [res];
 
-      if (sensorProperties.hasOwnProperty('datum')
-        && sensorProperties.datum) {
-        title.push(
-          sensorProperties.units + ' ' + sensorProperties.datum
-        );
-      } else {
-        title[0] += ' (' + sensorProperties.units + ')';
-      }
-    });
+        if (sensorProperties.hasOwnProperty('datum')
+          && sensorProperties.datum) {
+          // CASE: USGS sensors
+          title.push(
+            sensorProperties.units + ' ' + sensorProperties.datum
+          );
+        } else {
+          // CASE: Default, most sensors
+          title[0] += ' (' + sensorProperties.units + ')';
+        }
+      });
+    } else {
+      // CASE: multi-station stacked charts
+      title = sensorProperties.units;
+    }
 
     return {
       type: 'line',

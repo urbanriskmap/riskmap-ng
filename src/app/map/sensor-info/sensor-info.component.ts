@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, AfterViewInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ChartService } from '../../services/chart.service';
 import { SensorInterface } from '../../interfaces';
@@ -23,7 +24,6 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   };
 
   idIndex = '_' + Math.floor(Math.random() * 100);
-  // idIndex = '';
 
   feature: SensorInterface;
   hasUpstreamDownstream: boolean | null;
@@ -47,17 +47,10 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
       title: '00045'
     }
   };
-  sfwmdSensorMap = { // TODO Move to locales
-    H: 'Headwater elevation',
-    T: 'Tailwater elevation',
-    S: 'Spillway',
-    P: 'Pump',
-    C: 'Culvert',
-    W: 'Weir'
-  };
 
   constructor(
-    private chartService: ChartService
+    private chartService: ChartService,
+    public translate: TranslateService
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -70,7 +63,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
         case 'sensors_usgs':
           observations = JSON.parse(this.feature.observations);
           this.properties = {
-            title: this.feature.class,
+            title: 'usgs.' + this.feature.class,
             units: this.feature.units,
             datum: this.usgsSensorMap['_' + this.feature.class].datum
           };
@@ -90,11 +83,20 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
           observations = Array.isArray(this.feature.observations) ?
             this.feature.observations :
             JSON.parse(this.feature.observations);
-          this.properties = {
-            title: 'Get from Site Map',
-            units: this.sfwmdSensorMap[this.feature.class] + ', ' + this.feature.units,
-            datum: ' '
-          };
+
+          if (this.features[0].hasOwnProperty('supressChartTitles')) {
+            this.properties = {
+              title: '',
+              units: this.feature.units,
+              datum: ''
+            };
+          } else {
+            this.properties = {
+              title: 'sfwmd.' + this.feature.class,
+              units: this.feature.stationId + ', ' + this.feature.units,
+              datum: ' '
+            };
+          }
 
           this.sensorData = this.chartService.parseData(observations, false);
           break;

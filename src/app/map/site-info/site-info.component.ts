@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { LayerService } from '../../services/layer.service';
 import { SensorInterface } from '../../interfaces';
@@ -43,13 +44,14 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
       for (let station of siteStations) {
         this.features.push([{
           layer: {id: 'sensors_sfwmd'},
-          properties: station.properties
+          properties: station.properties,
+          supressChartTitles: true
         }]);
       }
     }
   }
 
   ngOnDestroy() {
-
+    // clear?
   }
 }
