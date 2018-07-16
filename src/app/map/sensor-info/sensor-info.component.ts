@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 
 import { ChartService } from '../../services/chart.service';
 import { SensorInterface } from '../../interfaces';
@@ -8,11 +8,22 @@ import { SensorInterface } from '../../interfaces';
   templateUrl: './sensor-info.component.html',
   styleUrls: ['./sensor-info.component.scss']
 })
-export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
+export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() features: {
     [name: string]: any
   }[];
-  @Input() idIndex: string;
+  properties: {
+    title: string,
+    units: string,
+    datum?: string
+  };
+  sensorData: {
+    dataset_1: {y: number, t: string}[],
+    dataset_2?: {y: number, t: string}[]
+  };
+
+  idIndex = '_' + Math.floor(Math.random() * 100);
+  // idIndex = '';
 
   feature: SensorInterface;
   hasUpstreamDownstream: boolean | null;
@@ -47,49 +58,31 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private chartService: ChartService
-  ) {
-    this.idIndex = '_' + Math.floor(Math.random() * 100);
-  }
-
-  ngOnInit(): void { }
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
 
     if (changes.hasOwnProperty('features')) {
-      const id = 'sensorChartWrapper' + this.idIndex;
-      const htmlElement = document.getElementById(id); // FIXME failing here
-      console.log(htmlElement);
-
       let observations;
-      let properties;
       this.feature = this.features[0].properties;
 
       switch (this.features[0].layer.id) {
         case 'sensors_usgs':
           observations = JSON.parse(this.feature.observations);
-          properties = {
+          this.properties = {
             title: this.feature.class,
             units: this.feature.units,
             datum: this.usgsSensorMap['_' + this.feature.class].datum
           };
 
           if (Array.isArray(observations)) {
-            this.chartService.drawSensorChart(
-              document.getElementById('sensorChartWrapper' + this.idIndex),
-              this.chartService.parseData(observations, false),
-              properties
-            );
+            this.sensorData = this.chartService.parseData(observations, false);
           } else if (
             observations.hasOwnProperty('upstream')
             && observations.hasOwnProperty('downstream')
           ) {
             this.hasUpstreamDownstream = true;
-
-            this.chartService.drawSensorChart(
-              document.getElementById('sensorChartWrapper' + this.idIndex),
-              this.chartService.parseData(observations, true),
-              properties
-            );
+            this.sensorData = this.chartService.parseData(observations, true);
           }
           break;
 
@@ -97,18 +90,13 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
           observations = Array.isArray(this.feature.observations) ?
             this.feature.observations :
             JSON.parse(this.feature.observations);
-          properties = {
+          this.properties = {
             title: 'Get from Site Map',
             units: this.sfwmdSensorMap[this.feature.class] + ', ' + this.feature.units,
             datum: ' '
           };
 
-          this.chartService.drawSensorChart(
-            document.getElementById('sensorChartWrapper' + this.idIndex),
-            this.chartService.parseData(observations, false),
-            properties
-          );
-
+          this.sensorData = this.chartService.parseData(observations, false);
           break;
 
         case 'floodgauges':
@@ -121,15 +109,12 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
             });
           }
 
-          this.chartService.drawSensorChart(
-            document.getElementById('sensorChartWrapper' + this.idIndex),
-            sensorData,
-            {
-              title: 'Set Title',
-              units: 'Set Units',
-              datum: 'If available'
-            }
-          );
+          this.sensorData = sensorData;
+          this.properties = {
+            title: 'Set Title',
+            units: 'Set Units',
+            datum: 'If available'
+          };
           break;
 
         default:
@@ -138,9 +123,24 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  ngOnInit(): void { }
+
+  ngAfterViewInit() {
+    this.chartService.drawSensorChart(
+      {
+        element: document.getElementById('sensorChartWrapper' + this.idIndex),
+        id: this.idIndex
+      },
+      this.sensorData,
+      this.properties
+    );
+  }
+
   ngOnDestroy(): void {
     this.features = null;
     this.feature = null;
+    this.properties = null;
+    this.sensorData = null;
     this.idIndex = null;
     this.hasUpstreamDownstream = null;
   }

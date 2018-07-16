@@ -58,18 +58,23 @@ export class ChartService {
     return sensorData;
   }
 
-  prepareCanvas(htmlElement) {
+  prepareCanvas(html: {
+    element: any,
+    id: string
+  }) {
     // Empty wrapper
-    while (htmlElement.firstChild) {
-      htmlElement.removeChild(htmlElement.firstChild);
+    while (html.element.firstChild) {
+      html.element.removeChild(
+        html.element.firstChild
+      );
     }
 
     // Append canvas
     const canvasElement = document.createElement('canvas');
-    canvasElement.setAttribute('id', 'chartInset');
-    htmlElement.appendChild(canvasElement);
+    canvasElement.setAttribute('id', 'chartInset' + html.id);
+    document.getElementById('sensorChartWrapper' + html.id).appendChild(canvasElement);
 
-    const canvas = document.getElementById('chartInset');
+    const canvas = document.getElementById('chartInset' + html.id);
     const chart_ctx = canvas['getContext']('2d');
 
     return chart_ctx;
@@ -211,7 +216,10 @@ export class ChartService {
   }
 
   drawSensorChart(
-    htmlElement,
+    html: {
+      element: any,
+      id: string
+    },
     sensorData: {
       dataset_1: {y: number, t: string}[],
       dataset_2?: {y: number, t: string}[]
@@ -223,7 +231,7 @@ export class ChartService {
     }
   ) {
     this.sensorChart = new Chart(
-      this.prepareCanvas(htmlElement),
+      this.prepareCanvas(html),
       this.prepareSensorChart(sensorData, sensorProperties)
     );
   }
