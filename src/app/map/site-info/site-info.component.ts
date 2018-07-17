@@ -34,10 +34,10 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
       // https://www.mapbox.com/mapbox-gl-js/api#map#queryrenderedfeatures
 
       // Iterate over station names
-      for (let siteStationName of this.stations) {
+      for (let selectedSiteStation of this.stations) {
         // Store filtered features from sensors_sfwmd layer
         siteStations.push(allStations.filter((station) => {
-          return siteStationName === station.properties.stationId;
+          return selectedSiteStation.stationId === station.properties.stationId;
         })[0]);
       }
 

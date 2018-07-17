@@ -15,7 +15,7 @@ export class HttpService {
     private http: HttpClient
   ) { }
 
-  fetchGeojson(
+  fetchJson(
     endpoint: string
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     return new Promise((resolve, reject) => {
@@ -116,7 +116,7 @@ export class HttpService {
       return this.convertTopojsonToGeojson(queryUrl);
     } else {
       // GEOJSON
-      return this.fetchGeojson(queryUrl);
+      return this.fetchJson(queryUrl);
     }
   }
 
@@ -129,16 +129,15 @@ export class HttpService {
   ): Promise<GeoJsonProperties> {
     let queryUrl = env.servers[server] + endpoint;
 
-    // COMBAK refactor for flags support in data calls
-    // if (flags && flags.length) {
-    //   let isFirstFlag = true;
-    //   for (const flag of flags) {
-    //     queryUrl += (isFirstFlag ? '?' : '&') + Object.entries(flag)[0][0] + '=' + Object.entries(flag)[0][1];
-    //     isFirstFlag = false;
-    //   }
-    // }
+    if (flags && flags.length) {
+      let isFirstFlag = true;
+      for (const flag of flags) {
+        queryUrl += (isFirstFlag ? '?' : '&') + Object.entries(flag)[0][0] + '=' + Object.entries(flag)[0][1];
+        isFirstFlag = false;
+      }
+    }
 
-    return this.fetchGeojson(queryUrl);
+    return this.fetchJson(queryUrl);
   }
 
   updateVotes(

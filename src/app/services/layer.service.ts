@@ -28,7 +28,12 @@ export class LayerService {
     basinCode: string,
     sites: {
       name: string,
-      stations: string[]
+      stations: {
+        id: string,
+        class: string,
+        stationId: string,
+        units: string
+      }[]
     }[]
   }[];
 
@@ -151,7 +156,10 @@ export class LayerService {
     for (const station of stations) {
       const _b = station.properties.basin;
       const _s = station.properties.site;
-      const _id = station.properties.stationId;
+      const _id = station.properties.id;
+      const _class = station.properties.class;
+      const _uid = station.properties.stationId;
+      const _u = station.properties.units;
 
       // Lookup matching basin
       const basinStored = this.basins.filter((basin) => {
@@ -170,7 +178,12 @@ export class LayerService {
               // Go to matching site
               for (const site of basin.sites) {
                 if (site.name === _s) {
-                  site.stations.push(_id);
+                  site.stations.push({
+                    id: _id,
+                    class: _class,
+                    stationId: _uid,
+                    units: _u
+                  });
                 }
               }
 
@@ -178,7 +191,12 @@ export class LayerService {
               // site not stored
               basin.sites.push({
                 name: String(_s),
-                stations: [String(_id)]
+                stations: [{
+                  id: _id,
+                  class: _class,
+                  stationId: _uid,
+                  units: _u
+                }]
               });
             }
           }
@@ -190,7 +208,12 @@ export class LayerService {
           basinCode: String(_b),
           sites: [{
             name: String(_s),
-            stations: [String(_id)]
+            stations: [{
+              id: _id,
+              class: _class,
+              stationId: _uid,
+              units: _u
+            }]
           }]
         });
       }
@@ -338,23 +361,23 @@ export class LayerService {
               // will select the top-most rendered icon / feature
             this.modifyLayerFilter(name, uniqueKey, features);
 
-            let site;
-            let basin;
+            let selectedSite;
+            let selectedBasin;
             if (name === 'sites') {
               for (const basin of this.basins) {
-                site = basin.sites.filter((siteGroup) => {
+                selectedSite = basin.sites.filter((siteGroup) => {
                   return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
                 });
-                if (site.length) break;
+                if (selectedSite.length) break;
               }
             }
             if (name === 'basins') {
-              basin = this.basins.filter((basin) => {
+              selectedBasin = this.basins.filter((basin) => {
                 return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
               });
             }
 
-            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, site, basin);
+            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, selectedSite, selectedBasin);
             break;
 
           } else {

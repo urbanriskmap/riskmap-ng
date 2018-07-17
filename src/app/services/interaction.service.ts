@@ -22,13 +22,23 @@ export class InteractionService {
     features?: object[],
     site?: {
       name: string,
-      stations: string[]
+      stations: {
+        id: string,
+        class: string,
+        stationId: string,
+        units: string
+      }[]
     },
     basin?: {
       basinCode: string,
       sites: {
         name: string,
-        stations: string[]
+        stations: {
+          id: string,
+          class: string,
+          stationId: string,
+          units: string
+        }[]
       }[]
     }
   ): void {

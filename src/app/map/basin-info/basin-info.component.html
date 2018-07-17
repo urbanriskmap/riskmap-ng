@@ -9,7 +9,7 @@
 
   <mat-card-content>
     <mat-list
-      *ngFor="let site of siteList">
+      *ngFor="let site of sites">
       <h4 mat-subheader>Site: {{ site.name }}</h4>
 
       <mat-list-item
@@ -17,7 +17,7 @@
         <mat-checkbox
           [(ngModel)]="station.selected"
           labelPosition="after">
-          {{ station.name }}
+          {{ 'sensorTitle.sfwmd.' + station.class | translate }}&nbsp;{{ station.name }}
         </mat-checkbox>
       </mat-list-item>
     </mat-list>
@@ -44,3 +44,39 @@
     </p>
   </mat-card-footer>
 </mat-card>
+
+
+<mat-accordion
+  id="aggregateChartsWrapper"
+  *ngIf="features.length"
+  displayMode="flat"
+  multi="true">
+
+  <mat-expansion-panel
+    hideToggle="true"
+    expanded="false">
+    <mat-expansion-panel-header>
+      {{ basin.name }}
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    *ngFor="let feature of features, let i = index"
+    expanded="true"
+    hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'sensorTitle.sfwmd.' + feature[0].properties.class | translate }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ feature[0].properties.name }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <app-sensor-info
+        [features]="feature">
+      </app-sensor-info>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>
