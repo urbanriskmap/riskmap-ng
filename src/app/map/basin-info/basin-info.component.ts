@@ -37,8 +37,8 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    for (let site of this.sites) {
-      for (let station of site.stations) {
+    for (const site of this.sites) {
+      for (const station of site.stations) {
         station.selected = false;
       }
     }
@@ -58,12 +58,14 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
   }
 
   submitSelection(): void {
-    let filteredStationList = [];
+    const filteredStationList = [];
 
     // Filter list as a flat array with stationId's
     for (const site of this.sites) {
       for (const station of site.stations) {
-        if (station.selected) filteredStationList.push(station);
+        if (station.selected) {
+          filteredStationList.push(station);
+        }
       }
     }
 
@@ -71,7 +73,7 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
     for (const layer of layers.supported) {
       if (layer.metadata.name === 'sensors_sfwmd') {
         server = layer.metadata.server;
-      };
+      }
     }
     const flags = [{type: 'aggregate'}];
 

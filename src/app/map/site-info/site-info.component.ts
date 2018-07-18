@@ -37,7 +37,7 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('site')) {
       this.features = [];
-      let siteStations = [];
+      const siteStations = [];
       const allStations = this.layerService.map.getSource('sensors_sfwmd')._data.features;
 
       // NOTE: Cannot use map.querySourceFeatures OR map.queryRenderedFeatures
@@ -45,14 +45,14 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
       // https://www.mapbox.com/mapbox-gl-js/api#map#queryrenderedfeatures
 
       // Iterate over station names
-      for (let selectedSiteStation of this.stations) {
+      for (const selectedSiteStation of this.stations) {
         // Store filtered features from sensors_sfwmd layer
         siteStations.push(allStations.filter((station) => {
           return selectedSiteStation.stationId === station.properties.stationId;
         })[0]);
       }
 
-      for (let station of siteStations) {
+      for (const station of siteStations) {
         this.features.push([{
           layer: {id: 'sensors_sfwmd'},
           properties: station.properties,

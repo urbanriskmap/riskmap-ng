@@ -368,7 +368,9 @@ export class LayerService {
                 selectedSite = basin.sites.filter((siteGroup) => {
                   return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
                 });
-                if (selectedSite.length) break;
+                if (selectedSite.length) {
+                  break;
+                }
               }
             }
             if (name === 'basins') {
