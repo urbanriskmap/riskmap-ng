@@ -97,7 +97,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       this.translate.get('report_info.msg_text').subscribe((res: string) => {
         msgText = res;
       });
-      const reportUrl = location.href + '%3Freport_id%3D' + this.feature.pkey;
+      const reportUrl = location.href + '%3Fid%3D' + this.feature.pkey;
 
       this.socialButtons = [
         {
