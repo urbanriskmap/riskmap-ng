@@ -61,9 +61,7 @@
     class="menu-button"
     *ngIf="fullSizeImgUrl"
     (click)="closeImgPreview()">
-    <i
-      class="icon-close">
-    </i>
+    <i class="icon-close"></i>
   </div>
 </div>
 
@@ -95,7 +93,7 @@
 </app-sensor-info>
 
 <app-sensor-info
-  class="info-panes"
+  class="info-panes info-wide"
   *ngIf="interactionService.featureTypes.sensors_sfwmd"
   [features]="interactionService.featureTypes.sensors_sfwmd">
 </app-sensor-info>
@@ -107,17 +105,19 @@
 </app-sensor-info>
 
 <app-site-info
-  class="info-panes"
+  class="info-panes with-inset-cards"
   *ngIf="interactionService.stations.length"
   [site]="interactionService.featureTypes.sites[0].properties"
-  [stations]="interactionService.stations">
+  [stations]="interactionService.stations"
+  (closePanel)="closeInfoPane()">
 </app-site-info>
 
 <app-basin-info
-  class="info-panes"
+  class="info-panes with-inset-cards"
   *ngIf="interactionService.sites.length"
   [basin]="interactionService.featureTypes.basins[0].properties"
-  [sites]="interactionService.sites">
+  [sites]="interactionService.sites"
+  (closePanel)="closeInfoPane()">
 </app-basin-info>
 
 <app-infra-info

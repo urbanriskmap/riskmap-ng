@@ -1,1 +1,38 @@
 @import 'styles';
+
+mat-accordion {
+  width: $pane-width-wide;
+
+  mat-expansion-panel {
+    mat-expansion-panel-header {
+      padding: 0 $general-margin 0 $general-margin;
+      height: 40px!important;
+
+      &.title-block {
+        background-color: $light-gray;
+      }
+
+      mat-icon {
+        font-size: 22px;
+        text-align: center;
+      }
+    }
+
+    ::ng-deep .mat-expansion-panel-content .mat-expansion-panel-body {
+      padding: $general-margin!important;
+      padding-top: 0!important;
+    }
+  }
+
+  mat-action-row {
+    background-color: $snow-white;
+    padding: $general-margin;
+    height: 24px;
+    text-align: center;
+
+    button {
+      margin-left: $general-margin / 2;
+      line-height: 24px!important;
+    }
+  }
+}

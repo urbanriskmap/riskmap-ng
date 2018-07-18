@@ -160,12 +160,23 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
   z-index: 2;
 
   @media (min-width: 420px) {
-    width: 240px;
+    width: $pane-width-narrow;
     height: auto;
     min-height: 160px;
     bottom: $general-margin;
     right: $general-margin;
     padding: 5px;
+
+    &.with-inset-cards {
+      width: auto;
+      min-height: unset;
+      padding: 0;
+      background: none;
+    }
+
+    &.info-wide {
+      width: $pane-width-wide;
+    }
   }
 }
 

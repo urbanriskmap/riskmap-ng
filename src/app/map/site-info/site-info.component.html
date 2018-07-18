@@ -1,16 +1,22 @@
-<!-- Use displayMode="default" for elevated cards -->
 <mat-accordion
   displayMode="flat"
   multi="true">
 
   <mat-expansion-panel
     hideToggle="true"
-    expanded="false">
-    <mat-expansion-panel-header>
-      {{ site.name }}
+    expanded="false"
+    (opened)="closePanel.emit()">
+    <mat-expansion-panel-header
+      class="title-block">
+      <mat-panel-title>SITE DASHBOARD</mat-panel-title>
+      <mat-panel-description>
+        {{ site.name }}
+      </mat-panel-description>
     </mat-expansion-panel-header>
   </mat-expansion-panel>
 
+
+  <!-- REVIEW Set disabled="true" to prevent toggle action -->
   <mat-expansion-panel
     *ngFor="let feature of features, let i = index"
     expanded="true"
@@ -22,6 +28,10 @@
       <mat-panel-description>
         {{ feature[0].properties.stationId }}
       </mat-panel-description>
+      <mat-icon
+        fontSet="icon"
+        [fontIcon]="'icon-' + sfwmdIconMap[feature[0].properties.class]">
+      </mat-icon>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
@@ -30,4 +40,11 @@
       </app-sensor-info>
     </ng-template>
   </mat-expansion-panel>
+
+  <mat-action-row>
+    <button mat-stroked-button
+      (click)="closePanel.emit()">
+      CLOSE
+    </button>
+  </mat-action-row>
 </mat-accordion>

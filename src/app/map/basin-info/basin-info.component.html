@@ -1,49 +1,57 @@
-<mat-card>
-  <mat-card-title>
-    {{ basin.name }}
-  </mat-card-title>
+<mat-accordion
+  id="stationSelectorWrapper"
+  *ngIf="!features.length"
+  displayMode="flat"
+  multi="true">
 
-  <mat-card-subtitle>
-    Select stations to view 7 day mean values:
-  </mat-card-subtitle>
+  <mat-expansion-panel
+    hideToggle="true"
+    expanded="false">
+    <mat-expansion-panel-header
+      class="title-block">
+      <mat-panel-title>BASIN DASHBOARD</mat-panel-title>
+      <mat-panel-description>{{ basin.name }}</mat-panel-description>
+    </mat-expansion-panel-header>
 
-  <mat-card-content>
-    <mat-list
-      *ngFor="let site of sites">
-      <h4 mat-subheader>Site: {{ site.name }}</h4>
+    <p>Select stations to view 7 day mean values:</p>
+  </mat-expansion-panel>
 
-      <mat-list-item
-        *ngFor="let station of site.stations">
-        <mat-checkbox
-          [(ngModel)]="station.selected"
-          labelPosition="after">
-          {{ 'sensorTitle.sfwmd.' + station.class | translate }}&nbsp;{{ station.name }}
-        </mat-checkbox>
-      </mat-list-item>
-    </mat-list>
-  </mat-card-content>
+  <mat-expansion-panel
+    *ngFor="let site of sites"
+    hideToggle="true"
+    expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-description>Site: {{ site.name }}</mat-panel-description>
+    </mat-expansion-panel-header>
 
-  <mat-card-actions>
-    <button mat-button
-      (click)="submitSelection()">
+    <ng-template matExpansionPanelContent>
+      <mat-list>
+        <mat-list-item
+          *ngFor="let station of site.stations">
+          <mat-checkbox
+            [(ngModel)]="station.selected"
+            (change)="checkSelectionList()"
+            labelPosition="after">
+            {{ 'sensorTitle.sfwmd.' + station.class | translate }}&nbsp;&#x28;{{ station.stationId }}&#x29;
+          </mat-checkbox>
+        </mat-list-item>
+      </mat-list>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-action-row>
+    <button mat-stroked-button
+      (click)="closePanel.emit()">
+      CANCEL
+    </button>
+    <button mat-stroked-button
+      color="primary"
+      (click)="submitSelection()"
+      [disabled]="!areStationsSelected">
       SUBMIT
     </button>
-  </mat-card-actions>
-
-  <mat-divider inset="false"></mat-divider>
-
-  <mat-card-footer>
-    <!-- <h4 mat-subheader>Suffix reference:</h4> -->
-    <p mat-caption>
-      H: Headwater <br>
-      T: Tailwater <br>
-      S-Q: Spillway flow <br>
-      C-Q: Culvert flow <br>
-      P-Q: Pump flow <br>
-      W-Q: Weir flow
-    </p>
-  </mat-card-footer>
-</mat-card>
+  </mat-action-row>
+</mat-accordion>
 
 
 <mat-accordion
@@ -55,8 +63,10 @@
   <mat-expansion-panel
     hideToggle="true"
     expanded="false">
-    <mat-expansion-panel-header>
-      {{ basin.name }}
+    <mat-expansion-panel-header
+      class="title-block">
+      <mat-panel-title>BASIN DASHBOARD</mat-panel-title>
+      <mat-panel-description>{{ basin.name }}</mat-panel-description>
     </mat-expansion-panel-header>
   </mat-expansion-panel>
 
@@ -71,6 +81,10 @@
       <mat-panel-description>
         {{ feature[0].properties.name }}
       </mat-panel-description>
+      <mat-icon
+        fontSet="icon"
+        [fontIcon]="'icon-' + sfwmdIconMap[feature[0].properties.class]">
+      </mat-icon>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
@@ -79,4 +93,15 @@
       </app-sensor-info>
     </ng-template>
   </mat-expansion-panel>
+
+  <mat-action-row>
+    <button mat-stroked-button
+      (click)="resetSelection()">
+      BACK
+    </button>
+    <button mat-stroked-button
+      (click)="closePanel.emit()">
+      CLOSE
+    </button>
+  </mat-action-row>
 </mat-accordion>

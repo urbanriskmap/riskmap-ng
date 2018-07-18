@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { LayerService } from '../../services/layer.service';
@@ -14,7 +14,18 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
     [name: string]: any
   }[];
   @Input() site;
+
   features: SensorInterface[];
+  sfwmdIconMap = {
+    H: 'headwater',
+    T: 'tailwater',
+    S: 'spillway',
+    W: 'weir',
+    C: 'discharge',
+    P: 'pump'
+  };
+
+  @Output() closePanel = new EventEmitter<null>();
 
   constructor(
     public layerService: LayerService

@@ -111,6 +111,7 @@ export class ChartService {
           borderColor: '#1ac892',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           pointRadius: 0,
+          lineTension: 0,
           data: sensorData.dataset_1,
         },
         {
@@ -121,6 +122,7 @@ export class ChartService {
           borderColor: '#0891fb',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           pointRadius: 0,
+          lineTension: 0,
           data: sensorData.dataset_2,
         }
       );
@@ -134,6 +136,7 @@ export class ChartService {
           borderColor: '#00579b', // dark-azure
           backgroundColor: 'rgba(0, 0, 0, 0)',
           pointRadius: 0,
+          lineTension: 0,
           data: sensorData.dataset_1,
         }
       );

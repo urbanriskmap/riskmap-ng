@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import layers from '../../../resources/layers';
@@ -11,25 +11,25 @@ import { SensorInterface } from '../../interfaces';
   templateUrl: './basin-info.component.html',
   styleUrls: ['./basin-info.component.scss']
 })
-export class BasinInfoComponent implements OnInit {
+export class BasinInfoComponent implements OnInit, OnDestroy {
   @Input() sites: {
     [name: string]: any
   }[];
   @Input() basin;
 
-  filteredStationList: {
-    id: string,
-    class: string,
-    stationId: string,
-    selected: boolean,
-    units: string,
-    observations?: {
-      value: number,
-      datetime: string
-    }[]
-  }[];
-
+  areStationsSelected = false;
   features: SensorInterface[] = [];
+
+  sfwmdIconMap = {
+    H: 'headwater',
+    T: 'tailwater',
+    S: 'spillway',
+    W: 'weir',
+    C: 'discharge',
+    P: 'pump'
+  };
+
+  @Output() closePanel = new EventEmitter<null>();
 
   constructor(
     private chartService: ChartService,
@@ -44,13 +44,26 @@ export class BasinInfoComponent implements OnInit {
     }
   }
 
+  checkSelectionList() {
+    for (const site of this.sites) {
+      for (const station of site.stations) {
+        if (station.selected) {
+          this.areStationsSelected = true;
+          return;
+        }
+      }
+    }
+
+    this.areStationsSelected = false;
+  }
+
   submitSelection(): void {
-    this.filteredStationList = [];
+    let filteredStationList = [];
 
     // Filter list as a flat array with stationId's
     for (const site of this.sites) {
       for (const station of site.stations) {
-        if (station.selected) this.filteredStationList.push(station);
+        if (station.selected) filteredStationList.push(station);
       }
     }
 
@@ -62,7 +75,7 @@ export class BasinInfoComponent implements OnInit {
     }
     const flags = [{type: 'aggregate'}];
 
-    for (const station of this.filteredStationList) {
+    for (const station of filteredStationList) {
       this.httpService
       .getJsonData(server, station.id, flags)
       .then((sensors) => {
@@ -79,7 +92,18 @@ export class BasinInfoComponent implements OnInit {
       })
       .catch((error) => console.log(error));
     }
+  }
 
-    // TODO: Toggle window state between 'selector' card and 'charts' panel
+  resetSelection() {
+    this.features = [];
+  }
+
+  ngOnDestroy() {
+    this.features = [];
+    for (const site of this.sites) {
+      for (const station of site.stations) {
+        station.selected = false;
+      }
+    }
   }
 }
