@@ -56,6 +56,13 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
 
+      // Update browser url with currently selected report's id
+      window.history.pushState(
+        {},
+        document.title,
+        location.pathname + '?id=' + this.feature.pkey
+      );
+
       // Parse report data
       if (this.feature.report_data) {
         if (typeof this.feature.report_data === 'string') {
@@ -191,5 +198,12 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     this.features = null;
     this.feature = null;
     this.storedVote = null;
+
+    // Update browser url, remove query param
+    window.history.pushState(
+      {},
+      document.title,
+      location.pathname
+    );
   }
 }

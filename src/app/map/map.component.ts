@@ -155,15 +155,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
       // Report id
       if (Number.isInteger(parseInt(params['id'], 10))) {
         this.selectedReportId = params['id'];
-
-        if (this.selectedRegion) {
-          // Preserve report id query param
-          window.history.pushState(
-            {},
-            document.title,
-            '/' + this.selectedRegion.name + '?id=' + this.selectedReportId
-          );
-        }
       }
 
       // Side pane tab
