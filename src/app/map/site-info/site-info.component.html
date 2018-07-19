@@ -4,17 +4,22 @@
 
   <mat-expansion-panel
     hideToggle="true"
-    expanded="false"
-    (opened)="closePanel.emit()">
+    expanded="false">
     <mat-expansion-panel-header
       class="title-block">
       <mat-panel-title>SITE DASHBOARD</mat-panel-title>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    hideToggle="true"
+    expanded="false">
+    <mat-expansion-panel-header>
       <mat-panel-description>
         {{ site.name }}
       </mat-panel-description>
     </mat-expansion-panel-header>
   </mat-expansion-panel>
-
 
   <!-- REVIEW Set disabled="true" to prevent toggle action -->
   <mat-expansion-panel
@@ -39,6 +44,16 @@
         [features]="feature">
       </app-sensor-info>
     </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    expanded="false"
+    hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-description>
+        NOTE: Showing 15 min. interval timeseries for past 24 hours
+      </mat-panel-description>
+    </mat-expansion-panel-header>
   </mat-expansion-panel>
 
   <mat-action-row>
