@@ -1,0 +1,112 @@
+<mat-tab-group>
+  <mat-tab
+    label="SignUp">
+    <form class="signup-form">
+      <mat-form-field>
+        <input
+          #name
+          matInput
+          placeholder="Full name"
+          (keyup.enter)="updateValues('name', name.value)"
+          (blur)="updateValues('name', name.value)">
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <mat-select
+          placeholder="Organization"
+          [(ngModel)]="userData.organization"
+          name="org">
+          <mat-option
+            *ngFor="let org of supportedOrganizations"
+            [value]="org">
+            {{ org }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <input
+          #email
+          matInput
+          placeholder="Email"
+          [errorStateMatcher]="emailMatcher"
+          (keyup.enter)="updateValues('email', email.value)"
+          (blur)="updateValues('email', email.value)">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+
+    <!-- [errorStateMatcher]="passwordMatcher"
+    [formControl]="emailFormControl"
+    -->
+
+      <mat-form-field>
+        <input
+          #password
+          matInput
+          placeholder="Password"
+          type="password"
+          (keyup.enter)="updateValues('password', password.value)"
+          (blur)="updateValues('password', password.value)">
+      </mat-form-field>
+      <br>
+
+      <button
+        matButton
+        (click)="authService.registerUser(userData)">
+        Register
+      </button>
+    </form>
+  </mat-tab>
+
+
+  <mat-tab
+    label="Login">
+    <form class="login-form">
+      <mat-form-field>
+        <input
+          #email
+          matInput
+          placeholder="Email"
+          [errorStateMatcher]="emailMatcher"
+          (keyup.enter)="updateValues('email', email.value)"
+          (blur)="updateValues('email', email.value)">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+
+    <!-- [errorStateMatcher]="passwordMatcher"
+    [formControl]="emailFormControl"
+    -->
+
+      <mat-form-field>
+        <input
+          #password
+          matInput
+          placeholder="Password"
+          type="password"
+          (keyup.enter)="updateValues('password', password.value)"
+          (blur)="updateValues('password', password.value)">
+      </mat-form-field>
+      <br>
+
+      <button
+        matButton
+        (click)="authService.authenticateUser(userData)">
+        Login
+      </button>
+    </form>
+  </mat-tab>
+</mat-tab-group>

@@ -19,6 +19,10 @@ export interface EnvironmentInterface {
       reportTimeperiod: number;
     };
   };
+  authorization: {
+    userPoolId: string;
+    appClientId: string;
+  };
   map: {
     accessToken: string;
     center: number[];

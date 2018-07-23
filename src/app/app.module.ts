@@ -14,6 +14,8 @@ import { MapModule } from './map/map.module';
 import { CustomMaterialsModule } from './custom-materials.module';
 
 import { environment } from '../environments/environment';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/locales/', '.json');
@@ -21,7 +23,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -38,7 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
-  providers: [TranslatePipe],
+  providers: [TranslatePipe, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
