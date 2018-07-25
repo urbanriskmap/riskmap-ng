@@ -59,7 +59,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       // Update browser url with currently selected report's id
       window.history.pushState(
         {},
-        document.title,
+        '',
         location.pathname + '?id=' + this.feature.pkey
       );
 

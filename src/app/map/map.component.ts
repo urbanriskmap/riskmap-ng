@@ -120,10 +120,18 @@ export class MapComponent implements OnInit { // , OnDestroy {
     const instance = this.route.snapshot.paramMap.get('region');
 
     if (this.instances.regions.length === 1) {
+      // Proceed to the only instance region in deployment
       this.selectedRegion = this.instances.regions[0];
+      window.history.replaceState(
+        {},
+        '',
+        location.origin + '/' + this.selectedRegion.name
+      );
       return true;
     } else {
+      // Loop through supported instance regions of deployment
       for (const region of this.instances.regions) {
+        // Compare region name
         if (instance === region.name) {
           this.selectedRegion = region;
           return true;
@@ -131,6 +139,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
       }
     }
 
+    // Else return false, and bring up region selection popup
     return false;
   }
 
