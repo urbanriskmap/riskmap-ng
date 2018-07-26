@@ -16,7 +16,7 @@ export const environment = {
     center: [80.23, 13.06], // map initializes on chennai
     initZoom: 10,
     minZoom: 9,
-    baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
+    baseMapStyle: 'mapbox://styles/urbanriskmap/ciwce3tim00532pocrokb7ojf'
   },
 
   locales: {
@@ -39,7 +39,7 @@ export const environment = {
 
     deep_links: [
         {name: 'facebook', link: 'http://m.me/CognicityDevIndia'},
-        {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=CognicityDev_IN'},
+        // {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=CognicityDev_IN'},
         {name: 'telegram', link: 'https://telegram.me/CognicityIN_bot'}
       ]
   }
