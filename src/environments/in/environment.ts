@@ -16,7 +16,7 @@ export const environment = {
     center: [80.23, 13.06], // map initializes on chennai
     initZoom: 10,
     minZoom: 9,
-    baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
+    baseMapStyle: 'mapbox://styles/urbanriskmap/ciwce3tim00532pocrokb7ojf'
   },
 
   locales: {
