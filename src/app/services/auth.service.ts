@@ -21,6 +21,8 @@ export class AuthService {
   userPool: CognitoUserPool;
   authenticationDetails: AuthenticationDetails;
 
+  isAuthorized: boolean;
+
   constructor( ) {
     this.userPool = new CognitoUserPool(this.poolData);
   }
@@ -74,9 +76,7 @@ export class AuthService {
 
   authenticateUser(userData: {
     email: string,
-    password: string,
-    name: string,
-    organization: string
+    password: string
   }) {
     const authenticationData = {
       Username: userData.email,
@@ -88,18 +88,32 @@ export class AuthService {
       Pool: this.userPool
     });
 
-    this.cognitoUser
-    .authenticateUser(this.authenticationDetails, {
+    const authenticateCallbacks = {
       onSuccess: (result) => {
-        const accessToken = result.getAccessToken().getJwtToken();
+        const idToken = result.getIdToken().getJwtToken();
+        // const accessToken = result.getAccessToken().getJwtToken();
+        console.log(idToken);
 
-        console.log(accessToken);
+        // console.log(this.checkUserOrganization('someOrg'));
+        this.isAuthorized = true;
       },
 
       onFailure: (error) => {
         alert(error.message || JSON.stringify(error));
+      },
+
+      newPasswordRequired: (userAttributes, requiredAttributes) => {
+        console.log(userAttributes);
+        console.log(requiredAttributes);
+
+        delete userAttributes.email_verified;
+
+        this.cognitoUser.completeNewPasswordChallenge('new_password_here', userAttributes, authenticateCallbacks);
       }
-    })
+    };
+
+    this.cognitoUser
+    .authenticateUser(this.authenticationDetails, authenticateCallbacks);
   }
 
   checkUserOrganization(
@@ -118,8 +132,4 @@ export class AuthService {
       }
     });
   }
-
-  // Use case 23. Authenticate a user and set new password for a user that was created using AdminCreateUser API
-
-
 }

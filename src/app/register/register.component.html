@@ -1,0 +1,122 @@
+<mat-vertical-stepper
+  #stepper
+  linear>
+
+  <mat-step [stepControl]="userConfirmation">
+    <form [formGroup]="userConfirmation">
+      <ng-template matStepLabel>Enter confirmation code</ng-template>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Email"
+          type="email"
+          formControlName="firstCtrl"
+          required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Confirmation code"
+          formControlName="secondCtrl"
+          required>
+      </mat-form-field>
+
+      <div>
+        <button mat-stroked-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="newPassword">
+    <form [formGroup]="newPassword">
+      <ng-template matStepLabel>Create account password</ng-template>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="New password"
+          type="password"
+          formControlName="thirdCtrl"
+          required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Confirm password"
+          type="password"
+          formControlName="fourthCtrl"
+          required>
+      </mat-form-field>
+
+      <div>
+        <button mat-stroked-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Login</ng-template>
+    Welcome [ name ],<br>
+    You may now enter your email and password on the map login page to access EoC mode.<br>
+    <br>
+    Click below to proceed.
+    <div>
+      <button mat-stroked-button (click)="someFn()">Enter EoC mode</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>
+
+<div id="prompts">
+  <p class="mat-caption"
+    *ngIf="userConfirmation.controls.firstCtrl.hasError('email')
+    && !userConfirmation.controls.firstCtrl.hasError('required')">
+    Please enter a valid email address
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="userConfirmation.controls.secondCtrl.hasError('minlength')
+    || userConfirmation.controls.secondCtrl.hasError('maxlength')">
+    Please enter the 6-digit confirmation code received via email
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="userConfirmation.controls.secondCtrl.hasError('containsNonNumberic')
+    && (userConfirmation.controls.secondCtrl.dirty
+      || userConfirmation.controls.secondCtrl.touched)">
+    Code may only contain numbers
+  </p>
+
+  <div class="mat-caption"
+    *ngIf="(newPassword.controls.thirdCtrl.hasError('noNumber')
+      || newPassword.controls.thirdCtrl.hasError('noLowerCase')
+      || newPassword.controls.thirdCtrl.hasError('noUpperCase'))
+    && (newPassword.controls.thirdCtrl.dirty
+      || newPassword.controls.thirdCtrl.touched)">
+    Password must include atleast one:
+
+    <p class="mat-caption"
+      *ngIf="newPassword.controls.thirdCtrl.hasError('noLowerCase')">
+      - lower case character
+    </p>
+
+    <p class="mat-caption"
+      *ngIf="newPassword.controls.thirdCtrl.hasError('noUpperCase')">
+      - upper case character
+    </p>
+
+    <p class="mat-caption"
+      *ngIf="newPassword.controls.thirdCtrl.hasError('noNumber')">
+      - number
+    </p>
+  </div>
+
+  <p class="mat-caption"
+    *ngIf="newPassword.hasError('noMatch')
+    && (newPassword.controls.fourthCtrl.dirty
+      || newPassword.controls.fourthCtrl.touched)">
+    Entered passwords do not match
+  </p>
+</div>

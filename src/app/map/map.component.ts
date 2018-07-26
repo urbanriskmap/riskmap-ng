@@ -17,6 +17,7 @@ import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
 import { NotificationService } from '../services/notification.service';
 import { TimeService } from '../services/time.service';
+import { AuthService } from '../services/auth.service';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
@@ -32,6 +33,7 @@ import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
 export class MapComponent implements OnInit { // , OnDestroy {
   navigationSubscription;
 
+  adminMode = false;
   deferredPrompt: any;
   env: EnvironmentInterface = environment;
   fullSizeImgUrl: string;
@@ -66,7 +68,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
     public layerService: LayerService,
     public interactionService: InteractionService,
     private notificationService: NotificationService,
-    public timeService: TimeService
+    public timeService: TimeService,
+    public authService: AuthService
   ) {
     this.instances = instances;
     this.languages = this.env.locales.supportedLanguages;
@@ -189,6 +192,12 @@ export class MapComponent implements OnInit { // , OnDestroy {
       this.changeLanguage({
         value: this.getLanguageCode(params['lang'])
       });
+
+      // AdminMode
+      if (params['admin']
+        && params['admin'] === 'true') {
+        this.adminMode = true;
+      }
     });
   }
 
@@ -233,8 +242,10 @@ export class MapComponent implements OnInit { // , OnDestroy {
         // Fly to selected region
         this.setBounds();
 
+        const adminMode = this.authService.isAuthorized && this.adminMode;
+
         // Then load layers
-        this.layerService.initializeLayers(this.map, this.selectedRegion);
+        this.layerService.initializeLayers(this.map, this.selectedRegion, adminMode);
       }
     });
 

@@ -28,12 +28,12 @@
 
       <mat-form-field>
         <input
-          #email
+          #emailregister
           matInput
           placeholder="Email"
           [errorStateMatcher]="emailMatcher"
-          (keyup.enter)="updateValues('email', email.value)"
-          (blur)="updateValues('email', email.value)">
+          (keyup.enter)="updateValues('email', emailregister.value)"
+          (blur)="updateValues('email', emailregister.value)">
         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
           Please enter a valid email address
         </mat-error>
@@ -49,12 +49,12 @@
 
       <mat-form-field>
         <input
-          #password
+          #passwordregister
           matInput
           placeholder="Password"
           type="password"
-          (keyup.enter)="updateValues('password', password.value)"
-          (blur)="updateValues('password', password.value)">
+          (keyup.enter)="updateValues('password', passwordregister.value)"
+          (blur)="updateValues('password', passwordregister.value)">
       </mat-form-field>
       <br>
 
@@ -72,12 +72,12 @@
     <form class="login-form">
       <mat-form-field>
         <input
-          #email
+          #emaillogin
           matInput
           placeholder="Email"
           [errorStateMatcher]="emailMatcher"
-          (keyup.enter)="updateValues('email', email.value)"
-          (blur)="updateValues('email', email.value)">
+          (keyup.enter)="updateValues('email', emaillogin.value)"
+          (blur)="updateValues('email', emaillogin.value)">
         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
           Please enter a valid email address
         </mat-error>
@@ -93,12 +93,12 @@
 
       <mat-form-field>
         <input
-          #password
+          #passwordlogin
           matInput
           placeholder="Password"
           type="password"
-          (keyup.enter)="updateValues('password', password.value)"
-          (blur)="updateValues('password', password.value)">
+          (keyup.enter)="updateValues('password', passwordlogin.value)"
+          (blur)="updateValues('password', passwordlogin.value)">
       </mat-form-field>
       <br>
 

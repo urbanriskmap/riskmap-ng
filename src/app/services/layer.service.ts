@@ -104,7 +104,8 @@ export class LayerService {
 
   initializeLayers(
     map: mapboxgl.Map,
-    region: Region
+    region: Region,
+    adminMode: boolean
   ): void {
     this.map = map;
 

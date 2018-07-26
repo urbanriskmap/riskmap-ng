@@ -18,6 +18,7 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatSnackBarModule,
+  MatStepperModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -43,11 +44,13 @@ import {
     MatRadioModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatStepperModule,
     MatTabsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule
   ],
   providers: [
-    MatDialog,
+    MatDialog
     // MatDialogRef
   ]
 })

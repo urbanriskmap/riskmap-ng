@@ -12,8 +12,8 @@ export const environment = {
   },
 
   authorization: {
-    userPoolId: 'us-west-2_ZbRYyIRmg',
-    appClientId: '2rpk6d3ntq57que997mnq1jim8'
+    userPoolId: 'us-west-2_olPNYtmQ7',
+    appClientId: '5en9df3auvag0msrurit123v30'
   },
 
   map: {

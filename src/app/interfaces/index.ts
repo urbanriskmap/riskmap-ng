@@ -129,6 +129,7 @@ export interface LayerMetadata {
   name: string;
   server: string;
   path: string;
+  publicAccess: boolean;
   flags: {
     [name: string]: any
   }[];
