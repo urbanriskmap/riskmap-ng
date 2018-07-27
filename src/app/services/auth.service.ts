@@ -27,109 +27,122 @@ export class AuthService {
     this.userPool = new CognitoUserPool(this.poolData);
   }
 
-  registerUser(userData: {
-    email: string,
-    password: string,
-    name: string,
-    organization: string
-  }) {
-    console.log(userData);
-    const attributeList = [];
-
-    // const attributeEmail = new CognitoUserAttribute({
-    //   Name: 'email',
-    //   Value: userData.email
-    // });
-    const attributeName = new CognitoUserAttribute({
-      Name: 'name',
-      Value: userData.name
-    });
-    const attributeOrganization = new CognitoUserAttribute({
-      Name: 'custom:organization', // Prefix custom: to custom attributes
-      Value: userData.organization
-    });
-
-    attributeList.push(
-      // attributeEmail,
-      attributeName,
-      attributeOrganization
-    );
-
-    this.userPool
-    .signUp(
-      userData.email,
-      userData.password,
-      attributeList,
-      null,
-      (error, result) => {
-        if (error) {
-          console.log(error);
-          alert(error.message || JSON.stringify(error));
-          return;
-        }
-
-        console.log(result);
-        this.cognitoUser = result.user;
-      }
-    );
-  }
-
   authenticateUser(userData: {
     email: string,
     password: string
-  }) {
+  }, isLoggingIn?: boolean) {
+    if (isLoggingIn) {
+      this.cognitoUser = new CognitoUser({
+        Username: userData.email,
+        Pool: this.userPool
+      });
+    }
+
     const authenticationData = {
       Username: userData.email,
       Password: userData.password
     };
     this.authenticationDetails = new AuthenticationDetails(authenticationData);
-    this.cognitoUser = new CognitoUser({
-      Username: authenticationData.Username,
-      Pool: this.userPool
+
+    return new Promise((resolve, reject) => {
+      this.cognitoUser
+      .authenticateUser(this.authenticationDetails, {
+        onSuccess: (result) => {
+          this.isAuthorized = true;
+
+          resolve(result.getIdToken().decodePayload());
+        },
+
+        onFailure: (error) => {
+          reject(error);
+        }
+      });
     });
-
-    const authenticateCallbacks = {
-      onSuccess: (result) => {
-        const idToken = result.getIdToken().getJwtToken();
-        // const accessToken = result.getAccessToken().getJwtToken();
-        console.log(idToken);
-
-        // console.log(this.checkUserOrganization('someOrg'));
-        this.isAuthorized = true;
-      },
-
-      onFailure: (error) => {
-        alert(error.message || JSON.stringify(error));
-      },
-
-      newPasswordRequired: (userAttributes, requiredAttributes) => {
-        console.log(userAttributes);
-        console.log(requiredAttributes);
-
-        delete userAttributes.email_verified;
-
-        this.cognitoUser.completeNewPasswordChallenge('new_password_here', userAttributes, authenticateCallbacks);
-      }
-    };
-
-    this.cognitoUser
-    .authenticateUser(this.authenticationDetails, authenticateCallbacks);
   }
 
-  checkUserOrganization(
-    organization: string
+  validateUser(
+    email: string
   ) {
-    this.cognitoUser
-    .getUserAttributes((error, result) => {
-      if (error) {
-        alert(error.message || JSON.stringify(error));
-        return;
-      }
+    const userData = {
+      Username: email,
+      Pool: this.userPool
+    };
 
-      for (const attribute of result) {
-        // Filter attribute.getName() === 'organization' and check desired value
-        console.log('Attribute: ' + attribute.getName() + ', Value: ' + attribute.getValue());
-      }
+    this.cognitoUser = new CognitoUser(userData);
+
+    return new Promise((resolve, reject) => {
+      this.cognitoUser.confirmRegistration('000000', true, (error, result) => {
+        if (error) {
+          if (error.code === 'NotAuthorizedException') {
+            // User with email exists in pool
+            resolve();
+          } else {
+            reject(error);
+          }
+        }
+
+        // resolved unexpectedly, user already registered
+        // forgot password?
+        reject({registered: true});
+      });
+    });
+  }
+
+  registerNewPassword(
+    password: string,
+    email?: string
+  ) {
+    if (email) {
+      const userData = {
+        Username: email,
+        Pool: this.userPool
+      };
+
+      this.cognitoUser = new CognitoUser(userData);
+    }
+
+    return new Promise((resolve, reject) => {
+      this.cognitoUser
+      .forgotPassword({
+        onSuccess: (data) => {
+          resolve(data);
+        },
+
+        onFailure: (error) => {
+          reject(error);
+        },
+
+        inputVerificationCode: (data) => {
+          resolve(data);
+        }
+      });
+    });
+  }
+
+  verifyConfirmationCode(
+    code: string,
+    password: string,
+    email?: string
+  ) {
+    if (email) {
+      const userData = {
+        Username: email,
+        Pool: this.userPool
+      };
+
+      this.cognitoUser = new CognitoUser(userData);
+    }
+
+    return new Promise((resolve, reject) => {
+      this.cognitoUser
+      .confirmPassword(code, password, {
+        onSuccess() {
+          resolve();
+        },
+        onFailure(error) {
+          reject(error);
+        }
+      });
     });
   }
 }

@@ -1,3 +1,10 @@
+<img
+  class="appLogo"
+  src="assets/logos/app_logo.svg"
+  (click)="redirect()">
+
+<mat-divider></mat-divider>
+
 <mat-vertical-stepper linear #stepper>
   <ng-template matStepperIcon="done">
     <mat-icon
@@ -6,40 +13,45 @@
     </mat-icon>
   </ng-template>
 
-  <mat-step [stepControl]="userConfirmation" editable="false">
-    <form [formGroup]="userConfirmation">
-      <ng-template matStepLabel>Enter confirmation code</ng-template>
+  <mat-step
+    [stepControl]="validUserFormGroup"
+    editable="false"
+    #validateUserStep>
+    <form [formGroup]="validUserFormGroup">
+      <ng-template matStepLabel>Enter your email</ng-template>
 
       <mat-form-field>
         <input
           matInput
           placeholder="Email"
           type="email"
-          formControlName="firstCtrl"
+          formControlName="emailCtrl"
           required>
       </mat-form-field>
 
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Confirmation code"
-          formControlName="secondCtrl"
-          required>
-      </mat-form-field>
-
-      <div>
+      <div class="form-actions">
         <button
           mat-stroked-button
-          matStepperNext
-          (click)="confirmUser()">
-          Next
+          [disabled]="processingRegistration"
+          (click)="redirect()">
+          CANCEL
+        </button>
+
+        <button
+          mat-stroked-button
+          [disabled]="validUserFormGroup.status === 'INVALID'"
+          (click)="validateUser(stepper)">
+          NEXT
         </button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="newPassword" editable="false">
-    <form [formGroup]="newPassword">
+  <mat-step
+    [stepControl]="passwordFormGroup"
+    editable="false"
+    #passwordStep>
+    <form [formGroup]="passwordFormGroup">
       <ng-template matStepLabel>Create account password</ng-template>
 
       <mat-form-field>
@@ -47,42 +59,88 @@
           matInput
           placeholder="New password"
           type="password"
-          formControlName="thirdCtrl"
+          formControlName="passwordCtrl"
           required>
       </mat-form-field>
+
+      <br>
 
       <mat-form-field>
         <input
           matInput
           placeholder="Confirm password"
           type="password"
-          formControlName="fourthCtrl"
+          formControlName="confirmPassCtrl"
           required>
       </mat-form-field>
 
-      <div>
+      <div class="form-actions">
         <button
           mat-stroked-button
-          matStepperNext
-          (click)="storePassword()">
+          [disabled]="processingRegistration"
+          (click)="redirect('public')">
+          Cancel
+        </button>
+
+        <button
+          mat-stroked-button
+          [disabled]="passwordFormGroup.status === 'INVALID'"
+          (click)="storePassword(stepper)">
           Next
         </button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Proceed</ng-template>
-    Welcome [ name ],<br>
-    You may now enter your email and password on the map login page to access EoC mode.<br>
-    <br>
-    Click below to proceed.
+  <mat-step
+    [stepControl]="confirmationFormGroup"
+    editable="false"
+    #confirmationStep>
+    <form
+      [formGroup]="confirmationFormGroup"
+      *ngIf="!exitProcess">
+      <ng-template matStepLabel>Enter confirmation code</ng-template>
 
-    <div>
+      <p class="mat-caption">
+        Please check your email for a 6-digit confirmation code
+      </p>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Confirmation code"
+          formControlName="numCodeCtrl"
+          required>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button
+          mat-stroked-button
+          [disabled]="processingRegistration"
+          (click)="redirect('public')">
+          Cancel
+        </button>
+
+        <button
+          mat-stroked-button
+          [disabled]="confirmationFormGroup.status === 'INVALID'"
+          (click)="verifyCode(stepper)">
+          Confirm
+        </button>
+      </div>
+    </form>
+
+    <div
+      *ngIf="exitProcess">
+      <p class="mat-caption">
+        Account permissions error, please contact administrators at risk@mit.edu
+      </p>
+
       <button
         mat-stroked-button
-        (click)="redirectAsAdmin()">
-        Enter EoC mode
+        [disabled]="processingRegistration"
+        (click)="redirect('public')">
+        Go to RiskMap.us
       </button>
     </div>
   </mat-step>
@@ -90,52 +148,57 @@
 
 <div id="prompts">
   <p class="mat-caption"
-    *ngIf="userConfirmation.controls.firstCtrl.hasError('email')
-    && !userConfirmation.controls.firstCtrl.hasError('required')">
-    Please enter a valid email address
+    *ngIf="validUserFormGroup.controls.emailCtrl.hasError('email')
+    && !validUserFormGroup.controls.emailCtrl.hasError('required')">
+    * Please enter a valid email address
   </p>
 
   <p class="mat-caption"
-    *ngIf="userConfirmation.controls.secondCtrl.hasError('minlength')
-    || userConfirmation.controls.secondCtrl.hasError('maxlength')">
-    Please enter the 6-digit confirmation code received via email
-  </p>
-
-  <p class="mat-caption"
-    *ngIf="userConfirmation.controls.secondCtrl.hasError('containsNonNumberic')
-    && (userConfirmation.controls.secondCtrl.dirty
-      || userConfirmation.controls.secondCtrl.touched)">
-    Code may only contain numbers
+    *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('minlength')">
+    * Password must be minimum 8 characters long
   </p>
 
   <div class="mat-caption"
-    *ngIf="(newPassword.controls.thirdCtrl.hasError('noNumber')
-      || newPassword.controls.thirdCtrl.hasError('noLowerCase')
-      || newPassword.controls.thirdCtrl.hasError('noUpperCase'))
-    && (newPassword.controls.thirdCtrl.dirty
-      || newPassword.controls.thirdCtrl.touched)">
-    Password must include atleast one:
+    *ngIf="(passwordFormGroup.controls.passwordCtrl.hasError('noNumber')
+      || passwordFormGroup.controls.passwordCtrl.hasError('noLowerCase')
+      || passwordFormGroup.controls.passwordCtrl.hasError('noUpperCase'))
+    && (passwordFormGroup.controls.passwordCtrl.dirty
+      || passwordFormGroup.controls.passwordCtrl.touched)">
+    * Password must include atleast one:
 
-    <p class="mat-caption"
-      *ngIf="newPassword.controls.thirdCtrl.hasError('noLowerCase')">
-      - lower case character
+    <p class="mat-caption list-item"
+      *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('noLowerCase')">
+      &nbsp;&nbsp;- lower case character
     </p>
 
-    <p class="mat-caption"
-      *ngIf="newPassword.controls.thirdCtrl.hasError('noUpperCase')">
-      - upper case character
+    <p class="mat-caption list-item"
+      *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('noUpperCase')">
+      &nbsp;&nbsp;- upper case character
     </p>
 
-    <p class="mat-caption"
-      *ngIf="newPassword.controls.thirdCtrl.hasError('noNumber')">
-      - number
+    <p class="mat-caption list-item"
+      *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('noNumber')">
+      &nbsp;&nbsp;- number
     </p>
   </div>
 
   <p class="mat-caption"
-    *ngIf="newPassword.hasError('noMatch')
-    && (newPassword.controls.fourthCtrl.dirty
-      || newPassword.controls.fourthCtrl.touched)">
-    Entered passwords do not match
+    *ngIf="passwordFormGroup.hasError('noMatch')
+    && (passwordFormGroup.controls.confirmPassCtrl.dirty
+      || passwordFormGroup.controls.confirmPassCtrl.touched)">
+    * Entered passwords do not match
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('minlength')
+    || confirmationFormGroup.controls.numCodeCtrl.hasError('maxlength')">
+    * Please enter the 6-digit confirmation code received via email
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('containsNonNumberic')
+    && (confirmationFormGroup.controls.numCodeCtrl.dirty
+      || confirmationFormGroup.controls.numCodeCtrl.touched)">
+    * Code may only contain numbers
   </p>
 </div>

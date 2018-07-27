@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
+import instances from '../../resources/instances';
 import { AuthService } from '../services/auth.service';
 
 export const passwordConfirmationValidator = (control: FormGroup) => {
-  const password = control.get('thirdCtrl');
-  const confirmPassword = control.get('fourthCtrl');
+  const password = control.get('passwordCtrl');
+  const confirmPassword = control.get('confirmPassCtrl');
   return password && confirmPassword && password.value !== confirmPassword.value
     ? { 'noMatch': true } : null;
 }
@@ -50,50 +52,122 @@ export const codeNonNumeric = (control: FormControl) => {
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  userConfirmation: FormGroup;
-  newPassword: FormGroup;
+  validUserFormGroup: FormGroup;
+  confirmationFormGroup: FormGroup;
+  passwordFormGroup: FormGroup;
+
+  exitProcess: boolean;
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) { }
 
   ngOnInit() {
-    this.userConfirmation = new FormGroup({
-      'firstCtrl': new FormControl('', [
+    this.validUserFormGroup = new FormGroup({
+      'emailCtrl': new FormControl('', [
         Validators.required,
         Validators.email
-      ]),
-      'secondCtrl': new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(6),
-        codeNonNumeric
       ])
     });
 
-    this.newPassword = new FormGroup({
-      thirdCtrl: new FormControl('', [
+    this.passwordFormGroup = new FormGroup({
+      passwordCtrl: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
         passwordNumberValidator,
         passwordLowerCaseValidator,
         passwordUpperCaseValidator
       ]),
-      fourthCtrl: new FormControl()
+      confirmPassCtrl: new FormControl()
     }, {
       validators: passwordConfirmationValidator
     });
+
+    this.confirmationFormGroup = new FormGroup({
+      'numCodeCtrl': new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(6),
+        codeNonNumeric
+      ])
+    });
   }
 
-  confirmUser() {
+  validateUser(stepper) {
+    const email = this.validUserFormGroup.controls.emailCtrl.value;
 
+    this.authService.validateUser(email)
+    .then(() => {
+      stepper.next();
+    })
+    .catch((error) => {
+      if (error.registered) {
+        this.router.navigate(['login']);
+        return;
+      }
+
+      if (error.code && error.code === 'UserNotFoundException') {
+        // TODO: show notification, with redirect button?
+        alert('User not found, please contact admin');
+      } else {
+        console.log(error);
+      }
+    });
   }
 
-  storePassword() {
+  storePassword(stepper) {
+    const password = this.passwordFormGroup.controls.passwordCtrl.value;
 
+    this.authService.registerNewPassword(password)
+    .then((result) => {
+      stepper.next();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
-  redirectAsAdmin() {
+  verifyCode(stepper) {
+    const email = this.validUserFormGroup.controls.emailCtrl.value;
+    const password = this.passwordFormGroup.controls.passwordCtrl.value;
+    const code = this.confirmationFormGroup.controls.numCodeCtrl.value;
 
+    this.authService.verifyConfirmationCode(code, password)
+    .then(() => {
+      this.authService.authenticateUser({
+        email: email,
+        password: password
+      })
+      .then((payload) => {
+        this.redirect(true, {
+          region: payload['custom:region'],
+          role: payload['custom:role']
+        });
+      })
+      .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
+  }
+
+  redirect(authorized?: boolean, attributes?: {
+    region: string,
+    role: string
+  }) {
+    if (authorized) {
+      for (const region of instances.regions) {
+        if ((attributes.region === region.code
+          || attributes.region === 'all')
+          && attributes.role === 'write'
+        ) {
+          this.router.navigate([region.name], { queryParams: { admin: true } });
+          break;
+        }
+      }
+
+      this.exitProcess = true;
+    } else {
+      this.router.navigate(['']);
+    }
   }
 }
