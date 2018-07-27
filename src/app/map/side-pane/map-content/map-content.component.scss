@@ -18,10 +18,14 @@ mat-list {
     .mat-radio-group {
       .mat-radio-button {
         font-size: 14px;
-        margin-top: $general-margin;
-        margin-bottom: 2 * $general-margin;
-        margin-left: $general-margin;
+        // margin-top: $general-margin;
+        // margin-bottom: 2 * $general-margin;
+         margin-left: $general-margin;
       }
     }
   }
+}
+
+#cities {
+  margin: 10px;
 }

@@ -39,7 +39,7 @@ export const environment = {
 
     deep_links: [
         {name: 'facebook', link: 'http://m.me/CognicityDevIndia'},
-        {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=CognicityDev_IN'},
+        // {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=CognicityDev_IN'},
         {name: 'telegram', link: 'https://telegram.me/CognicityIN_bot'}
       ]
   }
