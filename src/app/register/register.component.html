@@ -1,8 +1,12 @@
-<mat-vertical-stepper
-  #stepper
-  linear>
+<mat-vertical-stepper linear #stepper>
+  <ng-template matStepperIcon="done">
+    <mat-icon
+      fontSet="icon"
+      fontIcon="icon-done">
+    </mat-icon>
+  </ng-template>
 
-  <mat-step [stepControl]="userConfirmation">
+  <mat-step [stepControl]="userConfirmation" editable="false">
     <form [formGroup]="userConfirmation">
       <ng-template matStepLabel>Enter confirmation code</ng-template>
 
@@ -24,12 +28,17 @@
       </mat-form-field>
 
       <div>
-        <button mat-stroked-button matStepperNext>Next</button>
+        <button
+          mat-stroked-button
+          matStepperNext
+          (click)="confirmUser()">
+          Next
+        </button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="newPassword">
+  <mat-step [stepControl]="newPassword" editable="false">
     <form [formGroup]="newPassword">
       <ng-template matStepLabel>Create account password</ng-template>
 
@@ -52,19 +61,29 @@
       </mat-form-field>
 
       <div>
-        <button mat-stroked-button matStepperNext>Next</button>
+        <button
+          mat-stroked-button
+          matStepperNext
+          (click)="storePassword()">
+          Next
+        </button>
       </div>
     </form>
   </mat-step>
 
   <mat-step>
-    <ng-template matStepLabel>Login</ng-template>
+    <ng-template matStepLabel>Proceed</ng-template>
     Welcome [ name ],<br>
     You may now enter your email and password on the map login page to access EoC mode.<br>
     <br>
     Click below to proceed.
+
     <div>
-      <button mat-stroked-button (click)="someFn()">Enter EoC mode</button>
+      <button
+        mat-stroked-button
+        (click)="redirectAsAdmin()">
+        Enter EoC mode
+      </button>
     </div>
   </mat-step>
 </mat-vertical-stepper>

@@ -80,6 +80,20 @@ export class RegisterComponent implements OnInit {
         passwordUpperCaseValidator
       ]),
       fourthCtrl: new FormControl()
-    }, {validators: passwordConfirmationValidator});
+    }, {
+      validators: passwordConfirmationValidator
+    });
+  }
+
+  confirmUser() {
+
+  }
+
+  storePassword() {
+
+  }
+
+  redirectAsAdmin() {
+
   }
 }
