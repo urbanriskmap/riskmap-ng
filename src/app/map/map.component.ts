@@ -330,10 +330,18 @@ export class MapComponent implements OnInit { // , OnDestroy {
   }
 
   setBounds(): void {
-    this.map.fitBounds([
-      this.selectedRegion.bounds.sw,
-      this.selectedRegion.bounds.ne
-    ]);
+    if (this.selectedRegion.hasOwnProperty('initMapview')) {
+      this.map.flyTo({
+        center: this.selectedRegion.initMapview.center,
+        zoom: this.selectedRegion.initMapview.zoom,
+        minZoom: this.env.map.minZoom
+      });
+    } else {
+      this.map.fitBounds([
+        this.selectedRegion.bounds.sw,
+        this.selectedRegion.bounds.ne
+      ]);
+    }
   }
 
   openDialog(content: string): void {
