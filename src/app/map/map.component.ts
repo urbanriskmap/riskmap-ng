@@ -227,7 +227,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
       if (this.selectedRegion) {
         // Fly to selected region
         this.setBounds();
-
         // Then load layers
         this.layerService.initializeLayers(this.map, this.selectedRegion);
       }
