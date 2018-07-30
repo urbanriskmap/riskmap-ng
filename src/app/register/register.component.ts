@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
   confirmationFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
 
-  exitProcess: boolean;
+  exitSigninProcess: boolean;
 
   constructor(
     public authService: AuthService,
@@ -123,9 +123,7 @@ export class RegisterComponent implements OnInit {
     .then((result) => {
       stepper.next();
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch((error) => console.log(error));
   }
 
   verifyCode(stepper) {
@@ -145,8 +143,10 @@ export class RegisterComponent implements OnInit {
           role: payload['custom:role']
         });
       })
+      // TODO: error automatically logging in, redirect to /login
       .catch((error) => console.log(error));
     })
+    // TODO: go to step 2? back to webapp?
     .catch((error) => console.log(error));
   }
 
@@ -165,7 +165,7 @@ export class RegisterComponent implements OnInit {
         }
       }
 
-      this.exitProcess = true;
+      this.exitSigninProcess = true;
     } else {
       this.router.navigate(['']);
     }

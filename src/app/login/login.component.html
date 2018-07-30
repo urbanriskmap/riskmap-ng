@@ -1,112 +1,66 @@
-<mat-tab-group>
-  <mat-tab
-    label="SignUp">
-    <form class="signup-form">
-      <mat-form-field>
-        <input
-          #name
-          matInput
-          placeholder="Full name"
-          (keyup.enter)="updateValues('name', name.value)"
-          (blur)="updateValues('name', name.value)">
-      </mat-form-field>
-      <br>
+<img
+  class="app-logo"
+  src="assets/logos/app_logo.svg"
+  (click)="redirect()">
 
-      <mat-form-field>
-        <mat-select
-          placeholder="Organization"
-          [(ngModel)]="userData.organization"
-          name="org">
-          <mat-option
-            *ngFor="let org of supportedOrganizations"
-            [value]="org">
-            {{ org }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <br>
+<mat-divider></mat-divider>
 
-      <mat-form-field>
-        <input
-          #emailregister
-          matInput
-          placeholder="Email"
-          [errorStateMatcher]="emailMatcher"
-          (keyup.enter)="updateValues('email', emailregister.value)"
-          (blur)="updateValues('email', emailregister.value)">
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          Email is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <br>
+<mat-card>
+  <mat-card-subtitle>
+    Please enter your email and password
+  </mat-card-subtitle>
 
-    <!-- [errorStateMatcher]="passwordMatcher"
-    [formControl]="emailFormControl"
-    -->
-
-      <mat-form-field>
-        <input
-          #passwordregister
-          matInput
-          placeholder="Password"
-          type="password"
-          (keyup.enter)="updateValues('password', passwordregister.value)"
-          (blur)="updateValues('password', passwordregister.value)">
-      </mat-form-field>
-      <br>
-
-      <button
-        matButton
-        (click)="authService.registerUser(userData)">
-        Register
-      </button>
-    </form>
-  </mat-tab>
-
-
-  <mat-tab
-    label="Login">
-    <form class="login-form">
+  <mat-card-content>
+    <form [formGroup]="loginFormGroup">
       <mat-form-field>
         <input
           #emaillogin
           matInput
-          placeholder="Email"
-          [errorStateMatcher]="emailMatcher"
-          (keyup.enter)="updateValues('email', emaillogin.value)"
-          (blur)="updateValues('email', emaillogin.value)">
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          Email is <strong>required</strong>
-        </mat-error>
+          placeholder="Email">
       </mat-form-field>
       <br>
-
-    <!-- [errorStateMatcher]="passwordMatcher"
-    [formControl]="emailFormControl"
-    -->
 
       <mat-form-field>
         <input
           #passwordlogin
           matInput
           placeholder="Password"
-          type="password"
-          (keyup.enter)="updateValues('password', passwordlogin.value)"
-          (blur)="updateValues('password', passwordlogin.value)">
+          type="password">
       </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-stroked-button
+      (click)="redirect()">
+      Cancel
+    </button>
+
+    <button
+      mat-stroked-button
+      [disabled]="loginFormGroup.status === 'INVALID'"
+      (click)="loginUser()">
+      Login
+    </button>
+
+    <br>
+
+    <p class="mat-caption">
+      <a
+        routerLink="/register">
+        Forgot your password?
+      </a>
+
       <br>
 
-      <button
-        matButton
-        (click)="authService.authenticateUser(userData)">
-        Login
-      </button>
-    </form>
-  </mat-tab>
-</mat-tab-group>
+      Don't have a RiskMap.in admin account?
+      <a
+        routerLink="/register"
+        [queryParams]="{ showInfo: true }">
+        Click here
+      </a>
+     to get access
+    </p>
+  </mat-card-actions>
+</mat-card>

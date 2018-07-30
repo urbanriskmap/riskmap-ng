@@ -1,5 +1,5 @@
 <img
-  class="appLogo"
+  class="app-logo"
   src="assets/logos/app_logo.svg"
   (click)="redirect()">
 
@@ -34,14 +34,14 @@
           mat-stroked-button
           [disabled]="processingRegistration"
           (click)="redirect()">
-          CANCEL
+          Cancel
         </button>
 
         <button
           mat-stroked-button
           [disabled]="validUserFormGroup.status === 'INVALID'"
           (click)="validateUser(stepper)">
-          NEXT
+          Next
         </button>
       </div>
     </form>
@@ -98,7 +98,7 @@
     #confirmationStep>
     <form
       [formGroup]="confirmationFormGroup"
-      *ngIf="!exitProcess">
+      *ngIf="!exitSigninProcess">
       <ng-template matStepLabel>Enter confirmation code</ng-template>
 
       <p class="mat-caption">
@@ -131,7 +131,7 @@
     </form>
 
     <div
-      *ngIf="exitProcess">
+      *ngIf="exitSigninProcess">
       <p class="mat-caption">
         Account permissions error, please contact administrators at risk@mit.edu
       </p>

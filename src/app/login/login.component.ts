@@ -1,23 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
+import instances from '../../resources/instances';
 import { AuthService } from '../services/auth.service';
-
-export class EmailErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
-// export class PasswordErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     // VALIDATE entered password
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
 
 @Component({
   selector: 'app-login',
@@ -25,20 +11,7 @@ export class EmailErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-  emailMatcher = new EmailErrorStateMatcher();
-  // passwordMatcher = new PasswordErrorStateMatcher();
-  selectedOrg: string;
-
-  userData = {
-    email: '',
-    organization: '',
-    password: '',
-    name: ''
-  };
+  loginFormGroup: FormGroup;
 
   // Set as env parameter
   supportedOrganizations = [
@@ -47,14 +20,59 @@ export class LoginComponent implements OnInit {
     'SFWMD'
   ];
 
+  exitProcess: boolean;
+
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) { }
 
   ngOnInit() {
+    this.loginFormGroup = new FormGroup({
+      emailCtrl: new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]),
+
+      passwordCtrl: new FormControl('', Validators.required)
+    });
   }
 
-  updateValues(attribute: string, value: string) {
-    this.userData[attribute] = value;
+  loginUser() {
+    const email = this.loginFormGroup.controls.emailCtrl.value;
+    const password = this.loginFormGroup.controls.passwordCtrl.value;
+
+    this.authService.authenticateUser({
+      email: email,
+      password: password
+    })
+    .then((payload) => {
+      this.redirect(true, {
+        region: payload['custom:region'],
+        role: payload['custom:role']
+      });
+    })
+    .catch((error) => console.log(error));
+  }
+
+  redirect(authorized?: boolean, attributes?: {
+    region: string,
+    role: string
+  }) {
+    if (authorized) {
+      for (const region of instances.regions) {
+        if ((attributes.region === region.code
+          || attributes.region === 'all')
+          && attributes.role === 'write'
+        ) {
+          this.router.navigate([region.name], { queryParams: { admin: true } });
+          break;
+        }
+      }
+
+      this.exitProcess = true;
+    } else {
+      this.router.navigate(['']);
+    }
   }
 }
