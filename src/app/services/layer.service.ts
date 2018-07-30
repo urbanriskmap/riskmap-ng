@@ -109,46 +109,53 @@ export class LayerService {
   ): void {
     this.map = map;
 
+    // Iterate over supported layers
     for (const layer of layers.supported) {
-      this.httpService
-      .getGeometryData(layer.metadata, region.code)
-      .then(geojson => {
-        switch (layer.metadata.name) {
-          // REVIEW: All following cases will be deployment specific
-          // Worth refactoring?
-          case 'sensors_usgs':
-            this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
-            .then((data) => {
-              if (data) {
-                layer.settings.source.data = data;
-                this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
-              }
-            })
-            .catch((error) => console.log(error));
-            break;
 
-          case 'sensors_sfwmd':
-            this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
-            .then((data) => {
-              if (data) {
-                layer.settings.source.data = data;
-                this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
-                this.linkSfwmdInfrastructure(data['features']);
-              }
-            })
-            .catch((error) => console.log(error));
-            break;
+      // Filter layers based on publicAccess, or adminMode check
+      if (layer.metadata.publicAccess || adminMode) {
 
-          default:
-            if (layer.metadata.name === 'reports') {
-              this.showReportsNotification(geojson.features.length);
-            }
-            // Overwrite data object
-            layer.settings.source.data = geojson;
-            this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
-        }
-      })
-      .catch(error => console.log(error));
+        // Get geometry data
+        this.httpService
+        .getGeometryData(layer.metadata, region.code)
+        .then(geojson => {
+          switch (layer.metadata.name) {
+            // REVIEW: All following cases will be deployment specific
+            // Worth refactoring?
+            case 'sensors_usgs':
+              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
+              .then((data) => {
+                if (data) {
+                  layer.settings.source.data = data;
+                  this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                }
+              })
+              .catch((error) => console.log(error));
+              break;
+
+            case 'sensors_sfwmd':
+              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
+              .then((data) => {
+                if (data) {
+                  layer.settings.source.data = data;
+                  this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                  this.linkSfwmdInfrastructure(data['features']);
+                }
+              })
+              .catch((error) => console.log(error));
+              break;
+
+            default:
+              if (layer.metadata.name === 'reports') {
+                this.showReportsNotification(geojson.features.length);
+              }
+              // Overwrite data object
+              layer.settings.source.data = geojson;
+              this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+          }
+        })
+        .catch(error => console.log(error));
+      }
     }
   }
 

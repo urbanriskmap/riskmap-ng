@@ -44,6 +44,24 @@
   </mat-form-field>
 
   <div
+    class="user-button"
+    *ngIf="!adminMode"
+    (click)="router.navigate(['login'])">
+    <i class="icon-user"></i>
+    <br>
+    <p *ngIf="!adminMode">Login</p>
+  </div>
+
+  <div
+    class="user-button authorized"
+    *ngIf="adminMode"
+    (click)="logoutUser()">
+    <i class="icon-user"></i>
+    <br>
+    <p *ngIf="adminMode">Logout</p>
+  </div>
+
+  <div
     class="menu-button"
     *ngIf="!fullSizeImgUrl"
     (click)="toggleSidePane()">
@@ -131,7 +149,8 @@
   [selectedTab]="paneToOpen"
   (agreementPolicy)="openDialog('agreementPolicy')"
   [regions]="instances.regions"
-  [selectedRegion]="selectedRegion">
+  [selectedRegion]="selectedRegion"
+  [adminMode]="adminMode">
 </app-side-pane>
 
 <app-image-preview

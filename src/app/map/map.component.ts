@@ -195,7 +195,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
       // AdminMode
       if (params['admin']
-        && params['admin'] === 'true') {
+        && params['admin'] === 'true'
+        && this.authService.isAuthorized) {
         this.adminMode = true;
       }
     });
@@ -448,13 +449,13 @@ export class MapComponent implements OnInit { // , OnDestroy {
     }
   }
 
-  // ngOnDestroy(): void {
-  //   // Required when app has more than one route, eg. /dashboard
-  //   // avoid memory leaks here by cleaning up after ourselves. If we
-  //   // don't then we will continue to run our initialiseLandingRoute()
-  //   // method on every navigationEnd event.
-  //   if (this.navigationSubscription) {
-  //      this.navigationSubscription.unsubscribe();
-  //   }
-  // }
+  ngOnDestroy(): void {
+    // Required when app has more than one route, eg. /login
+    // avoid memory leaks here by cleaning up after ourselves. If we
+    // don't then we will continue to run our initialiseLandingRoute()
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {
+       this.navigationSubscription.unsubscribe();
+    }
+  }
 }
