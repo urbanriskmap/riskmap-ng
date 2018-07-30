@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     'SFWMD'
   ];
 
-  exitProcess: boolean;
+  exitLoginProcess: boolean;
 
   constructor(
     public authService: AuthService,
@@ -45,14 +45,24 @@ export class LoginComponent implements OnInit {
     this.authService.authenticateUser({
       email: email,
       password: password
-    })
+    }, true)
     .then((payload) => {
       this.redirect(true, {
         region: payload['custom:region'],
         role: payload['custom:role']
       });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      if (error.code === 'NotAuthorizedException') {
+        this.loginFormGroup.controls.passwordCtrl.setValue(null);
+        this.loginFormGroup.controls.passwordCtrl.setErrors({incorrect: true});
+      } else if (error.code === 'UserNotFoundException') {
+        this.loginFormGroup.controls.passwordCtrl.setValue(null);
+        this.loginFormGroup.controls.emailCtrl.setErrors({noUser: true});
+      } else {
+        console.log(error);
+      }
+    });
   }
 
   redirect(authorized?: boolean, attributes?: {
@@ -70,9 +80,14 @@ export class LoginComponent implements OnInit {
         }
       }
 
-      this.exitProcess = true;
+      this.exitLoginProcess = true;
     } else {
       this.router.navigate(['']);
     }
+  }
+
+  resetForm() {
+    this.exitLoginProcess = false;
+    this.loginFormGroup.reset();
   }
 }

@@ -42,7 +42,7 @@ export const codeNonNumeric = (control: FormControl) => {
   if (regEx.test(code)) {
     return null;
   } else {
-    return { 'containsNonNumberic': true };
+    return { 'containsNonNumeric': true };
   }
 }
 

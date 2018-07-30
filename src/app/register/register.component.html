@@ -117,7 +117,7 @@
         <button
           mat-stroked-button
           [disabled]="processingRegistration"
-          (click)="redirect('public')">
+          (click)="redirect()">
           Cancel
         </button>
 
@@ -149,12 +149,16 @@
 <div id="prompts">
   <p class="mat-caption"
     *ngIf="validUserFormGroup.controls.emailCtrl.hasError('email')
-    && !validUserFormGroup.controls.emailCtrl.hasError('required')">
+    && !validUserFormGroup.controls.emailCtrl.hasError('required')
+    && (validUserFormGroup.controls.emailCtrl.dirty
+      || validUserFormGroup.controls.emailCtrl.touched)">
     * Please enter a valid email address
   </p>
 
   <p class="mat-caption"
-    *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('minlength')">
+    *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('minlength')
+    && (passwordFormGroup.controls.passwordCtrl.dirty
+      || passwordFormGroup.controls.passwordCtrl.touched)">
     * Password must be minimum 8 characters long
   </p>
 
@@ -191,12 +195,14 @@
 
   <p class="mat-caption"
     *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('minlength')
-    || confirmationFormGroup.controls.numCodeCtrl.hasError('maxlength')">
+    || confirmationFormGroup.controls.numCodeCtrl.hasError('maxlength')
+    && (confirmationFormGroup.controls.numCodeCtrl.dirty
+      || confirmationFormGroup.controls.numCodeCtrl.touched)">
     * Please enter the 6-digit confirmation code received via email
   </p>
 
   <p class="mat-caption"
-    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('containsNonNumberic')
+    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('containsNonNumeric')
     && (confirmationFormGroup.controls.numCodeCtrl.dirty
       || confirmationFormGroup.controls.numCodeCtrl.touched)">
     * Code may only contain numbers

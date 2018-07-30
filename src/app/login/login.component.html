@@ -16,7 +16,8 @@
         <input
           #emaillogin
           matInput
-          placeholder="Email">
+          placeholder="Email"
+          formControlName="emailCtrl">
       </mat-form-field>
       <br>
 
@@ -25,9 +26,27 @@
           #passwordlogin
           matInput
           placeholder="Password"
-          type="password">
+          type="password"
+          formControlName="passwordCtrl">
       </mat-form-field>
     </form>
+
+    <div id="prompts">
+      <p class="mat-caption"
+        *ngIf="exitLoginProcess">
+        Account permissions error, please contact administrators at risk@mit.edu
+      </p>
+
+      <p class="mat-caption"
+        *ngIf="loginFormGroup.controls.emailCtrl.hasError('noUser')">
+        * User account for entered email does not exist
+      </p>
+
+      <p class="mat-caption"
+        *ngIf="loginFormGroup.controls.passwordCtrl.hasError('incorrect')">
+        * Incorrect password
+      </p>
+    </div>
   </mat-card-content>
 
   <mat-card-actions>
@@ -39,6 +58,14 @@
 
     <button
       mat-stroked-button
+      *ngIf="exitLoginProcess"
+      (click)="resetForm()">
+      Reset
+    </button>
+
+    <button
+      mat-stroked-button
+      *ngIf="!exitLoginProcess"
       [disabled]="loginFormGroup.status === 'INVALID'"
       (click)="loginUser()">
       Login
@@ -54,7 +81,7 @@
 
       <br>
 
-      Don't have a RiskMap.in admin account?
+      Don't have a RiskMap.us admin account?
       <a
         routerLink="/register"
         [queryParams]="{ showInfo: true }">
