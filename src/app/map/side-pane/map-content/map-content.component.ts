@@ -30,7 +30,9 @@ export class MapContentComponent implements OnInit {
       reports: {items: []},
       infrastructure: {items: []}
     };
+  }
 
+  ngOnInit() {
     for (const layer of layers.supported) {
       if (layer.metadata.legendGroup
         && (
@@ -43,9 +45,6 @@ export class MapContentComponent implements OnInit {
         }
       }
     }
-  }
-
-  ngOnInit() {
   }
 
   changeRegion() {

@@ -30,7 +30,7 @@ import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit { // , OnDestroy {
+export class MapComponent implements OnInit, OnDestroy {
   navigationSubscription;
 
   adminMode = false;
@@ -82,6 +82,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     // IDEA: Switch to single page navigation?
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component (landing page)
+      // TODO: force destroy and recreate component, layerService not refreshing
       if (e instanceof NavigationEnd) {
         this.initialiseLandingRoute();
       }
