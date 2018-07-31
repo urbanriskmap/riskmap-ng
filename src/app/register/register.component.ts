@@ -10,7 +10,7 @@ export const passwordConfirmationValidator = (control: FormGroup) => {
   const confirmPassword = control.get('confirmPassCtrl');
   return password && confirmPassword && password.value !== confirmPassword.value
     ? { 'noMatch': true } : null;
-}
+};
 
 export const passwordNumberValidator = (control: FormControl) => {
   const password = control.value;
@@ -18,7 +18,7 @@ export const passwordNumberValidator = (control: FormControl) => {
     return { 'noNumber': true };
   }
   return null;
-}
+};
 
 export const passwordLowerCaseValidator = (control: FormControl) => {
   const password = control.value;
@@ -26,7 +26,7 @@ export const passwordLowerCaseValidator = (control: FormControl) => {
     return { 'noLowerCase': true };
   }
   return null;
-}
+};
 
 export const passwordUpperCaseValidator = (control: FormControl) => {
   const password = control.value;
@@ -34,7 +34,7 @@ export const passwordUpperCaseValidator = (control: FormControl) => {
     return { 'noUpperCase': true };
   }
   return null;
-}
+};
 
 export const codeNonNumeric = (control: FormControl) => {
   const code = control.value;
@@ -44,7 +44,7 @@ export const codeNonNumeric = (control: FormControl) => {
   } else {
     return { 'containsNonNumeric': true };
   }
-}
+};
 
 @Component({
   selector: 'app-register',

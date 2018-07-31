@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.authService
     .retrieveUserFromStorage()
     .then((attributes) => {
-      let userAttributes = {
+      const userAttributes = {
         region: '',
         role: ''
       };

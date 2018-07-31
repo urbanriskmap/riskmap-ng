@@ -165,9 +165,9 @@ export class AuthService {
           this.isAuthorized = true;
 
           this.cognitoUser
-          .getUserAttributes((error, attributes) => {
-            if (error) {
-              reject(error);
+          .getUserAttributes((err, attributes) => {
+            if (err) {
+              reject(err);
             }
 
             resolve(attributes);
