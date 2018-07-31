@@ -83,7 +83,6 @@ export class MapComponent implements OnInit, OnDestroy {
       // If it is a NavigationEnd event re-initalise the component (landing page)
       // TODO: force destroy and recreate component, layerService not refreshing
       if (e instanceof NavigationEnd) {
-        console.log(e);
         this.initialiseLandingRoute();
       }
     });
