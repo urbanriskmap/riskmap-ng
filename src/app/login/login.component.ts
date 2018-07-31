@@ -28,6 +28,30 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService
+    .retrieveUserFromStorage()
+    .then((attributes) => {
+      let userAttributes = {
+        region: '',
+        role: ''
+      };
+
+      for (const attribute of attributes) {
+        if (attribute['Name'] === 'custom:region') {
+          userAttributes.region = attribute['Value'];
+        } else if (attribute['Name'] === 'custom:role') {
+          userAttributes.role = attribute['Value'];
+        }
+      }
+
+      this.redirect(true, userAttributes);
+    })
+    .catch((error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
+
     this.loginFormGroup = new FormGroup({
       emailCtrl: new FormControl('', [
         Validators.required,

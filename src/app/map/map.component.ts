@@ -31,8 +31,6 @@ import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, OnDestroy {
-  navigationSubscription;
-
   adminMode = false;
   deferredPrompt: any;
   env: EnvironmentInterface = environment;
@@ -45,6 +43,7 @@ export class MapComponent implements OnInit, OnDestroy {
     code: string,
     name: string
   }[];
+  navigationSubscription: Subscription;
   notificationSubscription: Subscription;
   openNotificationMsg: string;
   paneToOpen = 'info';
@@ -57,7 +56,7 @@ export class MapComponent implements OnInit, OnDestroy {
   };
   viewingArchivedReport: boolean;
 
-  @Output() map: mapboxgl.Map;
+  map: mapboxgl.Map;
 
   constructor(
     private router: Router,
@@ -84,6 +83,7 @@ export class MapComponent implements OnInit, OnDestroy {
       // If it is a NavigationEnd event re-initalise the component (landing page)
       // TODO: force destroy and recreate component, layerService not refreshing
       if (e instanceof NavigationEnd) {
+        console.log(e);
         this.initialiseLandingRoute();
       }
     });
@@ -309,7 +309,8 @@ export class MapComponent implements OnInit, OnDestroy {
     type: 'info' | 'warn' | 'error'
   ) {
     if (this.openNotificationMsg) {
-      msg = msg + '; ' + this.openNotificationMsg;
+      this.notify.dismiss();
+      // msg = msg + '; ' + this.openNotificationMsg;
     }
 
     const notification = this.notify.open(msg, '✕', {
@@ -359,10 +360,15 @@ export class MapComponent implements OnInit, OnDestroy {
     let dialogRef;
 
     if (content === 'pickRegion') {
-      dialogRef = this.dialog.open(RegionPickerComponent, {
+      dialogRef = this.dialog
+      .open(RegionPickerComponent, {
         width: '320px',
         data: this.instances.regions
       });
+
+      // Can only be closed by selecting an option
+      dialogRef.disableClose = true;
+
     } else if (content === 'agreementPolicy') {
       dialogRef = this.dialog.open(AgreementAndPolicyComponent, {
         width: '420px',
@@ -450,13 +456,20 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
+  logoutUser(): void {
+    this.adminMode = false;
+    this.authService.logoutUser();
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/' + this.selectedRegion.name]);
+  }
+
   ngOnDestroy(): void {
     // Required when app has more than one route, eg. /login
     // avoid memory leaks here by cleaning up after ourselves. If we
     // don't then we will continue to run our initialiseLandingRoute()
     // method on every navigationEnd event.
     if (this.navigationSubscription) {
-       this.navigationSubscription.unsubscribe();
+      this.navigationSubscription.unsubscribe();
     }
   }
 }

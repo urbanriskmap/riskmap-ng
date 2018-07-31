@@ -145,4 +145,37 @@ export class AuthService {
       });
     });
   }
+
+  logoutUser() {
+    this.isAuthorized = false;
+    this.cognitoUser.signOut();
+  }
+
+  retrieveUserFromStorage(): Promise< CognitoUserAttribute[] > {
+    this.cognitoUser = this.userPool.getCurrentUser();
+
+    return new Promise((resolve, reject) => {
+      if (this.cognitoUser !== null) {
+        this.cognitoUser
+        .getSession((error, session) => {
+          if (error) {
+            reject(error);
+          }
+
+          this.isAuthorized = true;
+
+          this.cognitoUser
+          .getUserAttributes((error, attributes) => {
+            if (error) {
+              reject(error);
+            }
+
+            resolve(attributes);
+          });
+        });
+      } else {
+        reject();
+      }
+    });
+  }
 }
