@@ -6,6 +6,7 @@ export default {
         name: 'reports',
         server: 'data',
         path: 'reports/',
+        publicAccess: true,
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',
@@ -48,6 +49,7 @@ export default {
         name: 'sites',
         server: 'data',
         path: 'infrastructure/sites',
+        publicAccess: false,
         flags: [],
         responseType: 'topojson',
         uniqueKey: 'name',
@@ -91,6 +93,7 @@ export default {
         name: 'sensors_sfwmd',
         server: 'sensors',
         path: '',
+        publicAccess: false,
         flags: [{agency: 'sfwmd'}],
         responseType: 'geojson',
         uniqueKey: 'id',
@@ -182,101 +185,102 @@ export default {
     },
 
     // Sensors layer (USGS)
-    // {
-    //   metadata: {
-    //     name: 'sensors_usgs',
-    //     server: 'sensors',
-    //     path: '',
-    //     flags: [{agency: 'usgs'}],
-    //     responseType: 'geojson',
-    //     uniqueKey: 'id',
-    //     legendGroup: 'infrastructure',
-    //     selected: {
-    //       type: 'layout',
-    //       styles: {
-    //         'icon-image': [
-    //           'match',
-    //           ['get', 'class'],
-    //           '63160', 'map_gauge_sel',
-    //           '00065', 'map_level_sel',
-    //           '62610', 'map_well_sel',
-    //           '00060', 'map_discharge_sel',
-    //           '00045', 'map_precipitation_sel',
-    //           'map_pump_sel'
-    //         ]
-    //       }
-    //     },
-    //     viewOnly: false
-    //   },
-    //   settings: {
-    //     id: 'sensors_usgs',
-    //     type: 'symbol',
-    //     source: {
-    //       type: 'geojson',
-    //       data: <object|null>null
-    //     },
-    //     paint: {
-    //       'icon-opacity': 1
-    //     },
-    //     layout: {
-    //       'icon-image': [
-    //         'match',
-    //         ['get', 'class'],
-    //         '63160', 'map_gauge',
-    //         '00065', 'map_level',
-    //         '62610', 'map_well',
-    //         '00060', 'map_discharge',
-    //         '00045', 'map_precipitation',
-    //         'map_pump'
-    //       ],
-    //       'icon-offset': [ // For multiple sensors at same location
-    //         'match',
-    //         ['get', 'class'],
-    //         '63160', ['literal', [35, 0]],
-    //         '00065', ['literal', [0, 0]],
-    //         '62610', ['literal', [0, 0]],
-    //         '00060', ['literal', [35, 0]],
-    //         '00045', ['literal', [-35, 0]],
-    //         ['literal', [0, 0]]
-    //       ],
-    //       'icon-size': .75,
-    //       'icon-allow-overlap': true
-    //     },
-    //     filter: ['all', ['has', 'observations'], ['!=', 'id', '']]
-    //   },
-    //   legend: [
-    //     {
-    //       symbolType: 'icon',
-    //       symbolStyle: 'icon-gauge',
-    //       label: 'legend.usgs.gauge',
-    //       source: 'USGS'
-    //     },
-    //     {
-    //       symbolType: 'icon',
-    //       symbolStyle: 'icon-level',
-    //       label: 'legend.usgs.elevation',
-    //       source: 'USGS'
-    //     },
-    //     {
-    //       symbolType: 'icon',
-    //       symbolStyle: 'icon-well',
-    //       label: 'legend.usgs.well',
-    //       source: 'USGS'
-    //     },
-    //     {
-    //       symbolType: 'icon',
-    //       symbolStyle: 'icon-discharge',
-    //       label: 'legend.usgs.discharge',
-    //       source: 'USGS'
-    //     },
-    //     {
-    //       symbolType: 'icon',
-    //       symbolStyle: 'icon-precipitation',
-    //       label: 'legend.usgs.precipitation',
-    //       source: 'USGS'
-    //     }
-    //   ]
-    // },
+    {
+      metadata: {
+        name: 'sensors_usgs',
+        server: 'sensors',
+        path: '',
+        publicAccess: true,
+        flags: [{agency: 'usgs'}],
+        responseType: 'geojson',
+        uniqueKey: 'id',
+        legendGroup: 'infrastructure',
+        selected: {
+          type: 'layout',
+          styles: {
+            'icon-image': [
+              'match',
+              ['get', 'class'],
+              '63160', 'map_gauge_sel',
+              '00065', 'map_level_sel',
+              '62610', 'map_well_sel',
+              '00060', 'map_discharge_sel',
+              '00045', 'map_precipitation_sel',
+              'map_pump_sel'
+            ]
+          }
+        },
+        viewOnly: false
+      },
+      settings: {
+        id: 'sensors_usgs',
+        type: 'symbol',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'icon-opacity': 1
+        },
+        layout: {
+          'icon-image': [
+            'match',
+            ['get', 'class'],
+            '63160', 'map_gauge',
+            '00065', 'map_level',
+            '62610', 'map_well',
+            '00060', 'map_discharge',
+            '00045', 'map_precipitation',
+            'map_pump'
+          ],
+          'icon-offset': [ // For multiple sensors at same location
+            'match',
+            ['get', 'class'],
+            '63160', ['literal', [35, 0]],
+            '00065', ['literal', [0, 0]],
+            '62610', ['literal', [0, 0]],
+            '00060', ['literal', [35, 0]],
+            '00045', ['literal', [-35, 0]],
+            ['literal', [0, 0]]
+          ],
+          'icon-size': .75,
+          'icon-allow-overlap': true
+        },
+        filter: ['all', ['has', 'observations'], ['!=', 'id', '']]
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-gauge',
+          label: 'legend.usgs.gauge',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-level',
+          label: 'legend.usgs.elevation',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-well',
+          label: 'legend.usgs.well',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-discharge',
+          label: 'legend.usgs.discharge',
+          source: 'USGS'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-precipitation',
+          label: 'legend.usgs.precipitation',
+          source: 'USGS'
+        }
+      ]
+    },
 
     // Basins
     {
@@ -284,6 +288,7 @@ export default {
         name: 'basins',
         server: 'data',
         path: 'infrastructure/basins',
+        publicAccess: false,
         flags: [],
         responseType: 'topojson',
         uniqueKey: 'tags.basin_code',

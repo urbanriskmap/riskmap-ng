@@ -1,0 +1,17 @@
+@import 'styles';
+
+.app-logo {
+  width: 200px;
+  margin-left: $general-margin;
+  margin-top: $general-margin;
+}
+
+#prompts {
+  margin-top: 0;
+  margin-left: 2 * $general-margin;
+  @include text-regular(12px, mat-color($riskmap-warn));
+
+  & div p.list-item {
+    margin: 0;
+  }
+}

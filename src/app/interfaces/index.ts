@@ -19,6 +19,10 @@ export interface EnvironmentInterface {
       reportTimeperiod: number;
     };
   };
+  authorization: {
+    userPoolId: string;
+    appClientId: string;
+  };
   map: {
     accessToken: string;
     center: number[];
@@ -125,6 +129,7 @@ export interface LayerMetadata {
   name: string;
   server: string;
   path: string;
+  publicAccess: boolean;
   flags: {
     [name: string]: any
   }[];

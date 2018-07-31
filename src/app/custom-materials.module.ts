@@ -10,12 +10,15 @@ import {
   MatDialog,
   MatDialogRef,
   MatExpansionModule,
+  MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
+  MatInputModule,
   MatListModule,
   MatRadioModule,
   MatSelectModule,
   MatSnackBarModule,
+  MatStepperModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -33,17 +36,21 @@ import {
     MatCheckboxModule,
     MatDialogModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
+    MatInputModule,
     MatListModule,
     MatRadioModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatStepperModule,
     MatTabsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule
   ],
   providers: [
-    MatDialog,
+    MatDialog
     // MatDialogRef
   ]
 })

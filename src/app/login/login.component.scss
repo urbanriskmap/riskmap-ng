@@ -1,0 +1,27 @@
+@import 'styles';
+
+.app-logo {
+  width: 200px;
+  margin-left: $general-margin;
+  margin-top: $general-margin;
+  cursor: pointer;
+}
+
+mat-card mat-card-content {
+  #prompts {
+    @include text-regular(12px, mat-color($riskmap-warn));
+  }
+}
+
+mat-card mat-card-actions {
+  padding-left: 1.5 * $general-margin;
+
+  p a {
+    @include text-regular(12px, $dark-azure);
+    cursor: pointer;
+
+    &:hover {
+      @include text-regular(12px, $bright-azure);
+    }
+  }
+}

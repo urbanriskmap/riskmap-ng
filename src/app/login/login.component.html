@@ -1,0 +1,93 @@
+<img
+  class="app-logo"
+  src="assets/logos/app_logo.svg"
+  (click)="redirect()">
+
+<mat-divider></mat-divider>
+
+<mat-card>
+  <mat-card-subtitle>
+    Please enter your email and password
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <form [formGroup]="loginFormGroup">
+      <mat-form-field>
+        <input
+          #emaillogin
+          matInput
+          placeholder="Email"
+          formControlName="emailCtrl">
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <input
+          #passwordlogin
+          matInput
+          placeholder="Password"
+          type="password"
+          formControlName="passwordCtrl">
+      </mat-form-field>
+    </form>
+
+    <div id="prompts">
+      <p class="mat-caption"
+        *ngIf="exitLoginProcess">
+        Account permissions error, please contact administrators at risk@mit.edu
+      </p>
+
+      <p class="mat-caption"
+        *ngIf="loginFormGroup.controls.emailCtrl.hasError('noUser')">
+        * User account for entered email does not exist
+      </p>
+
+      <p class="mat-caption"
+        *ngIf="loginFormGroup.controls.passwordCtrl.hasError('incorrect')">
+        * Incorrect password
+      </p>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-stroked-button
+      (click)="redirect()">
+      Cancel
+    </button>
+
+    <button
+      mat-stroked-button
+      *ngIf="exitLoginProcess"
+      (click)="resetForm()">
+      Reset
+    </button>
+
+    <button
+      mat-stroked-button
+      *ngIf="!exitLoginProcess"
+      [disabled]="loginFormGroup.status === 'INVALID'"
+      (click)="loginUser()">
+      Login
+    </button>
+
+    <br>
+
+    <p class="mat-caption">
+      <a
+        routerLink="/register">
+        Forgot your password?
+      </a>
+
+      <br>
+
+      Don't have a RiskMap.us admin account?
+      <a
+        routerLink="/register"
+        [queryParams]="{ showInfo: true }">
+        Click here
+      </a>
+     to get access
+    </p>
+  </mat-card-actions>
+</mat-card>

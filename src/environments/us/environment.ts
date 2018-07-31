@@ -11,6 +11,11 @@ export const environment = {
     }
   },
 
+  authorization: {
+    userPoolId: 'us-west-2_olPNYtmQ7',
+    appClientId: '5en9df3auvag0msrurit123v30'
+  },
+
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
     center: [-80.199261, 26.138301],

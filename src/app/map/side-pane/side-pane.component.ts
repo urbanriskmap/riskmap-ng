@@ -8,6 +8,7 @@ import { Region } from '../../interfaces';
   styleUrls: ['./side-pane.component.scss']
 })
 export class SidePaneComponent implements OnInit {
+  @Input() adminMode: boolean;
   @Input() selectedTab: string;
   @Input() regions: Region[];
   @Input() selectedRegion: string;

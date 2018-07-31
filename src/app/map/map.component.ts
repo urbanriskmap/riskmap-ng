@@ -17,6 +17,7 @@ import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
 import { NotificationService } from '../services/notification.service';
 import { TimeService } from '../services/time.service';
+import { AuthService } from '../services/auth.service';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
@@ -29,9 +30,8 @@ import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit { // , OnDestroy {
-  navigationSubscription;
-
+export class MapComponent implements OnInit, OnDestroy {
+  adminMode = false;
   deferredPrompt: any;
   env: EnvironmentInterface = environment;
   fullSizeImgUrl: string;
@@ -43,6 +43,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     code: string,
     name: string
   }[];
+  navigationSubscription: Subscription;
   notificationSubscription: Subscription;
   openNotificationMsg: string;
   paneToOpen = 'info';
@@ -55,7 +56,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
   };
   viewingArchivedReport: boolean;
 
-  @Output() map: mapboxgl.Map;
+  map: mapboxgl.Map;
 
   constructor(
     private router: Router,
@@ -66,7 +67,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
     public layerService: LayerService,
     public interactionService: InteractionService,
     private notificationService: NotificationService,
-    public timeService: TimeService
+    public timeService: TimeService,
+    public authService: AuthService
   ) {
     this.instances = instances;
     this.languages = this.env.locales.supportedLanguages;
@@ -79,7 +81,9 @@ export class MapComponent implements OnInit { // , OnDestroy {
     // IDEA: Switch to single page navigation?
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component (landing page)
+      // TODO: force destroy and recreate component, layerService not refreshing
       if (e instanceof NavigationEnd) {
+        console.log(e);
         this.initialiseLandingRoute();
       }
     });
@@ -120,10 +124,18 @@ export class MapComponent implements OnInit { // , OnDestroy {
     const instance = this.route.snapshot.paramMap.get('region');
 
     if (this.instances.regions.length === 1) {
+      // Proceed to the only instance region in deployment
       this.selectedRegion = this.instances.regions[0];
+      window.history.replaceState(
+        {},
+        '',
+        location.origin + '/' + this.selectedRegion.name
+      );
       return true;
     } else {
+      // Loop through supported instance regions of deployment
       for (const region of this.instances.regions) {
+        // Compare region name
         if (instance === region.name) {
           this.selectedRegion = region;
           return true;
@@ -131,6 +143,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
       }
     }
 
+    // Else return false, and bring up region selection popup
     return false;
   }
 
@@ -180,6 +193,13 @@ export class MapComponent implements OnInit { // , OnDestroy {
       this.changeLanguage({
         value: this.getLanguageCode(params['lang'])
       });
+
+      // AdminMode
+      if (params['admin']
+        && params['admin'] === 'true'
+        && this.authService.isAuthorized) {
+        this.adminMode = true;
+      }
     });
   }
 
@@ -224,8 +244,10 @@ export class MapComponent implements OnInit { // , OnDestroy {
         // Fly to selected region
         this.setBounds();
 
+        const adminMode = this.authService.isAuthorized && this.adminMode;
+
         // Then load layers
-        this.layerService.initializeLayers(this.map, this.selectedRegion);
+        this.layerService.initializeLayers(this.map, this.selectedRegion, adminMode);
       }
     });
 
@@ -287,7 +309,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
     type: 'info' | 'warn' | 'error'
   ) {
     if (this.openNotificationMsg) {
-      msg = msg + '; ' + this.openNotificationMsg;
+      this.notify.dismiss();
+      // msg = msg + '; ' + this.openNotificationMsg;
     }
 
     const notification = this.notify.open(msg, '✕', {
@@ -337,10 +360,15 @@ export class MapComponent implements OnInit { // , OnDestroy {
     let dialogRef;
 
     if (content === 'pickRegion') {
-      dialogRef = this.dialog.open(RegionPickerComponent, {
+      dialogRef = this.dialog
+      .open(RegionPickerComponent, {
         width: '320px',
         data: this.instances.regions
       });
+
+      // Can only be closed by selecting an option
+      dialogRef.disableClose = true;
+
     } else if (content === 'agreementPolicy') {
       dialogRef = this.dialog.open(AgreementAndPolicyComponent, {
         width: '420px',
@@ -428,13 +456,20 @@ export class MapComponent implements OnInit { // , OnDestroy {
     }
   }
 
-  // ngOnDestroy(): void {
-  //   // Required when app has more than one route, eg. /dashboard
-  //   // avoid memory leaks here by cleaning up after ourselves. If we
-  //   // don't then we will continue to run our initialiseLandingRoute()
-  //   // method on every navigationEnd event.
-  //   if (this.navigationSubscription) {
-  //      this.navigationSubscription.unsubscribe();
-  //   }
-  // }
+  logoutUser(): void {
+    this.adminMode = false;
+    this.authService.logoutUser();
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/' + this.selectedRegion.name]);
+  }
+
+  ngOnDestroy(): void {
+    // Required when app has more than one route, eg. /login
+    // avoid memory leaks here by cleaning up after ourselves. If we
+    // don't then we will continue to run our initialiseLandingRoute()
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
+  }
 }
