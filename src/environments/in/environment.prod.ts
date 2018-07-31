@@ -11,6 +11,11 @@ export const environment = {
     }
   },
 
+  authorization: {
+    userPoolId: 'ap-south-1_yNLDVmvAW',
+    appClientId: '7iu4qevi6rge61bsnaovckghup'
+  },
+
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqMnFraWVzYzAyd24ycXRqMmpvbmhyZ2QifQ.xc_v7umok760t2q6NZK1RA',
     center: [80.23, 13.06],  // map initializes on chennai
