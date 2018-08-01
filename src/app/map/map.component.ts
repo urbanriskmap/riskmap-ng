@@ -352,6 +352,8 @@ export class MapComponent implements OnInit { // , OnDestroy {
         width: '320px',
         data: this.instances.regions
       });
+      // Can only be closed by selecting an option
+      dialogRef.disableClose = true;
     } else if (content === 'agreementPolicy') {
       dialogRef = this.dialog.open(AgreementAndPolicyComponent, {
         width: '420px',
