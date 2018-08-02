@@ -70,13 +70,24 @@ export class LayerService {
     }
 
     // Invert global layer filter (last item in array)
-    const featureFilter = settings.filter.slice(-1).pop();
+    const selectionFilter = JSON.parse(JSON.stringify(settings.filter));
+    // JS value vs reference pointer
+    // if settings.filter is updated, changes will be stored in memory and reflected
+    // in subsequent map / layer loads
+
+    const featureFilter = selectionFilter.slice(-1).pop();
     featureFilter.splice(0, 1, '==');
-    settings.filter.splice(-1, 1, featureFilter);
-    layerSettings.filter = settings.filter;
+    selectionFilter.splice(-1, 1, featureFilter);
+    layerSettings.filter = selectionFilter;
 
     // add selected feature layer
     this.map.addLayer(layerSettings, placeBelow);
+
+    // TODO: filters do not match map layer state
+    // if (settings.id === 'reports') {
+    //   console.log(this.map.getLayer('reports').filter);
+    //   console.log(this.map.getLayer('selreports').filter);
+    // }
   }
 
   addSensorLayers(
@@ -103,15 +114,11 @@ export class LayerService {
   }
 
   initializeLayers(
-    map: mapboxgl.Map,
     region: Region,
     adminMode: boolean
   ): void {
-    this.map = map;
-
     // Iterate over supported layers
     for (const layer of layers.supported) {
-
       // Filter layers based on publicAccess, or adminMode check
       if (layer.metadata.publicAccess || adminMode) {
 
@@ -424,5 +431,14 @@ export class LayerService {
     }
 
     this.notificationService.notify(msg, 'info');
+  }
+
+  zoomToQueriedReport(report: Feature<GeometryObject, GeoJsonProperties>) {
+    this.modifyLayerFilter('reports', 'pkey', [report]);
+    this.interactionService.handleLayerInteraction('reports', null, [report]);
+    this.map.flyTo({
+      zoom: 11,
+      center: report.geometry['coordinates']
+    });
   }
 }

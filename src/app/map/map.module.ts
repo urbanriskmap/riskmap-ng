@@ -24,8 +24,6 @@ import { CustomMaterialsModule } from '../custom-materials.module';
 // Services
 import { ChartService } from '../services/chart.service';
 import { HttpService } from '../services/http.service';
-import { InteractionService } from '../services/interaction.service';
-import { LayerService } from '../services/layer.service';
 import { NotificationService } from '../services/notification.service';
 import { SensorService } from '../services/sensor.service';
 import { TimeService } from '../services/time.service';
@@ -44,11 +42,9 @@ import { BasinInfoComponent } from './basin-info/basin-info.component';
   ],
   providers: [
     TimeService,
-    LayerService,
     HttpService,
     TranslatePipe,
     SensorService,
-    InteractionService,
     ChartService,
     NotificationService
   ],

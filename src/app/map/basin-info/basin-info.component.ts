@@ -32,7 +32,7 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
   @Output() closePanel = new EventEmitter<null>();
 
   constructor(
-    private chartService: ChartService,
+    public chartService: ChartService,
     public httpService: HttpService
   ) { }
 

@@ -92,56 +92,57 @@
 
 <app-report-info
   class="info-panes"
-  *ngIf="interactionService.featureTypes.reports"
-  [features]="interactionService.featureTypes.reports"
+  *ngIf="getFeatures('reports')"
+  [features]="getFeatures('reports')"
   [archivedReport]="viewingArchivedReport"
   (showFullSizeImg)="parseFullSizeImgUrl($event)">
 </app-report-info>
 
 <app-area-info
   class="info-panes"
-  *ngIf="interactionService.featureTypes.floods"
-  [features]="interactionService.featureTypes.floods">
+  *ngIf="getFeatures('floods')"
+  [features]="getFeatures('floods')">
 </app-area-info>
 
 <app-sensor-info
-  class="info-panes"
-  *ngIf="interactionService.featureTypes.sensors_usgs"
-  [features]="interactionService.featureTypes.sensors_usgs">
+  class="info-panes info-wide"
+  *ngIf="getFeatures('sensors_usgs')"
+  [features]="getFeatures('sensors_usgs')">
 </app-sensor-info>
 
 <app-sensor-info
   class="info-panes info-wide"
-  *ngIf="interactionService.featureTypes.sensors_sfwmd"
-  [features]="interactionService.featureTypes.sensors_sfwmd">
+  *ngIf="getFeatures('sensors_sfwmd')"
+  [features]="getFeatures('sensors_sfwmd')">
 </app-sensor-info>
 
 <app-sensor-info
   class="info-panes"
-  *ngIf="interactionService.featureTypes.floodgauges"
-  [features]="interactionService.featureTypes.floodgauges">
+  *ngIf="getFeatures('floodgauges')"
+  [features]="getFeatures('floodgauges')">
 </app-sensor-info>
 
 <app-site-info
   class="info-panes with-inset-cards"
-  *ngIf="interactionService.stations.length"
-  [site]="interactionService.featureTypes.sites[0].properties"
-  [stations]="interactionService.stations"
+  *ngIf="getFeatures('stations', true)"
+  [site]="getFeatures('sites')[0].properties"
+  [stations]="getFeatures('stations', true)"
+  [map]="layerService.map"
   (closePanel)="closeInfoPane()">
 </app-site-info>
 
 <app-basin-info
   class="info-panes with-inset-cards"
-  *ngIf="interactionService.sites.length"
-  [basin]="interactionService.featureTypes.basins[0].properties"
-  [sites]="interactionService.sites"
+  *ngIf="getFeatures('sites', true)"
+  [basin]="getFeatures('basins')[0].properties"
+  [sites]="getFeatures('sites', true)"
   (closePanel)="closeInfoPane()">
 </app-basin-info>
 
 <app-infra-info
   class="info-panes"
-  *ngIf="interactionService.featureTypes.pumps"
-  [features]="interactionService.featureTypes.pumps">
+  *ngIf="getFeatures('pumps')"
+  [features]="getFeatures('pumps')">
 </app-infra-info>
 
 <app-side-pane

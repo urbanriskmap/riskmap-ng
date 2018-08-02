@@ -24,6 +24,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   };
 
   idIndex = '_' + Math.floor(Math.random() * 100);
+  isComponentOpen: boolean;
 
   feature: SensorInterface;
   hasUpstreamDownstream: boolean | null;
@@ -49,12 +50,11 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   };
 
   constructor(
-    private chartService: ChartService,
+    public chartService: ChartService,
     public translate: TranslateService
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if (changes.hasOwnProperty('features')) {
       let observations;
       this.feature = this.features[0].properties;
@@ -122,12 +122,14 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
         default:
           // do something
       }
+
+      if (this.isComponentOpen) {
+        this.drawChart();
+      }
     }
   }
 
-  ngOnInit(): void { }
-
-  ngAfterViewInit() {
+  drawChart() {
     this.chartService.drawSensorChart(
       {
         element: document.getElementById('sensorChartWrapper' + this.idIndex),
@@ -136,6 +138,13 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
       this.sensorData,
       this.properties
     );
+  }
+
+  ngOnInit(): void { }
+
+  ngAfterViewInit() {
+    this.drawChart();
+    this.isComponentOpen = true;
   }
 
   ngOnDestroy(): void {

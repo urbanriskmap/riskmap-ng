@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { LayerService } from '../../services/layer.service';
 import { SensorInterface } from '../../interfaces';
 
 @Component({
@@ -14,6 +13,7 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
     [name: string]: any
   }[];
   @Input() site;
+  @Input() map;
 
   features: SensorInterface[];
   sfwmdIconMap = {
@@ -27,9 +27,7 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() closePanel = new EventEmitter<null>();
 
-  constructor(
-    public layerService: LayerService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -38,7 +36,7 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.hasOwnProperty('site')) {
       this.features = [];
       const siteStations = [];
-      const allStations = this.layerService.map.getSource('sensors_sfwmd')._data.features;
+      const allStations = this.map.getSource('sensors_sfwmd')._data.features;
 
       // NOTE: Cannot use map.querySourceFeatures OR map.queryRenderedFeatures
       // since sensors_sfwmd will not visible when user clicks on a site feature;

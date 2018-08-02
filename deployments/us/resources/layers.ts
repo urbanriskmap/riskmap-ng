@@ -190,7 +190,7 @@ export default {
         name: 'sensors_usgs',
         server: 'sensors',
         path: '',
-        publicAccess: true,
+        publicAccess: false,
         flags: [{agency: 'usgs'}],
         responseType: 'geojson',
         uniqueKey: 'id',
@@ -220,7 +220,7 @@ export default {
           data: <object|null>null
         },
         paint: {
-          'icon-opacity': 1
+          'icon-opacity': 0.75
         },
         layout: {
           'icon-image': [
@@ -243,7 +243,7 @@ export default {
             '00045', ['literal', [-35, 0]],
             ['literal', [0, 0]]
           ],
-          'icon-size': .75,
+          'icon-size': .6,
           'icon-allow-overlap': true
         },
         filter: ['all', ['has', 'observations'], ['!=', 'id', '']]
@@ -312,7 +312,7 @@ export default {
         },
         paint: {
           'fill-color': '#fff',
-          'fill-opacity': 0.25,
+          'fill-opacity': 0.4,
           'fill-outline-color': '#000'
         },
         filter: ['all', ['!=', ['get', 'basin_code', ['object', ['get', 'tags']]], '']]

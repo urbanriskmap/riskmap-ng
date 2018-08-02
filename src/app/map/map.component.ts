@@ -11,6 +11,7 @@ import 'rxjs/add/operator/switchMap';
 
 import * as mapboxgl from 'mapbox-gl';
 
+import layers from '../../resources/layers';
 import { environment } from '../../environments/environment';
 import instances from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
@@ -28,7 +29,8 @@ import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  providers: [ LayerService, InteractionService ]
 })
 export class MapComponent implements OnInit, OnDestroy {
   adminMode = false;
@@ -56,17 +58,14 @@ export class MapComponent implements OnInit, OnDestroy {
   };
   viewingArchivedReport: boolean;
 
-  map: mapboxgl.Map;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private layerService: LayerService,
+    private notificationService: NotificationService,
     public dialog: MatDialog,
     public notify: MatSnackBar,
     public translate: TranslateService,
-    public layerService: LayerService,
-    public interactionService: InteractionService,
-    private notificationService: NotificationService,
     public timeService: TimeService,
     public authService: AuthService
   ) {
@@ -81,8 +80,22 @@ export class MapComponent implements OnInit, OnDestroy {
     // IDEA: Switch to single page navigation?
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component (landing page)
-      // TODO: force destroy and recreate component, layerService not refreshing
       if (e instanceof NavigationEnd) {
+        // tried clearing <div id='mapWrapper'>, no effect
+        // tried making layerService a non-singleton, now reconstructed after login redirect
+        // tried logging returned map object after each layer addition, no issues
+        // tried changing layer icon settings (icon-allow-overlap & icon-ignore-placement)
+        // tried 'if' condition in layerService to check adminMode / publicAccess
+        // tried with only one reports layer...
+        // tried moving map to an instance of layerService only
+        // tried swapping publicAccess layers - any layer loaded on public map doesnt appear in admin mode
+        // tried setting timeout on initializeLayers to check whether base map tiles don't cover layers, not
+        // tried moving reports layer to bottom of layers.supported array, no effect
+        // tried setting visibility none, then to visible after timeout, no effect
+        // tried on different browsers, incognito mode, no change
+        // tried manually removing layers and sources on adminMode for each layer (and selection), then reinitializing
+        // FOUND issue with layer filters
+
         this.initialiseLandingRoute();
       }
     });
@@ -90,7 +103,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   initializeMap(): void {
     mapboxgl.accessToken = this.env.map.accessToken;
-    this.map = new mapboxgl.Map({
+    this.layerService.map = new mapboxgl.Map({
       attributionControl: false,
       container: 'mapWrapper',
       center: this.env.map.center,
@@ -102,13 +115,13 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     // Add navigation control
-    this.map.addControl(
+    this.layerService.map.addControl(
       new mapboxgl.NavigationControl(),
       'bottom-left'
     );
 
     // Add geolocation button
-    this.map.addControl(
+    this.layerService.map.addControl(
       new mapboxgl.GeolocateControl({
         positionOptions: {
           enableHighAccuracy: true,
@@ -202,15 +215,6 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  zoomToQueriedReport(report: Feature<GeometryObject, GeoJsonProperties>) {
-    this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
-    this.interactionService.handleLayerInteraction('reports', null, [report]);
-    this.map.flyTo({
-      zoom: 11,
-      center: report.geometry['coordinates']
-    });
-  }
-
   // FIXME: may get triggered before reports layer is rendered
   // Catch in tests
   lookupQueriedReport(event): void {
@@ -219,7 +223,7 @@ export class MapComponent implements OnInit, OnDestroy {
       for (const report of event.source.data.features) {
         if (report.properties.pkey === this.selectedReportId) {
           // Report found in loaded dataset
-          this.zoomToQueriedReport(report);
+          this.layerService.zoomToQueriedReport(report);
           return;
         }
       }
@@ -230,7 +234,7 @@ export class MapComponent implements OnInit, OnDestroy {
       .then(report => {
         // FIXME: pans anywhere across the globe,
         // check ?id=85
-        this.zoomToQueriedReport(report);
+        this.layerService.zoomToQueriedReport(report);
         this.viewingArchivedReport = true;
       })
       .catch(error => console.log('Queried report does not exist'));
@@ -238,7 +242,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   bindMapEventHandlers(): void {
-    this.map.on('style.load', () => {
+    this.layerService.map.on('style.load', () => {
       if (this.selectedRegion) {
         // Fly to selected region
         this.setBounds();
@@ -246,14 +250,16 @@ export class MapComponent implements OnInit, OnDestroy {
         const adminMode = this.authService.isAuthorized && this.adminMode;
 
         // Then load layers
-        this.layerService.initializeLayers(this.map, this.selectedRegion, adminMode);
+        this.layerService.initializeLayers(this.selectedRegion, adminMode);
       }
     });
 
     // Handle click interactions
-    this.map.on('click', event => {
+    this.layerService.map.on('click', event => {
+      // Clear any open panes
       this.toggleSidePane({close: true});
       this.toggleReportFlyer({close: true});
+
       if (this.viewingArchivedReport) {
         this.viewingArchivedReport = false;
       }
@@ -261,7 +267,7 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     let eventCall = 0;
-    this.map.on('dataloading', event => {
+    this.layerService.map.on('dataloading', event => {
       if (event.sourceId === 'reports'
       && this.selectedReportId) {
         // 3 dataloading calls are made per layer source
@@ -284,7 +290,6 @@ export class MapComponent implements OnInit, OnDestroy {
       }
     });
 
-    // IDEA: Switch to single page navigation?
     // Reset map layers, sources;
     // Clear stored values for instances
     this.initializeMap();
@@ -342,14 +347,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
       return false;
     });
-
-    // IDEA: Switch to single page navigation?
-    // this.initializeMap();
-    // this.initialiseLandingRoute();
   }
 
   setBounds(): void {
-    this.map.fitBounds([
+    this.layerService.map.fitBounds([
       this.selectedRegion.bounds.sw,
       this.selectedRegion.bounds.ne
     ]);
@@ -460,6 +461,17 @@ export class MapComponent implements OnInit, OnDestroy {
     this.authService.logoutUser();
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/' + this.selectedRegion.name]);
+  }
+
+  getFeatures(layer: string, root?: true) {
+    const features = root ? this.layerService.interactionService[layer]
+      : this.layerService.interactionService.featureTypes[layer];
+
+    if (features && features.length) {
+      return features;
+    }
+
+    return false;
   }
 
   ngOnDestroy(): void {
