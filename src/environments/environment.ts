@@ -43,7 +43,7 @@ export const environment = {
         link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.
       },
       { name: 'twitter',
-        link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152'
+        link: 'https://twitter.com/messages/compose?recipient_id=915571825689624576'
       }
       // Disable telegram button for US deployment
       // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}
