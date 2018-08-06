@@ -32,6 +32,23 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
   }
 
+  exportSensorData(name, observations) {
+    let dataStr = 'data:application/csv;charset=utf-8,';
+    const fields = Object.keys(observations[0]);
+    const replacer = (key, value) => value === null ? '' : value;
+
+    let csv = observations.map((row) => fields.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(','));
+    csv.unshift(fields.join(','));
+
+    dataStr += encodeURIComponent(csv.join('\r\n'));
+
+    const anchorNode = document.createElement('a');
+    anchorNode.setAttribute('href', dataStr);
+    anchorNode.setAttribute('download', 'station_' + name + '.csv');
+    anchorNode.click();
+    anchorNode.remove();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('site')) {
       this.features = [];

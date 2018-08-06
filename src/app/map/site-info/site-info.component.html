@@ -33,9 +33,13 @@
       <mat-panel-description>
         {{ feature[0].properties.stationId }}
       </mat-panel-description>
+
+      <!-- TODO: override panel open/close action -->
+
       <mat-icon
         fontSet="icon"
-        [fontIcon]="'icon-' + sfwmdIconMap[feature[0].properties.class]">
+        [fontIcon]="'icon-' + sfwmdIconMap[feature[0].properties.class]"
+        (click)="exportSensorData(feature[0].properties.stationId, feature[0].properties.observations)">
       </mat-icon>
     </mat-expansion-panel-header>
 
