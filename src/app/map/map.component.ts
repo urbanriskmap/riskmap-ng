@@ -81,21 +81,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component (landing page)
       if (e instanceof NavigationEnd) {
-        // tried clearing <div id='mapWrapper'>, no effect
-        // tried making layerService a non-singleton, now reconstructed after login redirect
-        // tried logging returned map object after each layer addition, no issues
-        // tried changing layer icon settings (icon-allow-overlap & icon-ignore-placement)
-        // tried 'if' condition in layerService to check adminMode / publicAccess
-        // tried with only one reports layer...
-        // tried moving map to an instance of layerService only
-        // tried swapping publicAccess layers - any layer loaded on public map doesnt appear in admin mode
-        // tried setting timeout on initializeLayers to check whether base map tiles don't cover layers, not
-        // tried moving reports layer to bottom of layers.supported array, no effect
-        // tried setting visibility none, then to visible after timeout, no effect
-        // tried on different browsers, incognito mode, no change
-        // tried manually removing layers and sources on adminMode for each layer (and selection), then reinitializing
-        // FOUND issue with layer filters
-
         this.initialiseLandingRoute();
       }
     });

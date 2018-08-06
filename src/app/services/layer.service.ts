@@ -58,8 +58,12 @@ export class LayerService {
     layerSettings.type = settings.type;
     layerSettings.source = settings.source;
 
-    // REVIEW: each layer style may only have either paint or layout properties (?)
-    layerSettings[selected.type] = settings[selected.type];
+    // NOTE: JS value vs reference assignment
+    // For any properties that need to be modified after assignment to local var,
+    // eg. selection layer icon, filter, etc.
+    // parse a converted string value from layers.ts
+    // to avoid making changes to layers metadata & settings
+    layerSettings[selected.type] = JSON.parse(JSON.stringify(settings[selected.type]));
 
     // Override selected style properties
     const propsToChange = Object.keys(selected.styles);
@@ -71,10 +75,6 @@ export class LayerService {
 
     // Invert global layer filter (last item in array)
     const selectionFilter = JSON.parse(JSON.stringify(settings.filter));
-    // JS value vs reference pointer
-    // if settings.filter is updated, changes will be stored in memory and reflected
-    // in subsequent map / layer loads
-
     const featureFilter = selectionFilter.slice(-1).pop();
     featureFilter.splice(0, 1, '==');
     selectionFilter.splice(-1, 1, featureFilter);
@@ -82,12 +82,6 @@ export class LayerService {
 
     // add selected feature layer
     this.map.addLayer(layerSettings, placeBelow);
-
-    // TODO: filters do not match map layer state
-    // if (settings.id === 'reports') {
-    //   console.log(this.map.getLayer('reports').filter);
-    //   console.log(this.map.getLayer('selreports').filter);
-    // }
   }
 
   addSensorLayers(
