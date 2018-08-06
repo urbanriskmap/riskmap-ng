@@ -132,7 +132,7 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
   #langMenu {
     position: absolute;
     top: 4px;
-    right: 120px;
+    right: 108px;
     width: 80px;
     font-size: 12px;
     height: 38px;
@@ -140,35 +140,10 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
 
   .user-button {
     position: absolute;
-    top: $general-margin + 1px;
-    right: 60px;
-    width: 24px;
-    text-align: center;
-    @include text-bold(11px, $dark-gray);
-    cursor: pointer;
-    border: 2px solid $dark-gray;
-
-    p {
-      margin: 0;
-      margin-top: 2px;
-      font-size: 12px;
-      line-height: 15px;
-    }
-
-    &.authorized {
-      background-color: $dark-gray;
-      color: $snow-white;
-    }
-
-    &:hover {
-      border-color: $bright-azure;
-      color: $bright-azure;
-
-      &.authorized {
-        background-color: $bright-azure;
-        color: $snow-white;
-      }
-    }
+    top: 0px;
+    right: 52px;
+    line-height: $toolbar-height;
+    @include icon-button(34px);
   }
 
   .menu-button {

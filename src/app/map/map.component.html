@@ -19,6 +19,7 @@
   </table>
 </div>
 
+<!-- START navBar components -->
 <div id="navBar">
   <a>
     <span>
@@ -47,14 +48,14 @@
     class="user-button"
     *ngIf="!adminMode"
     (click)="router.navigate(['login'])">
-    <p *ngIf="!adminMode">EOC</p>
+    <i class="icon-eoc"></i>
   </div>
 
   <div
-    class="user-button authorized"
+    class="user-button"
     *ngIf="adminMode"
     (click)="logoutUser()">
-    <p *ngIf="adminMode">Exit</p>
+    <i class="icon-eoc-sel"></i>
   </div>
 
   <div
@@ -78,6 +79,7 @@
     <i class="icon-close"></i>
   </div>
 </div>
+<!-- END navBar components -->
 
 <!-- COMBAK Test A2HS when deployed on https
 <button mat-button
@@ -86,6 +88,7 @@
   A2HS
 </button> -->
 
+<!-- START public feature info panels -->
 <app-report-info
   class="info-panes"
   *ngIf="getFeatures('reports')"
@@ -100,17 +103,11 @@
   [features]="getFeatures('floods')">
 </app-area-info>
 
-<app-sensor-info
-  class="info-panes info-wide"
-  *ngIf="getFeatures('sensors_usgs')"
-  [features]="getFeatures('sensors_usgs')">
-</app-sensor-info>
-
-<app-sensor-info
-  class="info-panes info-wide"
-  *ngIf="getFeatures('sensors_sfwmd')"
-  [features]="getFeatures('sensors_sfwmd')">
-</app-sensor-info>
+<app-infra-info
+  class="info-panes"
+  *ngIf="getFeatures('pumps')"
+  [features]="getFeatures('pumps')">
+</app-infra-info>
 
 <app-sensor-info
   class="info-panes"
@@ -118,9 +115,25 @@
   [features]="getFeatures('floodgauges')">
 </app-sensor-info>
 
+<app-sensor-info
+  class="info-panes info-wide"
+  *ngIf="getFeatures('sensors_usgs')"
+  [features]="getFeatures('sensors_usgs')">
+</app-sensor-info>
+<!-- END public feature info panels -->
+
+<!-- START adminMode feature info panels -->
+<app-sensor-info
+  class="info-panes info-wide"
+  *ngIf="adminMode
+  && getFeatures('sensors_sfwmd')"
+  [features]="getFeatures('sensors_sfwmd')">
+</app-sensor-info>
+
 <app-site-info
   class="info-panes with-inset-cards"
-  *ngIf="getFeatures('stations', true)"
+  *ngIf="adminMode
+  && getFeatures('stations', true)"
   [site]="getFeatures('sites')[0].properties"
   [stations]="getFeatures('stations', true)"
   [map]="layerService.map"
@@ -129,17 +142,13 @@
 
 <app-basin-info
   class="info-panes with-inset-cards"
-  *ngIf="getFeatures('sites', true)"
+  *ngIf="adminMode
+  && getFeatures('sites', true)"
   [basin]="getFeatures('basins')[0].properties"
   [sites]="getFeatures('sites', true)"
   (closePanel)="closeInfoPane()">
 </app-basin-info>
-
-<app-infra-info
-  class="info-panes"
-  *ngIf="getFeatures('pumps')"
-  [features]="getFeatures('pumps')">
-</app-infra-info>
+<!-- END adminMode feature info panels -->
 
 <app-side-pane
   *ngIf="showSidePane"
