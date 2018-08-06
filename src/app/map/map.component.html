@@ -47,18 +47,14 @@
     class="user-button"
     *ngIf="!adminMode"
     (click)="router.navigate(['login'])">
-    <i class="icon-user"></i>
-    <br>
-    <p *ngIf="!adminMode">EoC&nbsp;</p>
+    <p *ngIf="!adminMode">EOC</p>
   </div>
 
   <div
     class="user-button authorized"
     *ngIf="adminMode"
     (click)="logoutUser()">
-    <i class="icon-user"></i>
-    <br>
-    <p *ngIf="adminMode">Exit&nbsp;</p>
+    <p *ngIf="adminMode">Exit</p>
   </div>
 
   <div
