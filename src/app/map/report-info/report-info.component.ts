@@ -106,7 +106,9 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       this.translate.get('report_info.msg_text').subscribe((res: string) => {
         msgText = res;
       });
-      const reportUrl = location.origin + location.pathname + '%3Fid%3D' + this.feature.pkey;
+      const reportUrl = encodeURIComponent(
+        location.origin + location.pathname + '?id=' + this.feature.pkey
+      );
 
       this.socialButtons = [
         {
@@ -117,6 +119,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           name: 'twitter',
           intent: 'https://twitter.com/intent/tweet?text=' + msgText + '%20' + reportUrl
         },
+        // TODO: use web.whatsapp.com if isMobile = false
         {
           name: 'whatsapp',
           intent: 'https://api.whatsapp.com/send?text=' + msgText + '%20' + reportUrl
