@@ -27,11 +27,22 @@
           matInput
           placeholder="Password"
           type="password"
-          formControlName="passwordCtrl">
+          formControlName="passwordCtrl"
+          (keyup.enter)="loginUser()">
       </mat-form-field>
     </form>
 
     <div id="prompts">
+      <p class="mat-caption"
+        *ngIf="showSetPasswordMsg">
+        Logging in for the first time?
+        <a
+          routerLink="/register">
+          Click here
+        </a>
+        &nbsp;to register your password.
+      </p>
+
       <p class="mat-caption"
         *ngIf="exitLoginProcess">
         Account permissions error, please contact administrators at risk@mit.edu
@@ -83,11 +94,10 @@
 
       Don't have a RiskMap.us admin account?
       <a
-        routerLink="/register"
-        [queryParams]="{ showInfo: true }">
+        routerLink="/register">
         Click here
       </a>
-     to get access
+    &nbsp;to get access
     </p>
   </mat-card-actions>
 </mat-card>

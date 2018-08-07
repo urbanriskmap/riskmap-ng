@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     'SFWMD'
   ];
 
+  showSetPasswordMsg: boolean;
   exitLoginProcess: boolean;
 
   constructor(
@@ -83,6 +84,9 @@ export class LoginComponent implements OnInit {
       } else if (error.code === 'UserNotFoundException') {
         this.loginFormGroup.controls.passwordCtrl.setValue(null);
         this.loginFormGroup.controls.emailCtrl.setErrors({noUser: true});
+      } else if (error.code === 'PasswordResetRequiredException') {
+        this.loginFormGroup.controls.passwordCtrl.setValue(null);
+        this.showSetPasswordMsg = true;
       } else {
         console.log(error);
       }
