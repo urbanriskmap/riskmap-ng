@@ -103,8 +103,14 @@
       *ngIf="!exitSigninProcess">
       <ng-template matStepLabel>Enter confirmation code</ng-template>
 
-      <p class="mat-caption">
-        Please check your email for a 6-digit confirmation code
+      <p class="mat-caption"
+        *ngIf="!codeResend">
+        A 6-digit code was sent to {{ emailHint }}
+      </p>
+
+      <p class="mat-caption"
+        *ngIf="codeResend">
+        A new 6-digit code has been sent at {{ emailHint }}
       </p>
 
       <mat-form-field>
@@ -126,6 +132,14 @@
 
         <button
           mat-stroked-button
+          *ngIf="codeMismatch"
+          (click)="storePassword()">
+          Resend code
+        </button>
+
+        <button
+          mat-stroked-button
+          *ngIf="!codeMismatch"
           [disabled]="confirmationFormGroup.status === 'INVALID'"
           (click)="verifyCode(stepper)">
           Confirm
@@ -150,6 +164,11 @@
 </mat-vertical-stepper>
 
 <div id="prompts">
+  <p class="mat-caption"
+    *ngIf="validUserFormGroup.controls.emailCtrl.hasError('noUser')">
+    * User account for entered email does not exist
+  </p>
+
   <p class="mat-caption"
     *ngIf="validUserFormGroup.controls.emailCtrl.hasError('email')
     && !validUserFormGroup.controls.emailCtrl.hasError('required')
@@ -197,6 +216,11 @@
   </p>
 
   <p class="mat-caption"
+    *ngIf="passwordFormGroup.hasError('limitExceeded')">
+    * Password reset limit exceeded, please try after some time
+  </p>
+
+  <p class="mat-caption"
     *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('minlength')
     || confirmationFormGroup.controls.numCodeCtrl.hasError('maxlength')
     && (confirmationFormGroup.controls.numCodeCtrl.dirty
@@ -209,5 +233,10 @@
     && (confirmationFormGroup.controls.numCodeCtrl.dirty
       || confirmationFormGroup.controls.numCodeCtrl.touched)">
     * Code may only contain numbers
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('codeMismatch')">
+    * Incorrect code, click 'Resend code' or refresh page to try again
   </p>
 </div>

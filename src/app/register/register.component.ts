@@ -56,6 +56,9 @@ export class RegisterComponent implements OnInit {
   confirmationFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
 
+  emailHint: string;
+  codeMismatch: boolean;
+  codeResend: boolean;
   exitSigninProcess: boolean;
 
   constructor(
@@ -108,22 +111,37 @@ export class RegisterComponent implements OnInit {
       }
 
       if (error.code && error.code === 'UserNotFoundException') {
-        // TODO: show notification, with redirect button?
-        alert('User not found, please contact admin');
+        this.validUserFormGroup.controls.emailCtrl.setErrors({noUser: true});
       } else {
         console.log(error);
       }
     });
   }
 
-  storePassword(stepper) {
+  storePassword(stepper?) {
     const password = this.passwordFormGroup.controls.passwordCtrl.value;
 
     this.authService.registerNewPassword(password)
     .then((result) => {
-      stepper.next();
+      this.emailHint = result['CodeDeliveryDetails']['Destination'];
+
+      if (this.confirmationFormGroup.controls.numCodeCtrl.hasError('codeMismatch')) {
+        this.codeMismatch = null;
+      }
+
+      if (stepper) {
+        stepper.next();
+      } else {
+        this.codeResend = true;
+      }
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      if (error.code === 'LimitExceededException') {
+        this.passwordFormGroup.setErrors({limitExceeded: true});
+      } else {
+        console.log(error);
+      }
+    });
   }
 
   verifyCode(stepper) {
@@ -143,11 +161,17 @@ export class RegisterComponent implements OnInit {
           role: payload['custom:role']
         });
       })
-      // TODO: error automatically logging in, redirect to /login
+      // REVIEW: error automatically logging in, redirect to /login
       .catch((error) => console.log(error));
     })
-    // TODO: go to step 2? back to webapp?
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      if (error.code === 'CodeMismatchException') {
+        this.confirmationFormGroup.controls.numCodeCtrl.setErrors({codeMismatch: true});
+        this.codeMismatch = true;
+      } else {
+        console.log(error)
+      }
+    });
   }
 
   redirect(authorized?: boolean, attributes?: {
