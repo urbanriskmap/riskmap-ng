@@ -77,7 +77,6 @@ export class MapComponent implements OnInit, OnDestroy {
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.translate.use(this.env.locales.defaultLanguage);
 
-    // IDEA: Switch to single page navigation?
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component (landing page)
       if (e instanceof NavigationEnd) {
@@ -281,9 +280,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
     if (!this.hasRegionParam()) {
       this.openDialog('pickRegion');
-
-      // IDEA: Switch to single page navigation?
-      // Then fly to selected instance
     } else {
       this.bindMapEventHandlers();
     }
@@ -291,7 +287,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.storeQueryParams();
   }
 
-  // TODO: Mayank - stack notifications
+  // TODO: Mayank - stack notifications?
   // REVIEW: Mayank - use openFromComponent method to pass custom component
   showNotification(
     msg: string,

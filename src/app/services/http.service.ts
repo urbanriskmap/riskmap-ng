@@ -83,10 +83,7 @@ export class HttpService {
 
   getGeometryData(
     layer: LayerMetadata,
-    region: string,
-    miscellaneous?: { // REVIEW vestige?
-      [name: string]: any
-    }
+    region: string
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     // Set to data server
     let queryUrl = env.servers[layer.server];
