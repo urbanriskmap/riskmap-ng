@@ -37,7 +37,7 @@ export class SiteInfoComponent implements OnInit, OnChanges, OnDestroy {
     const fields = Object.keys(observations[0]);
     const replacer = (key, value) => value === null ? '' : value;
 
-    let csv = observations.map((row) => fields.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(','));
+    const csv = observations.map((row) => fields.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(','));
     csv.unshift(fields.join(','));
 
     dataStr += encodeURIComponent(csv.join('\r\n'));
