@@ -149,10 +149,8 @@ export class HttpService {
     })
     .subscribe(
       response => {
-        console.log('Success');
       },
       error => {
-        console.log('Failed');
         console.log(error);
       }
     );

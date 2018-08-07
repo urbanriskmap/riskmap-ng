@@ -19,7 +19,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   @Input() archivedReport: boolean;
 
   votes: number;
-  voteSelector = [-1, 0, 1]; // Current vote index = 1
+  voteSelector: number[]; // Current vote index = 1
   storedVote: number;
 
   env = environment;
@@ -72,6 +72,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
 
+      // Initialize vote selector array
+      this.voteSelector = [-1, 0, 1];
       // Set votes
       this.votes = this.parsedReportData['points'] ? this.parsedReportData['points'] : 0;
 
@@ -170,7 +172,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           document.getElementById(flyer + 'Button').classList.remove('active');
 
         } else {
-          // clicked on other
+          // clicked on another flyer
           // close already open flyer
           if (flyer === 'share') {
             this.showFlyer.flag = false;
