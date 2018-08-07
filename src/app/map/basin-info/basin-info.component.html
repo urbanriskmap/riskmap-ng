@@ -6,6 +6,7 @@
 
   <mat-expansion-panel
     hideToggle="true"
+    disabled="true"
     expanded="false">
     <mat-expansion-panel-header
       class="title-block">
@@ -16,6 +17,7 @@
 
   <mat-expansion-panel
     hideToggle="true"
+    disabled="true"
     expanded="false">
     <mat-expansion-panel-header>
       <mat-panel-description>
@@ -27,6 +29,7 @@
   <mat-expansion-panel
     *ngFor="let site of sites"
     hideToggle="true"
+    disabled="true"
     expanded="true">
     <mat-expansion-panel-header>
       <mat-panel-description>Site: {{ site.name }}</mat-panel-description>
@@ -70,6 +73,7 @@
 
   <mat-expansion-panel
     hideToggle="true"
+    disabled="true"
     expanded="false">
     <mat-expansion-panel-header
       class="title-block">
@@ -81,17 +85,20 @@
   <mat-expansion-panel
     *ngFor="let feature of features, let i = index"
     expanded="true"
+    disabled="true"
     hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ 'sensorTitle.sfwmd.' + feature[0].properties.class | translate }}
+        <i [class]="'icon-' + sfwmdIconMap[feature[0].properties.class]"></i>
+        {{ feature[0].properties.name }}
       </mat-panel-title>
       <mat-panel-description>
-        {{ feature[0].properties.name }}
+        {{ 'sensorTitle.sfwmd.' + feature[0].properties.class | translate }}
       </mat-panel-description>
       <mat-icon
-        fontSet="icon"
-        [fontIcon]="'icon-' + sfwmdIconMap[feature[0].properties.class]">
+      fontSet="icon"
+      fontIcon="icon-download"
+      (click)="exportSensorData(feature[0].properties.name, feature[0].properties.observations)">
       </mat-icon>
     </mat-expansion-panel-header>
 
@@ -104,9 +111,10 @@
 
   <mat-expansion-panel
     expanded="false"
+    disabled="true"
     hideToggle="true">
     <mat-expansion-panel-header>
-      <mat-panel-description>
+      <mat-panel-description class="mat-caption">
         NOTE: Showing daily mean values for past 7 days
       </mat-panel-description>
     </mat-expansion-panel-header>

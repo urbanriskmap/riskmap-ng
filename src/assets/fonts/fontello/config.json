@@ -642,6 +642,20 @@
       ]
     },
     {
+      "uid": "9fe58b960cb08fb5a98c644363993b27",
+      "css": "download",
+      "code": 59401,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M533.3 183.3V589L719.7 403 766.7 450 500 716.7 233.3 450 280.3 402.7 466.7 589V183.3ZM200 750H800V816.7H200Z",
+        "width": 1000
+      },
+      "search": [
+        "download"
+      ]
+    },
+    {
       "uid": "0544b482e9264ba49356c16ee8068abf",
       "css": "banjir-pin",
       "code": 59408,

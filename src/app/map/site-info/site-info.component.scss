@@ -14,9 +14,20 @@ mat-accordion {
         background-color: $light-gray;
       }
 
+      mat-panel-title {
+        color: $dark-gray!important;
+        i {
+          font-size: 18px;
+          line-height: 14px;
+        }
+      }
+
+      mat-panel-description {
+        color: $medium-gray!important;
+      }
+
       mat-icon {
-        font-size: 22px;
-        text-align: center;
+        @include icon-button(21px);
       }
     }
 
@@ -27,7 +38,7 @@ mat-accordion {
   }
 
   mat-action-row {
-    background-color: $snow-white;
+    background: none;
     padding: $general-margin;
     height: 24px;
     text-align: center;
