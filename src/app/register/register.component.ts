@@ -169,7 +169,7 @@ export class RegisterComponent implements OnInit {
         this.confirmationFormGroup.controls.numCodeCtrl.setErrors({codeMismatch: true});
         this.codeMismatch = true;
       } else {
-        console.log(error)
+        console.log(error);
       }
     });
   }
