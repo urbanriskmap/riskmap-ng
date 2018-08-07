@@ -81,12 +81,20 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
       this.httpService
       .getJsonData(server, station.id, flags)
       .then((sensors) => {
+        let observations;
+        if (Array.isArray(sensors)
+        && sensors[0]
+        && sensors[0].properties
+        && sensors[0].properties.observations) {
+          observations = sensors[0].properties.observations;
+        }
+
         this.features.push([{
           layer: {id: 'sensors_sfwmd'},
           properties: {
             class: station.class,
             name: station.stationId,
-            observations: sensors[0].properties.observations,
+            observations: observations,
             units: station.units
           },
           supressChartTitles: true

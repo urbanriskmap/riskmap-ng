@@ -96,9 +96,10 @@
         {{ 'sensorTitle.sfwmd.' + feature[0].properties.class | translate }}
       </mat-panel-description>
       <mat-icon
-      fontSet="icon"
-      fontIcon="icon-download"
-      (click)="exportSensorData(feature[0].properties.name, feature[0].properties.observations)">
+        *ngIf="feature[0].properties.observations"
+        fontSet="icon"
+        fontIcon="icon-download"
+        (click)="exportSensorData(feature[0].properties.name, feature[0].properties.observations)">
       </mat-icon>
     </mat-expansion-panel-header>
 

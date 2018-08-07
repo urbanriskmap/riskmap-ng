@@ -59,72 +59,74 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
       let observations;
       this.feature = this.features[0].properties;
 
-      switch (this.features[0].layer.id) {
-        case 'sensors_usgs':
-          observations = JSON.parse(this.feature.observations);
-          this.properties = {
-            title: 'usgs.' + this.feature.class,
-            units: this.feature.units,
-            datum: this.usgsSensorMap['_' + this.feature.class].datum
-          };
-
-          if (Array.isArray(observations)) {
-            this.sensorData = this.chartService.parseData(observations, false);
-          } else if (
-            observations.hasOwnProperty('upstream')
-            && observations.hasOwnProperty('downstream')
-          ) {
-            this.hasUpstreamDownstream = true;
-            this.sensorData = this.chartService.parseData(observations, true);
-          }
-          break;
-
-        case 'sensors_sfwmd':
-          observations = Array.isArray(this.feature.observations) ?
-            this.feature.observations :
-            JSON.parse(this.feature.observations);
-
-          if (this.features[0].hasOwnProperty('supressChartTitles')) {
+      if (this.feature.observations) {
+        switch (this.features[0].layer.id) {
+          case 'sensors_usgs':
+            observations = JSON.parse(this.feature.observations);
             this.properties = {
-              title: '',
+              title: 'usgs.' + this.feature.class,
               units: this.feature.units,
-              datum: ''
+              datum: this.usgsSensorMap['_' + this.feature.class].datum
             };
-          } else {
+
+            if (Array.isArray(observations)) {
+              this.sensorData = this.chartService.parseData(observations, false);
+            } else if (
+              observations.hasOwnProperty('upstream')
+              && observations.hasOwnProperty('downstream')
+            ) {
+              this.hasUpstreamDownstream = true;
+              this.sensorData = this.chartService.parseData(observations, true);
+            }
+            break;
+
+          case 'sensors_sfwmd':
+            observations = Array.isArray(this.feature.observations) ?
+              this.feature.observations :
+              JSON.parse(this.feature.observations);
+
+            if (this.features[0].hasOwnProperty('supressChartTitles')) {
+              this.properties = {
+                title: '',
+                units: this.feature.units,
+                datum: ''
+              };
+            } else {
+              this.properties = {
+                title: 'sfwmd.' + this.feature.class,
+                units: this.feature.stationId + ', ' + this.feature.units,
+                datum: ' '
+              };
+            }
+
+            this.sensorData = this.chartService.parseData(observations, false);
+            break;
+
+          case 'floodgauges':
+            const sensorData = {dataset_1: []};
+
+            for (const obs of JSON.parse(this.feature.observations)) {
+              sensorData.dataset_1.push({
+                y: obs.f2,
+                t: obs.f1
+              });
+            }
+
+            this.sensorData = sensorData;
             this.properties = {
-              title: 'sfwmd.' + this.feature.class,
-              units: this.feature.stationId + ', ' + this.feature.units,
-              datum: ' '
+              title: 'Set Title',
+              units: 'Set Units',
+              datum: 'If available'
             };
-          }
+            break;
 
-          this.sensorData = this.chartService.parseData(observations, false);
-          break;
+          default:
+            // do something
+        }
 
-        case 'floodgauges':
-          const sensorData = {dataset_1: []};
-
-          for (const obs of JSON.parse(this.feature.observations)) {
-            sensorData.dataset_1.push({
-              y: obs.f2,
-              t: obs.f1
-            });
-          }
-
-          this.sensorData = sensorData;
-          this.properties = {
-            title: 'Set Title',
-            units: 'Set Units',
-            datum: 'If available'
-          };
-          break;
-
-        default:
-          // do something
-      }
-
-      if (this.isComponentOpen) {
-        this.drawChart();
+        if (this.isComponentOpen) {
+          this.drawChart();
+        }
       }
     }
   }
@@ -143,8 +145,10 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   ngOnInit(): void { }
 
   ngAfterViewInit() {
-    this.drawChart();
-    this.isComponentOpen = true;
+    if (this.sensorData) {
+      this.drawChart();
+      this.isComponentOpen = true;
+    }
   }
 
   ngOnDestroy(): void {

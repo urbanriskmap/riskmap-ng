@@ -1,4 +1,10 @@
 <div
   [id]="'sensorChartWrapper' + idIndex"
   class="chart-wrapper">
+  <p
+    class="mat-caption"
+    *ngIf="!sensorData">
+    <i class="icon-report-problem"></i>
+    Station observations are not available
+  </p>
 </div>

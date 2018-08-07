@@ -38,6 +38,7 @@
       </mat-panel-description>
 
       <mat-icon
+        *ngIf="feature[0].properties.observations"
         fontSet="icon"
         fontIcon="icon-download"
         (click)="exportSensorData(feature[0].properties.stationId, feature[0].properties.observations)">
