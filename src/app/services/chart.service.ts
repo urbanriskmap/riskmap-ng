@@ -19,6 +19,7 @@ export class ChartService {
     observations: any,
     hasUpstreamDownstream: boolean
   ): {
+    metadata: {[name: string]: any}
     dataset_1: {y: number, t: string}[],
     dataset_2?: {y: number, t: string}[]
   } {
@@ -26,6 +27,7 @@ export class ChartService {
 
     if (hasUpstreamDownstream) {
       sensorData = {
+        metadata: {},
         dataset_1: [],
         dataset_2: []
       };
@@ -44,6 +46,7 @@ export class ChartService {
       }
     } else {
       sensorData = {
+        metadata: {},
         dataset_1: []
       };
 
@@ -53,6 +56,10 @@ export class ChartService {
           t: obs['dateTime'].substring(0, 19)
         });
       }
+    }
+
+    if (sensorData.dataset_1.length) {
+      sensorData.metadata['lastUpdated'] = sensorData.dataset_1.slice(-1).pop().t;
     }
 
     return sensorData;
@@ -82,6 +89,9 @@ export class ChartService {
 
   prepareSensorChart(
     sensorData: {
+      metadata: {
+        [name: string]: any
+      },
       dataset_1: {y: number, t: string}[],
       dataset_2?: {y: number, t: string}[]
     },
@@ -160,7 +170,31 @@ export class ChartService {
       });
     } else {
       // CASE: multi-station stacked charts
-      title = sensorProperties.units;
+      title = ['Units: ' + sensorProperties.units];
+
+      if (sensorData.metadata.hasOwnProperty('lastUpdated')) {
+        let timeUnit, num;
+        const updated = Date.parse(sensorData.metadata.lastUpdated);
+        const difference = Date.now() - updated;
+
+        switch(true) {
+          case difference < 59999:
+            timeUnit = 'less than a minute ago';
+            break;
+          case difference >= 60000 && difference < 3599999:
+            num = Math.round(difference / 60000);
+            timeUnit = num + (num === 1 ? ' minute ago' : ' minutes ago');
+            break;
+          case difference >= 3600000 && difference < 86400000:
+            num = Math.round(difference / 3600000);
+            timeUnit = num + (num === 1 ? ' hour ago' : ' hours ago');
+            break;
+          default:
+            timeUnit = 'N/A';
+        }
+
+        title.push('Updated ' + timeUnit);
+      }
     }
 
     return {
@@ -231,6 +265,7 @@ export class ChartService {
       id: string
     },
     sensorData: {
+      metadata: {[name: string]: any},
       dataset_1: {y: number, t: string}[],
       dataset_2?: {y: number, t: string}[]
     },

@@ -19,6 +19,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
     datum?: string
   };
   sensorData: {
+    metadata: {[name: string]: any},
     dataset_1: {y: number, t: string}[],
     dataset_2?: {y: number, t: string}[]
   };
@@ -57,6 +58,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
       let observations;
+      let lastUpdated;
       this.feature = this.features[0].properties;
 
       if (this.feature.observations) {
@@ -103,13 +105,20 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
             break;
 
           case 'floodgauges':
-            const sensorData = {dataset_1: []};
+            const sensorData = {
+              metadata: {},
+              dataset_1: []
+            };
 
             for (const obs of JSON.parse(this.feature.observations)) {
               sensorData.dataset_1.push({
                 y: obs.f2,
                 t: obs.f1
               });
+            }
+
+            if (sensorData.dataset_1.length) {
+              sensorData.metadata['lastUpdated'] = sensorData.dataset_1.slice(-1).pop().t;
             }
 
             this.sensorData = sensorData;
