@@ -135,7 +135,8 @@ export class LayerService {
               break;
 
             case 'sensors_sfwmd':
-              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
+              // Fetch and join timeseries data to stations, aggregate data fetched during basin, site joining
+              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, [{type: 'timeseries'}])
               .then((data) => {
                 if (data) {
                   layer.settings.source.data = data;
@@ -372,24 +373,32 @@ export class LayerService {
 
             let selectedSite;
             let selectedBasin;
-            if (name === 'sites') {
-              for (const basin of this.basins) {
-                selectedSite = basin.sites.filter((siteGroup) => {
-                  return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
-                });
-                if (selectedSite.length) {
-                  break;
+            if (this.basins && this.basins.length) {
+              if (name === 'sites') {
+                for (const basin of this.basins) {
+                  selectedSite = basin.sites.filter((siteGroup) => {
+                    return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
+                  });
+                  if (selectedSite.length) {
+                    break;
+                  }
                 }
               }
-            }
-            if (name === 'basins') {
-              selectedBasin = this.basins.filter((basin) => {
-                return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
-              });
-            }
+              if (name === 'basins') {
+                selectedBasin = this.basins.filter((basin) => {
+                  return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
+                });
+              }
 
-            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, selectedSite, selectedBasin);
-            break;
+              this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, selectedSite, selectedBasin);
+              break;
+            } else {
+              this.notificationService.notify(
+                'Still loading...',
+                'info'
+              );
+              break;
+            }
 
           } else {
             // CASE 4: No feature found in layer being iterated over
