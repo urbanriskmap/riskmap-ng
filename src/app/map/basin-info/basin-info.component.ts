@@ -83,20 +83,26 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
       .then((sensors) => {
         let observations;
         if (Array.isArray(sensors)
-        && sensors[0]
-        && sensors[0].properties
-        && sensors[0].properties.observations) {
+          && sensors[0]
+          && sensors[0].properties
+          && sensors[0].properties.observations) {
           observations = sensors[0].properties.observations;
+        }
+
+        const properties = {
+          class: station.class,
+          name: station.stationId,
+          observations: observations,
+          units: station.units
+        };
+
+        if (station.hasOwnProperty('controlElevation')) {
+          properties['controlElevation'] = station.controlElevation;
         }
 
         this.features.push([{
           layer: {id: 'sensors_sfwmd'},
-          properties: {
-            class: station.class,
-            name: station.stationId,
-            observations: observations,
-            units: station.units
-          },
+          properties: properties,
           supressChartTitles: true
         }]);
       })

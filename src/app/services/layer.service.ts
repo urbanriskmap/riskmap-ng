@@ -31,6 +31,7 @@ export class LayerService {
       stations: {
         id: string,
         class: string,
+        controlElevation?: number,
         stationId: string,
         units: string
       }[]
@@ -168,6 +169,7 @@ export class LayerService {
       const _s = station.properties.site;
       const _id = station.properties.id;
       const _class = station.properties.class;
+      const _ce = station.properties.controlElevation;
       const _uid = station.properties.stationId;
       const _u = station.properties.units;
 
@@ -191,6 +193,7 @@ export class LayerService {
                   site.stations.push({
                     id: _id,
                     class: _class,
+                    controlElevation: _ce,
                     stationId: _uid,
                     units: _u
                   });
@@ -204,6 +207,7 @@ export class LayerService {
                 stations: [{
                   id: _id,
                   class: _class,
+                  controlElevation: _ce,
                   stationId: _uid,
                   units: _u
                 }]
@@ -221,6 +225,7 @@ export class LayerService {
             stations: [{
               id: _id,
               class: _class,
+              controlElevation: _ce,
               stationId: _uid,
               units: _u
             }]

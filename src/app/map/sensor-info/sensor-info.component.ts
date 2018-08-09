@@ -13,6 +13,8 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   @Input() features: {
     [name: string]: any
   }[];
+  @Input() showPoints: boolean;
+
   properties: {
     title: string,
     units: string,
@@ -102,6 +104,10 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
             }
 
             this.sensorData = this.chartService.parseData(observations, false);
+            if (this.feature.hasOwnProperty('controlElevation')) {
+              this.sensorData.metadata.controlElevation = this.feature.controlElevation;
+            }
+
             break;
 
           case 'floodgauges':
@@ -118,7 +124,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
             }
 
             if (sensorData.dataset_1.length) {
-              sensorData.metadata['lastUpdated'] = sensorData.dataset_1.slice(-1).pop().t;
+              sensorData.metadata['lastUpdated'] = sensorData.dataset_1[sensorData.dataset_1.length - 1].t;
             }
 
             this.sensorData = sensorData;
@@ -147,7 +153,8 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
         id: this.idIndex
       },
       this.sensorData,
-      this.properties
+      this.properties,
+      this.showPoints
     );
   }
 

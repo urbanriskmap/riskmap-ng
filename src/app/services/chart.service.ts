@@ -59,7 +59,7 @@ export class ChartService {
     }
 
     if (sensorData.dataset_1.length) {
-      sensorData.metadata['lastUpdated'] = sensorData.dataset_1.slice(-1).pop().t;
+      sensorData.metadata['lastUpdated'] = sensorData.dataset_1[sensorData.dataset_1.length - 1].t;
     }
 
     return sensorData;
@@ -99,7 +99,8 @@ export class ChartService {
       title: string,
       units: string,
       datum?: string
-    }
+    },
+    showPoints: boolean
   ) {
     const datasets = [];
 
@@ -111,46 +112,60 @@ export class ChartService {
       labels.down = res;
     });
 
-    if (sensorData.hasOwnProperty('dataset_2')) {
+    // Check for SFWMD elevation stations controlElevation value
+    if (sensorData.metadata.hasOwnProperty('controlElevation')
+      && sensorData.metadata.controlElevation
+      && sensorData.dataset_1.length) {
+      let controlElevation;
+      const firstDatetime = sensorData.dataset_1[0].t;
+      const lastDatetime = sensorData.dataset_1[sensorData.dataset_1.length - 1].t;
+
+      if (Array.isArray(sensorData.metadata.controlElevation)) {
+        controlElevation = sensorData.metadata.controlElevation[0];
+      } else {
+        controlElevation = sensorData.metadata.controlElevation;
+      }
+
+      // Style control elevation reference line + fill
       datasets.push(
         {
-          label: labels.up,
+          label: 'Control elevation',
           xAxisId: 'x1',
           yAxisId: 'y1',
           borderWidth: 1,
-          borderColor: '#1ac892',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderDash: [5, 5],
           pointRadius: 0,
-          lineTension: 0,
-          data: sensorData.dataset_1,
-        },
-        {
-          label: labels.down,
-          xAxisId: 'x1',
-          yAxisId: 'y1',
-          borderWidth: 1,
-          borderColor: '#0891fb',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          pointRadius: 0,
-          lineTension: 0,
-          data: sensorData.dataset_2,
-        }
-      );
-    } else {
-      datasets.push(
-        {
-          label: '',
-          xAxisId: 'x1',
-          yAxisId: 'y1',
-          borderWidth: 1,
-          borderColor: '#00579b', // dark-azure
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          pointRadius: 0,
-          lineTension: 0,
-          data: sensorData.dataset_1,
+          fill: 'origin',
+          borderColor: 'rgba(8, 145, 251, 0.5)',
+          backgroundColor: 'rgba(8, 145, 251, 0.15)', // from palette: (mat-azure, 500)
+          data: [
+            {y: controlElevation, t: firstDatetime},
+            {y: controlElevation, t: lastDatetime}
+          ]
         }
       );
     }
+
+    const styleDataset = (
+      label: string,
+      stroke: number,
+      lineColor: string,
+      bgColor: string,
+      points: boolean,
+      data: {[name: string]: any}[]
+    ) => {
+      return {
+        label: label,
+        xAxisId: 'x1',
+        yAxisId: 'y1',
+        borderWidth: stroke,
+        borderColor: lineColor,
+        backgroundColor: bgColor ? bgColor : 'rgba(0, 0, 0, 0)',
+        pointRadius: points ? 3 : 0,
+        lineTension: 0,
+        data: data
+      };
+    };
 
     let title;
     if (sensorProperties.title) {
@@ -170,7 +185,8 @@ export class ChartService {
       });
     } else {
       // CASE: multi-station stacked charts
-      title = ['Units: ' + sensorProperties.units];
+      // title = ['Units: ' + sensorProperties.units];
+      title = [sensorProperties.units];
 
       if (sensorData.metadata.hasOwnProperty('lastUpdated')) {
         let timeUnit, num;
@@ -178,23 +194,38 @@ export class ChartService {
         const difference = Date.now() - updated;
 
         switch(true) {
-          case difference < 59999:
+          case (difference < 59999):
             timeUnit = 'less than a minute ago';
             break;
-          case difference >= 60000 && difference < 3599999:
+          case (difference >= 60000 && difference < 3599999):
             num = Math.round(difference / 60000);
             timeUnit = num + (num === 1 ? ' minute ago' : ' minutes ago');
             break;
-          case difference >= 3600000 && difference < 86400000:
-            num = Math.round(difference / 3600000);
-            timeUnit = num + (num === 1 ? ' hour ago' : ' hours ago');
+          case (difference >= 3600000 && difference < 86400000):
+            const localTime = this.timeService.getLocalTime(sensorData.metadata.lastUpdated);
+            timeUnit = ' at ' + localTime.hour() + ':' + localTime.minute();
             break;
+          case (difference >= 86400000):
+            timeUnit = ' more than 24 hrs ago';
           default:
             timeUnit = 'N/A';
         }
 
-        title.push('Updated ' + timeUnit);
+        title.push(' Updated ' + timeUnit);
       }
+    }
+
+    if (sensorData.hasOwnProperty('dataset_2')) {
+      // Upstream, Downstream values (USGS)
+      datasets.push(
+        styleDataset(labels.up, 1, '#1ac892', null, false, sensorData.dataset_1),
+        styleDataset(labels.down, 1, '#0891fb', null, false, sensorData.dataset_2)
+      );
+    } else {
+      // Default
+      datasets.push(
+        styleDataset(title, 1, '#00579b', null, showPoints, sensorData.dataset_1)
+      );
     }
 
     return {
@@ -206,15 +237,15 @@ export class ChartService {
         responsive: true,
         maintainAspectRatio: false,
         title: {
-          display: true,
-          fontColor: '#2f2f2f',
-          text: title,
-          fontSize: 10,
-          padding: 3
+          display: false,
+          // fontColor: '#2f2f2f',
+          // text: title,
+          // fontSize: 10,
+          // padding: 3
         },
         legend: {
-          display: sensorData.hasOwnProperty('dataset_2'),
-          position: 'bottom',
+          display: true, // sensorData.hasOwnProperty('dataset_2'),
+          position: 'top',
           labels: {
             fontColor: '#2f2f2f',
             fontFamily: '"Roboto-Medium", "Roboto", "Open Sans"',
@@ -273,11 +304,12 @@ export class ChartService {
       title: string,
       units: string,
       datum?: string
-    }
+    },
+    showPoints?: boolean
   ) {
     this.sensorChart = new Chart(
       this.prepareCanvas(html),
-      this.prepareSensorChart(sensorData, sensorProperties)
+      this.prepareSensorChart(sensorData, sensorProperties, showPoints)
     );
   }
 }
