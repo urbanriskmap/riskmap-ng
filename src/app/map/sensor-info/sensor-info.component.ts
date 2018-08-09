@@ -60,7 +60,6 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
       let observations;
-      let lastUpdated;
       this.feature = this.features[0].properties;
 
       if (this.feature.observations) {

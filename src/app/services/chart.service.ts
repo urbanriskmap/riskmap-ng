@@ -193,7 +193,7 @@ export class ChartService {
         const updated = Date.parse(sensorData.metadata.lastUpdated);
         const difference = Date.now() - updated;
 
-        switch(true) {
+        switch (true) {
           case (difference < 59999):
             timeUnit = 'less than a minute ago';
             break;
@@ -207,6 +207,7 @@ export class ChartService {
             break;
           case (difference >= 86400000):
             timeUnit = ' more than 24 hrs ago';
+            break;
           default:
             timeUnit = 'N/A';
         }
