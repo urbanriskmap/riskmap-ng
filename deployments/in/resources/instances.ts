@@ -11,7 +11,7 @@ export default {
     },
     {
       name: 'bengaluru',
-      code: 'bgl',
+      code: 'blr',
       bounds: {
         sw: [77.365, 12.763],
         ne: [77.866, 13.200]
