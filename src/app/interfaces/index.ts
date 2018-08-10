@@ -11,6 +11,7 @@ export interface InterfaceName {
 export interface EnvironmentInterface {
   production: boolean;
   envName: string;
+  deploymentName: 'id' | 'in' | 'us';
   servers: {
     data: string;
     sensors: string;

@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   envName: 'dev-in',
+  deploymentName: 'in',
 
   servers: {
     data: 'https://data-dev.riskmap.in/',

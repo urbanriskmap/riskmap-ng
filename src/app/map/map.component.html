@@ -46,14 +46,14 @@
 
   <div
     class="user-button"
-    *ngIf="!adminMode"
+    *ngIf="!adminMode && env.deploymentName === 'us'"
     (click)="router.navigate(['login'])">
     <i class="icon-eoc"></i>
   </div>
 
   <div
     class="user-button"
-    *ngIf="adminMode"
+    *ngIf="adminMode && env.deploymentName === 'us'"
     (click)="logoutUser()">
     <i class="icon-eoc-sel"></i>
   </div>
