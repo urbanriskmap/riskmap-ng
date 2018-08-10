@@ -1,5 +1,4 @@
-// REFER docs.petabencana.id (move to api.urbanriskmap.org ?)
-// Update interface definitions
+import { deployments } from '../types';
 
 /*
 // Interface template
@@ -11,7 +10,7 @@ export interface InterfaceName {
 export interface EnvironmentInterface {
   production: boolean;
   envName: string;
-  deploymentName: 'id' | 'in' | 'us';
+  deploymentName: deployments;
   servers: {
     data: string;
     sensors: string;
@@ -108,6 +107,7 @@ export interface SensorInterface {
   agency: 'sfwmd';
   basin: string;
   class: string;
+  controlElevation: number;
   created: string;
   id: number;
   observations: string;

@@ -1,7 +1,14 @@
+/*
+  Copy of an env file from the deployment folders, i.e. environments/us/environment.ts etc.
+  Required for local development server, during ng serve
+*/
+
+import { deployments } from '../app/types';
+
 export const environment = {
   production: false,
   envName: 'dev-us',
-  deploymentName: 'us',
+  deploymentName: 'us' as deployments,
 
   servers: {
     data: 'https://data-dev.riskmap.us/',
@@ -41,7 +48,7 @@ export const environment = {
 
     deep_links: [
       { name: 'facebook',
-        link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.
+        link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowed at this point.
       },
       { name: 'twitter',
         link: 'https://twitter.com/messages/compose?recipient_id=915571825689624576'
