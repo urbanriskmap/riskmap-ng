@@ -1,9 +1,7 @@
-import { deployments } from '../../app/types';
-
 export const environment = {
   production: true,
   envName: 'prod-id',
-  deploymentName: 'id' as deployments,
+  deploymentName: 'id',
 
   servers: {
     data: 'https://data.petabencana.id/',

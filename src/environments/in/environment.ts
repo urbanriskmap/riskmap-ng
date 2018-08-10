@@ -1,9 +1,7 @@
-import { deployments } from '../../app/types';
-
 export const environment = {
   production: false,
   envName: 'dev-in',
-  deploymentName: 'in' as deployments,
+  deploymentName: 'in',
 
   servers: {
     data: 'https://data-dev.riskmap.in/',
