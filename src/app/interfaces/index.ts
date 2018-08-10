@@ -1,5 +1,3 @@
-import { deployments } from '../types';
-
 /*
 // Interface template
 export interface InterfaceName {
@@ -10,7 +8,8 @@ export interface InterfaceName {
 export interface EnvironmentInterface {
   production: boolean;
   envName: string;
-  deploymentName: deployments;
+  /* tslint:disable-next-line:quotemark */
+  deploymentName: "'us' | 'id' | 'in'"['type']; // Cast string literals as type
   servers: {
     data: string;
     sensors: string;
