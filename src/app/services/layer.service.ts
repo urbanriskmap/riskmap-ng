@@ -368,6 +368,13 @@ export class LayerService {
     });
   }
 
+  notifyLoadingNotComplete() {
+    this.notificationService.notify(
+      'Still loading...',
+      'info'
+    );
+  }
+
   handleMapInteraction(
     event?: {
       type: string,
@@ -409,32 +416,36 @@ export class LayerService {
 
             let selectedSite;
             let selectedBasin;
-            if (this.basins && this.basins.length) {
-              if (name === 'sites') {
-                for (const basin of this.basins) {
-                  selectedSite = basin.sites.filter((siteGroup) => {
-                    return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
-                  });
-                  if (selectedSite.length) {
-                    break;
-                  }
-                }
-              }
-              if (name === 'basins') {
-                selectedBasin = this.basins.filter((basin) => {
-                  return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
-                });
+
+            if (name === 'sites') {
+              if (!this.basins || !this.basins.length) {
+                this.notifyLoadingNotComplete();
+                break;
               }
 
-              this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, selectedSite, selectedBasin);
-              break;
-            } else {
-              this.notificationService.notify(
-                'Still loading...',
-                'info'
-              );
-              break;
+              for (const basin of this.basins) {
+                selectedSite = basin.sites.filter((siteGroup) => {
+                  return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
+                });
+                if (selectedSite.length) {
+                  break;
+                }
+              }
             }
+
+            if (name === 'basins') {
+              if (!this.basins || !this.basins.length) {
+                this.notifyLoadingNotComplete();
+                break;
+              }
+
+              selectedBasin = this.basins.filter((basin) => {
+                return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
+              });
+            }
+
+            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, selectedSite, selectedBasin);
+            break;
 
           } else {
             // CASE 4: No feature found in layer being iterated over

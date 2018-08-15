@@ -219,7 +219,23 @@ export class MapComponent implements OnInit, OnDestroy {
         // FIXME: pans anywhere across the globe,
         // check ?id=85
         this.layerService.zoomToQueriedReport(report);
-        this.viewingArchivedReport = true;
+
+        const reportsTimeperiodCutoff = this.timeService.getLocalTime(
+          (new Date(
+            Date.parse(
+              (new Date()).toISOString()
+            ) - (this.env.servers.settings.reportTimeperiod * 1000)
+          )).toISOString()
+        );
+        const queryReportCreatedAt = this.timeService.getLocalTime(report.properties.created_at);
+
+        // NOTE: Due to 1 minute reports caching setting on reports endpoint,
+        // recently submitted reports do not show up in the reports layer,
+        // causing them to be falsely tagged as 'archived reports'
+        // Following check bypasses that glitch
+        if (queryReportCreatedAt.isBefore(reportsTimeperiodCutoff)) {
+          this.viewingArchivedReport = true;
+        }
       })
       .catch(error => console.log('Queried report does not exist'));
     }

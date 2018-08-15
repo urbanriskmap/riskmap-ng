@@ -12,10 +12,15 @@ export default {
       partnerRows: [
         { // Row 1
           partnerLogos: [
-            { // logo 1
+          { // logo 1
+            name: 'assd',
+            path: 'assets/logos/assd_logo.png',
+            url: 'https://www.aanandam.org/'
+          },
+          { // logo 2
               name: 'cag',
               path: 'assets/logos/cag_logo.png',
-              url: 'http://www.broward.org/Pages/Welcome.aspx'
+              url: 'https://www.cag.org.in/our-work/city-governance'
             }
           ]
         }
