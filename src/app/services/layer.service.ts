@@ -148,6 +148,37 @@ export class LayerService {
               .catch((error) => console.log(error));
               break;
 
+            case 'sensors_noaa':
+              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, [{type: 'water_level'}])
+              .then((withWaterLevelData: FeatureCollection<GeometryObject, GeoJsonProperties>) => {
+                if (withWaterLevelData) {
+                  // Parse water_level data
+                  const waterLevelData = withWaterLevelData.features[0].properties.observations.water_level;
+
+                  this.addSensorLayers(withWaterLevelData, layer.metadata.server, layer.metadata.path, [{type: 'predictions'}])
+                  .then((withPredictionsData: FeatureCollection<GeometryObject, GeoJsonProperties>) => {
+                    // TODO: currently following code block works for single layer feature
+                    // Loop over features when multiple stations are added
+
+                    // Parse predictions data
+                    const predictionsData = withPredictionsData.features[0].properties.observations.predictions;
+
+                    // Append to previously fetched feature with water_level data
+                    withWaterLevelData.features[0].properties.observations = {
+                      water_level: waterLevelData,
+                      predictions: predictionsData
+                    };
+
+                    // Set geojson source in layer settings
+                    layer.settings.source.data = withWaterLevelData;
+                    this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                  })
+                  .catch((error) => console.log(error));
+                }
+              })
+              .catch((error) => console.log(error));
+              break;
+
             default:
               if (layer.metadata.name === 'reports') {
                 this.showReportsNotification(geojson.features.length);

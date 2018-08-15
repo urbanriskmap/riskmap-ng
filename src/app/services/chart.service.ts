@@ -17,7 +17,7 @@ export class ChartService {
 
   parseData(
     observations: any,
-    hasUpstreamDownstream: boolean
+    hasSubDataStreams: string[]
   ): {
     metadata: {[name: string]: any}
     dataset_1: {y: number, t: string}[],
@@ -25,22 +25,27 @@ export class ChartService {
   } {
     let sensorData;
 
-    if (hasUpstreamDownstream) {
+    if (hasSubDataStreams.length) {
       sensorData = {
-        metadata: {},
+        metadata: {subDataStreamLabels: hasSubDataStreams},
         dataset_1: [],
         dataset_2: []
       };
 
-      for (const i in observations['upstream']) {
+      for (const i in observations[hasSubDataStreams[0]]) {
         if (i) {
           sensorData.dataset_1.push({
-            y: parseFloat(observations['upstream'][i].value),
-            t: observations['upstream'][i].dateTime.substring(0, 19)
+            y: parseFloat(observations[hasSubDataStreams[0]][i].value),
+            t: observations[hasSubDataStreams[0]][i].dateTime.substring(0, 19)
           });
+        }
+      }
+
+      for (const i in observations[hasSubDataStreams[1]]) {
+        if (i) {
           sensorData.dataset_2.push({
-            y: parseFloat(observations['downstream'][i].value),
-            t: observations['downstream'][i].dateTime.substring(0, 19)
+            y: parseFloat(observations[hasSubDataStreams[1]][i].value),
+            t: observations[hasSubDataStreams[1]][i].dateTime.substring(0, 19)
           });
         }
       }
@@ -87,6 +92,7 @@ export class ChartService {
     return chart_ctx;
   }
 
+  // TODO: break into smaller functions
   prepareSensorChart(
     sensorData: {
       metadata: {
@@ -104,13 +110,27 @@ export class ChartService {
   ) {
     const datasets = [];
 
-    const labels = {up: null, down: null};
-    this.translate.get('sensorLabels.up').subscribe((res: string) => {
-      labels.up = res;
-    });
-    this.translate.get('sensorLabels.down').subscribe((res: string) => {
-      labels.down = res;
-    });
+    // TODO: move to separate method
+    let labels: {dataSet_1: string | null, dataSet_2: string | null};
+    if (sensorData.metadata.hasOwnProperty('subDataStreamLabels')) {
+      switch (sensorData.metadata.subDataStreamLabels[0]) {
+        case 'upstream':
+          this.translate.get('sensorLabels.up').subscribe((res: string) => {
+            labels.dataSet_1 = res;
+          });
+          this.translate.get('sensorLabels.down').subscribe((res: string) => {
+            labels.dataSet_2 = res;
+          });
+          break;
+
+        case 'water_level':
+          labels = {dataSet_1: 'Recorded', dataSet_2: 'Predicted'};
+          break;
+
+        default:
+          labels = {dataSet_1: null, dataSet_2: null};
+      }
+    }
 
     // Check for SFWMD elevation stations controlElevation value
     if (sensorData.metadata.hasOwnProperty('controlElevation')
@@ -203,10 +223,10 @@ export class ChartService {
             break;
           case (difference >= 3600000 && difference < 86400000):
             const localTime = this.timeService.getLocalTime(sensorData.metadata.lastUpdated);
-            timeUnit = ' at ' + localTime.hour() + ':' + localTime.minute();
+            timeUnit = 'at ' + localTime.hour() + ':' + localTime.minute();
             break;
           case (difference >= 86400000):
-            timeUnit = ' more than 24 hrs ago';
+            timeUnit = 'more than 24 hrs ago';
             break;
           default:
             timeUnit = 'N/A';
@@ -218,9 +238,10 @@ export class ChartService {
 
     if (sensorData.hasOwnProperty('dataset_2')) {
       // Upstream, Downstream values (USGS)
+      // Recorded, Predicted values (NOAA)
       datasets.push(
-        styleDataset(labels.up, 1, '#1ac892', null, false, sensorData.dataset_1),
-        styleDataset(labels.down, 1, '#0891fb', null, false, sensorData.dataset_2)
+        styleDataset(labels.dataSet_1, 1, '#00579b', null, false, sensorData.dataset_1),
+        styleDataset(labels.dataSet_2, 1, 'rgba(8, 145, 251, 0.5)', null, false, sensorData.dataset_2)
       );
     } else {
       // Default

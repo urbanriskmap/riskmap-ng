@@ -30,7 +30,7 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
   isComponentOpen: boolean;
 
   feature: SensorInterface;
-  hasUpstreamDownstream: boolean | null;
+  hasSubDataStreams: string[] = [];
   usgsSensorMap = {
     '_63160': {
       title: '63160',
@@ -73,13 +73,13 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
             };
 
             if (Array.isArray(observations)) {
-              this.sensorData = this.chartService.parseData(observations, false);
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
             } else if (
               observations.hasOwnProperty('upstream')
               && observations.hasOwnProperty('downstream')
             ) {
-              this.hasUpstreamDownstream = true;
-              this.sensorData = this.chartService.parseData(observations, true);
+              this.hasSubDataStreams = ['upstream', 'downstream'];
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
             }
             break;
 
@@ -102,11 +102,30 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
               };
             }
 
-            this.sensorData = this.chartService.parseData(observations, false);
+            this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
             if (this.feature.hasOwnProperty('controlElevation')) {
               this.sensorData.metadata.controlElevation = this.feature.controlElevation;
             }
 
+            break;
+
+          case 'sensors_noaa':
+            observations = JSON.parse(this.feature.observations);
+            this.properties = {
+              title: this.feature.name,
+              units: this.feature.units,
+              datum: this.feature.datum
+            };
+
+            if (Array.isArray(observations)) {
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+            } else if (
+              observations.hasOwnProperty('water_level')
+              && observations.hasOwnProperty('predictions')
+            ) {
+              this.hasSubDataStreams = ['water_level', 'predictions'];
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+            }
             break;
 
           case 'floodgauges':
@@ -172,6 +191,6 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
     this.properties = null;
     this.sensorData = null;
     this.idIndex = null;
-    this.hasUpstreamDownstream = null;
+    this.hasSubDataStreams = [];
   }
 }

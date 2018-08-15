@@ -30,34 +30,49 @@ export class SensorService {
       this.httpService
       .getJsonData(
         server,
-        path + sensor.properties['id'],
+        path + sensor.properties['id'], // TODO: get uniqueKey from LayerMetadata
         flags
       )
       .then(observationGroups => {
         if (observationGroups && observationGroups.length) {
           const latestObs = observationGroups[observationGroups.length - 1];
-          // REVIEW: above array object selection working without ?type=timeseries
-          // flag on GET sensor data for SFWMD sensors;
-          // Enforce flag
 
           // Append sensor observations to sensor properties
           if (latestObs.properties.hasOwnProperty('observations')) {
             const observations = latestObs.properties.observations;
 
-            if (Array.isArray(observations)) {
-              // Case: Without upstream / downstream values
+            if (
+              flags.length
+              && flags[0].hasOwnProperty('type')
+              && flags[0].type === 'water_level'
+            ) {
               if (observations.length) {
-                sensor.properties.observations = observations;
+                sensor.properties.observations = {water_level: observations};
+              }
+            } else if (
+              flags.length
+              && flags[0].hasOwnProperty('type')
+              && flags[0].type === 'predictions'
+            ) {
+              if (observations.length) {
+                sensor.properties.observations = {predictions: observations};
               }
             } else {
+              if (Array.isArray(observations)) {
+                // Case: Without upstream / downstream values
+                if (observations.length) {
+                  sensor.properties.observations = observations;
+                }
+              } else {
 
-              // Case: With upstream / downstream values
-              if (
-                observations.hasOwnProperty('upstream')
-                && Array.isArray(observations.upstream)
-                && observations.upstream.length
-              ) {
-                sensor.properties.observations = observations;
+                // Case: With upstream / downstream values
+                if (
+                  observations.hasOwnProperty('upstream')
+                  && Array.isArray(observations.upstream)
+                  && observations.upstream.length
+                ) {
+                  sensor.properties.observations = observations;
+                }
               }
             }
           }

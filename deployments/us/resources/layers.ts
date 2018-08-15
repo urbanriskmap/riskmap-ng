@@ -184,6 +184,48 @@ export default {
       ]
     },
 
+    // Sensors layer (NOAA)
+    {
+      metadata: {
+        name: 'sensors_noaa',
+        server: 'sensors',
+        path: '',
+        publicAccess: false,
+        flags: [{agency: 'noaa'}],
+        responseType: 'geojson',
+        uniqueKey: 'id',
+        legendGroup: 'infrastructure',
+        selected: {
+          type: 'layout',
+          styles: {
+            'icon-image': 'map_tide_sel'
+          }
+        },
+        viewOnly: false
+      },
+      settings: {
+        id: 'sensors_noaa',
+        type: 'symbol',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        layout: {
+          'icon-image': 'map_tide',
+          'icon-size': 0.75
+        },
+        filter: ['all', ['!=', 'id', '']]
+      },
+      legend: [
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-tide',
+          label: 'legend.noaa.tide',
+          source: 'NOAA'
+        }
+      ]
+    },
+
     // Sensors layer (USGS)
     // {
     //   metadata: {
