@@ -1,0 +1,242 @@
+<img
+  class="app-logo"
+  src="assets/logos/app_logo.svg"
+  (click)="redirect()">
+
+<mat-divider></mat-divider>
+
+<mat-vertical-stepper linear #stepper>
+  <ng-template matStepperIcon="done">
+    <mat-icon
+      fontSet="icon"
+      fontIcon="icon-done">
+    </mat-icon>
+  </ng-template>
+
+  <mat-step
+    [stepControl]="validUserFormGroup"
+    editable="false"
+    #validateUserStep>
+    <form [formGroup]="validUserFormGroup">
+      <ng-template matStepLabel>Enter your email</ng-template>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Email"
+          type="email"
+          formControlName="emailCtrl"
+          required>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button
+          mat-stroked-button
+          type="button"
+          [disabled]="processingRegistration"
+          (click)="redirect()">
+          Cancel
+        </button>
+
+        <button
+          mat-stroked-button
+          [disabled]="validUserFormGroup.status === 'INVALID'"
+          (click)="validateUser(stepper)">
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step
+    [stepControl]="passwordFormGroup"
+    editable="false"
+    #passwordStep>
+    <form [formGroup]="passwordFormGroup">
+      <ng-template matStepLabel>Create account password</ng-template>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="New password"
+          type="password"
+          formControlName="passwordCtrl"
+          required>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Confirm password"
+          type="password"
+          formControlName="confirmPassCtrl"
+          required>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button
+          mat-stroked-button
+          type="button"
+          [disabled]="processingRegistration"
+          (click)="redirect('public')">
+          Cancel
+        </button>
+
+        <button
+          mat-stroked-button
+          [disabled]="passwordFormGroup.status === 'INVALID'"
+          (click)="storePassword(stepper)">
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step
+    [stepControl]="confirmationFormGroup"
+    editable="false"
+    #confirmationStep>
+    <form
+      [formGroup]="confirmationFormGroup"
+      *ngIf="!exitSigninProcess">
+      <ng-template matStepLabel>Enter confirmation code</ng-template>
+
+      <p class="mat-caption"
+        *ngIf="!codeResend">
+        A 6-digit code was sent to {{ emailHint }}
+      </p>
+
+      <p class="mat-caption"
+        *ngIf="codeResend">
+        A new 6-digit code has been sent at {{ emailHint }}
+      </p>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Confirmation code"
+          formControlName="numCodeCtrl"
+          required>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button
+          mat-stroked-button
+          type="button"
+          [disabled]="processingRegistration"
+          (click)="redirect()">
+          Cancel
+        </button>
+
+        <button
+          mat-stroked-button
+          *ngIf="codeMismatch"
+          (click)="storePassword()">
+          Resend code
+        </button>
+
+        <button
+          mat-stroked-button
+          *ngIf="!codeMismatch"
+          [disabled]="confirmationFormGroup.status === 'INVALID'"
+          (click)="verifyCode(stepper)">
+          Confirm
+        </button>
+      </div>
+    </form>
+
+    <div
+      *ngIf="exitSigninProcess">
+      <p class="mat-caption">
+        Account permissions error, please contact administrators at risk@mit.edu
+      </p>
+
+      <button
+        mat-stroked-button
+        [disabled]="processingRegistration"
+        (click)="redirect('public')">
+        Go to RiskMap.us
+      </button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>
+
+<div id="prompts">
+  <p class="mat-caption"
+    *ngIf="validUserFormGroup.controls.emailCtrl.hasError('noUser')">
+    * User account for entered email does not exist
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="validUserFormGroup.controls.emailCtrl.hasError('email')
+    && !validUserFormGroup.controls.emailCtrl.hasError('required')
+    && (validUserFormGroup.controls.emailCtrl.dirty
+      || validUserFormGroup.controls.emailCtrl.touched)">
+    * Please enter a valid email address
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('minlength')
+    && (passwordFormGroup.controls.passwordCtrl.dirty
+      || passwordFormGroup.controls.passwordCtrl.touched)">
+    * Password must be minimum 8 characters long
+  </p>
+
+  <div class="mat-caption"
+    *ngIf="(passwordFormGroup.controls.passwordCtrl.hasError('noNumber')
+      || passwordFormGroup.controls.passwordCtrl.hasError('noLowerCase')
+      || passwordFormGroup.controls.passwordCtrl.hasError('noUpperCase'))
+    && (passwordFormGroup.controls.passwordCtrl.dirty
+      || passwordFormGroup.controls.passwordCtrl.touched)">
+    * Password must include atleast one:
+
+    <p class="mat-caption list-item"
+      *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('noLowerCase')">
+      &nbsp;&nbsp;- lower case character
+    </p>
+
+    <p class="mat-caption list-item"
+      *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('noUpperCase')">
+      &nbsp;&nbsp;- upper case character
+    </p>
+
+    <p class="mat-caption list-item"
+      *ngIf="passwordFormGroup.controls.passwordCtrl.hasError('noNumber')">
+      &nbsp;&nbsp;- number
+    </p>
+  </div>
+
+  <p class="mat-caption"
+    *ngIf="passwordFormGroup.hasError('noMatch')
+    && (passwordFormGroup.controls.confirmPassCtrl.dirty
+      || passwordFormGroup.controls.confirmPassCtrl.touched)">
+    * Entered passwords do not match
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="passwordFormGroup.hasError('limitExceeded')">
+    * Password reset limit exceeded, please try after some time
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('minlength')
+    || confirmationFormGroup.controls.numCodeCtrl.hasError('maxlength')
+    && (confirmationFormGroup.controls.numCodeCtrl.dirty
+      || confirmationFormGroup.controls.numCodeCtrl.touched)">
+    * Please enter the 6-digit confirmation code received via email
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('containsNonNumeric')
+    && (confirmationFormGroup.controls.numCodeCtrl.dirty
+      || confirmationFormGroup.controls.numCodeCtrl.touched)">
+    * Code may only contain numbers
+  </p>
+
+  <p class="mat-caption"
+    *ngIf="confirmationFormGroup.controls.numCodeCtrl.hasError('codeMismatch')">
+    * Incorrect code, click 'Resend code' or refresh page to try again
+  </p>
+</div>

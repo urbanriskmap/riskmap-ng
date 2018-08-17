@@ -19,6 +19,7 @@
   </table>
 </div>
 
+<!-- START navBar components -->
 <div id="navBar">
   <a>
     <span>
@@ -44,6 +45,20 @@
   </mat-form-field>
 
   <div
+    class="user-button"
+    *ngIf="!adminMode && env.deploymentName === 'us'"
+    (click)="router.navigate(['login'])">
+    <i class="icon-eoc"></i>
+  </div>
+
+  <div
+    class="user-button"
+    *ngIf="adminMode && env.deploymentName === 'us'"
+    (click)="logoutUser()">
+    <i class="icon-eoc-sel"></i>
+  </div>
+
+  <div
     class="menu-button"
     *ngIf="!fullSizeImgUrl"
     (click)="toggleSidePane()">
@@ -61,11 +76,10 @@
     class="menu-button"
     *ngIf="fullSizeImgUrl"
     (click)="closeImgPreview()">
-    <i
-      class="icon-close">
-    </i>
+    <i class="icon-close"></i>
   </div>
 </div>
+<!-- END navBar components -->
 
 <!-- COMBAK Test A2HS when deployed on https
 <button mat-button
@@ -74,44 +88,75 @@
   A2HS
 </button> -->
 
+<!-- START public feature info panels -->
 <app-report-info
   class="info-panes"
-  *ngIf="interactionService.featureTypes.reports"
-  [features]="interactionService.featureTypes.reports"
+  *ngIf="getFeatures('reports')"
+  [features]="getFeatures('reports')"
   [archivedReport]="viewingArchivedReport"
   (showFullSizeImg)="parseFullSizeImgUrl($event)">
 </app-report-info>
 
 <app-area-info
   class="info-panes"
-  *ngIf="interactionService.featureTypes.floods"
-  [features]="interactionService.featureTypes.floods">
+  *ngIf="getFeatures('floods')"
+  [features]="getFeatures('floods')">
 </app-area-info>
-
-<app-sensor-info
-  class="info-panes"
-  *ngIf="interactionService.featureTypes.sensors_usgs"
-  [features]="interactionService.featureTypes.sensors_usgs">
-</app-sensor-info>
-
-<app-sensor-info
-  class="info-panes"
-  *ngIf="interactionService.featureTypes.floodgauges"
-  [features]="interactionService.featureTypes.floodgauges">
-</app-sensor-info>
 
 <app-infra-info
   class="info-panes"
-  *ngIf="interactionService.featureTypes.pumps"
-  [features]="interactionService.featureTypes.pumps">
+  *ngIf="getFeatures('pumps')"
+  [features]="getFeatures('pumps')">
 </app-infra-info>
+
+<app-sensor-info
+  class="info-panes"
+  *ngIf="getFeatures('floodgauges')"
+  [features]="getFeatures('floodgauges')">
+</app-sensor-info>
+
+<app-sensor-info
+  class="info-panes info-wide"
+  *ngIf="getFeatures('sensors_usgs')"
+  [features]="getFeatures('sensors_usgs')">
+</app-sensor-info>
+<!-- END public feature info panels -->
+
+<!-- START adminMode feature info panels -->
+<app-sensor-info
+  class="info-panes info-wide"
+  *ngIf="adminMode
+  && getFeatures('sensors_sfwmd')"
+  [features]="getFeatures('sensors_sfwmd')">
+</app-sensor-info>
+
+<app-site-info
+  class="info-panes with-inset-cards"
+  *ngIf="adminMode
+  && getFeatures('stations', true)"
+  [site]="getFeatures('sites')[0].properties"
+  [stations]="getFeatures('stations', true)"
+  [map]="layerService.map"
+  (closePanel)="closeInfoPane()">
+</app-site-info>
+
+<app-basin-info
+  class="info-panes with-inset-cards"
+  *ngIf="adminMode
+  && getFeatures('sites', true)"
+  [basin]="getFeatures('basins')[0].properties"
+  [sites]="getFeatures('sites', true)"
+  (closePanel)="closeInfoPane()">
+</app-basin-info>
+<!-- END adminMode feature info panels -->
 
 <app-side-pane
   *ngIf="showSidePane"
   [selectedTab]="paneToOpen"
   (agreementPolicy)="openDialog('agreementPolicy')"
   [regions]="instances.regions"
-  [selectedRegion]="selectedRegion">
+  [selectedRegion]="selectedRegion"
+  [adminMode]="adminMode">
 </app-side-pane>
 
 <app-image-preview

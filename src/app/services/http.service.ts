@@ -15,7 +15,7 @@ export class HttpService {
     private http: HttpClient
   ) { }
 
-  fetchGeojson(
+  fetchJson(
     endpoint: string
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     return new Promise((resolve, reject) => {
@@ -26,10 +26,11 @@ export class HttpService {
           if (response['statusCode'] === 200) {
             resolve(response['result']);
           } else {
-            reject(response);
+            resolve();
+            // COMBAK reject(response);
           }
         },
-        error => reject(error)
+        error => resolve() // COMBAK reject(error)
       );
     });
   }
@@ -82,10 +83,7 @@ export class HttpService {
 
   getGeometryData(
     layer: LayerMetadata,
-    region: string,
-    miscellaneous?: { // REVIEW vestige?
-      [name: string]: any
-    }
+    region: string
   ): Promise<FeatureCollection<GeometryObject, GeoJsonProperties>> {
     // Set to data server
     let queryUrl = env.servers[layer.server];
@@ -115,7 +113,7 @@ export class HttpService {
       return this.convertTopojsonToGeojson(queryUrl);
     } else {
       // GEOJSON
-      return this.fetchGeojson(queryUrl);
+      return this.fetchJson(queryUrl);
     }
   }
 
@@ -136,7 +134,7 @@ export class HttpService {
       }
     }
 
-    return this.fetchGeojson(queryUrl);
+    return this.fetchJson(queryUrl);
   }
 
   updateVotes(
@@ -151,10 +149,8 @@ export class HttpService {
     })
     .subscribe(
       response => {
-        console.log('Success');
       },
       error => {
-        console.log('Failed');
         console.log(error);
       }
     );

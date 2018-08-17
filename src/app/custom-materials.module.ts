@@ -4,15 +4,21 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatDialog,
   MatDialogRef,
   MatExpansionModule,
+  MatFormFieldModule,
   MatGridListModule,
+  MatIconModule,
+  MatInputModule,
   MatListModule,
   MatRadioModule,
   MatSelectModule,
   MatSnackBarModule,
+  MatStepperModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -26,18 +32,25 @@ import {
     FormsModule,
     CdkTableModule,
     MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
+    MatIconModule,
+    MatInputModule,
     MatListModule,
     MatRadioModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatStepperModule,
     MatTabsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule
   ],
   providers: [
-    MatDialog,
+    MatDialog
     // MatDialogRef
   ]
 })

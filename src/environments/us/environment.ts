@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   envName: 'dev-us',
+  deploymentName: 'us',
 
   servers: {
     data: 'https://data-dev.riskmap.us/',
@@ -9,6 +10,11 @@ export const environment = {
     settings: {
       reportTimeperiod: 604800
     }
+  },
+
+  authorization: {
+    userPoolId: 'us-west-2_olPNYtmQ7',
+    appClientId: '5en9df3auvag0msrurit123v30'
   },
 
   map: {
@@ -35,10 +41,10 @@ export const environment = {
 
     deep_links: [
       { name: 'facebook',
-        link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowd at this point.
+        link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowed at this point.
       },
       { name: 'twitter',
-        link: 'https://twitter.com/messages/compose?recipient_id=905602080252977152'
+        link: 'https://twitter.com/messages/compose?recipient_id=915571825689624576'
       }
       // Disable telegram button for US deployment
       // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}

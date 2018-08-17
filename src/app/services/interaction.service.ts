@@ -11,13 +11,36 @@ export class InteractionService {
   }
   */
   featureTypes = {};
+  stations = [];
+  sites = [];
 
   constructor() { }
 
   handleLayerInteraction(
     name?: string,
     viewOnly?: boolean,
-    features?: object[]
+    features?: object[],
+    site?: {
+      name: string,
+      stations: {
+        id: string,
+        class: string,
+        stationId: string,
+        units: string
+      }[]
+    },
+    basin?: {
+      basinCode: string,
+      sites: {
+        name: string,
+        stations: {
+          id: string,
+          class: string,
+          stationId: string,
+          units: string
+        }[]
+      }[]
+    }
   ): void {
     // NOTE: Use switch case if layer names cannot
     // be the same as listed featureTypes
@@ -25,6 +48,19 @@ export class InteractionService {
     if (name && !viewOnly) {
       this.clearAllInfoPanes(name);
       this.featureTypes[name] = features;
+
+      switch (name) {
+        case 'sites':
+          this.stations = site[0].stations;
+          break;
+
+        case 'basins':
+          this.sites = basin[0].sites;
+          break;
+
+        default:
+          // Do something
+      }
     } else {
       this.clearAllInfoPanes();
     }
@@ -35,6 +71,12 @@ export class InteractionService {
       if (type && type !== excludeLayer) {
         delete this.featureTypes[type];
       }
+    }
+
+    if (this.sites.length && excludeLayer !== 'basins') {
+      this.sites = [];
+    } else if (this.stations.length && excludeLayer !== 'sites') {
+      this.stations = [];
     }
   }
 }

@@ -2,7 +2,7 @@
 
 import { Injectable, EventEmitter } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
-import { Feature, GeometryObject, GeoJsonProperties } from 'geojson';
+import { Feature, FeatureCollection, GeometryObject, GeoJsonProperties } from 'geojson';
 
 import { environment as env } from '../../environments/environment';
 import layers from '../../resources/layers';
@@ -24,6 +24,19 @@ export class LayerService {
     type: 'info' | 'warn' | 'error',
     actionText?: string
   }>;
+  basins: {
+    basinCode: string,
+    sites: {
+      name: string,
+      stations: {
+        id: string,
+        class: string,
+        controlElevation?: number,
+        stationId: string,
+        units: string
+      }[]
+    }[]
+  }[];
 
   constructor(
     private httpService: HttpService,
@@ -46,8 +59,12 @@ export class LayerService {
     layerSettings.type = settings.type;
     layerSettings.source = settings.source;
 
-    // REVIEW: each layer style may only have either paint or layout properties (?)
-    layerSettings[selected.type] = settings[selected.type];
+    // NOTE: JS value vs reference assignment
+    // For any properties that need to be modified after assignment to local var,
+    // eg. selection layer icon, filter, etc.
+    // parse a converted string value from layers.ts
+    // to avoid making changes to layers metadata & settings
+    layerSettings[selected.type] = JSON.parse(JSON.stringify(settings[selected.type]));
 
     // Override selected style properties
     const propsToChange = Object.keys(selected.styles);
@@ -58,59 +75,179 @@ export class LayerService {
     }
 
     // Invert global layer filter (last item in array)
-    const featureFilter = settings.filter.slice(-1).pop();
+    const selectionFilter = JSON.parse(JSON.stringify(settings.filter));
+    const featureFilter = selectionFilter.slice(-1).pop();
     featureFilter.splice(0, 1, '==');
-    settings.filter.splice(-1, 1, featureFilter);
-    layerSettings.filter = settings.filter;
+    selectionFilter.splice(-1, 1, featureFilter);
+    layerSettings.filter = selectionFilter;
 
     // add selected feature layer
-    this.map.addLayer(layerSettings);
+    this.map.addLayer(layerSettings, placeBelow);
+  }
+
+  addSensorLayers(
+    geojson: FeatureCollection<GeometryObject, GeoJsonProperties>,
+    server: string,
+    path: string,
+    flags: {[name: string]: any}[]
+  ) {
+    return new Promise((resolve, reject) => {
+      this.sensorService.updateProperties(geojson, server, path, flags)
+      .then(updatedSensors => {
+        geojson.features = updatedSensors;
+        resolve(geojson);
+      })
+      .catch(error => reject(error));
+    });
+  }
+
+  renderLayers(settings, selectionSettings, placeBelow) {
+    // Add base layer
+    this.map.addLayer(settings, placeBelow);
+    // Add selection layer
+    this.addSelectionLayer(settings, selectionSettings, placeBelow);
   }
 
   initializeLayers(
-    map: mapboxgl.Map,
-    region: Region
+    region: Region,
+    adminMode: boolean
   ): void {
-    this.map = map;
-
+    // Iterate over supported layers
     for (const layer of layers.supported) {
+      // Filter layers based on publicAccess, or adminMode check
+      if (layer.metadata.publicAccess || adminMode) {
 
-      switch (layer.metadata.name) {
-        case 'sensors_usgs':
-          this.httpService
-          .getGeometryData(layer.metadata, region.code)
-          .then(geojson => {
-            this.sensorService.updateProperties(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
-            .then(updatedSensors => {
-              geojson.features = updatedSensors;
+        // Get geometry data
+        this.httpService
+        .getGeometryData(layer.metadata, region.code)
+        .then(geojson => {
+          switch (layer.metadata.name) {
+            // REVIEW: All following cases will be deployment specific
+            // Worth refactoring?
+            case 'sensors_usgs':
+              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
+              .then((data) => {
+                if (data) {
+                  layer.settings.source.data = data;
+                  this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                }
+              })
+              .catch((error) => console.log(error));
+              break;
+
+            case 'sensors_sfwmd':
+              // Fetch and join timeseries data to stations, aggregate data fetched during basin, site joining
+              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, [{type: 'timeseries'}])
+              .then((data) => {
+                if (data) {
+                  layer.settings.source.data = data;
+                  this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                  this.linkSfwmdInfrastructure(data['features']);
+                }
+              })
+              .catch((error) => console.log(error));
+              break;
+
+            default:
+              if (layer.metadata.name === 'reports') {
+                this.showReportsNotification(geojson.features.length);
+              }
+              // Overwrite data object
               layer.settings.source.data = geojson;
-
-              // Add layer
-              this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
-              // Add selection layer
-              this.addSelectionLayer(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
-            })
-            .catch(error => console.log(error));
-          });
-          break;
-
-        default:
-          this.httpService
-          .getGeometryData(layer.metadata, region.code)
-          .then(geojson => {
-            // Overwrite data object
-            layer.settings.source.data = geojson;
-
-            if (layer.metadata.name === 'reports') {
-              this.showReportsNotification(geojson.features.length);
-            }
-
-            // Add base layer
-            this.map.addLayer(layer.settings, layer.metadata['placeBelow']);
-            // Add selection layer
-            this.addSelectionLayer(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
-          });
+              this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+          }
+        })
+        .catch(error => console.log(error));
       }
+    }
+  }
+
+  linkSfwmdInfrastructure(stations: {[name: string]: any}[]): void {
+    this.basins = [];
+    for (const station of stations) {
+      const _b = station.properties.basin;
+      const _s = station.properties.site;
+      const _id = station.properties.id;
+      const _class = station.properties.class;
+      const _ce = station.properties.controlElevation;
+      const _uid = station.properties.stationId;
+      const _u = station.properties.units;
+
+      // Lookup matching basin
+      const basinStored = this.basins.filter((basin) => {
+        return basin.basinCode === _b;
+      }).length;
+      if (basinStored) {
+        // Go to matching basin
+        for (const basin of this.basins) {
+
+          if (basin.basinCode === _b) {
+            // Lookup matching site
+            const siteStored = basin.sites.filter((site) => {
+              return site.name === _s;
+            }).length;
+            if (siteStored) {
+              // Go to matching site
+              for (const site of basin.sites) {
+                if (site.name === _s) {
+                  site.stations.push({
+                    id: _id,
+                    class: _class,
+                    controlElevation: _ce,
+                    stationId: _uid,
+                    units: _u
+                  });
+                }
+              }
+
+            } else {
+              // site not stored
+              basin.sites.push({
+                name: String(_s),
+                stations: [{
+                  id: _id,
+                  class: _class,
+                  controlElevation: _ce,
+                  stationId: _uid,
+                  units: _u
+                }]
+              });
+            }
+          }
+        }
+
+      } else {
+        // basin not stored
+        this.basins.push({
+          basinCode: String(_b),
+          sites: [{
+            name: String(_s),
+            stations: [{
+              id: _id,
+              class: _class,
+              controlElevation: _ce,
+              stationId: _uid,
+              units: _u
+            }]
+          }]
+        });
+      }
+    }
+  }
+
+  getNestedProperties(uniqueKey: string, properties: any) {
+    try {
+      return uniqueKey
+        .split('.')
+        .reduce((object, property) => {
+          if (typeof object === 'string') {
+            return JSON.parse(object)[property];
+          } else {
+            return object[property];
+          }
+        }, properties);
+    } catch (err) {
+      return properties[uniqueKey];
     }
   }
 
@@ -122,7 +259,7 @@ export class LayerService {
     const featureFilter = filter.slice(-1).pop();
 
     // Replace 'value' item in ['operator', 'key', 'value'] array
-    const value = restore ? '' : features[0].properties[uniqueKey];
+    const value = restore ? '' : this.getNestedProperties(uniqueKey, features[0].properties);
     featureFilter.splice(-1, 1, value);
     // Replace featureFilter in queried layer filter
     filter.splice(-1, 1, featureFilter);
@@ -200,6 +337,13 @@ export class LayerService {
     });
   }
 
+  notifyLoadingNotComplete() {
+    this.notificationService.notify(
+      'Still loading...',
+      'info'
+    );
+  }
+
   handleMapInteraction(
     event?: {
       type: string,
@@ -223,6 +367,8 @@ export class LayerService {
 
       } else {
         // Iterate over all layers
+        // NOTE: In layers.ts file, declare layer objects in the order of click interaction priority
+
         for (const layer of layers.supported) {
           const name = layer.metadata.name;
           const uniqueKey = layer.metadata.uniqueKey;
@@ -231,21 +377,43 @@ export class LayerService {
             features = this.map.queryRenderedFeatures(event.point, {layers: [name]});
           }
 
-          if (features.length === 1) {
+          if (features.length >= 1) {
             // CASE 2: Clicked on a single feature
-            this.modifyLayerFilter(name, uniqueKey, features);
-            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features);
-            break;
-
-          } else if (features.length > 1) {
             // CASE 3: Clicked with multiple features overlapping
+              // will select the top-most rendered icon / feature
             this.modifyLayerFilter(name, uniqueKey, features);
-            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features);
 
-            // Susceptible to fail when features from 2 different layers are overlapping;
-            // only first layer encountered is selected (report behind flood polygon case)
-            // NOTE: RESOLVED by using placeBelow key of LayerMetadata
-            // Catch in tests
+            let selectedSite;
+            let selectedBasin;
+
+            if (name === 'sites') {
+              if (!this.basins || !this.basins.length) {
+                this.notifyLoadingNotComplete();
+                break;
+              }
+
+              for (const basin of this.basins) {
+                selectedSite = basin.sites.filter((siteGroup) => {
+                  return siteGroup.name === JSON.parse(features[0].properties.tags)['site'];
+                });
+                if (selectedSite.length) {
+                  break;
+                }
+              }
+            }
+
+            if (name === 'basins') {
+              if (!this.basins || !this.basins.length) {
+                this.notifyLoadingNotComplete();
+                break;
+              }
+
+              selectedBasin = this.basins.filter((basin) => {
+                return basin.basinCode === JSON.parse(features[0].properties.tags)['basin_code'];
+              });
+            }
+
+            this.interactionService.handleLayerInteraction(name, layer.metadata.viewOnly, features, selectedSite, selectedBasin);
             break;
 
           } else {
@@ -282,5 +450,14 @@ export class LayerService {
     }
 
     this.notificationService.notify(msg, 'info');
+  }
+
+  zoomToQueriedReport(report: Feature<GeometryObject, GeoJsonProperties>) {
+    this.modifyLayerFilter('reports', 'pkey', [report]);
+    this.interactionService.handleLayerInteraction('reports', null, [report]);
+    this.map.flyTo({
+      zoom: 11,
+      center: report.geometry['coordinates']
+    });
   }
 }

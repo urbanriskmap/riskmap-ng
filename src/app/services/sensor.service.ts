@@ -34,8 +34,11 @@ export class SensorService {
         flags
       )
       .then(observationGroups => {
-        if (observationGroups.length) {
+        if (observationGroups && observationGroups.length) {
           const latestObs = observationGroups[observationGroups.length - 1];
+          // REVIEW: above array object selection working without ?type=timeseries
+          // flag on GET sensor data for SFWMD sensors;
+          // Enforce flag
 
           // Append sensor observations to sensor properties
           if (latestObs.properties.hasOwnProperty('observations')) {
