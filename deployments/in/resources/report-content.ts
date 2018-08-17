@@ -21,20 +21,20 @@ export default {
         3
       ]
     },
-    {
-      icons: [
-        'twitter'
-      ],
-      videoLink: 'https://www.youtube.com/embed/OB5dLtFxVWY',
-      localeKey: 'twitter',
-      steps: [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
+    // {
+    //   icons: [
+    //     'twitter'
+    //   ],
+    //   videoLink: 'https://www.youtube.com/embed/OB5dLtFxVWY',
+    //   localeKey: 'twitter',
+    //   steps: [
+    //     1,
+    //     2,
+    //     3,
+    //     4,
+    //     5
+    //   ]
+    // },
     {
       icons: [
         'telegram'

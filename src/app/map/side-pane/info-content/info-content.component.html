@@ -23,7 +23,8 @@
     <p>{{ 'info_content.p1' | translate }}</p>
     <p>{{ 'info_content.p2' | translate }}</p>
     <p>{{ 'info_content.p3' | translate }}</p>
-    <p id="note">{{ 'info_content.p4' | translate }} <!-- TODO Aditya : Change the numbers according to the selected city -->
+    <p id="note"
+    [innerHTML]="'info_content.p4' | translate"> </p><!-- TODO Aditya : Change the numbers according to the selected city -->
   </div>
 
   <div id="logos">

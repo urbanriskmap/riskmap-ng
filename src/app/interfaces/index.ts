@@ -123,6 +123,10 @@ export interface Region {
     sw: number[];
     ne: number[];
   };
+  initMapview?: {
+    center: number[];
+    zoom: number
+  };
 }
 
 export interface LayerMetadata {

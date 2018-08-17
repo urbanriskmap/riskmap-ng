@@ -18,10 +18,10 @@ export const environment = {
   },
 
   map: {
-    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqMnFraWVzYzAyd24ycXRqMmpvbmhyZ2QifQ.xc_v7umok760t2q6NZK1RA',
-    center: [80.23, 13.06],  // map initializes on chennai
-    initZoom: 10,
-    minZoom: 9,
+    accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
+    center: [76.5, 19], // map initializes on india
+    initZoom: 6,
+    minZoom: 6,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
 
@@ -45,7 +45,8 @@ export const environment = {
 
     deep_links: [
       {name: 'facebook', link: 'http://m.me/riskmapbot'},
-      /*{name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=riskmapindia'},*/
+      // {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=riskmapindia'},
+      // TODO:  Turned off - need to turn on after DM is deployed
       {name: 'telegram', link: 'https://telegram.me/riskmapbot'}
     ]
   }

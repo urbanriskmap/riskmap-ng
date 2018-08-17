@@ -96,6 +96,12 @@ $dark-azure: mat-color($riskmap-primary, 900);
 
 $fire-red: #c23700; // *available; rgb: 194 55 0
 
+hr {
+  border: 0;
+    height: 1px;
+    background: #fffafa;
+    background-image: linear-gradient(to right, #60b8f9, #fffafa, #60b8f9);
+  }
 // Deprecated
 $banjir-blue: #31aade;
 $bencana-red: #c1272d;
