@@ -26,6 +26,7 @@ export const environment = {
       {code: 'ta', name: 'Tamil'},
       {code: 'mr', name: 'Marathi'},
       {code: 'kn', name: 'Kannada'},
+      {code: 'ml', name: 'Malayalam'},
       // {code: 'bn', name: 'Bengali'}
     ],
     defaultLanguage: 'en',

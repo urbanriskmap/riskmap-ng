@@ -38,6 +38,18 @@ export default {
       }
     },
     {
+      name: 'Kerala',
+      code: 'krl',
+      bounds: {
+        sw: [85.7296, 26.0162],
+        ne: [74.6985, 8.1333]
+      },
+      initMapview: {
+        center: [76.2673, 9.9312],
+        zoom: 10
+      }
+    },
+    {
       name: 'madhubani',
       code: 'mdh',
       bounds: {
