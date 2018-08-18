@@ -1,80 +1,93 @@
 {
-"welcome_msg": "Welcome to {{ title }}",
-"display_env": "Current environment: {{ env }}",
-"reports_msg": "Received {{ r }} reports in past {{ h }} hours",
-"partners_label_implementing": "Implementing Partners",
-"partners_label_data": "Data Partners",
-"partners_label_project": "Project Partners",
-"partners_label_support": "Supported by",
-"instance_regions": {
-"chennai": "Chennai",
-"mumbai": "Mumbai",
-"bangalore": "Bangalore",
-"kolkata": "Kolkata",
-"madhubani": "Madhubani"
-},
-"overview_title": "Project overview",
-"facebook_title": "Report with Facebook",
-"facebook_step1": "Search for Riskmap.in on Facebook messenger",
-"facebook_step2": "Click on get started button and follow the instructions to input flood location, flood depth, upload photo, and description.",
-"facebook_step3": "You can see your report on the map via the link provided. Check Riskmap.in for up-to-date flood information.",
-"telegram_title": "Report with Telegram",
-"telegram_step1": "Text /flood to @RiskMapBot.",
-"telegram_step2": "Open the link and follow the instructions to input flood location, upload photo, and description.",
-"telegram_step3": "You can see your report on the map via the link provided. Check RiskMap.in for up-to-date flood information.",
-"twitter_title": "Report with Twitter",
-"twitter_step1": "Send a Direct Message to @riskmapindia",
-"twitter_step2": "@riskmapindia will send you a one-time link to submit report",
-"twitter_step3": "Open the link and follow the instructions to input flood location, upload photo, and description.",
-"twitter_step4": "On successful submission of the report, @riskmapindia will send you a reply with a link to your report",
-"twitter_step5": "Check RiskMap.in for up-to-date flood information.",
-"add_report": "Report Flooding",
-"hint_facebook": "Facebook Messenger",
-"hint_twitter": "Twitter",
-"hint_telegram": "Telegram",
-"reports_stats": "Received {reportsplaceholder} reports in past {hoursplaceholder} hours",
-"web_menu": {
-"tab_names": {
-"map": "map",
-"report": "report",
-"info": "info"
-}
-},
-"report_info": {
-"msg_text": "Check%20flood%20reports%20on%20riskmap%2Eus",
-"water_depth": "Water depth",
-"source": "Source",
-"flagReport_title": "Flag report as inappropriate",
-"flagReport_button": "Tell us more",
-"flagReport_email": "riskmapindia@gmail.com",
-"share_header": "Share this report"
-},
-"map_helper": "Select city :",
-"info_content": {
-"intro": "RiskMap.in harnesses the power of social media to gather, sort, and display information about flooding in real time.",
-"p1": "RiskMap.in is a project initiated by the Urban Risk Lab at MIT as a free, transparent platform for emergency response and disaster management in megacities in South and Southeast Asia.",
-"p2": "The platform adopts a “people are the best sensors” paradigm, where confirmed reports are collected directly from the users at street level in a manner that removes expensive and time-consuming data processing. This framework creates accurate, real-time data which is immediately made available for users and first responders.",
-"p3": "RiskMap.in gathers, sorts, and visualizes data using specially developed CogniCity Open Source Software - an enterprise-level platform for emergency response and disaster management - to transforms the noise of social and digital media into critical information for residents, communities, and government agencies.",
-"p4": "NOTE: For any emergency situation that requires immediate assistance please call Police - 100, Fire - 101, or Ambulance - 108.<hr>Greater Chennai Corporation helpline: 1913. <br> Mumbai Flood helpline: 1916. <br> Bangalore Flood helpline: 1912",
-"termsPopup": "User agreement & Privacy policy",
-"mapCredits": "Basemap tiles",
-"mapImproveLink": "Improve the basemap at",
-"browserStack": "Testing supported by <a href='https://www.browserstack.com' target='_blank'>BrowserStack</a>.",
-"USAID": "This website was made possible with the support of the American People through the U.S. Agency for International Development. This is not an official USAID or U.S. Government website. The contents of this website are the sole responsibility of the authors and do not necessarily reflect the views of USAID of the U.S. Government."
-},
-"legend": {
-"title": "Legend",
-"flood_report": "Flood report",
-"tree": "Downed tree",
-"block": "Drain blocked",
-"damage": "Repairs needed",
-"power": "Power outage",
-"precipitation": "Precipitation total",
-"flood_depth": "Flood depth: {{ flood_depth }} cm",
-"map_infrastructure": "Infrastructure",
-"map_reports": "Reports",
-"map_region": "Region"
-},
+  "welcome_msg": "{{ title }} - സ്വാഗതം",
+  "display_env": "നിലവിലെ പരിസ്ഥിതി: {{ env }}",
+  "reports_msg": "കഴിഞ്ഞ {{ h }} മണിക്കൂറിൽ  {{ r }} റിപ്പോർട്ടുകൾ ലഭിച്ചു",
+
+  "partners_label_implementing": "നടപ്പിലാക്കുന്ന പങ്കാളികൾ",
+  "partners_label_data": "വിവര പങ്കാളികൾ",
+  "partners_label_project": "പ്രോജക്റ്റ് പങ്കാളികൾ",
+  "partners_label_support": "പിന്തുണയ്ക്കുന്നത്",
+
+  "instance_regions": {
+    "chennai": "ചെന്നൈ",
+    "mumbai": "മുംബൈ",
+    "bangalore": "ബാംഗ്ലൂർ",
+    "kolkata": "കൊൽക്കത്ത",
+    "madhubani": "മധുബാനി",
+    "kerala": "കേരളം"
+  },
+  "overview_title": "പ്രോജക്റ്റ് അവലോകനം",
+  "facebook_title": "ഫേസ്ബുക്കിലൂടെ അറിയിക്കുക",
+  "facebook_step1": "ഫേസ്ബുക്ക്  മെസ്സഞ്ചറിൽ Riskmap.in എന്ന് തിരയുക",
+  "facebook_step2": "get started button ക്ലിക്ക് ചെയ്യുക, അപ്പോൾ ലഭിക്കുന്ന നിർദ്ദേശങ്ങൾ അനുസരിച്ചു് വെള്ളപ്പൊക്ക ബാധിത പ്രദേശം ,എത്ര അടി അല്ലെങ്കിൽ എത്ര ആഴം വെള്ളമുണ്ട് ,ഫോട്ടോ ,മറ്റു വിവരങ്ങൾ എന്നിവ രേഖപ്പെടുത്തുക.",
+  "facebook_step3": "കൂടെ കൊടുത്തിരിക്കുന്ന ലിങ്ക്  പരിശോധിച്ചാൽ മാപ്പിൽ  നിങ്ങളുടെ അറിയിപ്പ് കാണാവുന്നതാണ്. വെള്ളപ്പൊക്കത്തെക്കുറിച്ചുള്ള ഏറ്റവും പുതിയ വിവരങ്ങൾ അറിയാൻ Riskmap.in ൽ തിരയുക.",
+
+  "telegram_title": "ടെലഗ്രാമിലൂടെ അറിയിക്കുക",
+  "telegram_step1": " @RiskMapBot എന്നതിലേക്ക് ടെക്സ്റ്റ്  /flood",
+  "telegram_step2": "ലിങ്ക് തുറക്കുമ്പോൾ  ലഭിക്കുന്ന നിർദ്ദേശങ്ങൾ അനുസരിച്ചു്
+വെള്ളപ്പൊക്ക ബാധിത പ്രദേശം ,ഫോട്ടോ, മറ്റു വിവരങ്ങൾ എന്നിവ രേഖപ്പെടുത്തുക.",
+  "telegram_step3": "കൂടെ കൊടുത്തിരിക്കുന്ന ലിങ്ക് പരിശോധിച്ചാൽ മാപ്പിൽ നിങ്ങളുടെ അറിയിപ്പ് കാണാവുന്നതാണ്. വെള്ളപ്പൊക്കത്തെക്കുറിച്ചുള്ള ഏറ്റവും പുതിയ വിവരങ്ങൾ അറിയാൻ Riskmap.in ൽ തിരയുക.",
+
+  "twitter_title": "ട്വിറ്ററിലൂടെ അറിയിക്കുക",
+  "twitter_step1": "@Riskmapindia ലേക്ക് നേരിട്ടുള്ള സന്ദേശം അയയ്ക്കുക",
+  "twitter_step2": "റിപ്പോർട്ട് സമർപ്പിക്കുന്നതിനായി @ rriskmapindia നിങ്ങൾക്ക് ഒരു ഒറ്റത്തവണ ലിങ്ക് അയയ്ക്കും",
+  "twitter_step3": "ലിങ്ക് തുറക്കുമ്പോൾ  ലഭിക്കുന്ന നിർദ്ദേശങ്ങൾ അനുസരിച്ചു് വെള്ളപ്പൊക്ക ബാധിത പ്രദേശം,ഫോട്ടോ, മറ്റു വിവരങ്ങൾ എന്നിവ രേഖപ്പെടുത്തുക.",
+  "twitter_step4": "വിജയകരമായ റിപ്പോർട്ട് സമർപ്പണത്തിൽ @riskmapindia യിൽ നിന്ന് നിങ്ങൾക് ഒരു മറുപടി അയക്കും,അതിൽ നിങ്ങളുടെ റിപ്പോർട്ടിലേക്കുള്ള ഒരു ലിങ്കും ഉണ്ടായിരിക്കുന്നതാണ്",
+  "twitter_step5": "പുതിയ വെള്ളപ്പൊക്കത്തെക്കുറിച്ചുള്ള വിവരങ്ങൾക്ക് RiskMap.in പരിശോധിക്കുക.",
+
+  "add_report": "വെള്ളപ്പൊക്കം റിപ്പോർട്ട് ചെയ്യുക",
+  "hint_facebook":"ഫേസ്ബുക്ക് മെസഞ്ചർ",
+  "hint_twitter":"ട്വിറ്റർ",
+  "hint_telegram":"ടെലഗ്രാം",
+
+  "reports_stats": "കഴിഞ്ഞ {hoursplaceholder} മണിക്കൂറിനുള്ളിൽ {reportsplaceholder} റിപ്പോർട്ടുകൾ ലഭിച്ചു",
+
+  "web_menu": {
+    "tab_names": {
+      "map": "ഭൂപടം",
+      "report": "വിവരം അറിയിക്കുക",
+      "info": "അറിയിപ്പ്"
+    }
+  },
+
+  "report_info": {
+    "msg_text": "വെള്ളപൊക്കത്തെകുറിച്ചുള്ള%20അറിയിപ്പുകൾക്കു %20riskmap%2Ein%20തിരയുക",
+    "water_depth": "വെള്ളത്തിന്റെ ആഴം",
+    "source": "ഉറവിടം",
+    "flagReport_title": "ഇത് അനാവശ്യം ആണെന്ന് അറിയിക്കുക",
+    "flagReport_button": "ഞങ്ങളോട് കൂടുതൽ പറയുക",
+    "flagReport_email": "riskmap@mit.edu",
+    "share_header": "ഈ വിവരം പങ്കുവയ്ക്കുക"
+  },
+
+  "map_helper": "നഗരം തിരഞ്ഞെടുക്കുക :",
+
+  "info_content": {
+    "intro": "റിസ്ക് മാപ് സോഷ്യൽ മീഡിയയുടെ ശക്തി ഉപയോഗിച്ച് തത്സമയ വെള്ളപ്പൊക്ക വിവരങ്ങൾ നിങ്ങളിൽ എത്തിക്കുന്നു.",
+    "p1": "റിസ്ക് മാപ് കിഴക്കൻ ഏഷ്യൻ ഭൂപ്രദേശങ്ങൾക്കായി അമേരിക്കയിലെ മസാച്യുസെറ്സ്  ഇൻസ്റ്റിറ്റ്യൂട്ട് ഓഫ് ടെക്നോളജിയിലെ നാഗരിക റിസ്ക് മാനേജ്‌മന്റ് ഡിപ്പാർട്ടമെന്റ് ദുരന്തങ്ങൾ റിപ്പോർട്ട് ചെയ്യുവാനും നിവാരണക്രിയകൾ ഏകോപിപ്പിക്കുവാനും നിർമിച്ച സുതാര്യവും സൗജന്യവുമായ പ്ലാറ്റഫോം ആണ്.",
+    "p2": "ഈ പ്ലാറ്റ്ഫോം 'ജനങ്ങൾ ഏറ്റവും മികച്ച സെൻസറുകൾ' എന്ന ആശയത്തെ സ്വീകരിക്കുന്നു, എവിടെയാണ് വില കൂടിയതും സമയം ചെലവാക്കുന്നതുമായ ഡാറ്റ സംസ്കരണ പ്രക്രിയ നീക്കം ചെയ്യുന്നതെന്ന് സ്ഥിരീകരിച്ച റിപ്പോർട്ടുകൾ സ്ട്രീറ്റ് തലത്തിൽ ഉപയോക്താക്കളിൽ നിന്ന് നേരിട്ട് ശേഖരിക്കുന്നു. ഈ ചട്ടക്കൂട് ഉപയോക്താക്കൾക്കും ആദ്യത്തെ പ്രതികരിക്കലിനുമായി ഉടൻ ലഭ്യമാക്കുന്ന കൃത്യമായ, തൽസമയ ഡാറ്റ സൃഷ്ടിക്കുന്നു.",
+    "p3": "സാമൂഹ്യവും ഡിജിറ്റൽ മീഡിയയും ശബ്ദമുയർത്തുന്നതിന് താമസക്കാർ, സമുദായങ്ങൾ, ഗവൺമെൻറ് ഏജൻസികൾ എന്നിവയ്ക്കായുള്ള ഗുരുതരമായ വിവരശേഖരണത്തെ രൂപപ്പെടുത്തുന്നതിന് പ്രത്യേകമായി വികസിപ്പിച്ച കോഗ്നിയിറ്റി ഓപ്പൺ സോഴ്സ് സോഫ്റ്റ്വെയർ ഉപയോഗിച്ച് RiskMap ശേഖരിച്ചുവരുന്നു.",
+    "p4":"കുറിപ്പ്: അടിയന്തിര സഹായം ആവശ്യമുള്ള അടിയന്തിര സാഹചര്യങ്ങളിൽ പോലീസിനെ വിളിക്കുക - 100, തീ അസ്തിത്വം അല്ലെങ്കിൽ 108 ആംബുലൻസ് - 108. <hr> കേരള പ്രളയം ഹെൽപ്പ്ലൈൻ: 1077 <br> ചെന്നൈ കോർപ്പറേഷൻ ഹെൽപ്പ്ലൈൻ: 1913. <br> മുംബൈ ഫ്ലഡ് ഹെൽപ്പ്ലൈൻ: <br> <br> ബാംഗ്ലൂർ ഫ്ലഡ് ഹെൽപ്പ്ലൈൻ: 1912 <br> കേരള പ്രളയം ഹെൽപ്പ്ലൈൻ: 1077",
+
+    "termsPopup": "ഉപയോക്തൃ കരാറും, സ്വകാര്യത നയവും",
+    "mapCredits": "Basemap tiles",
+    "mapImproveLink": "Improve the basemap at",
+    "browserStack": "Testing supported by <a href='https://www.browserstack.com' target='_blank'>BrowserStack</a>.",
+
+  "legend": {
+    "title": "സൂചിക",
+    "flood_report": "പ്രളയ റിപ്പോർട്ട്",
+    "tree": "കടപുഴകിയ മരം",
+    "block": "അഴുക്കുചാൽ അടഞ്ഞിരിക്കുന്നു",
+    "damage": "അറ്റകുറ്റപണികൾ ആവശ്യമാണ്",
+    "power":"വൈദ്യുതി തകരാർ",
+    "precipitation":"മൊത്തം മഴ",
+    "flood_depth": "പ്രളയത്തിന്റെ ആഴം: {{ flood_depth }} cm",
+    "map_infrastructure":"അടിസ്ഥാന സൗകര്യം",
+    "map_reports": "റിപ്പോർട്ടുകൾ",
+    "map_region": "മേഖല"
+  },
+
 "user_agreement_title": "User agreement",
 "user_agreement_content": "<p class='header'>RiskMap.in User Agreement</p><p>This agreement governs your access to and use of RiskMap.in and the information and content on and functionality of the RiskMap.in site. By using RiskMap.in or contributing any information text, link, graphics, photos, videos or other materials (Content) to RiskMap.in, you agree to be bound by this agreement. <p class='header'>1. About RiskMap.in</p><p>1.1 RiskMap.in is a project of the Urban Risk Lab at the Massachusetts Institute of Technology (MIT) and is operated in collaboration with the Pacific Disaster Centre (PDC) and Badan Nasional Penanggulangan Bencana (BNPB). MIT, PDC and BNPB are collectively referred to herein as “we” or “us.” RiskMap.in is supported by USAID. <p>1.2 RiskMap.in collects Flood Reports from users to map flooding. The aim of RiskMap.in is to provide and share the best information on the locations of flooding in real-time to help residents and decision makers better respond to floods. <p>1.3 While that is our aim, the Content on RiskMap.in may not be reliable. We trust contributors to provide complete and accurate information, but cannot represent or guarantee the completeness, accuracy or reliability of the Content posted on RiskMap.in. We do not take actions to confirm the accuracy of Flood Report Content. Any use or reliance on Content on the locations of flooding on RiskMap.in, therefore, is at your own risk. <p class='header'>2. Flood Reports</p><p>2.1 You may report a flood via a RiskMap.in Flood Report Card. Report Cards can be requested by asking the RiskMap.in Automated Program 'Bot' for a one-time-link via social messaging. Flood Reports submitted by you through RiskMap.in are added to the publicly available map at <a href=https://riskmap.in/map>https://riskmap.in/map</a>. <p>2.2 Flood Reports may include the following data, which are shared publicly: <ul> <li>Your location at the time of report <li>Social messaging account username or user identification number</ul> <p>2.3 RiskMap.in may at any time and for any reason reject or remove any Flood Report from the RiskMap.in site. <p class='header'>3. Flood Report Content</p><p>3.1 You are solely responsible for any Content you provide to RiskMap.in. You must never add Content owned by someone else, including photos, without explicit permission from the copyright holder. By submitting a Flood Report, you represent that you have all rights, licenses, consents and permissions necessary to submit the Content of the Flood Report and to grant and authorize us to grant the licenses described below. <p>3.2 We do not claim ownership of the Content you submit in a Flood Report, but by submitting a Flood Report, you grant us a worldwide, royalty-free, non-exclusive, perpetual, irrevocable license to use, distribute and display your Flood Report and the Content included in the Flood Report and to sublicense your Flood Report and its Content under the Creative Commons Attribution 4.0 International License (For more details see the license at <a href=https://creativecommons.org/licenses/by/4.0/>https://creativecommons.org/licenses/by/4.0/</a>). This means that others will be able to copy and use the Content of your Flood Report. <p class='header'>4. Other Copyright and License Matters</p><p>4.1 RiskMap.in is supported by Open Source Software and is provided without warranty. For more details, see the <a href=https://github.com/urbanriskmap/urbanriskmap-meta/blob/master/riskmap.in/LICENSING.md>project license documentation</a> <p>4.2 Content on RiskMap.in is licensed under the Creative Commons Attribution 4.0 International License. <p>4.3 If you believe that copyrighted material has been inappropriately added to RiskMap.in, please contact our designated copyright agent at privacy@riskmap.in or Urban Risk Lab, School of Architecture & Planning, 77 Massachusetts Avenue, Cambridge, Massachusetts, 02139 United States. Notification must include: <ul> <li>Identification of the copyrighted material. <li>Identification of the material that is claimed to be infringed, including sufficient information for us to locate the material (e.g., URL, IP address, computer name). <li>Your contact information (e.g., email address, phone number). <li>A statement that you believe use of the material has not been authorized by the copyright owner or an authorized agent. <li>A statement that the information in your notification is accurate and that you are or are authorized to act on behalf of the copyright owner.</ul> <p class='header'>5. Data Privacy</p><p>We respect your privacy. For information about the data we collect and how we use and protect your data, please see our Privacy Policy. <p class='header'>6. Disclaimer; Limitation of Liability</p><p>6.1 RISKMAP.IN AND ANY INFORMATION, CONTENT OR SERVICES MADE AVAILABLE ON OR THROUGH RISKMAP.IN ARE PROVIDED ON AN 'AS IS' AND 'AS AVAILABLE' BASIS AND WE DISCLAIM ALL WARRANTIES OF ANY KIND (EXPRESS, IMPLIED OR OTHERWISE), INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT AND ANY WARRANTY THAT THE SITE WILL OPERATE IN AN UNINTERRUPTED OR ERROR-FREE MANNER OR BE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS, EXCEPT INSOFAR AS ANY SUCH WARRANTIES MAY NOT BE DISCLAIMED UNDER APPLICABLE LAW.</p><p class='header'>6.2 EXCEPT TO THE EXTENT PROHIBITED by applicable law, we are not liable for, and expressly DISCLAIM, all liability for loss, INJURY or damage caused by use of RiskMap.in and the Content on the site. This exclusion of liability includes, but is not limited to, any special, incidental, consequential, punitive or exemplary damages, such as loss of revenue, data, anticipated revenue, HOWEVER AND WHENEVER CAUSED. This exclusion applies even if the Licensor knows or should know of the possibility of such damages.</p><p class='header'>6.3 If liability may not be excluded by law, each of our liability is limited to actual and direct financial loss conclusively found to have been caused by our own negligence.</p><p class='header'>7. Indemnification</p><p>You agree to defend, hold harmless and indemnify each of us, and our respective subsidiaries, affiliates, officials, officers, faculty, students, fellows, governing board members, agents and employees from and against any third-party claims, actions or demands arising out of, resulting from or in any way related to your use ofRiskMap.in, including any liability or expense arising from any and all claims, losses, damages (actual and consequential), suits, judgments, litigation costs and attorneys' fees, of every kind and nature. In such a case, one of us will provide you with written notice of such claim, suit or action.<b></p><p class='header'>8. Miscellaneous</p><p>8.1 This Agreement will be governed by and construed in accordance with the laws of the Commonwealth of Massachusetts in the United States and by applicable federal laws of the United States, without regard to any conflict of laws provisions thereof. In the event any provision of this agreement is found to be unenforceable, such invalidity shall not affect the validity of the remaining portions of this Agreement. <p>8.2 This, together with our Privacy Policy, is the entire agreement between you and us and supersedes any prior or contemporaneous agreement, whether written, oral or other, relating to the subject matter of this agreement. We may amend this agreement from time to time without notice, but any such amendment will not affect your use of or contribution of Content to RiskMap.in prior to the effective date of the amendment. You should revisit this agreement each time you use RiskMap.in or submit a Flood Report to ensure that you understand the agreement that applies to such use or submission. <p>8.3 Our failure to exercise or enforce any right or provision of these TOS shall not constitute a waiver of such right or provision. If any provision of these TOS is found by a court of competent jurisdiction to be invalid, the parties nevertheless agree that the court should endeavor to give effect to the parties' intentions as reflected in the provision and the other provisions of these TOS shall remain in full force and effect. <p>Effective Date: February 6<sup>th</sup>, 2017",
 "privacy_policy_title": "Privacy policy",
