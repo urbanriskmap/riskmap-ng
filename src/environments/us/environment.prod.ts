@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   envName: 'prod-us',
+  deploymentName: 'us',
 
   servers: {
     data: 'https://data.riskmap.us/',
@@ -9,6 +10,11 @@ export const environment = {
     settings: {
       reportTimeperiod: 43200
     }
+  },
+
+  authorization: {
+    userPoolId: 'us-west-2_olPNYtmQ7',
+    appClientId: '5en9df3auvag0msrurit123v30'
   },
 
   map: {

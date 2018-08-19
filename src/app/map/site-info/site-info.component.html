@@ -1,0 +1,72 @@
+<mat-accordion
+  displayMode="flat"
+  multi="true">
+
+  <mat-expansion-panel
+    hideToggle="true"
+    disabled="true"
+    expanded="false">
+    <mat-expansion-panel-header
+      class="title-block">
+      <mat-panel-title>SITE DASHBOARD</mat-panel-title>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    hideToggle="true"
+    disabled="true"
+    expanded="false">
+    <mat-expansion-panel-header>
+      <mat-panel-description>
+        {{ site.name }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    *ngFor="let feature of features, let i = index"
+    expanded="true"
+    disabled="true"
+    hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <i [class]="'icon-' + sfwmdIconMap[feature[0].properties.class]"></i>
+        {{ feature[0].properties.stationId }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ 'sensorTitle.sfwmd.' + feature[0].properties.class | translate }}
+      </mat-panel-description>
+
+      <mat-icon
+        *ngIf="feature[0].properties.observations"
+        fontSet="icon"
+        fontIcon="icon-download"
+        (click)="exportSensorData(feature[0].properties.stationId, feature[0].properties.observations)">
+      </mat-icon>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <app-sensor-info
+        [features]="feature">
+      </app-sensor-info>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    expanded="false"
+    disabled="true"
+    hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-description class="mat-caption">
+        NOTE: Showing 30 min. interval timeseries for past 24 hours
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-action-row>
+    <button mat-stroked-button
+      (click)="closePanel.emit()">
+      CLOSE
+    </button>
+  </mat-action-row>
+</mat-accordion>

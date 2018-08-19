@@ -1,0 +1,64 @@
+@import 'styles';
+
+mat-accordion {
+  width: $pane-width-wide!important;
+
+  mat-expansion-panel {
+    width: $pane-width-wide!important;
+
+    mat-expansion-panel-header {
+      padding: 0 $general-margin 0 $general-margin;
+      height: 40px!important;
+
+      &.title-block {
+        background-color: $light-gray;
+      }
+
+      mat-panel-title {
+        color: $dark-gray!important;
+        i {
+          font-size: 18px;
+          line-height: 14px;
+        }
+      }
+
+      mat-panel-description {
+        color: $medium-gray!important;
+      }
+
+      mat-icon {
+        @include icon-button(21px);
+      }
+    }
+
+    ::ng-deep .mat-expansion-panel-content .mat-expansion-panel-body {
+      padding: $general-margin!important;
+      padding-top: 0!important;
+
+      mat-list mat-list-item {
+        padding: 0;
+        height: 28px;
+
+        div.mat-list-item-content {
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        mat-checkbox {
+          @include text-regular(14px, $dark-gray);
+        }
+      }
+    }
+  }
+
+  mat-action-row {
+    background-color: none;
+    padding: $general-margin;
+    height: 24px;
+
+    button {
+      margin-left: $general-margin / 2;
+      line-height: 24px!important;
+    }
+  }
+}

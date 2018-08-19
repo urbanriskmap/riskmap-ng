@@ -6,6 +6,7 @@ export default {
         name: 'reports',
         server: 'data',
         path: 'reports/',
+        publicAccess: true,
         flags: [{region: true}],
         responseType: 'topojson',
         uniqueKey: 'pkey',

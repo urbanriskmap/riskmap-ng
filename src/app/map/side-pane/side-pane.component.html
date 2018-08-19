@@ -11,6 +11,7 @@
 
     <app-map-content
       *ngSwitchCase="'map'"
+      [adminMode]="adminMode"
       [regions]="regions"
       [selectedRegion]="selectedRegion">
     </app-map-content>

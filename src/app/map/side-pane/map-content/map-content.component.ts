@@ -10,6 +10,7 @@ import { LayerLegend, Region } from '../../../interfaces';
   styleUrls: ['./map-content.component.scss']
 })
 export class MapContentComponent implements OnInit {
+  @Input() adminMode: boolean;
   @Input() regions: Region[];
   @Input() selectedRegion: Region;
 
@@ -29,17 +30,21 @@ export class MapContentComponent implements OnInit {
       reports: {items: []},
       infrastructure: {items: []}
     };
+  }
 
+  ngOnInit() {
     for (const layer of layers.supported) {
-      if (layer.metadata.legendGroup) {
+      if (layer.metadata.legendGroup
+        && (
+          this.adminMode
+          || layer.metadata.publicAccess
+        )) {
+        // Add legend items
         for (const item of layer.legend) {
           this.legend[layer.metadata.legendGroup].items.push(item);
         }
       }
     }
-  }
-
-  ngOnInit() {
   }
 
   changeRegion() {

@@ -73,9 +73,11 @@
     class="report-description flyer">
     <p class="mat-subheading-1 flyerHeading">{{ 'report_info.share_header' | translate }}</p>
     <mat-grid-list cols="4" rowHeight="50px">
+      <!-- TODO: bind target to conditionally checked property, isMobile -->
       <a
         *ngFor="let button of socialButtons"
-        [href]="button.intent">
+        [href]="button.intent"
+        target="_blank">
         <mat-grid-tile>
           <i [class]="'icon-' + button.name"></i>
         </mat-grid-tile>

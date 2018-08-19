@@ -76,25 +76,46 @@
 
   "legend": {
     "title": "Legend",
-    "flood_report": "Flood Report",
-    "gauge": "Stream water elevation",
-    "elevation": "Gauge height",
-    "well": "Groundwater level",
-    "discharge":"Discharge rate",
-    "precipitation":"Precipitation total",
-    "flood_depth": "Flood Depth: {{ flood_depth }} in",
     "infrastructure_title":"Infrastructure",
-    "reports_title": "Reports"
+    "reports_title": "Reports",
+    "flood_report": "Flood Report",
+    "usgs": {
+      "gauge": "Stream water elevation",
+      "elevation": "Gauge height",
+      "well": "Groundwater level",
+      "discharge": "Discharge rate",
+      "precipitation": "Precipitation total"
+    },
+    "sfwmd": {
+      "headwater": "Headwater elevation",
+      "tailwater": "Tailwater elevation",
+      "spillway": "Spillway flow rate",
+      "culvert": "Culvert flow rate",
+      "pump": "Pump flow rate",
+      "weir": "Weir flow rate",
+      "site": "Water control structures",
+      "basin": "Water control catchment"
+    },
+    "flood_depth": "Flood Depth: {{ flood_depth }} in"
   },
 
-  "sensorTitle": {
-    "63160": "Stream water elevation",
-    "00065": "Gauge height",
-    "62610": "Groundwater level",
-    "00060": "Discharge rate",
-    "00045": "Precipitation total"
+  "sensorTitle" : {
+    "usgs": {
+      "63160": "Elevación de agua corriente",
+      "00065": "Altura del indicador",
+      "62610": "Nivel del agua subterránea",
+      "00060": "Tasa de descarga",
+      "00045": "Precipitatión total"
+    },
+    "sfwmd": {
+      "H": "Headwater elevation",
+      "T": "Tailwater elevation",
+      "S": "Spillway",
+      "P": "Pump",
+      "C": "Culvert",
+      "W": "Weir"
+    }
   },
-  "sensorSubtitleConjunction": " above ",
   "sensorLabels": {
     "up": "Upstream",
     "down": "Downstream"

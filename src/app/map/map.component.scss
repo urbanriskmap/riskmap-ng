@@ -6,8 +6,10 @@ $factor: 1.1;
 $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
 
 ::ng-deep .notification-bar {
-  margin-top: $toolbar-height + $general-margin!important;
+  width: 320px!important;
   height: $button-dia!important;
+  margin-top: $toolbar-height + $general-margin!important;
+  padding: 12px 8px 12px 16px !important;
   border: $button-stroke solid $snow-white!important;
   border-radius: ($button-dia + 2 * $button-stroke) / 2!important;
   box-shadow: $pane-shadow;
@@ -15,10 +17,8 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
   line-height: $button-dia;
   z-index: 2;
 
-
   &.notify-info {
     background-color: $frost-white!important;
-    padding: 12px 8px 12px 8px !important;
   }
 
   &.notify-warn {
@@ -133,10 +133,18 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
   #langMenu {
     position: absolute;
     top: 4px;
-    right: 60px;
+    right: 108px;
     width: 80px;
     font-size: 12px;
     height: 38px;
+  }
+
+  .user-button {
+    position: absolute;
+    top: 0px;
+    right: 52px;
+    line-height: $toolbar-height;
+    @include icon-button(34px);
   }
 
   .menu-button {
@@ -160,20 +168,33 @@ $button-dia: ($factor * $toolbar-height) - (2 * $button-stroke);
   z-index: 2;
 
   @media (min-width: 420px) {
-    width: 240px;
+    width: $pane-width-narrow;
     height: auto;
     min-height: 160px;
-    bottom: $general-margin;
-    right: $general-margin;
+    right: $general-margin / 2;
+    bottom: $general-margin / 2;
     padding: 5px;
+
+    &.with-inset-cards {
+      width: auto;
+      min-height: unset;
+      top: $toolbar-height + ($general-margin / 2);
+      padding: 0;
+      background-color: $frost-white;
+      overflow-y: scroll;
+    }
+
+    &.info-wide {
+      width: $pane-width-wide;
+    }
   }
 }
 
 app-side-pane {
   position: fixed;
-  top: $toolbar-height + 5px;
-  right: $general-margin/2;
-  bottom: $general-margin/2;
+  top: $toolbar-height + ($general-margin / 2);
+  right: $general-margin / 2;
+  bottom: $general-margin / 2;
   @include pane-width(420px);
   background-color: $frost-white;
   box-shadow: $pane-shadow;

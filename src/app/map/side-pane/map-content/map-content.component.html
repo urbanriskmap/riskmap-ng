@@ -1,5 +1,6 @@
 <mat-list>
-  <p mat-subheader
+  <div id="cities">
+    <p mat-subheader
     *ngIf="regions.length > 1">
     {{ 'legend.map_region' | translate }}
   </p>
@@ -18,8 +19,8 @@
     </mat-radio-group>
   </mat-list-item>
 
-  <!-- <mat-divider *ngIf="regions.length > 1"></mat-divider> -->
-
+  </div>
+  <!-- <mat-divider *ngIf="regions.length > 1"></mat-divider>  -->
   <p mat-subheader>
     {{ 'legend.title' | translate }}
   </p>
@@ -53,7 +54,7 @@
 
   <p mat-subheader
     *ngIf="legend.infrastructure.items.length">
-      {{ 'legend.map_infrastructure' | translate }}
+      {{ 'legend.infrastructure_title' | translate }}
   </p>
   <mat-list-item
     *ngFor="let item of legend.infrastructure.items">

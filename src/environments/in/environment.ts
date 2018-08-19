@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   envName: 'dev-in',
+  deploymentName: 'in',
 
   servers: {
     data: 'https://data-dev.riskmap.in/',
@@ -9,6 +10,11 @@ export const environment = {
     settings: {
       reportTimeperiod: 604800
     }
+  },
+
+  authorization: {
+    userPoolId: 'ap-south-1_yNLDVmvAW',
+    appClientId: '7iu4qevi6rge61bsnaovckghup'
   },
 
   map: {
@@ -26,6 +32,7 @@ export const environment = {
       {code: 'ta', name: 'Tamil'},
       {code: 'mr', name: 'Marathi'},
       {code: 'kn', name: 'Kannada'},
+      {code: 'ml', name: 'Malayalam'},
       // {code: 'bn', name: 'Bengali'}
     ],
     defaultLanguage: 'en',
