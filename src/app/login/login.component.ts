@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         } else {
           console.log(error);
         }
-      }  
+      }
     });
 
     this.loginFormGroup = new FormGroup({
