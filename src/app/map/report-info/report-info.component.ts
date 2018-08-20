@@ -132,7 +132,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  handleVotes(vote: 1 | -1): void {
+  handleVotes(vote: "1 | -1"['type']): void {
     // close if any flyer is open
     this.toggleFlyer();
 
