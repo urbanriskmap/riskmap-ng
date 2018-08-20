@@ -49,8 +49,14 @@ export class LoginComponent implements OnInit {
     })
     .catch((error) => {
       if (error) {
-        console.log(error);
-      }
+        if (error.hasOwnProperty('code')
+        && error.code === 'NotAuthorizedException'
+        && error.message === 'Refresh Token has expired') {
+          // TODO: display message?
+        } else {
+          console.log(error);
+        }
+      }  
     });
 
     this.loginFormGroup = new FormGroup({

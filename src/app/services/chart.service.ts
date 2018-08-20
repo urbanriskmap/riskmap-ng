@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as Chart from 'chart.js';
+import { Chart } from 'chart.js';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HttpService } from './http.service';

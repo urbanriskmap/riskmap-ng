@@ -31,9 +31,7 @@ export const environment = {
       {code: 'hi', name: 'Hindi'},
       {code: 'ta', name: 'Tamil'},
       {code: 'mr', name: 'Marathi'},
-      {code: 'kn', name: 'Kannada'},
-      {code: 'ml', name: 'Malayalam'},
-      // {code: 'bn', name: 'Bengali'}
+      {code: 'ml', name: 'Malayalam'}
     ],
     defaultLanguage: 'en',
     timezone: 'Asia/Kolkata'

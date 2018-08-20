@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CdkTableModule } from '@angular/cdk/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -19,8 +18,7 @@ import {
   MatSelectModule,
   MatSnackBarModule,
   MatStepperModule,
-  MatTabsModule,
-  MatToolbarModule
+  MatTabsModule
 } from '@angular/material';
 
 
@@ -30,7 +28,6 @@ import {
   exports: [
     NoopAnimationsModule,
     FormsModule,
-    CdkTableModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -46,7 +43,6 @@ import {
     MatSnackBarModule,
     MatStepperModule,
     MatTabsModule,
-    MatToolbarModule,
     ReactiveFormsModule
   ],
   providers: [
