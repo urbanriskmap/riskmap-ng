@@ -14,7 +14,16 @@ export default {
         selected: {
           type: 'layout',
           styles: {
-            'icon-image': 'map_floodIcon_sel'
+            'icon-image': [
+              'match',
+              ['get', 'report_type', ['object', ['get', 'report_data']]],
+              'drain', 'map_blockIcon_sel',
+              'damage', 'map_damageIcon_sel',
+              'power', 'map_powerIcon_sel',
+              'treeclearing', 'map_treeIcon_sel',
+              'flood', 'map_floodIcon_sel',
+              'map_floodIcon_sel'
+            ],
           }
         },
         viewOnly: false
@@ -27,7 +36,16 @@ export default {
           data: <object|null>null
         },
         layout: {
-          'icon-image': 'map_floodIcon',
+          'icon-image': [
+            'match',
+            ['get', 'report_type', ['object', ['get', 'report_data']]],
+            'drain', 'map_blockIcon',
+            'damage', 'map_damageIcon',
+            'power', 'map_powerIcon',
+            'treeclearing', 'map_treeIcon',
+            'flood', 'map_floodIcon',
+            'map_floodIcon'
+          ],
           'icon-allow-overlap': true,
           'icon-ignore-placement': true,
           'icon-size': 0.75

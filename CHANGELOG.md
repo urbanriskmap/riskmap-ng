@@ -1,6 +1,10 @@
 CHANGE LOG
 ==========
 
+### v2.1.1
+- Fixed map icons for preparation reports
+- Fixed share intent messages
+
 ### v2.1.0
 **Added EOC mode functionality**
 
