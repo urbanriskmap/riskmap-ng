@@ -50,7 +50,7 @@
   },
 
   "report_info": {
-    "msg_text": "വെള്ളപൊക്കത്തെകുറിച്ചുള്ള%20അറിയിപ്പുകൾക്കു %20riskmap%2Ein%20തിരയുക",
+    "msg_text": "%E0%B4%B5%E0%B5%86%E0%B4%B3%E0%B5%8D%E0%B4%B3%E0%B4%AA%E0%B5%8D%E0%B4%AA%E0%B5%8A%E0%B4%95%E0%B5%8D%E0%B4%95%20%E0%B4%B1%E0%B4%BF%E0%B4%AA%E0%B5%8D%E0%B4%AA%E0%B5%8B%E0%B5%BC%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%81%E0%B4%95%E0%B5%BE%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B4%BE%E0%B4%AF%E0%B4%BF%20RiskMap.in%20%E0%B4%95%E0%B4%BE%E0%B4%A3%E0%B5%81%E0%B4%95",
     "water_depth": "വെള്ളത്തിന്റെ ആഴം",
     "source": "ഉറവിടം",
     "flagReport_title": "ഇത് അനാവശ്യം ആണെന്ന് അറിയിക്കുക",
