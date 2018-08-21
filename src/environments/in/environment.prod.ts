@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   envName: 'prod-in',
+  deploymentName: 'in',
 
   servers: {
     data: 'https://data.riskmap.in/',
@@ -9,6 +10,11 @@ export const environment = {
     settings: {
       reportTimeperiod: 43200
     }
+  },
+
+  authorization: {
+    userPoolId: 'ap-south-1_yNLDVmvAW',
+    appClientId: '7iu4qevi6rge61bsnaovckghup'
   },
 
   map: {
@@ -25,8 +31,7 @@ export const environment = {
       {code: 'hi', name: 'Hindi'},
       {code: 'ta', name: 'Tamil'},
       {code: 'mr', name: 'Marathi'},
-      {code: 'kn', name: 'Kannada'},
-      // {code: 'bn', name: 'Bengali'}
+      {code: 'ml', name: 'Malayalam'}
     ],
     defaultLanguage: 'en',
     timezone: 'Asia/Kolkata'

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ChartService } from '../../services/chart.service';
 import { SensorInterface } from '../../interfaces';
@@ -8,13 +9,28 @@ import { SensorInterface } from '../../interfaces';
   templateUrl: './sensor-info.component.html',
   styleUrls: ['./sensor-info.component.scss']
 })
-export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
+export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() features: {
     [name: string]: any
   }[];
+  @Input() showPoints: boolean;
+
+  properties: {
+    title: string,
+    units: string,
+    datum?: string
+  };
+  sensorData: {
+    metadata: {[name: string]: any},
+    dataset_1: {y: number, t: string}[],
+    dataset_2?: {y: number, t: string}[]
+  };
+
+  idIndex = '_' + Math.floor(Math.random() * 100);
+  isComponentOpen: boolean;
 
   feature: SensorInterface;
-  hasUpstreamDownstream: boolean | null;
+  hasSubDataStreams: string[] = [];
   usgsSensorMap = {
     '_63160': {
       title: '63160',
@@ -37,74 +53,144 @@ export class SensorInfoComponent implements OnInit, OnChanges, OnDestroy {
   };
 
   constructor(
-    public chartService: ChartService
+    public chartService: ChartService,
+    public translate: TranslateService
   ) { }
-
-  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('features')) {
+      let observations;
       this.feature = this.features[0].properties;
 
-      switch (this.features[0].layer.id) {
-        case 'sensors_usgs':
-          const observations = JSON.parse(this.feature.observations);
-          const properties = {
-            title: this.feature.class,
-            units: this.feature.units,
-            datum: this.usgsSensorMap['_' + this.feature.class].datum
-          };
+      if (this.feature.observations) {
+        switch (this.features[0].layer.id) {
+          case 'sensors_usgs':
+            observations = JSON.parse(this.feature.observations);
+            this.properties = {
+              title: 'usgs.' + this.feature.class,
+              units: this.feature.units,
+              datum: this.usgsSensorMap['_' + this.feature.class].datum
+            };
 
-          if (Array.isArray(observations)) {
-            this.chartService.drawSensorChart(
-              document.getElementById('sensorChartWrapper'),
-              this.chartService.parseData(observations, false),
-              properties
-            );
-          } else if (
-            observations.hasOwnProperty('upstream')
-            && observations.hasOwnProperty('downstream')
-          ) {
-            this.hasUpstreamDownstream = true;
+            if (Array.isArray(observations)) {
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+            } else if (
+              observations.hasOwnProperty('upstream')
+              && observations.hasOwnProperty('downstream')
+            ) {
+              this.hasSubDataStreams = ['upstream', 'downstream'];
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+            }
+            break;
 
-            this.chartService.drawSensorChart(
-              document.getElementById('sensorChartWrapper'),
-              this.chartService.parseData(observations, true),
-              properties
-            );
-          }
-          break;
+          case 'sensors_sfwmd':
+            observations = Array.isArray(this.feature.observations) ?
+              this.feature.observations :
+              JSON.parse(this.feature.observations);
 
-        case 'floodgauges':
-          const sensorData = {dataset_1: []};
+            if (this.features[0].hasOwnProperty('supressChartTitles')) {
+              this.properties = {
+                title: '',
+                units: this.feature.units,
+                datum: ''
+              };
+            } else {
+              this.properties = {
+                title: 'sfwmd.' + this.feature.class,
+                units: this.feature.stationId + ', ' + this.feature.units,
+                datum: ' '
+              };
+            }
 
-          for (const obs of JSON.parse(this.feature.observations)) {
-            sensorData.dataset_1.push({
-              y: obs.f2,
-              t: obs.f1
-            });
-          }
+            this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+            if (this.feature.hasOwnProperty('controlElevation')) {
+              this.sensorData.metadata.controlElevation = this.feature.controlElevation;
+            }
 
-          this.chartService.drawSensorChart(
-            document.getElementById('sensorChartWrapper'),
-            sensorData,
-            {
+            break;
+
+          case 'sensors_noaa':
+            observations = JSON.parse(this.feature.observations);
+            this.properties = {
+              title: this.feature.name,
+              units: this.feature.units,
+              datum: this.feature.datum
+            };
+
+            if (Array.isArray(observations)) {
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+            } else if (
+              observations.hasOwnProperty('water_level')
+              && observations.hasOwnProperty('predictions')
+            ) {
+              this.hasSubDataStreams = ['water_level', 'predictions'];
+              this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+            }
+            break;
+
+          case 'floodgauges':
+            const sensorData = {
+              metadata: {},
+              dataset_1: []
+            };
+
+            for (const obs of JSON.parse(this.feature.observations)) {
+              sensorData.dataset_1.push({
+                y: obs.f2,
+                t: obs.f1
+              });
+            }
+
+            if (sensorData.dataset_1.length) {
+              sensorData.metadata['lastUpdated'] = sensorData.dataset_1[sensorData.dataset_1.length - 1].t;
+            }
+
+            this.sensorData = sensorData;
+            this.properties = {
               title: 'Set Title',
               units: 'Set Units',
               datum: 'If available'
-            }
-          );
-          break;
+            };
+            break;
 
-        default:
-          // do something
+          default:
+            // do something
+        }
+
+        if (this.isComponentOpen) {
+          this.drawChart();
+        }
       }
+    }
+  }
+
+  drawChart() {
+    this.chartService.drawSensorChart(
+      {
+        element: document.getElementById('sensorChartWrapper' + this.idIndex),
+        id: this.idIndex
+      },
+      this.sensorData,
+      this.properties,
+      this.showPoints
+    );
+  }
+
+  ngOnInit(): void { }
+
+  ngAfterViewInit() {
+    if (this.sensorData) {
+      this.drawChart();
+      this.isComponentOpen = true;
     }
   }
 
   ngOnDestroy(): void {
     this.features = null;
     this.feature = null;
-    this.hasUpstreamDownstream = null;
+    this.properties = null;
+    this.sensorData = null;
+    this.idIndex = null;
+    this.hasSubDataStreams = [];
   }
 }

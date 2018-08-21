@@ -11,12 +11,14 @@ import 'rxjs/add/operator/switchMap';
 
 import * as mapboxgl from 'mapbox-gl';
 
+import layers from '../../resources/layers';
 import { environment } from '../../environments/environment';
 import instances from '../../resources/instances';
 import { LayerService } from '../services/layer.service';
 import { InteractionService } from '../services/interaction.service';
 import { NotificationService } from '../services/notification.service';
 import { TimeService } from '../services/time.service';
+import { AuthService } from '../services/auth.service';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
@@ -27,11 +29,11 @@ import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  providers: [ LayerService, InteractionService ]
 })
-export class MapComponent implements OnInit { // , OnDestroy {
-  navigationSubscription;
-
+export class MapComponent implements OnInit, OnDestroy {
+  adminMode = false;
   deferredPrompt: any;
   env: EnvironmentInterface = environment;
   fullSizeImgUrl: string;
@@ -43,6 +45,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     code: string,
     name: string
   }[];
+  navigationSubscription: Subscription;
   notificationSubscription: Subscription;
   openNotificationMsg: string;
   paneToOpen = 'info';
@@ -55,18 +58,16 @@ export class MapComponent implements OnInit { // , OnDestroy {
   };
   viewingArchivedReport: boolean;
 
-  @Output() map: mapboxgl.Map;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private layerService: LayerService,
+    private notificationService: NotificationService,
     public dialog: MatDialog,
     public notify: MatSnackBar,
     public translate: TranslateService,
-    public layerService: LayerService,
-    public interactionService: InteractionService,
-    private notificationService: NotificationService,
-    public timeService: TimeService
+    public timeService: TimeService,
+    public authService: AuthService
   ) {
     this.instances = instances;
     this.languages = this.env.locales.supportedLanguages;
@@ -76,7 +77,6 @@ export class MapComponent implements OnInit { // , OnDestroy {
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.translate.use(this.env.locales.defaultLanguage);
 
-    // IDEA: Switch to single page navigation?
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component (landing page)
       if (e instanceof NavigationEnd) {
@@ -87,7 +87,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
   initializeMap(): void {
     mapboxgl.accessToken = this.env.map.accessToken;
-    this.map = new mapboxgl.Map({
+    this.layerService.map = new mapboxgl.Map({
       attributionControl: false,
       container: 'mapWrapper',
       center: this.env.map.center,
@@ -99,13 +99,13 @@ export class MapComponent implements OnInit { // , OnDestroy {
     });
 
     // Add navigation control
-    this.map.addControl(
+    this.layerService.map.addControl(
       new mapboxgl.NavigationControl(),
       'bottom-left'
     );
 
     // Add geolocation button
-    this.map.addControl(
+    this.layerService.map.addControl(
       new mapboxgl.GeolocateControl({
         positionOptions: {
           enableHighAccuracy: true,
@@ -120,10 +120,18 @@ export class MapComponent implements OnInit { // , OnDestroy {
     const instance = this.route.snapshot.paramMap.get('region');
 
     if (this.instances.regions.length === 1) {
+      // Proceed to the only instance region in deployment
       this.selectedRegion = this.instances.regions[0];
+      window.history.replaceState(
+        {},
+        '',
+        location.origin + '/' + this.selectedRegion.name
+      );
       return true;
     } else {
+      // Loop through supported instance regions of deployment
       for (const region of this.instances.regions) {
+        // Compare region name
         if (instance === region.name) {
           this.selectedRegion = region;
           return true;
@@ -131,6 +139,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
       }
     }
 
+    // Else return false, and bring up region selection popup
     return false;
   }
 
@@ -181,19 +190,12 @@ export class MapComponent implements OnInit { // , OnDestroy {
         value: this.getLanguageCode(params['lang'])
       });
 
-      // Clear URL
-      if (this.selectedRegion) {
-        window.history.pushState({}, document.title, '/' + this.selectedRegion.name);
+      // AdminMode
+      if (params['admin']
+        && params['admin'] === 'true'
+        && this.authService.isAuthorized) {
+        this.adminMode = true;
       }
-    });
-  }
-
-  zoomToQueriedReport(report: Feature<GeometryObject, GeoJsonProperties>) {
-    this.layerService.modifyLayerFilter('reports', 'pkey', [report]);
-    this.interactionService.handleLayerInteraction('reports', null, [report]);
-    this.map.flyTo({
-      zoom: 11,
-      center: report.geometry['coordinates']
     });
   }
 
@@ -201,41 +203,63 @@ export class MapComponent implements OnInit { // , OnDestroy {
   // Catch in tests
   lookupQueriedReport(event): void {
     if (event.sourceId === 'reports') {
+      // Iterate over report layer geojson features
       for (const report of event.source.data.features) {
         if (report.properties.pkey === this.selectedReportId) {
           // Report found in loaded dataset
-          this.zoomToQueriedReport(report);
+          this.layerService.zoomToQueriedReport(report);
           return;
         }
       }
 
       // Report not found in set server timeperiod
       // Fetch from server OR notify
-      // FIXME: CORS error
-      // Try http://localhost:4200/broward/53 then check console logs
       this.layerService.addSingleReportToLayer(this.selectedReportId)
       .then(report => {
-        this.zoomToQueriedReport(report);
-        this.viewingArchivedReport = true;
+        // FIXME: pans anywhere across the globe,
+        // check ?id=85
+        this.layerService.zoomToQueriedReport(report);
+
+        const reportsTimeperiodCutoff = this.timeService.getLocalTime(
+          (new Date(
+            Date.parse(
+              (new Date()).toISOString()
+            ) - (this.env.servers.settings.reportTimeperiod * 1000)
+          )).toISOString()
+        );
+        const queryReportCreatedAt = this.timeService.getLocalTime(report.properties.created_at);
+
+        // NOTE: Due to 1 minute reports caching setting on reports endpoint,
+        // recently submitted reports do not show up in the reports layer,
+        // causing them to be falsely tagged as 'archived reports'
+        // Following check bypasses that glitch
+        if (queryReportCreatedAt.isBefore(reportsTimeperiodCutoff)) {
+          this.viewingArchivedReport = true;
+        }
       })
       .catch(error => console.log('Queried report does not exist'));
     }
   }
 
   bindMapEventHandlers(): void {
-    this.map.on('style.load', () => {
+    this.layerService.map.on('style.load', () => {
       if (this.selectedRegion) {
         // Fly to selected region
         this.setBounds();
+
+        const adminMode = this.authService.isAuthorized && this.adminMode;
+
         // Then load layers
-        this.layerService.initializeLayers(this.map, this.selectedRegion);
+        this.layerService.initializeLayers(this.selectedRegion, adminMode);
       }
     });
 
     // Handle click interactions
-    this.map.on('click', event => {
+    this.layerService.map.on('click', event => {
+      // Clear any open panes
       this.toggleSidePane({close: true});
       this.toggleReportFlyer({close: true});
+
       if (this.viewingArchivedReport) {
         this.viewingArchivedReport = false;
       }
@@ -243,7 +267,7 @@ export class MapComponent implements OnInit { // , OnDestroy {
     });
 
     let eventCall = 0;
-    this.map.on('dataloading', event => {
+    this.layerService.map.on('dataloading', event => {
       if (event.sourceId === 'reports'
       && this.selectedReportId) {
         // 3 dataloading calls are made per layer source
@@ -266,16 +290,12 @@ export class MapComponent implements OnInit { // , OnDestroy {
       }
     });
 
-    // IDEA: Switch to single page navigation?
     // Reset map layers, sources;
     // Clear stored values for instances
     this.initializeMap();
 
     if (!this.hasRegionParam()) {
       this.openDialog('pickRegion');
-
-      // IDEA: Switch to single page navigation?
-      // Then fly to selected instance
     } else {
       this.bindMapEventHandlers();
     }
@@ -283,14 +303,15 @@ export class MapComponent implements OnInit { // , OnDestroy {
     this.storeQueryParams();
   }
 
-  // TODO: Mayank - stack notifications
+  // TODO: Mayank - stack notifications?
   // REVIEW: Mayank - use openFromComponent method to pass custom component
   showNotification(
     msg: string,
     type: 'info' | 'warn' | 'error'
   ) {
     if (this.openNotificationMsg) {
-      msg = msg + '; ' + this.openNotificationMsg;
+      this.notify.dismiss();
+      // msg = msg + '; ' + this.openNotificationMsg;
     }
 
     const notification = this.notify.open(msg, '✕', {
@@ -323,37 +344,28 @@ export class MapComponent implements OnInit { // , OnDestroy {
 
       return false;
     });
-
-    // IDEA: Switch to single page navigation?
-    // this.initializeMap();
-    // this.initialiseLandingRoute();
   }
 
   setBounds(): void {
-    if (this.selectedRegion.hasOwnProperty('initMapview')) {
-      this.map.flyTo({
-        center: this.selectedRegion.initMapview.center,
-        zoom: this.selectedRegion.initMapview.zoom,
-        minZoom: this.env.map.minZoom
-      });
-    } else {
-      this.map.fitBounds([
-        this.selectedRegion.bounds.sw,
-        this.selectedRegion.bounds.ne
-      ]);
-    }
+    this.layerService.map.fitBounds([
+      this.selectedRegion.bounds.sw,
+      this.selectedRegion.bounds.ne
+    ]);
   }
 
   openDialog(content: string): void {
     let dialogRef;
 
     if (content === 'pickRegion') {
-      dialogRef = this.dialog.open(RegionPickerComponent, {
+      dialogRef = this.dialog
+      .open(RegionPickerComponent, {
         width: '320px',
         data: this.instances.regions
       });
+
       // Can only be closed by selecting an option
       dialogRef.disableClose = true;
+
     } else if (content === 'agreementPolicy') {
       dialogRef = this.dialog.open(AgreementAndPolicyComponent, {
         width: '420px',
@@ -441,13 +453,31 @@ export class MapComponent implements OnInit { // , OnDestroy {
     }
   }
 
-  // ngOnDestroy(): void {
-  //   // Required when app has more than one route, eg. /dashboard
-  //   // avoid memory leaks here by cleaning up after ourselves. If we
-  //   // don't then we will continue to run our initialiseLandingRoute()
-  //   // method on every navigationEnd event.
-  //   if (this.navigationSubscription) {
-  //      this.navigationSubscription.unsubscribe();
-  //   }
-  // }
+  logoutUser(): void {
+    this.adminMode = false;
+    this.authService.logoutUser();
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/' + this.selectedRegion.name]);
+  }
+
+  getFeatures(layer: string, root?: true) {
+    const features = root ? this.layerService.interactionService[layer]
+      : this.layerService.interactionService.featureTypes[layer];
+
+    if (features && features.length) {
+      return features;
+    }
+
+    return false;
+  }
+
+  ngOnDestroy(): void {
+    // Required when app has more than one route, eg. /login
+    // avoid memory leaks here by cleaning up after ourselves. If we
+    // don't then we will continue to run our initialiseLandingRoute()
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
+  }
 }

@@ -19,7 +19,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
   @Input() archivedReport: boolean;
 
   votes: number;
-  voteSelector = [-1, 0, 1]; // Current vote index = 1
+  voteSelector: number[]; // Current vote index = 1
   storedVote: number;
 
   env = environment;
@@ -56,6 +56,13 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
 
+      // Update browser url with currently selected report's id
+      window.history.pushState(
+        {},
+        '',
+        location.pathname + '?id=' + this.feature.pkey
+      );
+
       // Parse report data
       if (this.feature.report_data) {
         if (typeof this.feature.report_data === 'string') {
@@ -65,6 +72,8 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
 
+      // Initialize vote selector array
+      this.voteSelector = [-1, 0, 1];
       // Set votes
       this.votes = this.parsedReportData['points'] ? this.parsedReportData['points'] : 0;
 
@@ -97,7 +106,9 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
       this.translate.get('report_info.msg_text').subscribe((res: string) => {
         msgText = res;
       });
-      const reportUrl = location.href + '%3Freport_id%3D' + this.feature.pkey;
+      const reportUrl = encodeURIComponent(
+        location.origin + location.pathname + '?id=' + this.feature.pkey
+      );
 
       this.socialButtons = [
         {
@@ -108,6 +119,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           name: 'twitter',
           intent: 'https://twitter.com/intent/tweet?text=' + msgText + '%20' + reportUrl
         },
+        // TODO: use web.whatsapp.com if isMobile = false
         {
           name: 'whatsapp',
           intent: 'https://api.whatsapp.com/send?text=' + msgText + '%20' + reportUrl
@@ -120,7 +132,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  handleVotes(vote: 1 | -1): void {
+  handleVotes(vote: '1 | -1'['type']): void {
     // close if any flyer is open
     this.toggleFlyer();
 
@@ -163,7 +175,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           document.getElementById(flyer + 'Button').classList.remove('active');
 
         } else {
-          // clicked on other
+          // clicked on another flyer
           // close already open flyer
           if (flyer === 'share') {
             this.showFlyer.flag = false;
@@ -191,5 +203,12 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     this.features = null;
     this.feature = null;
     this.storedVote = null;
+
+    // Update browser url, remove query param
+    window.history.pushState(
+      {},
+      document.title,
+      location.pathname
+    );
   }
 }

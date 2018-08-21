@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   envName: 'prod-id',
+  deploymentName: 'id',
 
   servers: {
     data: 'https://data.petabencana.id/',

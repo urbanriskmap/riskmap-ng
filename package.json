@@ -1,19 +1,17 @@
 {
   "name": "urbanriskmap-webapp",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "author": "Urban Risk Lab",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "dep=in npm run fetch-assets && ng serve",
+    "start": "dep=us npm run fetch-assets && ng serve",
     "build": "npm run build-dev && npm run build-prod",
     "build-dev": "npm run build-dev-in && npm run build-dev-us",
     "build-prod": "npm run build-prod-ngsw-us && npm run build-prod-ngsw-in",
-    "build-dev-id": "dep=id npm run fetch-assets && ng build --env=dev-id --output-path='dist/dev-id'",
     "build-dev-us": "dep=us npm run fetch-assets && ng build --env=dev-us --output-path='dist/dev-us'",
     "build-dev-in": "dep=in npm run fetch-assets && ng build --env=dev-in --output-path='dist/dev-in'",
-    "build-prod-id": "dep=id npm run fetch-assets && ng build --env=prod-id --output-path='dist/prod-id'",
-    "build-prod-us": "dep=us npm run fetch-assets && ng build --env=prod-us --output-path='dist/prod-us'",
-    "build-prod-in": "dep=in npm run fetch-assets && ng build --env=prod-in --output-path='dist/prod-in'",
+    "build-prod-us": "dep=us npm run fetch-assets && ng build --prod --env=prod-us --output-path='dist/prod-us' --build-optimizer --vendor-chunk=true --stats-json",
+    "build-prod-in": "dep=in npm run fetch-assets && ng build --prod --env=prod-in --output-path='dist/prod-in' --build-optimizer --vendor-chunk=true --stats-json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -21,7 +19,8 @@
     "build-prod-ngsw-in": "npm run build-prod-in && node_modules/.bin/ngsw-config dist/prod-in ./src/ngsw-config.json && cp node_modules/@angular/service-worker/ngsw-worker.js ./dist/prod-in/ngsw-worker.js",
     "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist/prod-us -p 8080",
     "fetch-assets": "gulp --gulpfile ./tasks/fetch-assets --dep $dep",
-    "docs": "rm -rf ./docs && gulp --gulpfile ./tasks/generate-docs"
+    "docs": "rm -rf ./docs && gulp --gulpfile ./tasks/generate-docs",
+    "bundle-report": "npm run build-prod-in && webpack-bundle-analyzer dist/prod-in/stats.json"
   },
   "repository": {
     "type": "git",
@@ -47,13 +46,11 @@
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
     "@types/geojson": "^7946.0.4",
+    "amazon-cognito-identity-js": "^2.0.16",
     "chart.js": "^2.7.2",
     "core-js": "^2.5.7",
-    "exif-js": "^2.3.0",
-    "jquery": "^3.3.1",
     "less": "^2.7.3",
     "mapbox-gl": "^0.45.0",
-    "minimist": "^1.2.0",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "node-sass": "^4.9.0",
@@ -66,7 +63,7 @@
     "@angular/cli": "^1.7.4",
     "@angular/compiler-cli": "^5.2.11",
     "@angular/language-service": "^5.2.11",
-    "@types/jasmine": "~2.5.53",
+    "@types/jasmine": "^2.8.8",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^6.0.113",
     "codelyzer": "^4.4.2",
@@ -83,10 +80,12 @@
     "karma-coverage-istanbul-reporter": "^1.4.3",
     "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.1.2",
+    "minimist": "^1.2.0",
+    "protractor": "^5.3.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typedoc": "^0.11.1",
-    "typescript": "~2.4.2"
+    "typescript": "~2.4.2",
+    "webpack-bundle-analyzer": "^2.13.1"
   }
 }

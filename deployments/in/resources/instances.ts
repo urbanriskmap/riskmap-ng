@@ -1,7 +1,19 @@
 export default {
   instanceType: 'City', // city / county / etc
   regions: [
-    {
+  {
+    name: 'kerala',
+    code: 'krl',
+    bounds: {
+      sw: [74.6985, 8.1333],
+      ne: [78.2170, 12.978]
+    },
+    initMapview: {
+      center: [76.2673, 9.9312],
+      zoom: 10
+    }
+  },
+  {
       name: 'mumbai',
       code: 'mum',
       bounds: {

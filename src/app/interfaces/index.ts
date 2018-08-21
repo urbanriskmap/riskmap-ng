@@ -1,6 +1,3 @@
-// REFER docs.petabencana.id (move to api.urbanriskmap.org ?)
-// Update interface definitions
-
 /*
 // Interface template
 export interface InterfaceName {
@@ -11,6 +8,8 @@ export interface InterfaceName {
 export interface EnvironmentInterface {
   production: boolean;
   envName: string;
+  /* tslint:disable-next-line:quotemark */
+  deploymentName: "'us' | 'id' | 'in'"['type']; // Cast string literals as type
   servers: {
     data: string;
     sensors: string;
@@ -18,6 +17,10 @@ export interface EnvironmentInterface {
     settings: {
       reportTimeperiod: number;
     };
+  };
+  authorization: {
+    userPoolId: string;
+    appClientId: string;
   };
   map: {
     accessToken: string;
@@ -86,13 +89,31 @@ export interface ReportInterface {
 
 export interface SensorInterface {
   [name: string]: any;
-  // id: number;
-  // class: string;
-  // created: string;
-  // observations: string;
-  // type: string;
-  // uid: string;
-  // units: string;
+  // Sample USGS
+  /*
+  agency: 'usgs';
+  class: string;
+  created: string;
+  id: number;
+  observations: string;
+  type: string;
+  uid: string;
+  units: string;
+  */
+
+  // Sample SFWMD
+  /*
+  agency: 'sfwmd';
+  basin: string;
+  class: string;
+  controlElevation: number;
+  created: string;
+  id: number;
+  observations: string;
+  site: string;
+  stationId: string;
+  units: string;
+  */
 }
 
 export interface Region {
@@ -112,6 +133,7 @@ export interface LayerMetadata {
   name: string;
   server: string;
   path: string;
+  publicAccess: boolean;
   flags: {
     [name: string]: any
   }[];
@@ -132,6 +154,8 @@ export interface LayerMetadata {
 
 export interface LayerSettings {
   id: string;
+  minzoom?: number;
+  maxzoom?: number;
   type: string;
   source: {
     type: string;

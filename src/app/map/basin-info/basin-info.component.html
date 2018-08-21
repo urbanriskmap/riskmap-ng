@@ -1,0 +1,135 @@
+<mat-accordion
+  id="stationSelectorWrapper"
+  *ngIf="!features.length"
+  displayMode="flat"
+  multi="true">
+
+  <mat-expansion-panel
+    hideToggle="true"
+    disabled="true"
+    expanded="false">
+    <mat-expansion-panel-header
+      class="title-block">
+      <mat-panel-title>BASIN DASHBOARD</mat-panel-title>
+      <mat-panel-description>{{ basin.name }}</mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    hideToggle="true"
+    disabled="true"
+    expanded="false">
+    <mat-expansion-panel-header>
+      <mat-panel-description>
+        Select stations to view 7 day mean values:
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    *ngFor="let site of sites"
+    hideToggle="true"
+    disabled="true"
+    expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-description>Site: {{ site.name }}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <mat-list>
+        <mat-list-item
+          *ngFor="let station of site.stations">
+          <mat-checkbox
+            [(ngModel)]="station.selected"
+            (change)="checkSelectionList()"
+            labelPosition="after">
+            {{ 'sensorTitle.sfwmd.' + station.class | translate }}&nbsp;&#x28;{{ station.stationId }}&#x29;
+          </mat-checkbox>
+        </mat-list-item>
+      </mat-list>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-action-row>
+    <button mat-stroked-button
+      (click)="closePanel.emit()">
+      CANCEL
+    </button>
+    <button mat-stroked-button
+      color="primary"
+      (click)="submitSelection()"
+      [disabled]="!areStationsSelected">
+      SUBMIT
+    </button>
+  </mat-action-row>
+</mat-accordion>
+
+
+<mat-accordion
+  id="aggregateChartsWrapper"
+  *ngIf="features.length"
+  displayMode="flat"
+  multi="true">
+
+  <mat-expansion-panel
+    hideToggle="true"
+    disabled="true"
+    expanded="false">
+    <mat-expansion-panel-header
+      class="title-block">
+      <mat-panel-title>BASIN DASHBOARD</mat-panel-title>
+      <mat-panel-description>{{ basin.name }}</mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    *ngFor="let feature of features, let i = index"
+    expanded="true"
+    disabled="true"
+    hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <i [class]="'icon-' + sfwmdIconMap[feature[0].properties.class]"></i>
+        {{ feature[0].properties.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ 'sensorTitle.sfwmd.' + feature[0].properties.class | translate }}
+      </mat-panel-description>
+      <mat-icon
+        *ngIf="feature[0].properties.observations"
+        fontSet="icon"
+        fontIcon="icon-download"
+        (click)="exportSensorData(feature[0].properties.name, feature[0].properties.observations)">
+      </mat-icon>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <app-sensor-info
+        [features]="feature"
+        showPoints="true">
+      </app-sensor-info>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    expanded="false"
+    disabled="true"
+    hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-description class="mat-caption">
+        NOTE: Showing daily mean values for past 7 days
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <mat-action-row>
+    <button mat-stroked-button
+      (click)="resetSelection()">
+      BACK
+    </button>
+    <button mat-stroked-button
+      (click)="closePanel.emit()">
+      CLOSE
+    </button>
+  </mat-action-row>
+</mat-accordion>

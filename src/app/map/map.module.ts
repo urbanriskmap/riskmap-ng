@@ -24,14 +24,14 @@ import { CustomMaterialsModule } from '../custom-materials.module';
 // Services
 import { ChartService } from '../services/chart.service';
 import { HttpService } from '../services/http.service';
-import { InteractionService } from '../services/interaction.service';
-import { LayerService } from '../services/layer.service';
 import { NotificationService } from '../services/notification.service';
 import { SensorService } from '../services/sensor.service';
 import { TimeService } from '../services/time.service';
 
 // Pipes
 import { SanitizePipe } from '../pipes/sanitize.pipe';
+import { SiteInfoComponent } from './site-info/site-info.component';
+import { BasinInfoComponent } from './basin-info/basin-info.component';
 
 @NgModule({
   imports: [
@@ -42,11 +42,9 @@ import { SanitizePipe } from '../pipes/sanitize.pipe';
   ],
   providers: [
     TimeService,
-    LayerService,
     HttpService,
     TranslatePipe,
     SensorService,
-    InteractionService,
     ChartService,
     NotificationService
   ],
@@ -67,7 +65,9 @@ import { SanitizePipe } from '../pipes/sanitize.pipe';
     MapContentComponent,
     InfoContentComponent,
     SanitizePipe,
-    ImagePreviewComponent
+    ImagePreviewComponent,
+    SiteInfoComponent,
+    BasinInfoComponent
   ]
 })
 export class MapModule { }

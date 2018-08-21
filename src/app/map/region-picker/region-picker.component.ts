@@ -11,7 +11,7 @@ import { Region } from '../../interfaces';
 export class RegionPickerComponent implements OnInit {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: Region[]
+    @Inject(MAT_DIALOG_DATA) public data: Region[]
   ) { }
 
   ngOnInit() {
