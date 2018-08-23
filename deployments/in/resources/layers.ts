@@ -77,6 +77,11 @@ export default {
           symbolType: 'icon',
           symbolStyle: 'icon-map-power',
           label: 'legend.power',
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-map-assessment',
+          label: 'legend.assessment',
         }
       ]
     }

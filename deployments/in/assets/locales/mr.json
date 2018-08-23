@@ -74,6 +74,7 @@
 "block": "तुंबलेले ड्रेन",
 "damage": "गाळाचा निचरा किंवा दुरुस्ती",
 "power": "वीज खंडित",
+"assessment": "rapid assessment",
 "precipitation": "एकूण पर्जन्यमान",
 "flood_depth": "पाण्याची खोली: {{ flood_depth }} (से.मी.)",
 "map_infrastructure": "पायाभूत सुविधा",

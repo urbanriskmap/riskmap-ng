@@ -69,6 +69,7 @@
 "block": "नाली अवरुद्ध",
 "damage": "मरम्मत की जरूरत है",
 "power": "बिजली अनुपलब्धता",
+"assessment": "rapid assessment",
 "rain": "कुल वर्षा",
 "flood_depth": "बाढ़ गहराई: {{flood_depth}} सेमी",
 "Map_infrastructure": "आधारिक संरचना",

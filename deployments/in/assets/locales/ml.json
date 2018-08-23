@@ -81,6 +81,7 @@
     "block": "അഴുക്കുചാൽ അടഞ്ഞിരിക്കുന്നു",
     "damage": "അറ്റകുറ്റപണികൾ ആവശ്യമാണ്",
     "power":"വൈദ്യുതി തകരാർ",
+    "assessment": "മൂല്യനിർണ്ണയം",
     "precipitation":"മൊത്തം മഴ",
     "flood_depth": "പ്രളയത്തിന്റെ ആഴം: {{ flood_depth }} cm",
     "map_infrastructure":"അടിസ്ഥാന സൗകര്യം",
