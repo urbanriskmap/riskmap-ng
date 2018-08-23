@@ -33,10 +33,10 @@
 .icon-logo-in:before { content: '\e829'; } /* '' */
 .icon-logo-us:before { content: '\e82a'; } /* '' */
 .icon-map-flood:before { content: '\e82b'; } /* '' */
-.icon-map-block:before { content: '\e82c'; } /* '' */
+.icon-map-drain:before { content: '\e82c'; } /* '' */
 .icon-map-damage:before { content: '\e82d'; } /* '' */
 .icon-map-power:before { content: '\e82e'; } /* '' */
-.icon-map-tree:before { content: '\e82f'; } /* '' */
+.icon-map-treeclearing:before { content: '\e82f'; } /* '' */
 .icon-discharge:before { content: '\e830'; } /* '' */
 .icon-gauge:before { content: '\e831'; } /* '' */
 .icon-level:before { content: '\e832'; } /* '' */

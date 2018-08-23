@@ -1,15 +1,28 @@
 <div id="headingWrapper">
+  <!-- Show archieved report badge -->
   <p
     *ngIf="archivedReport"
     class="mat-caption">
     <i class="icon-report-problem"></i>
     Archived report
   </p>
+
+  <!-- Show flood height -->
   <p
     *ngIf="parsedReportData && parsedReportData.flood_depth"
     class="mat-subheading-1">
     {{ 'legend.flood_depth' | translate:parsedReportData }}
   </p>
+
+  <!-- Show Assessment or Preparation type -->
+  <p
+    *ngIf="parsedReportData && parsedReportData.report_type
+    && parsedReportData.report_type !== 'flood'"
+    class="mat-subheading-1">
+    {{ 'legend.' + parsedReportData.report_type | translate }}
+  </p>
+
+  <!-- Display qlue / detik title -->
   <p
     *ngIf="feature.title !== 'null' && feature.title !== null"
     class="mat-subheading-1">

@@ -371,7 +371,7 @@
     },
     {
       "uid": "e3372a854ad86852823480d91647d065",
-      "css": "map-block",
+      "css": "map-drain",
       "code": 59436,
       "src": "custom_icons",
       "selected": true,
@@ -413,7 +413,7 @@
     },
     {
       "uid": "b00170ce1b6bec906c470998ab3c87c0",
-      "css": "map-tree",
+      "css": "map-treeclearing",
       "code": 59439,
       "src": "custom_icons",
       "selected": true,

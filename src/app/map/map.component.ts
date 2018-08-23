@@ -315,7 +315,7 @@ export class MapComponent implements OnInit, OnDestroy {
     }
 
     const notification = this.notify.open(msg, '✕', {
-      duration: 30000,
+      duration: 3000,
       verticalPosition: 'top',
       panelClass: ['notification-bar', 'notify-' + type]
     });
