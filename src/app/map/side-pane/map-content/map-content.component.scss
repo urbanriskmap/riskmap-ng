@@ -9,6 +9,7 @@ mat-list {
     p {
       &.legend-label { // Label size
         font-size: 14px!important;
+        margin: 3px 0 3px 0!important;
       }
 
       &.legend-subtitle { // Subtitle size
@@ -17,16 +18,30 @@ mat-list {
     }
 
     .mat-radio-group {
+      margin-top: $general-margin!important;
       .mat-radio-button {
         font-size: 14px;
-        // margin-top: $general-margin;
+
         // margin-bottom: 2 * $general-margin;
          margin-left: $general-margin;
+
       }
     }
   }
 }
-
+.mat-subheader{
+   padding: 0!important;
+   margin: 15px!important;
+   height: 40px!important;
+}
 #cities {
+  display: block;
   margin: 10px;
+}
+
+#legend {
+  display: block;
+  margin-top: 30px;
+  padding: 5px!important;
+  position: relative;
 }
