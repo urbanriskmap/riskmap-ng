@@ -140,7 +140,7 @@ export interface LayerMetadata {
   responseType: string;
   uniqueKey: string; // Used for onClick filtering
   legendGroup: string; // 'reports' | 'infrastructure' | '' (no legend)
-  selected: {
+  selected?: {
     type: string;
     styles: {
       // Add key value pairs for layout/paint properties
