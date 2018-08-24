@@ -59,8 +59,19 @@
         margin: auto;
         filter: gray;
         -webkit-filter: grayscale(1);
+        &#logoseed {
+          width: 110px;
+          height: auto;
+          justify-content: center;
+        }
+        #logocag {
+          width: 80px;
+          height: auto;
+          margin-left: auto;
+          margin-right: auto;
+        }
         &#logoassd {
-          width: 140px;
+          width: 120px;
           height: auto;
         }
         &#logomapbox {
