@@ -60,13 +60,13 @@ export default {
         },
         {
           symbolType: 'icon',
-          symbolStyle: 'icon-map-tree',
-          label: 'legend.tree',
+          symbolStyle: 'icon-map-treeclearing',
+          label: 'legend.treeclearing',
         },
         {
           symbolType: 'icon',
-          symbolStyle: 'icon-map-block',
-          label: 'legend.block',
+          symbolStyle: 'icon-map-drain',
+          label: 'legend.drain',
         },
         {
           symbolType: 'icon',
@@ -77,6 +77,11 @@ export default {
           symbolType: 'icon',
           symbolStyle: 'icon-map-power',
           label: 'legend.power',
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-map-assessment',
+          label: 'legend.assessment',
         }
       ]
     }

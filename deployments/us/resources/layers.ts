@@ -366,6 +366,55 @@ export default {
           label: 'legend.sfwmd.basin'
         }
       ]
+    },
+
+    // Canals
+    {
+      metadata: {
+        name: 'canals',
+        server: 'data',
+        path: 'infrastructure/waterways',
+        publicAccess: false,
+        flags: [],
+        responseType: 'topojson',
+        uniqueKey: 'tags.id',
+        legendGroup: 'infrastructure',
+        viewOnly: true,
+        placeBelow: 'place-village'
+      },
+      settings: {
+        id: 'canals',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: <object|null>null
+        },
+        paint: {
+          'line-color': '#0474cb', // mapbox water: #93c2eb
+          'line-width': [
+            "interpolate", ["linear"], ["zoom"],
+            // zoom is 10 or less, width will be 1px
+            10, 1,
+            // zoom is 16 or more, width will be 8px
+            16, 8,
+          ],
+          'line-opacity': [
+            "interpolate", ["linear"], ["zoom"],
+            // zoom is 12 or less, opacity will be 1
+            12, 1,
+            // zoom is 16 or more, opacity will be 0
+            16, 0,
+          ],
+        },
+        filter: ['all', ['!=', ['get', 'id', ['object', ['get', 'tags']]], '']]
+      },
+      legend: [
+        // {
+        //   symbolType: 'fill',
+        //   symbolStyle: 'assets/icons/webapp/apple-touch-icon-76x76.png',
+        //   label: 'legend.sfwmd.basin'
+        // }
+      ]
     }
   ]
 };

@@ -105,7 +105,9 @@ export class LayerService {
     // Add base layer
     this.map.addLayer(settings, placeBelow);
     // Add selection layer
-    this.addSelectionLayer(settings, selectionSettings, placeBelow);
+    if (selectionSettings) {
+      this.addSelectionLayer(settings, selectionSettings, placeBelow);
+    }
   }
 
   initializeLayers(
@@ -129,7 +131,7 @@ export class LayerService {
               .then((data) => {
                 if (data) {
                   layer.settings.source.data = data;
-                  this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                  this.renderLayers(layer.settings, layer.metadata['selected'], layer.metadata['placeBelow']);
                 }
               })
               .catch((error) => console.log(error));
@@ -141,7 +143,7 @@ export class LayerService {
               .then((data) => {
                 if (data) {
                   layer.settings.source.data = data;
-                  this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                  this.renderLayers(layer.settings, layer.metadata['selected'], layer.metadata['placeBelow']);
                   this.linkSfwmdInfrastructure(data['features']);
                 }
               })
@@ -171,7 +173,7 @@ export class LayerService {
 
                     // Set geojson source in layer settings
                     layer.settings.source.data = withWaterLevelData;
-                    this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+                    this.renderLayers(layer.settings, layer.metadata['selected'], layer.metadata['placeBelow']);
                   })
                   .catch((error) => console.log(error));
                 }
@@ -185,7 +187,7 @@ export class LayerService {
               }
               // Overwrite data object
               layer.settings.source.data = geojson;
-              this.renderLayers(layer.settings, layer.metadata.selected, layer.metadata['placeBelow']);
+              this.renderLayers(layer.settings, layer.metadata['selected'], layer.metadata['placeBelow']);
           }
         })
         .catch(error => console.log(error));

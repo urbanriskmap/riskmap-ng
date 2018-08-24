@@ -5,52 +5,54 @@
 
 export const environment = {
   production: false,
-  envName: 'dev-in',
-  deploymentName: 'in',
+  envName: 'dev-us',
+  deploymentName: 'us',
 
   servers: {
-    data: 'https://data-dev.riskmap.in/',
-    sensors: 'https://sensors-dev.riskmap.in/',
-    web_app: 'https://dev.riskmap.in/',
+    data: 'https://data-dev.riskmap.us/',
+    sensors: 'https://sensors-dev.riskmap.us/',
+    web_app: 'https://dev.riskmap.us/',
     settings: {
       reportTimeperiod: 604800
     }
   },
 
   authorization: {
-    userPoolId: 'ap-south-1_yNLDVmvAW',
-    appClientId: '7iu4qevi6rge61bsnaovckghup'
+    userPoolId: 'us-west-2_olPNYtmQ7',
+    appClientId: '5en9df3auvag0msrurit123v30'
   },
 
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
-    center: [76.5, 19], // map initializes on india
-    initZoom: 6,
-    minZoom: 6,
+    center: [-80.199261, 26.138301],
+    initZoom: 10,
+    minZoom: 10,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
 
   locales: {
     supportedLanguages: [
       {code: 'en', name: 'English'},
-      {code: 'hi', name: 'Hindi'},
-      {code: 'ta', name: 'Tamil'},
-      {code: 'mr', name: 'Marathi'},
-      {code: 'ml', name: 'Malayalam'}
+      {code: 'es', name: 'Spanish'}
     ],
     defaultLanguage: 'en',
-    timezone: 'Asia/Kolkata'
+    timezone: 'America/New_York'
   },
 
   networks: {
     contact_links: {
-      flag_email: 'riskmap@mit.edu'
+      flag_email: 'risk@mit.edu'
     },
 
     deep_links: [
-        {name: 'facebook', link: 'http://m.me/CognicityDevIndia'},
-        // {name: 'twitter', link: 'https://twitter.com/intent/tweet?text=Report+flood&via=CognicityDev_IN'},
-        {name: 'telegram', link: 'https://telegram.me/CognicityIN_bot'}
-      ]
+      { name: 'facebook',
+        link: 'http://m.me/1747847428843379' // FB page id is used as no username is allowed at this point.
+      },
+      { name: 'twitter',
+        link: 'https://twitter.com/messages/compose?recipient_id=915571825689624576'
+      }
+      // Disable telegram button for US deployment
+      // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}
+    ]
   }
 };

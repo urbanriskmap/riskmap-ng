@@ -1,6 +1,12 @@
 CHANGE LOG
 ==========
 
+### v2.1.2
+- Added canals layer for Broward
+- Made selection an optional parameter in layer interface
+- Added partner logos for India deployments
+- Updated legends for assessment reports
+
 ### v2.1.1
 - Fixed map icons for preparation reports
 - Fixed share intent messages
