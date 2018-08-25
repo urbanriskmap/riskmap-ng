@@ -1,6 +1,9 @@
 CHANGE LOG
 ==========
 
+### v3.1.3
+- Added data driven styling for assessment report icons (in)
+
 ### v2.1.2
 - Added canals layer for Broward
 - Made selection an optional parameter in layer interface
