@@ -42,3 +42,5 @@ CHANGE LOG
 
 ### v2.1.3
 - Added data driven styling for assessment report icons (in)
+
+### v2.1.4
