@@ -1,4 +1,11 @@
 export default {
+  // "report_data": {
+  //   "damages": [
+  //     {
+  //       "component": "plinth",
+  //       "severity": 5
+  //     },
+
   supported: [
     // Reports layer
     {
@@ -22,6 +29,7 @@ export default {
               'power', 'map_powerIcon_sel',
               'treeclearing', 'map_treeIcon_sel',
               'flood', 'map_floodIcon_sel',
+              'assessment', 'map_assessment_sel',
               'map_floodIcon_sel'
             ],
           }
@@ -44,6 +52,24 @@ export default {
             'power', 'map_powerIcon',
             'treeclearing', 'map_treeIcon',
             'flood', 'map_floodIcon',
+            'assessment', [
+              'match',
+              // NOTE: will currently style icon based on severity of first damage in array
+              // TODO: lookup all severity keys, get highest damage grade
+              ['get', 'severity', [ // get severity key
+                'object', ['at', 0, [ // of object which is at [0] in
+                  'array', ['get', 'damages', [ // array called damages
+                    'object', ['get', 'report_data'] // from object report_data, root level property
+                  ]]
+                ]]
+              ]],
+              1, 'map_assessment1',
+              2, 'map_assessment2',
+              3, 'map_assessment3',
+              4, 'map_assessment4',
+              5, 'map_assessment5',
+              'map_assessment1' // Default when no damages reported
+            ],
             'map_floodIcon'
           ],
           'icon-allow-overlap': true,

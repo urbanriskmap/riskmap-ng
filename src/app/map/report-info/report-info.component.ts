@@ -50,11 +50,15 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.reportTime = this.timeService.getLocalTime(this.feature.created_at, 'LLL');
+    console.log(this.reportTime);
+    console.log(this.feature.created_at);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // this.reportTime = this.timeService.getLocalTime(this.feature.created_at, 'LLL');
     if (changes.hasOwnProperty('features')) {
       this.feature = this.features[0].properties;
+      this.reportTime = this.timeService.getLocalTime(this.feature.created_at, 'LLL');
 
       // Update browser url with currently selected report's id
       window.history.pushState(
