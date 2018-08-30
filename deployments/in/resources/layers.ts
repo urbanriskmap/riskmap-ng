@@ -1,10 +1,4 @@
 export default {
-  // "report_data": {
-  //   "damages": [
-  //     {
-  //       "component": "plinth",
-  //       "severity": 5
-  //     },
 
   supported: [
     // Reports layer
