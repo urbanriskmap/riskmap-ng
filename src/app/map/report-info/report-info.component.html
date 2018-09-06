@@ -21,7 +21,6 @@
     class="mat-subheading-1">
     {{ 'legend.' + parsedReportData.report_type | translate }}
   </p>
-
   <!-- Display qlue / detik title -->
   <p
     *ngIf="feature.title !== 'null' && feature.title !== null"
@@ -60,10 +59,22 @@
       style="float: left;">
       {{ reportTime }}
     </p>
+    <br>
     <p
       class="mat-body-1">
       {{ feature.text }}
     </p>
+    <p
+      *ngIf="feature.disaster_type === 'assessment'"
+      class="mat-caption">Damage Grades</p>
+    <table
+    *ngIf="feature.disaster_type === 'assessment'">
+      <td
+      *ngFor="let grade of grades"
+      class="mat-caption">
+        {{ grade.component }} ({{ grade.severity }})
+      </td>
+    </table>
   </div>
 
   <div
