@@ -72,7 +72,7 @@
       <td
       *ngFor="let grade of grades"
       class="mat-caption">
-        {{ grade.component }} ({{ grade.severity }})
+      {{ grade.component | titlecase }}: {{ grade.severity }},
       </td>
     </table>
   </div>
