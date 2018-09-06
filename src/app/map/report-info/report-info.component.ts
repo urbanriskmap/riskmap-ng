@@ -78,7 +78,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           this.parsedReportData = this.feature.report_data;
         }
       }
-      // print grade of report data
+      // add grade of report data to report_info
       if (this.feature.disaster_type === 'assessment') {
       this.grades = [];
       for (const item of this.parsedReportData.damages) {

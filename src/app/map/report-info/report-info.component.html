@@ -29,8 +29,7 @@
   </p>
 </div>
 
-<div
-  id="imgWrapper">
+<div id="imgWrapper">
 
   <div id="imagePlaceholder"
     *ngIf="feature.image_url === 'null'">
@@ -66,13 +65,13 @@
     </p>
     <p
       *ngIf="feature.disaster_type === 'assessment'"
-      class="mat-caption">Damage Grades</p>
+      class="mat-caption">{{ 'assessment.grades' | translate }}</p>
     <table
-    *ngIf="feature.disaster_type === 'assessment'">
+      *ngIf="feature.disaster_type === 'assessment'">
       <td
-      *ngFor="let grade of grades"
-      class="mat-caption">
-      {{ grade.component | titlecase }}: {{ grade.severity }},
+        *ngFor="let grade of grades"
+        class="mat-caption">
+        {{  "assessment." + grade.component | translate }}: {{ grade.severity }},
       </td>
     </table>
   </div>
