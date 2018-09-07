@@ -35,6 +35,10 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
     share: false
   };
   reportTime: string;
+  grades: {
+    component: string,
+    severity: any
+  }[];
   socialButtons: {
     name: string,
     intent: string
@@ -50,8 +54,7 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.reportTime = this.timeService.getLocalTime(this.feature.created_at, 'LLL');
-    console.log(this.reportTime);
-    console.log(this.feature.created_at);
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -75,6 +78,13 @@ export class ReportInfoComponent implements OnInit, OnChanges, OnDestroy {
           this.parsedReportData = this.feature.report_data;
         }
       }
+      // add grade of report data to report_info
+      if (this.feature.disaster_type === 'assessment') {
+      this.grades = [];
+      for (const item of this.parsedReportData.damages) {
+        this.grades.push( {component: item.component, severity: item.severity});
+      }}
+      // console.log(this.grade);
 
       // Initialize vote selector array
       this.voteSelector = [-1, 0, 1];

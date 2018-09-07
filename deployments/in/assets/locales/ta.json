@@ -54,6 +54,15 @@
 "flagReport_email": "riskmapindia@gmail.com",
 "share_header": "Share this report"
 },
+
+"assessment": {
+  "grades":"தரப்படுத்தல்",
+  "plinth": "பீடம்",
+  "walls": "சுவர்v",
+  "roof": "கூரை",
+  "nonstructural": "இதர"
+},
+
 "map_helper": "நகரம் தேர்வு செய்யவும் :",
 "info_content": {
 "intro": "Riskmap.in சமூக ஊடகங்களின் தொழில்நுட்ப சக்தியை பயன்படுத்தி வெள்ளம் பற்றிய நிகழ்நேர தகவல்களை சேகரித்து, வரிசைப்படுத்தி, அனைவருக்கும் கிடைக்கும்படி காண்பிக்கின்றது.",

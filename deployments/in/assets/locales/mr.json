@@ -54,6 +54,15 @@
 "flagReport_email": "riskmapindia@gmail.com",
 "share_header": "निरीक्षण शेअर करा"
 },
+
+"assessment": {
+  "grades":"मूल्यमापन श्रेणी",
+  "plinth": "जोते",
+  "walls": "भिंती",
+  "roof": "छत",
+  "nonstructural": "संकीर्ण"
+},
+
 "map_helper": "शहर निवडा:",
 "info_content": {
 "intro": "RiskMap.in हे संकेतस्थळ  सोशल मीडियाचा वापर करून आपल्या शहरातील आपत्कालीन परिस्थितीची माहिती सर्व नागरिकांना उपलब्ध करून देते. ",

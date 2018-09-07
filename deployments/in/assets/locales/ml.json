@@ -59,6 +59,14 @@
     "share_header": "ഈ വിവരം പങ്കുവയ്ക്കുക"
   },
 
+  "assessment": {
+    "grades":"Assessment Grades",
+    "plinth": "plinth",
+    "walls": "walls",
+    "roof": "roof",
+    "nonstructural": "Other"
+  },
+
   "map_helper": "നഗരം തിരഞ്ഞെടുക്കുക :",
 
   "info_content": {

@@ -44,3 +44,5 @@ CHANGE LOG
 - Added data driven styling for assessment report icons (in)
 
 ### v2.1.4
+- Fixed data driven styling for assessment report icons (in)
+- Style is computed for highest damage grade reported

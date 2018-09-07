@@ -46,17 +46,84 @@ export default {
             'power', 'map_powerIcon',
             'treeclearing', 'map_treeIcon',
             'flood', 'map_floodIcon',
-            'assessment', [
-              'match',
-              // NOTE: will currently style icon based on severity of first damage in array
-              // TODO: lookup all severity keys, get highest damage grade
-              ['get', 'severity', [ // get severity key
-                'object', ['at', 0, [ // of object which is at [0] in
-                  'array', ['get', 'damages', [ // array called damages
-                    'object', ['get', 'report_data'] // from object report_data, root level property
+            'assessment', ['match',
+              ['max', // Return 'max' of the following numeric values
+                // VALUE 1: damages array will always have atleast 1 item
+                ['get', 'severity', [ // get severity key
+                  'object', ['at', 0, [ // of object which is at index, in
+                    'array', ['get', 'damages', [ // array called damages
+                      'object', ['get', 'report_data'] // from object report_data, root level property
+                    ]]
                   ]]
-                ]]
-              ]],
+                ]],
+                // VALUE 2:
+                ['case',
+                  // If
+                  ['>', // Length of damages array is greater...
+                    ['length', [
+                      'array', ['get', 'damages', [
+                        'object', ['get', 'report_data']
+                      ]]
+                    ]],
+                    1 // ...than value
+                  ],
+                  // Then
+                  ['get', 'severity', [ // get severity key
+                    'object', ['at', 1, [ // of object which is at index, in
+                      'array', ['get', 'damages', [ // array called damages
+                        'object', ['get', 'report_data'] // from object report_data, root level property
+                      ]]
+                    ]]
+                  ]],
+                  // Else
+                  1 // return value
+                ],
+                // VALUE 3:
+                ['case',
+                  // If
+                  ['>', // Length of damages array is greater...
+                    ['length', [
+                      'array', ['get', 'damages', [
+                        'object', ['get', 'report_data']
+                      ]]
+                    ]],
+                    2 // ...than value
+                  ],
+                  // Then
+                  ['get', 'severity', [ // get severity key
+                    'object', ['at', 2, [ // of object which is at index, in
+                      'array', ['get', 'damages', [ // array called damages
+                        'object', ['get', 'report_data'] // from object report_data, root level property
+                      ]]
+                    ]]
+                  ]],
+                  // Else
+                  1 // return value
+                ],
+                // VALUE 4:
+                ['case',
+                  // If
+                  ['>', // Length of damages array is greater...
+                    ['length', [
+                      'array', ['get', 'damages', [
+                        'object', ['get', 'report_data']
+                      ]]
+                    ]],
+                    3 // ...than value
+                  ],
+                  // Then
+                  ['get', 'severity', [ // get severity key
+                    'object', ['at', 3, [ // of object which is at index, in
+                      'array', ['get', 'damages', [ // array called damages
+                        'object', ['get', 'report_data'] // from object report_data, root level property
+                      ]]
+                    ]]
+                  ]],
+                  // Else
+                  1 // return value
+                ],
+              ],
+              // Input from above expression, Output
               1, 'map_assessment1',
               2, 'map_assessment2',
               3, 'map_assessment3',
