@@ -4,7 +4,7 @@ export default {
       icons: [
         'logo-us'
       ],
-      videoLink: 'https://www.youtube.com/embed/k1wXvJvq6F4',
+      videoLink: 'https://www.youtube.com/embed/qoRz0anSZbE',
       localeKey: 'overview',
       steps: [
       ]
