@@ -6,14 +6,12 @@
     <i class="icon-report-problem"></i>
     Archived report
   </p>
-
   <!-- Show flood height -->
   <p
     *ngIf="parsedReportData && parsedReportData.flood_depth"
     class="mat-subheading-1">
     {{ 'legend.flood_depth' | translate:parsedReportData }}
   </p>
-
   <!-- Show Assessment or Preparation type -->
   <p
     *ngIf="parsedReportData && parsedReportData.report_type
@@ -29,8 +27,8 @@
   </p>
 </div>
 
+<!-- display report image -->
 <div id="imgWrapper">
-
   <div id="imagePlaceholder"
     *ngIf="feature.image_url === 'null'">
     <i class="icon-flood-img"></i>
@@ -44,6 +42,7 @@
   <i class="icon-plus-circled"></i>
 </div>
 
+<!-- Display date, report text and other report data -->
 <div
   id="detailsWrapper">
   <div
@@ -76,6 +75,7 @@
     </table>
   </div>
 
+  <!-- votebuttons, flag and socialButtons -->
   <div
     *ngIf="showFlyer.flag"
     class="report-description flyer">
@@ -121,7 +121,6 @@
         class="vote-count">
         {{ votes }}
       </td>
-
       <td
         id="downvoteButton"
         [class]="voteSelector[1] === -1 ? 'vote active' : 'vote'"
