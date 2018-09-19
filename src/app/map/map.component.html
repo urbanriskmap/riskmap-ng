@@ -168,5 +168,6 @@
 
 <app-image-preview
   *ngIf="fullSizeImgUrl"
-  [imgUrl]="fullSizeImgUrl">
+  [imgUrl]="fullSizeImgUrl"
+  (click)="closeImgPreview()">
 </app-image-preview>

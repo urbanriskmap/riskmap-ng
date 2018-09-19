@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { SanitizePipe } from '../../pipes/sanitize.pipe';
 
@@ -7,11 +7,12 @@ import { SanitizePipe } from '../../pipes/sanitize.pipe';
   templateUrl: './image-preview.component.html',
   styleUrls: ['./image-preview.component.scss']
 })
-export class ImagePreviewComponent implements OnInit {
+export class ImagePreviewComponent {
   @Input() imgUrl: string;
 
   constructor() { }
 
-  ngOnInit() {
+  preventClose(event) {
+    event.stopPropagation();
   }
 }
