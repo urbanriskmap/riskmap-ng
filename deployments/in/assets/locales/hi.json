@@ -47,8 +47,18 @@
     "flagReport_title": "रिपोर्ट अनुचित घोषित करें",
     "flagReport_button": "हमें और बताएं",
     "flagReport_email": "riskmapindia@gmail.com",
-    "share_header": "इस रिपोर्ट को प्रचारित/शेयर करें"
+    "share_header": "इस रिपोर्ट को प्रचारित/शेयर करें",
+    "grades":"मूल्यांकन श्रेणी"
   },
+
+  "assessment": {
+    "grades":"मूल्यमापन श्रेणी",
+    "plinth": "पाया",
+    "walls": "दीवार",
+    "roof": "छत",
+    "nonstructural": "संकीर्ण"
+  },
+
   "map_helper": "शहर का चयन करें:",
   "info_content": {
     "intro": "RiskMap.in वास्तविक समय में बाढ़ के बारे में जानकारी इकट्ठा करने, क्रमबद्ध करने और प्रदर्शित करने के लिए सोशल मीडिया का उपयोग करता है।",

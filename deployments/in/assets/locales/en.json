@@ -49,6 +49,15 @@
     "flagReport_email": "riskmapindia@gmail.com",
     "share_header": "Share this report"
   },
+
+  "assessment": {
+    "grades":"Assessment Grades",
+    "plinth": "plinth",
+    "walls": "walls",
+    "roof": "roof",
+    "nonstructural": "Other"
+  },
+
   "map_helper": "Select city :",
   "info_content": {
     "intro": "RiskMap.in harnesses the power of social media to gather, sort, and display information about flooding in real time.",
