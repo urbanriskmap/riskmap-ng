@@ -18,7 +18,7 @@ export default {
             'icon-image': [
               'match',
               ['get', 'report_type', ['object', ['get', 'report_data']]],
-              'drain', 'map_blockIcon_sel',
+              'drain', 'map_drainIcon_sel',
               'damage', 'map_damageIcon_sel',
               'power', 'map_powerIcon_sel',
               'treeclearing', 'map_treeclearingIcon_sel',
