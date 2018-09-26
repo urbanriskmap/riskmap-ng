@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/urbanriskmap/riskmap-ng.svg?branch=dev)](https://travis-ci.org/urbanriskmap/riskmap-ng)
 [![DOI](https://zenodo.org/badge/116730055.svg)](https://zenodo.org/badge/latestdoi/116730055)
+[![Coverage Status](https://coveralls.io/repos/github/urbanriskmap/cognicity-server/badge.svg?branch=master)](https://coveralls.io/github/urbanriskmap/cognicity-server?branch=master)
 
 # Riskmap
 UrbanRiskMap web app [Angular](https://github.com/angular/angular-cli) project using [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/). UrbanRiskMap reports flooding in real-time
