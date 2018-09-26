@@ -2,5 +2,6 @@
   id="previewWrapper">
   <img
     id="fullSizeImage"
-    [src]="imgUrl">
+    [src]="imgUrl"
+    (click)="preventClose($event)">
 </div>
