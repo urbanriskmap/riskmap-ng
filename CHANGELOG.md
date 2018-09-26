@@ -1,13 +1,22 @@
 CHANGE LOG
 ==========
 
-### v2.0.0
-- Framework moved from Aurelia to Angular
-- Using Mapbox GL JS, and vector tiles
-- UI/UX updates
-- Added sensors support
-- Added template-based layer support for each deployment
-- Beta testing content moderation through upvote/downvote buttons for flood reports
+### v2.1.4
+- Fixed data driven styling for assessment report icons (in)
+- Style is computed for highest damage grade reported
+
+### v2.1.3
+- Added data driven styling for assessment report icons (in)
+
+### v2.1.2
+- Added canals layer for Broward
+- Made selection an optional parameter in layer interface
+- Added partner logos for India deployments
+- Updated legends for assessment reports
+
+### v2.1.1
+- Fixed map icons for preparation reports
+- Fixed share intent messages
 
 ### v2.1.0
 **Added EOC mode functionality**
@@ -29,20 +38,10 @@ CHANGE LOG
 - Updated base map style to include instance region boundaries as visualization aids
 - Enabled Ahead of Time compilation, bundle minification, uglification, tree-shaking for prod deployments
 
-### v2.1.1
-- Fixed map icons for preparation reports
-- Fixed share intent messages
-
-### v2.1.2
-- Added canals layer for Broward
-- Made selection an optional parameter in layer interface
-- Added partner logos for India deployments
-- Updated legends for assessment reports
-
-
-### v2.1.3
-- Added data driven styling for assessment report icons (in)
-
-### v2.1.4
-- Fixed data driven styling for assessment report icons (in)
-- Style is computed for highest damage grade reported
+### v2.0.0
+- Framework moved from Aurelia to Angular
+- Using Mapbox GL JS, and vector tiles
+- UI/UX updates
+- Added sensors support
+- Added template-based layer support for each deployment
+- Beta testing content moderation through upvote/downvote buttons for flood reports
