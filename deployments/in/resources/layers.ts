@@ -21,7 +21,7 @@ export default {
               'drain', 'map_blockIcon_sel',
               'damage', 'map_damageIcon_sel',
               'power', 'map_powerIcon_sel',
-              'treeclearing', 'map_treeIcon_sel',
+              'treeclearing', 'map_treeclearingIcon_sel',
               'flood', 'map_floodIcon_sel',
               'assessment', 'map_assessment_sel',
               'map_floodIcon_sel'
@@ -41,10 +41,10 @@ export default {
           'icon-image': [
             'match',
             ['get', 'report_type', ['object', ['get', 'report_data']]],
-            'drain', 'map_blockIcon',
+            'drain', 'map_drainIcon',
             'damage', 'map_damageIcon',
             'power', 'map_powerIcon',
-            'treeclearing', 'map_treeIcon',
+            'treeclearing', 'map_treeclearingIcon',
             'flood', 'map_floodIcon',
             'assessment', ['match',
               ['max', // Return 'max' of the following numeric values
