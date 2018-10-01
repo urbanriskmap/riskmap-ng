@@ -136,15 +136,10 @@ export class ChartService {
     if (sensorData.metadata.hasOwnProperty('controlElevation')
       && sensorData.metadata.controlElevation
       && sensorData.dataset_1.length) {
-      let controlElevation;
+      const controlElevation = sensorData.metadata.controlElevation;
+      const warningElevation = sensorData.metadata.warningElevation;
       const firstDatetime = sensorData.dataset_1[0].t;
       const lastDatetime = sensorData.dataset_1[sensorData.dataset_1.length - 1].t;
-
-      if (Array.isArray(sensorData.metadata.controlElevation)) {
-        controlElevation = sensorData.metadata.controlElevation[0];
-      } else {
-        controlElevation = sensorData.metadata.controlElevation;
-      }
 
       // Style control elevation reference line + fill
       datasets.push(
@@ -161,6 +156,19 @@ export class ChartService {
           data: [
             {y: controlElevation, t: firstDatetime},
             {y: controlElevation, t: lastDatetime}
+          ]
+        },
+        {
+          label: 'Alert level',
+          xAxisId: 'x1',
+          yAxisId: 'y1',
+          borderWidth: 1,
+          borderDash: [5, 5],
+          pointRadius: 0,
+          borderColor: '#c23700',
+          data: [
+            {y: warningElevation, t: firstDatetime},
+            {y: warningElevation, t: lastDatetime}
           ]
         }
       );

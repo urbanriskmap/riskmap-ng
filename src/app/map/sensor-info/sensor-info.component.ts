@@ -103,9 +103,14 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
             }
 
             this.sensorData = this.chartService.parseData(observations, this.hasSubDataStreams);
+
             if (this.feature.hasOwnProperty('controlElevation')) {
               this.sensorData.metadata.controlElevation = this.feature.controlElevation;
             }
+            if (this.feature.hasOwnProperty('warningElevation')) {
+              this.sensorData.metadata.warningElevation = this.feature.warningElevation;
+            }
+
 
             break;
 

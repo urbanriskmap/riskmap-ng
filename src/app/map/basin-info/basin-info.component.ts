@@ -100,6 +100,9 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
         if (station.hasOwnProperty('controlElevation')) {
           properties['controlElevation'] = station.controlElevation;
         }
+        if (station.hasOwnProperty('warningElevation')) {
+          properties['warningElevation'] = station.warningElevation;
+        }
 
         this.features.push([{
           layer: {id: 'sensors_sfwmd'},

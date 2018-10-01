@@ -107,6 +107,7 @@ export interface SensorInterface {
   basin: string;
   class: string;
   controlElevation: number;
+  warningElevation: number;
   created: string;
   id: number;
   observations: string;
