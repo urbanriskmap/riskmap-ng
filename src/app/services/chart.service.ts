@@ -163,9 +163,9 @@ export class ChartService {
           xAxisId: 'x1',
           yAxisId: 'y1',
           borderWidth: 1,
-          borderDash: [5, 5],
           pointRadius: 0,
-          borderColor: '#c23700',
+          borderColor: 'rgba(251, 114, 8, 0.75)',
+          fill: false,
           data: [
             {y: warningElevation, t: firstDatetime},
             {y: warningElevation, t: lastDatetime}
