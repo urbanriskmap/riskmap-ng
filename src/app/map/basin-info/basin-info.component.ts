@@ -26,7 +26,8 @@ export class BasinInfoComponent implements OnInit, OnDestroy {
     S: 'spillway',
     W: 'weir',
     C: 'discharge',
-    P: 'pump'
+    P: 'pump',
+    O: 'channel'
   };
 
   @Output() closePanel = new EventEmitter<null>();

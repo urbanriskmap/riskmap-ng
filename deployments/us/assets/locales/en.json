@@ -94,7 +94,8 @@
       "pump": "Pump flow rate",
       "weir": "Weir flow rate",
       "site": "Water control structures",
-      "basin": "Water control catchment"
+      "basin": "Water control catchment",
+      "channel": "Elevation, open channel"
     },
     "flood_depth": "Flood Depth: {{ flood_depth }} in"
   },

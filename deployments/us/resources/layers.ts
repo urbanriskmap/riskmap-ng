@@ -110,6 +110,7 @@ export default {
               'C', 'map_discharge_sel',
               'P', 'map_pump_sel',
               'W', 'map_weir_sel',
+              'O', 'map_spillway_sel',
               'map_gauge_sel'
             ]
           }
@@ -137,6 +138,7 @@ export default {
             'C', 'map_discharge',
             'P', 'map_pump',
             'W', 'map_weir',
+            'O', 'map_spillway',
             'map_gauge'
           ],
           'icon-size': .75,
@@ -179,6 +181,12 @@ export default {
           symbolType: 'icon',
           symbolStyle: 'icon-weir',
           label: 'legend.sfwmd.weir',
+          source: 'SFWMD'
+        },
+        {
+          symbolType: 'icon',
+          symbolStyle: 'icon-spillway',
+          label: 'legend.sfwmd.channel',
           source: 'SFWMD'
         }
       ]
