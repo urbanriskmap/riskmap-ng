@@ -114,7 +114,8 @@
       "S": "Spillway",
       "P": "Pump",
       "C": "Culvert",
-      "W": "Weir"
+      "W": "Weir",
+      "O": "Open channel"
     }
   },
   "sensorLabels": {
