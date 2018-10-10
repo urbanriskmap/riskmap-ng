@@ -79,6 +79,7 @@
     "infrastructure_title":"Infrastructure",
     "reports_title": "Reports",
     "flood_report": "Flood Report",
+    "map_region": "Region",
     "usgs": {
       "gauge": "Stream water elevation",
       "elevation": "Gauge height",
