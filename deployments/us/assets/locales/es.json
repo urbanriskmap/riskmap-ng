@@ -79,6 +79,7 @@
     "infrastructure_title":"Infraestructura",
     "reports_title": "Reportes",
     "flood_report": "Medidores de inundación",
+    "map_region": "Region",
     "usgs": {
       "gauge": "Elevación de agua corriente",
       "elevation": "Altura del indicador",
