@@ -20,8 +20,8 @@ export const environment = {
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
     center: [-80.199261, 26.138301],
-    initZoom: 10,
-    minZoom: 10,
+    initZoom: 7,
+    minZoom: 7,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
 
