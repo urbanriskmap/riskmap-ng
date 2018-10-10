@@ -45,6 +45,19 @@ export const environment = {
       },
       { name: 'twitter',
         link: 'https://twitter.com/messages/compose?recipient_id=915571825689624576'
+      },
+      {
+        name: 'sms',
+        link: 'sms:+12028835663?body=flood'
+      },
+      {
+        name: 'sms',
+        link: 'sms:%2B12028835663?body=flood'
+      },
+      // for iOS, use ';' instead of '?'
+      {
+        name: 'sms',
+        link: 'sms:%2B12028835663;body=flood'
       }
       // Disable telegram button for US deployment
       // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}

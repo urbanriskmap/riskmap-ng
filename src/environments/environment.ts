@@ -50,6 +50,7 @@ export const environment = {
         name: 'sms',
         link: 'sms:12028835663?body=flood'
       },
+      // for iOS, use ';' instead of '?'
       {
         name: 'sms',
         link: 'sms:%2B12028835663?body=flood'
