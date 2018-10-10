@@ -10,7 +10,7 @@ export default {
       }
     },
     {
-      name: 'Florida Panhandle',
+      name: 'panhandle',
       code: 'fph',
       bounds: {
         sw: [-87.7825, 27.2007],
