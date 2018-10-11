@@ -50,3 +50,4 @@ CHANGE LOG
 - Configured SFWMD stations layer to receive 'O' class stations (open channels)
 
 ### v2.1.5
+- Added sms option for US deployments
