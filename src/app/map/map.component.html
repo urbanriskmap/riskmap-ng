@@ -132,8 +132,7 @@
 
 <app-sensor-info
   class="info-panes info-wide"
-  *ngIf="adminMode
-  && getFeatures('sensors_noaa')"
+  *ngIf="getFeatures('sensors_noaa')"
   [features]="getFeatures('sensors_noaa')">
 </app-sensor-info>
 

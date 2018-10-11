@@ -127,7 +127,7 @@ export class LayerService {
             // REVIEW: All following cases will be deployment specific
             // Worth refactoring?
             case 'sensors_usgs':
-              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, layer.metadata.flags)
+              this.addSensorLayers(geojson, layer.metadata.server, layer.metadata.path, [])
               .then((data) => {
                 if (data) {
                   layer.settings.source.data = data;
@@ -159,9 +159,6 @@ export class LayerService {
 
                   this.addSensorLayers(withWaterLevelData, layer.metadata.server, layer.metadata.path, [{type: 'predictions'}])
                   .then((withPredictionsData: FeatureCollection<GeometryObject, GeoJsonProperties>) => {
-                    // TODO: currently following code block works for single layer feature
-                    // Loop over features when multiple stations are added
-
                     // Parse predictions data
                     const predictionsData = withPredictionsData.features[0].properties.observations.predictions;
 
