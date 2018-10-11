@@ -48,19 +48,7 @@ export const environment = {
       },
       {
         name: 'sms',
-        link: 'sms:12028835663?body=flood'
-      },
-      {
-        name: 'sms',
         link: 'sms:1-202-883-5663;?&body=flood'
-      },
-      {
-        name: 'sms',
-        link: 'sms:1-202-883-5663?body=flood'
-      },
-      {
-        name: 'sms',
-        link: 'sms:1-202-883-5663'
       }
       // Disable telegram button for US deployment
       // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}
