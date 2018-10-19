@@ -35,7 +35,7 @@ export class SensorService {
       )
       .then(observationGroups => {
         if (observationGroups && observationGroups.length) {
-          const latestObs = observationGroups[observationGroups.length - 1];
+          const latestObs = observationGroups[0];
 
           // Append sensor observations to sensor properties
           if (latestObs.properties.hasOwnProperty('observations')) {
@@ -44,20 +44,29 @@ export class SensorService {
             if (
               flags.length
               && flags[0].hasOwnProperty('type')
-              && flags[0].type === 'water_level'
             ) {
-              if (observations.length) {
+              if (
+                flags[0].type === 'water_level'
+                && observations.length
+              ) {
+                // First call made for water_level
                 sensor.properties.observations = {water_level: observations};
-              }
-            } else if (
-              flags.length
-              && flags[0].hasOwnProperty('type')
-              && flags[0].type === 'predictions'
-            ) {
-              if (observations.length) {
-                sensor.properties.observations = {predictions: observations};
+              } else if (
+                flags[0].type === 'predictions'
+                && observations.length
+              ) {
+                // Second call made for predictions,
+                // check if observations object was initialized for water_level
+                if (!sensor.properties.hasOwnProperty('observations')) {
+                  sensor.properties.observations = {};
+                }
+                sensor.properties.observations.predictions = observations;
+              } else {
+                // SFWMD
+                sensor.properties.observations = observations;
               }
             } else {
+              // USGS
               if (Array.isArray(observations)) {
                 // Case: Without upstream / downstream values
                 if (observations.length) {

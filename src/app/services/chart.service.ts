@@ -197,8 +197,15 @@ export class ChartService {
 
     let title;
     if (sensorProperties.title) {
-      this.translate.get('sensorTitle.' + sensorProperties.title).subscribe((res: string) => {
-        title = [res];
+      this.translate
+      .get('sensorTitle.' + sensorProperties.title)
+      .subscribe((res: string) => {
+        if (res.indexOf('sensorTitle.') < 0) {
+          // Translation found
+          title = [res];
+        } else {
+          title = [sensorProperties.title];
+        }
 
         if (sensorProperties.hasOwnProperty('datum')
           && sensorProperties.datum) {
@@ -252,9 +259,16 @@ export class ChartService {
         styleDataset(labels.dataSet_2, 1, 'rgba(8, 145, 251, 0.5)', null, false, sensorData.dataset_2)
       );
     } else {
-      // Default
+      // Default (SFWMD)
       datasets.push(
-        styleDataset(title, 1, '#00579b', null, showPoints, sensorData.dataset_1)
+        styleDataset(
+          sensorProperties.title ? 'Values' : title,
+          1,
+          '#00579b',
+          null,
+          showPoints,
+          sensorData.dataset_1
+        )
       );
     }
 
@@ -267,14 +281,14 @@ export class ChartService {
         responsive: true,
         maintainAspectRatio: false,
         title: {
-          display: false,
-          // fontColor: '#2f2f2f',
-          // text: title,
-          // fontSize: 10,
-          // padding: 3
+          display: sensorProperties.title ? true : false,
+          fontColor: '#2f2f2f',
+          text: title,
+          fontSize: 10,
+          padding: 3
         },
         legend: {
-          display: true, // sensorData.hasOwnProperty('dataset_2'),
+          display: true,
           position: 'top',
           labels: {
             fontColor: '#2f2f2f',

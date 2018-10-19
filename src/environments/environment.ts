@@ -20,8 +20,8 @@ export const environment = {
   map: {
     accessToken: 'pk.eyJ1IjoidXJiYW5yaXNrbWFwIiwiYSI6ImNqZnY2cGxndzN3M3AyeHMydGVyeHcyMWIifQ.D6K1H9c8CTnP6twGYdtDKA',
     center: [-80.199261, 26.138301],
-    initZoom: 7,
-    minZoom: 7,
+    initZoom: 11,
+    minZoom: 9,
     baseMapStyle: 'mapbox://styles/urbanriskmap/cjfvacwic1cfc2smiwbyfwcs4'
   },
 
@@ -45,6 +45,10 @@ export const environment = {
       },
       { name: 'twitter',
         link: 'https://twitter.com/messages/compose?recipient_id=915571825689624576'
+      },
+      {
+        name: 'sms',
+        link: 'sms:1-202-883-5663;?&body=flood'
       }
       // Disable telegram button for US deployment
       // {name: 'telegram', link: 'https://telegram.me/CognicityUS_bot'}

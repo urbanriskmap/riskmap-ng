@@ -22,6 +22,7 @@ import { AuthService } from '../services/auth.service';
 import { RegionPickerComponent } from './region-picker/region-picker.component';
 import { AgreementAndPolicyComponent } from './agreement-and-policy/agreement-and-policy.component';
 import { EnvironmentInterface, Region, ReportInterface } from '../interfaces';
+import { SanitizePipe } from '../pipes/sanitize.pipe';
 
 /**
  * View model for Riskmap landing page

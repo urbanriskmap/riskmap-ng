@@ -10,7 +10,7 @@
   <table>
     <tr>
       <td *ngFor="let network of env.networks.deep_links">
-        <a [href]=network.link>
+        <a [href]="network.link | sanitize">
           <i [class]="'icon-' + network.name"></i>
         </a>
         <p>{{ network.name | titlecase }}</p>
@@ -132,8 +132,7 @@
 
 <app-sensor-info
   class="info-panes info-wide"
-  *ngIf="adminMode
-  && getFeatures('sensors_noaa')"
+  *ngIf="getFeatures('sensors_noaa')"
   [features]="getFeatures('sensors_noaa')">
 </app-sensor-info>
 

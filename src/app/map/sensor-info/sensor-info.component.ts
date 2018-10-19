@@ -110,8 +110,6 @@ export class SensorInfoComponent implements OnInit, OnChanges, AfterViewInit, On
             if (this.feature.hasOwnProperty('warningElevation')) {
               this.sensorData.metadata.warningElevation = this.feature.warningElevation;
             }
-
-
             break;
 
           case 'sensors_noaa':
