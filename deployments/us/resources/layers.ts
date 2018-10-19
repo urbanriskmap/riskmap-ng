@@ -198,7 +198,7 @@ export default {
         name: 'sensors_noaa',
         server: 'sensors',
         path: '',
-        publicAccess: true,
+        publicAccess: false,
         flags: [{agency: 'noaa'}],
         responseType: 'geojson',
         uniqueKey: 'id',
