@@ -52,3 +52,7 @@ CHANGE LOG
 ### v2.1.5
 - Added sms option for US deployments
 - added florida panhandle for Hurricane Michael, currently kept off after the event
+- added ability to reomve flaged report through a API call.
+
+### v2.1.6
+-
