@@ -137,7 +137,10 @@ export default {
           'icon-ignore-placement': true,
           'icon-size': 0.75
         },
-        filter: ['all', ['!=', 'pkey', '']]
+        filter: ['all',
+          // Use this array to change icons for report selection
+          ['!=', 'pkey', '']
+        ]
       },
       legend: [
         {

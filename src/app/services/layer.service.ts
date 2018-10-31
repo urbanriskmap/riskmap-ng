@@ -110,6 +110,22 @@ export class LayerService {
     }
   }
 
+// removing flagged reorts from the map
+  getUnflaggedReports(
+    reports: Feature<GeometryObject, { [name: string]: any }>[]
+  ): Feature<GeometryObject, { [name: string]: any }>[] {
+    const unflaggedReports = [];
+
+    for (const report of reports) {
+      if (!report.properties.report_data.hasOwnProperty('flag')
+      && !report.properties.report_data.flag === true) {
+        unflaggedReports.push(report);
+      }
+    }
+
+    return unflaggedReports;
+  }
+
   initializeLayers(
     region: Region,
     adminMode: boolean
@@ -180,6 +196,7 @@ export class LayerService {
 
             default:
               if (layer.metadata.name === 'reports') {
+                geojson.features = this.getUnflaggedReports(geojson.features);
                 this.showReportsNotification(geojson.features.length);
               }
               // Overwrite data object
