@@ -13,7 +13,7 @@
         padding: 3px;
       }
       &#logourl {
-        width: 180px;
+        width: 220px;
         padding: 3px
       }
     }
@@ -64,8 +64,13 @@
           height: auto;
           justify-content: center;
         }
-        #logocag {
-          width: 80px;
+        &#logoseed {
+          width: 110px;
+          height: auto;
+          justify-content: center;
+        }
+        &#logo100RC {
+          width: 120px;
           height: auto;
           margin-left: auto;
           margin-right: auto;
@@ -86,6 +91,10 @@
         }
         &#logotwitter {
           width: 80px;
+          height: auto;
+        }
+        &#logotatacenter {
+          width: 220px;
           height: auto;
         }
 

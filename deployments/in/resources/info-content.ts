@@ -12,6 +12,20 @@ export default {
       partnerRows: [
         { // Row 1
           partnerLogos: [
+        { // logo 1
+            name: 'cag',
+            path: 'assets/logos/cag_logo.png',
+            url: 'https://www.cag.org.in/our-work/city-governance'
+          },
+          { // logo 2
+            name: '100RC',
+            path: 'assets/logos/100RC_Chennai.png',
+            url: 'https://www.100resilientcities.org/cities/chennai/'
+          }
+          ]
+        },
+        { // Row 1
+          partnerLogos: [
           { // logo 1
             name: 'seed',
             path: 'assets/logos/seed_logo.png',
@@ -21,12 +35,7 @@ export default {
             name: 'assd',
             path: 'assets/logos/assd_logo.png',
             url: 'https://www.aanandam.org/'
-          },
-          { // logo 3
-              name: 'cag',
-              path: 'assets/logos/cag_logo.png',
-              url: 'https://www.cag.org.in/our-work/city-governance'
-            },
+          }
           ]
         }
       ]
