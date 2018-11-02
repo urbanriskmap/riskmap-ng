@@ -8,7 +8,7 @@ export const environment = {
     sensors: 'https://sensors.riskmap.in/',
     web_app: 'https://riskmap.in/',
     settings: {
-      reportTimeperiod: 43200 // 12hrs
+      reportTimeperiod: 86400 // 24hrs
     }
   },
 
