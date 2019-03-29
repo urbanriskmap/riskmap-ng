@@ -90,7 +90,7 @@
 
   "info_content": {
     "intro": "PetaBencana.id memanfaatkan kekuatan media sosial untuk mengumpulkan, menyortir, dan menampilkan informasi banjir secara real-time.",
-    "p1": "PetaBencana.id merupakan sebuah proyek yang diinisiasi oleh Humanitarian Infrastructures Group di MIT yang bertujuan untuk mengembangkan CogniCity Open Source Software (CogniCity OSS) sebagai sebuah platform gratis dan terbuka untuk manajemen kebencanaan di kota-kota besar di Asia Selatan dan Tenggara.",
+    "p1": "PetaBencana.id merupakan sebuah proyek yang diinisiasi oleh Urban Risk Lab di MIT yang bertujuan untuk mengembangkan CogniCity Open Source Software (CogniCity OSS) sebagai sebuah platform gratis dan terbuka untuk manajemen kebencanaan di kota-kota besar di Asia Selatan dan Tenggara.",
     "p2": "Platform ini menggunakan paradigma “manusia sebagai sensor terbaik”, di mana laporan terkonfirmasi dikumpulkan secara langsung dari pengguna di lapangan, dengan metode yang memungkinkan pengolahan data yang cepat dengan biaya minimum. Kerangka kerja ini menghasilkan data real-time dan akurat, yang langsung tersedia untuk pengguna dan petugas darurat berwenang.",
     "p3": "PetaBencana.id mengumpulkan, menyortir, dan “memvisualisasikan” data menggunakan CogniCity Open Source Software - sebuah platform untuk manajemen kebencanaan - untuk mengubah kicauan di media sosial dan digital menjadi informasi penting bagi warga, komunitas, dan instansi pemerintah.",
     "partners": {
