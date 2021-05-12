@@ -47,7 +47,7 @@
     "@ngx-translate/http-loader": "^2.0.1",
     "@types/geojson": "^7946.0.4",
     "amazon-cognito-identity-js": "^2.0.16",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "core-js": "^2.5.7",
     "less": "^2.7.3",
     "mapbox-gl": "^0.45.0",
