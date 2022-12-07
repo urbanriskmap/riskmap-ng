@@ -71,7 +71,7 @@
     "gulp": "~3.9.1",
     "gulp-changed-in-place": "^2.3.0",
     "gulp-typedoc": "^2.2.0",
-    "http-server": "^0.11.1",
+    "http-server": "^0.11.2",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
